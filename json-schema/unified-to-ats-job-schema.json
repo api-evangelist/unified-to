@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/unified-to/refs/heads/main/json-schema/unified-to-ats-job-schema.json",
+  "title": "AtsJob",
+  "description": "AtsJob schema from Unified.to API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "recruiter_ids": {
+      "$ref": "#/components/schemas/property_AtsJob_recruiter_ids"
+    },
+    "hiring_manager_ids": {
+      "$ref": "#/components/schemas/property_AtsJob_hiring_manager_ids"
+    },
+    "hiring_managers": {
+      "$ref": "#/components/schemas/property_AtsJob_hiring_managers"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ARCHIVED",
+        "PENDING",
+        "DRAFT",
+        "OPEN",
+        "CLOSED"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "closed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "addresses": {
+      "$ref": "#/components/schemas/property_AtsJob_addresses"
+    },
+    "compensation": {
+      "$ref": "#/components/schemas/property_AtsJob_compensation"
+    },
+    "employment_type": {
+      "type": "string",
+      "enum": [
+        "FULL_TIME",
+        "PART_TIME",
+        "CONTRACTOR",
+        "INTERN",
+        "CONSULTANT",
+        "VOLUNTEER",
+        "CASUAL",
+        "SEASONAL",
+        "FREELANCE",
+        "OTHER"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "remote": {
+      "type": "boolean"
+    },
+    "language_locale": {
+      "type": "string"
+    },
+    "public_job_urls": {
+      "$ref": "#/components/schemas/property_AtsJob_public_job_urls"
+    },
+    "number_of_openings": {
+      "type": "number"
+    },
+    "company_id": {
+      "type": "string"
+    },
+    "questions": {
+      "$ref": "#/components/schemas/property_AtsJob_questions"
+    },
+    "postings": {
+      "$ref": "#/components/schemas/property_AtsJob_postings"
+    },
+    "groups": {
+      "$ref": "#/components/schemas/property_AtsJob_groups"
+    },
+    "openings": {
+      "$ref": "#/components/schemas/property_AtsJob_openings"
+    },
+    "minimum_experience_years": {
+      "type": "number"
+    },
+    "minimum_degree": {
+      "type": "string"
+    },
+    "skills": {
+      "$ref": "#/components/schemas/property_AtsJob_skills"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/property_AtsJob_metadata"
+    },
+    "raw": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

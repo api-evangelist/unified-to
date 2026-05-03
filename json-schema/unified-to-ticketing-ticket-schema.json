@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/unified-to/refs/heads/main/json-schema/unified-to-ticketing-ticket-schema.json",
+  "title": "TicketingTicket",
+  "description": "TicketingTicket schema from Unified.to API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "customer_id": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "CLOSED"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "closed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "priority": {
+      "type": "string"
+    },
+    "category_id": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "source_ref": {
+      "type": "string"
+    },
+    "tags": {
+      "$ref": "#/components/schemas/property_TicketingTicket_tags"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "raw": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,330 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Unified.to"
+  description: >-
+    Unified taxonomy for the Unified.to API platform, covering 27 integration domains,
+    265 paths, and 3 major workflow capabilities spanning CRM, HRIS, ATS, and Accounting.
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+# OPERATIONAL DIMENSION (from OpenAPI)
+operational:
+  apis:
+    - namespace: unified-core
+      name: Unified.to Core API
+      version: "1.0"
+      baseUrl: https://api.unified.to
+      status: active
+    - namespace: unified-crm
+      name: Unified.to CRM API
+      version: "1.0"
+      baseUrl: https://api.unified.to
+      status: active
+    - namespace: unified-hris
+      name: Unified.to HRIS API
+      version: "1.0"
+      baseUrl: https://api.unified.to
+      status: active
+    - namespace: unified-ats
+      name: Unified.to ATS API
+      version: "1.0"
+      baseUrl: https://api.unified.to
+      status: active
+    - namespace: unified-accounting
+      name: Unified.to Accounting API
+      version: "1.0"
+      baseUrl: https://api.unified.to
+      status: active
+    - namespace: unified-commerce
+      name: Unified.to Commerce API
+      version: "1.0"
+      baseUrl: https://api.unified.to
+      status: active
+    - namespace: unified-ticketing
+      name: Unified.to Ticketing API
+      version: "1.0"
+      baseUrl: https://api.unified.to
+      status: active
+    - namespace: unified-calendar
+      name: Unified.to Calendar API
+      version: "1.0"
+      baseUrl: https://api.unified.to
+      status: active
+
+  resources:
+    - name: connections
+      description: Active integration connections between workspaces and third-party providers
+      apis: [unified-core]
+      actions: [list, create, get, update, delete]
+    - name: contacts
+      description: CRM contacts (people and leads)
+      apis: [unified-crm, unified-accounting]
+      actions: [list, create, get, update, delete]
+    - name: companies
+      description: CRM company accounts and organizations
+      apis: [unified-crm]
+      actions: [list, create, get, update, delete]
+    - name: deals
+      description: CRM deals, opportunities, and pipelines
+      apis: [unified-crm]
+      actions: [list, create, get, update, delete]
+    - name: employees
+      description: HRIS employee profiles and data
+      apis: [unified-hris]
+      actions: [list, create, get, update, delete]
+    - name: groups
+      description: HR organizational groups and departments
+      apis: [unified-hris]
+      actions: [list, create, get, update, delete]
+    - name: jobs
+      description: ATS job postings and requisitions
+      apis: [unified-ats]
+      actions: [list, create, get, update, delete]
+    - name: candidates
+      description: ATS candidate profiles and applications
+      apis: [unified-ats]
+      actions: [list, create, get, update, delete]
+    - name: applications
+      description: ATS job applications linking candidates to jobs
+      apis: [unified-ats]
+      actions: [list, create, get, update, delete]
+    - name: accounts
+      description: Accounting chart of accounts
+      apis: [unified-accounting]
+      actions: [list, create, get, update, delete]
+    - name: invoices
+      description: Accounting invoices and bills
+      apis: [unified-accounting]
+      actions: [list, create, get, update, delete]
+    - name: transactions
+      description: Financial transactions and journal entries
+      apis: [unified-accounting]
+      actions: [list, create, get]
+    - name: tickets
+      description: Customer support tickets
+      apis: [unified-ticketing]
+      actions: [list, create, get, update, delete]
+    - name: events
+      description: Calendar events and meetings
+      apis: [unified-calendar]
+      actions: [list, create, get, update, delete]
+
+  actions:
+    - name: list
+      httpMethod: GET
+      pattern: read
+      description: List a collection of resources with pagination and filtering
+    - name: get
+      httpMethod: GET
+      pattern: read
+      description: Get a single resource by ID
+    - name: create
+      httpMethod: POST
+      pattern: write
+      description: Create a new resource
+    - name: update
+      httpMethod: PUT
+      pattern: write
+      description: Update an existing resource
+    - name: patch
+      httpMethod: PATCH
+      pattern: write
+      description: Partially update a resource
+    - name: delete
+      httpMethod: DELETE
+      pattern: destructive
+      description: Delete a resource
+
+  schemas:
+    crm:
+      - name: CrmContact
+        description: CRM contact with emails, phones, company association, and address
+      - name: CrmCompany
+        description: CRM company with industry, address, and contact associations
+      - name: CrmDeal
+        description: CRM deal with stage, amount, pipeline, and close date
+    hr:
+      - name: HrisEmployee
+        description: Employee with work email, title, department, employment type, and location
+      - name: HrisGroup
+        description: HR group or department with parent hierarchy
+      - name: HrisPayslip
+        description: Employee payslip with pay period, gross pay, deductions, and net pay
+    ats:
+      - name: AtsJob
+        description: Job posting with title, description, departments, locations, and compensation
+      - name: AtsCandidate
+        description: Candidate profile with emails, resume, and application history
+      - name: AtsApplication
+        description: Job application linking a candidate to a job with status
+    accounting:
+      - name: AccountingAccount
+        description: Chart of accounts entry with type, status, and balance
+      - name: AccountingInvoice
+        description: Invoice with line items, amounts, due date, and payment status
+      - name: AccountingTransaction
+        description: Financial transaction with debits, credits, and journal entries
+
+  parameters:
+    pagination:
+      - name: limit
+        type: integer
+        description: Maximum number of results to return
+      - name: offset
+        type: integer
+        description: Number of records to skip for pagination
+    identifiers:
+      - name: connection_id
+        type: string
+        description: Integration connection identifier
+      - name: id
+        type: string
+        description: Resource identifier
+      - name: workspace_id
+        type: string
+        description: Workspace identifier
+    filters:
+      - name: query
+        type: string
+        description: Search query string
+      - name: order
+        type: string
+        description: Field to sort results by
+      - name: sort
+        type: string
+        description: Sort direction (asc or desc)
+      - name: updated_gte
+        type: string
+        description: Filter for records updated after this timestamp
+
+  authentication:
+    schemes:
+      - type: http
+        scheme: bearer
+        description: JWT bearer token from Unified.to workspace
+    rateLimits:
+      description: Real-time pass-through — rate limits depend on the upstream integration
+
+# CAPABILITY DIMENSION (from Naftiko)
+capability:
+  workflows:
+    - name: Sales and CRM
+      file: capabilities/sales-and-crm.yaml
+      description: CRM contact, company, and deal management across 47+ integrations
+      apisConsumed: [Unified.to CRM API]
+      toolCount: 5
+      personas: [Revenue Operations Developer, CRM Integrator]
+
+    - name: HR and Talent
+      file: capabilities/hr-and-talent.yaml
+      description: HRIS and ATS management across 296+ HR and recruiting integrations
+      apisConsumed: [Unified.to HRIS API, Unified.to ATS API]
+      toolCount: 9
+      personas: [HR Technology Developer, People Operations Engineer]
+
+    - name: Financial Operations
+      file: capabilities/financial-operations.yaml
+      description: Accounting, invoicing, and payment management across 41+ integrations
+      apisConsumed: [Unified.to Accounting API]
+      toolCount: 6
+      personas: [Fintech Developer, Finance Operations Engineer]
+
+  personas:
+    - id: revenue-ops-developer
+      name: Revenue Operations Developer
+      description: Developers building sales tools, CRM sync, and revenue reporting integrations
+      workflows: [Sales and CRM]
+
+    - id: hr-tech-developer
+      name: HR Technology Developer
+      description: Developers building HR workflows, employee onboarding, and recruiting automation
+      workflows: [HR and Talent]
+
+    - id: fintech-developer
+      name: Fintech Developer
+      description: Developers building invoicing automation, expense management, and accounting sync
+      workflows: [Financial Operations]
+
+  domains:
+    - name: Customer Relationship Management
+      resources: [contacts, companies, deals]
+      workflows: [Sales and CRM]
+    - name: Human Resources
+      resources: [employees, groups]
+      workflows: [HR and Talent]
+    - name: Talent Acquisition
+      resources: [jobs, candidates, applications]
+      workflows: [HR and Talent]
+    - name: Financial Management
+      resources: [accounts, invoices, transactions]
+      workflows: [Financial Operations]
+
+  namespaces:
+    - name: unified-crm
+      type: consumed
+      baseUri: https://api.unified.to
+    - name: unified-hris
+      type: consumed
+      baseUri: https://api.unified.to
+    - name: unified-ats
+      type: consumed
+      baseUri: https://api.unified.to
+    - name: unified-accounting
+      type: consumed
+      baseUri: https://api.unified.to
+    - name: unified-sales-crm-api
+      type: rest-exposed
+      port: 8080
+    - name: unified-hr-talent-api
+      type: rest-exposed
+      port: 8081
+    - name: unified-financial-ops-api
+      type: rest-exposed
+      port: 8082
+    - name: unified-sales-crm-mcp
+      type: mcp-exposed
+      port: 9080
+    - name: unified-hr-talent-mcp
+      type: mcp-exposed
+      port: 9081
+    - name: unified-financial-ops-mcp
+      type: mcp-exposed
+      port: 9082
+
+  binds:
+    - name: UNIFIED_TO_API_KEY
+      description: JWT bearer token for Unified.to API authentication
+      workflows: [Sales and CRM, HR and Talent, Financial Operations]
+
+# CROSS-REFERENCE
+crossReference:
+  - resource: contacts
+    operations: [list-crm-contacts, create-crm-contact, get-crm-contact, update-crm-contact]
+    workflows: [Sales and CRM]
+    personas: [Revenue Operations Developer]
+
+  - resource: deals
+    operations: [list-crm-deals, create-crm-deal, get-crm-deal]
+    workflows: [Sales and CRM]
+    personas: [Revenue Operations Developer]
+
+  - resource: employees
+    operations: [list-hris-employees, create-hris-employee, get-hris-employee]
+    workflows: [HR and Talent]
+    personas: [HR Technology Developer]
+
+  - resource: jobs
+    operations: [list-ats-jobs, create-ats-job, get-ats-job]
+    workflows: [HR and Talent]
+    personas: [HR Technology Developer]
+
+  - resource: invoices
+    operations: [list-accounting-invoices, create-accounting-invoice]
+    workflows: [Financial Operations]
+    personas: [Fintech Developer]
+
+  - resource: transactions
+    operations: [list-accounting-transactions]
+    workflows: [Financial Operations]
+    personas: [Fintech Developer]

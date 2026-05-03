@@ -1,0 +1,263 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Unified.to HR and Talent"
+  description: >-
+    Unified HR and talent acquisition workflow combining employee management, payroll,
+    and applicant tracking across 223 HRIS and 73 ATS integrations. Used by HR technology
+    developers, people operations teams, and talent acquisition platforms building
+    cross-system workforce management tools.
+  tags:
+    - Unified.to
+    - HRIS
+    - ATS
+    - HR
+    - Recruiting
+    - Employees
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+
+capability:
+  consumes:
+    - import: unified-hris
+      location: ./shared/hris-api.yaml
+    - import: unified-ats
+      location: ./shared/ats-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8081
+      namespace: unified-hr-talent-api
+      description: "Unified REST API for HR and talent management across 296+ integrations."
+      resources:
+        - path: /v1/hris/{connection_id}/employees
+          name: employees
+          description: "Employee data across HRIS integrations"
+          operations:
+            - method: GET
+              name: list-hris-employees
+              description: "List employees from an HRIS integration"
+              call: "unified-hris.list-hris-employees"
+              with:
+                connection_id: "rest.connection_id"
+                query: "rest.query"
+                limit: "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-hris-employee
+              description: "Create a new employee record"
+              call: "unified-hris.create-hris-employee"
+              with:
+                connection_id: "rest.connection_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/hris/{connection_id}/groups
+          name: groups
+          description: "HR groups and departments"
+          operations:
+            - method: GET
+              name: list-hris-groups
+              description: "List HR groups and departments"
+              call: "unified-hris.list-hris-groups"
+              with:
+                connection_id: "rest.connection_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/hris/{connection_id}/payslips
+          name: payslips
+          description: "Employee payslip data"
+          operations:
+            - method: GET
+              name: list-hris-payslips
+              description: "List employee payslips"
+              call: "unified-hris.list-hris-payslips"
+              with:
+                connection_id: "rest.connection_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/ats/{connection_id}/jobs
+          name: jobs
+          description: "Job postings from ATS integrations"
+          operations:
+            - method: GET
+              name: list-ats-jobs
+              description: "List open job postings"
+              call: "unified-ats.list-ats-jobs"
+              with:
+                connection_id: "rest.connection_id"
+                limit: "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/ats/{connection_id}/candidates
+          name: candidates
+          description: "Candidate profiles from ATS integrations"
+          operations:
+            - method: GET
+              name: list-ats-candidates
+              description: "List candidates"
+              call: "unified-ats.list-ats-candidates"
+              with:
+                connection_id: "rest.connection_id"
+                query: "rest.query"
+                limit: "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-ats-candidate
+              description: "Create a new candidate"
+              call: "unified-ats.create-ats-candidate"
+              with:
+                connection_id: "rest.connection_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/ats/{connection_id}/applications
+          name: applications
+          description: "Job applications from ATS integrations"
+          operations:
+            - method: GET
+              name: list-ats-applications
+              description: "List job applications"
+              call: "unified-ats.list-ats-applications"
+              with:
+                connection_id: "rest.connection_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9081
+      namespace: unified-hr-talent-mcp
+      transport: http
+      description: "MCP server for AI-assisted HR and talent operations across 296+ integrations."
+      tools:
+        - name: list-hris-employees
+          description: "List employees from a connected HRIS integration (Workday, BambooHR, ADP, etc.)"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "unified-hris.list-hris-employees"
+          with:
+            connection_id: "tools.connection_id"
+            query: "tools.query"
+            limit: "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-hris-employee
+          description: "Create a new employee record in a connected HRIS integration"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "unified-hris.create-hris-employee"
+          with:
+            connection_id: "tools.connection_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-hris-groups
+          description: "List HR groups and departments from a connected HRIS integration"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "unified-hris.list-hris-groups"
+          with:
+            connection_id: "tools.connection_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-hris-payslips
+          description: "List employee payslips from a connected HRIS integration"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "unified-hris.list-hris-payslips"
+          with:
+            connection_id: "tools.connection_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-ats-jobs
+          description: "List open job postings from a connected ATS integration (Greenhouse, Lever, etc.)"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "unified-ats.list-ats-jobs"
+          with:
+            connection_id: "tools.connection_id"
+            limit: "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-ats-candidates
+          description: "List candidates from a connected ATS integration"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "unified-ats.list-ats-candidates"
+          with:
+            connection_id: "tools.connection_id"
+            query: "tools.query"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-ats-candidate
+          description: "Create a new candidate in a connected ATS integration"
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "unified-ats.create-ats-candidate"
+          with:
+            connection_id: "tools.connection_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-ats-applications
+          description: "List job applications from a connected ATS integration"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "unified-ats.list-ats-applications"
+          with:
+            connection_id: "tools.connection_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-ats-interviews
+          description: "List scheduled interviews from a connected ATS integration"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "unified-ats.list-ats-interviews"
+          with:
+            connection_id: "tools.connection_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

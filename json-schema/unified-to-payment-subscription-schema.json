@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/unified-to/refs/heads/main/json-schema/unified-to-payment-subscription-schema.json",
+  "title": "PaymentSubscription",
+  "description": "PaymentSubscription schema from Unified.to API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string"
+    },
+    "contact_id": {
+      "type": "string"
+    },
+    "invoice_id": {
+      "type": "string"
+    },
+    "current_period_end_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "current_period_start_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "canceled_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "start_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "end_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "INACTIVE",
+        "CANCELED",
+        "PAUSED"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "month": {
+      "type": "number"
+    },
+    "interval_unit": {
+      "type": "string",
+      "enum": [
+        "YEAR",
+        "MONTH",
+        "WEEK",
+        "DAY"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "day_of_month": {
+      "type": "number"
+    },
+    "day_of_week": {
+      "type": "number"
+    },
+    "interval": {
+      "type": "number"
+    },
+    "lineitems": {
+      "$ref": "#/components/schemas/property_PaymentSubscription_lineitems"
+    },
+    "raw": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

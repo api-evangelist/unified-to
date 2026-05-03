@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/unified-to/refs/heads/main/json-schema/unified-to-ats-application-schema.json",
+  "title": "AtsApplication",
+  "description": "AtsApplication schema from Unified.to API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "candidate_id": {
+      "type": "string"
+    },
+    "job_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "applied_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "hired_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "rejected_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "rejected_reason": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "NEW",
+        "REVIEWING",
+        "SCREENING",
+        "SUBMITTED",
+        "FIRST_INTERVIEW",
+        "SECOND_INTERVIEW",
+        "THIRD_INTERVIEW",
+        "BACKGROUND_CHECK",
+        "OFFERED",
+        "ACCEPTED",
+        "HIRED",
+        "REJECTED",
+        "DECLINED",
+        "WITHDRAWN"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "original_status": {
+      "type": "string"
+    },
+    "answers": {
+      "$ref": "#/components/schemas/property_AtsApplication_answers"
+    },
+    "offers": {
+      "$ref": "#/components/schemas/property_AtsApplication_offers"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/property_AtsApplication_metadata"
+    },
+    "raw": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

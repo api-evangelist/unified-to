@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/unified-to/refs/heads/main/json-schema/unified-to-commerce-review-schema.json",
+  "title": "CommerceReview",
+  "description": "CommerceReview schema from Unified.to API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "item_id": {
+      "type": "string"
+    },
+    "item_variant_id": {
+      "type": "string"
+    },
+    "location_id": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "number"
+    },
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "author_name": {
+      "type": "string"
+    },
+    "author_email": {
+      "type": "string"
+    },
+    "author_avatar_url": {
+      "type": "string"
+    },
+    "author_location": {
+      "type": "string"
+    },
+    "verified_purchase": {
+      "type": "boolean"
+    },
+    "helpful_votes": {
+      "type": "number"
+    },
+    "unhelpful_votes": {
+      "type": "number"
+    },
+    "media": {
+      "$ref": "#/components/schemas/property_CommerceReview_media"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "APPROVED",
+        "REJECTED",
+        "SPAM"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "is_verified": {
+      "type": "boolean"
+    },
+    "is_featured": {
+      "type": "boolean"
+    },
+    "is_public": {
+      "type": "boolean"
+    },
+    "comments": {
+      "$ref": "#/components/schemas/property_CommerceReview_comments"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/property_CommerceReview_metadata"
+    },
+    "url": {
+      "type": "string"
+    },
+    "raw": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "item_id"
+  ]
+}

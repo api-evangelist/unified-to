@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/unified-to/refs/heads/main/json-schema/unified-to-accounting-account-schema.json",
+  "title": "AccountingAccount",
+  "description": "Chart of accounts",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "ACCOUNTS_PAYABLE",
+        "ACCOUNTS_RECEIVABLE",
+        "BANK",
+        "CREDIT_CARD",
+        "FIXED_ASSET",
+        "LIABILITY",
+        "EQUITY",
+        "EXPENSE",
+        "REVENUE",
+        "OTHER"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "ARCHIVED"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "balance": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "customer_defined_code": {
+      "type": "string"
+    },
+    "is_payable": {
+      "type": "boolean"
+    },
+    "section": {
+      "type": "string"
+    },
+    "subsection": {
+      "type": "string"
+    },
+    "group": {
+      "type": "string"
+    },
+    "subgroup": {
+      "type": "string"
+    },
+    "parent_id": {
+      "type": "string"
+    },
+    "taxonomy": {
+      "$ref": "#/components/schemas/property_AccountingAccount_taxonomy"
+    },
+    "organization_id": {
+      "type": "string"
+    },
+    "raw": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/unified-to/refs/heads/main/json-schema/unified-to-hris-payslip-schema.json",
+  "title": "HrisPayslip",
+  "description": "HrisPayslip schema from Unified.to API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "company_id": {
+      "type": "string"
+    },
+    "payment_type": {
+      "type": "string",
+      "enum": [
+        "DIRECT",
+        "CHEQUE",
+        "CASH"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "paid_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "start_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "end_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "gross_amount": {
+      "type": "number"
+    },
+    "net_amount": {
+      "type": "number"
+    },
+    "details": {
+      "$ref": "#/components/schemas/property_HrisPayslip_details"
+    },
+    "raw": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "deduction": {
+      "$ref": "#/components/schemas/property_HrisPayslip_deduction"
+    }
+  },
+  "required": [
+    "raw"
+  ]
+}

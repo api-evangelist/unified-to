@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/unified-to/refs/heads/main/json-schema/unified-to-accounting-contact-schema.json",
+  "title": "AccountingContact",
+  "description": "AccountingContact schema from Unified.to API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "name": {
+      "type": "string"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "emails": {
+      "$ref": "#/components/schemas/property_AccountingContact_emails"
+    },
+    "telephones": {
+      "$ref": "#/components/schemas/property_AccountingContact_telephones"
+    },
+    "currency": {
+      "type": "string",
+      "default": "USD"
+    },
+    "billing_address": {
+      "$ref": "#/components/schemas/property_AccountingContact_billing_address"
+    },
+    "shipping_address": {
+      "$ref": "#/components/schemas/property_AccountingContact_shipping_address"
+    },
+    "is_active": {
+      "type": "boolean"
+    },
+    "tax_exemption": {
+      "type": "string",
+      "enum": [
+        "FEDERAL_GOV",
+        "REGION_GOV",
+        "LOCAL_GOV",
+        "TRIBAL_GOV",
+        "CHARITABLE_ORG",
+        "RELIGIOUS_ORG",
+        "EDUCATIONAL_ORG",
+        "MEDICAL_ORG",
+        "RESALE",
+        "FOREIGN",
+        "OTHER"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "tax_number": {
+      "type": "string"
+    },
+    "is_customer": {
+      "type": "boolean"
+    },
+    "is_supplier": {
+      "type": "boolean"
+    },
+    "portal_url": {
+      "type": "string"
+    },
+    "payment_methods": {
+      "$ref": "#/components/schemas/property_AccountingContact_payment_methods"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "identification": {
+      "type": "string"
+    },
+    "associated_contacts": {
+      "$ref": "#/components/schemas/property_AccountingContact_associated_contacts"
+    },
+    "organization_id": {
+      "type": "string"
+    },
+    "raw": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

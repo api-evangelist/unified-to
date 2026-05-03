@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/unified-to/refs/heads/main/json-schema/unified-to-ats-interview-schema.json",
+  "title": "AtsInterview",
+  "description": "AtsInterview schema from Unified.to API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "candidate_id": {
+      "type": "string"
+    },
+    "job_id": {
+      "type": "string"
+    },
+    "application_id": {
+      "type": "string"
+    },
+    "user_ids": {
+      "$ref": "#/components/schemas/property_AtsInterview_user_ids"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "SCHEDULED",
+        "AWAITING_FEEDBACK",
+        "COMPLETE",
+        "CANCELED",
+        "NEEDS_SCHEDULING"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "start_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "end_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "location": {
+      "type": "string"
+    },
+    "external_event_xref": {
+      "type": "string"
+    },
+    "raw": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

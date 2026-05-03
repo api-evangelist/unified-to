@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/unified-to/refs/heads/main/json-schema/unified-to-connection-schema.json",
+  "title": "Connection",
+  "description": "A connection represents a specific authentication of an integration.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "workspace_id": {
+      "type": "string"
+    },
+    "integration_type": {
+      "type": "string"
+    },
+    "integration_name": {
+      "type": "string"
+    },
+    "external_xref": {
+      "type": "string"
+    },
+    "permissions": {
+      "$ref": "#/components/schemas/property_Connection_permissions"
+    },
+    "categories": {
+      "$ref": "#/components/schemas/property_Connection_categories"
+    },
+    "auth": {
+      "$ref": "#/components/schemas/property_Connection_auth"
+    },
+    "is_paused": {
+      "type": "boolean"
+    },
+    "auth_aws_arn": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "string",
+      "default": "Production"
+    },
+    "auth_azure_keyvault_id": {
+      "type": "string"
+    },
+    "auth_gcp_secret_name": {
+      "type": "string"
+    },
+    "auth_hashi_vault_path": {
+      "type": "string"
+    },
+    "last_healthy_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_unhealthy_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "integration_type",
+    "permissions",
+    "categories"
+  ]
+}

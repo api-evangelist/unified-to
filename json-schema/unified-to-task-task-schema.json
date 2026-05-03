@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/unified-to/refs/heads/main/json-schema/unified-to-task-task-schema.json",
+  "title": "TaskTask",
+  "description": "TaskTask schema from Unified.to API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "name": {
+      "type": "string"
+    },
+    "project_id": {
+      "type": "string"
+    },
+    "parent_id": {
+      "type": "string"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "OPENED",
+        "IN_PROGRESS",
+        "COMPLETED"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "due_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "priority": {
+      "type": "string"
+    },
+    "assigned_user_ids": {
+      "$ref": "#/components/schemas/property_TaskTask_assigned_user_ids"
+    },
+    "creator_user_id": {
+      "type": "string"
+    },
+    "follower_user_ids": {
+      "$ref": "#/components/schemas/property_TaskTask_follower_user_ids"
+    },
+    "group_ids": {
+      "$ref": "#/components/schemas/property_TaskTask_group_ids"
+    },
+    "tags": {
+      "$ref": "#/components/schemas/property_TaskTask_tags"
+    },
+    "url": {
+      "type": "string"
+    },
+    "attachment_ids": {
+      "$ref": "#/components/schemas/property_TaskTask_attachment_ids"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/property_TaskTask_metadata"
+    },
+    "has_children": {
+      "type": "boolean"
+    },
+    "raw": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/unified-to/refs/heads/main/json-schema/unified-to-calendar-event-schema.json",
+  "title": "CalendarEvent",
+  "description": "CalendarEvent schema from Unified.to API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "calendar_id": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "start_at": {
+      "type": "string"
+    },
+    "end_at": {
+      "type": "string"
+    },
+    "is_all_day": {
+      "type": "boolean"
+    },
+    "timezone": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "is_free": {
+      "type": "boolean"
+    },
+    "is_private": {
+      "type": "boolean"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "CANCELED",
+        "CONFIRMED",
+        "TENTATIVE"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "organizer": {
+      "$ref": "#/components/schemas/property_CalendarEvent_organizer"
+    },
+    "attendees": {
+      "$ref": "#/components/schemas/property_CalendarEvent_attendees"
+    },
+    "recurring_event_id": {
+      "type": "string"
+    },
+    "recurrence": {
+      "$ref": "#/components/schemas/property_CalendarEvent_recurrence"
+    },
+    "web_url": {
+      "type": "string"
+    },
+    "has_conference": {
+      "type": "boolean"
+    },
+    "conference": {
+      "$ref": "#/components/schemas/property_CalendarEvent_conference"
+    },
+    "attachments": {
+      "$ref": "#/components/schemas/property_CalendarEvent_attachments"
+    },
+    "send_notifications": {
+      "type": "boolean"
+    },
+    "raw": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

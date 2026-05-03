@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/unified-to/refs/heads/main/json-schema/unified-to-commerce-collection-schema.json",
+  "title": "CommerceCollection",
+  "description": "A collection of items/products/services",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "name": {
+      "type": "string"
+    },
+    "public_name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "public_description": {
+      "type": "string"
+    },
+    "media": {
+      "$ref": "#/components/schemas/property_CommerceCollection_media"
+    },
+    "is_visible": {
+      "type": "boolean"
+    },
+    "is_active": {
+      "type": "boolean"
+    },
+    "is_featured": {
+      "type": "boolean"
+    },
+    "tags": {
+      "$ref": "#/components/schemas/property_CommerceCollection_tags"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "COLLECTION",
+        "SAVED_SEARCH",
+        "CATEGORY"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "parent_id": {
+      "type": "string"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/property_CommerceCollection_metadata"
+    },
+    "item_metadata": {
+      "$ref": "#/components/schemas/property_CommerceCollection_item_metadata"
+    },
+    "raw": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

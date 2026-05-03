@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/unified-to/refs/heads/main/json-schema/unified-to-hris-group-schema.json",
+  "title": "HrisGroup",
+  "description": "HrisGroup schema from Unified.to API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "parent_id": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "TEAM",
+        "GROUP",
+        "DEPARTMENT",
+        "DIVISION",
+        "BUSINESS_UNIT",
+        "BRANCH",
+        "SUB_DEPARTMENT"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "user_ids": {
+      "$ref": "#/components/schemas/property_HrisGroup_user_ids"
+    },
+    "manager_ids": {
+      "$ref": "#/components/schemas/property_HrisGroup_manager_ids"
+    },
+    "is_active": {
+      "type": "boolean"
+    },
+    "company_id": {
+      "type": "string"
+    },
+    "raw": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/unified-to/refs/heads/main/json-schema/unified-to-crm-event-schema.json",
+  "title": "CrmEvent",
+  "description": "An event represents an event, activity, or engagement and is always associated with a deal, contact, or company",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "NOTE",
+        "EMAIL",
+        "TASK",
+        "MEETING",
+        "CALL",
+        "MARKETING_EMAIL",
+        "FORM",
+        "PAGE_VIEW"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "note": {
+      "$ref": "#/components/schemas/property_CrmEvent_note"
+    },
+    "meeting": {
+      "$ref": "#/components/schemas/property_CrmEvent_meeting"
+    },
+    "email": {
+      "$ref": "#/components/schemas/property_CrmEvent_email"
+    },
+    "call": {
+      "$ref": "#/components/schemas/property_CrmEvent_call"
+    },
+    "task": {
+      "$ref": "#/components/schemas/property_CrmEvent_task"
+    },
+    "marketing_email": {
+      "$ref": "#/components/schemas/property_CrmEvent_marketing_email"
+    },
+    "form": {
+      "$ref": "#/components/schemas/property_CrmEvent_form"
+    },
+    "page_view": {
+      "$ref": "#/components/schemas/property_CrmEvent_page_view"
+    },
+    "deal_ids": {
+      "$ref": "#/components/schemas/property_CrmEvent_deal_ids"
+    },
+    "company_ids": {
+      "$ref": "#/components/schemas/property_CrmEvent_company_ids"
+    },
+    "contact_ids": {
+      "$ref": "#/components/schemas/property_CrmEvent_contact_ids"
+    },
+    "lead_ids": {
+      "$ref": "#/components/schemas/property_CrmEvent_lead_ids"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "raw": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

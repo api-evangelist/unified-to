@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/unified-to/refs/heads/main/json-schema/unified-to-storage-file-schema.json",
+  "title": "StorageFile",
+  "description": "StorageFile schema from Unified.to API",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "parent_id": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "size": {
+      "type": "number"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "FILE",
+        "FOLDER"
+      ],
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "mime_type": {
+      "type": "string"
+    },
+    "permissions": {
+      "$ref": "#/components/schemas/property_StorageFile_permissions"
+    },
+    "download_url": {
+      "type": "string"
+    },
+    "hash": {
+      "type": "string"
+    },
+    "data": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "web_url": {
+      "type": "string"
+    },
+    "references": {
+      "$ref": "#/components/schemas/property_StorageFile_references"
+    },
+    "raw": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}
