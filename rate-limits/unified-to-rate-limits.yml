@@ -1,0 +1,35 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Unified.to
+providerId: unified-to
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Unified API
+description: Unified.to throughput scales with plan API call quota.
+sources:
+  - https://www.unified.to/pricing
+  - https://docs.unified.to/api/rate-limits
+headers:
+  retryAfter: Retry-After
+responseCodes:
+  throttled: 429
+limits:
+  - name: Default REST
+    scope: workspace
+    metric: requests_per_second
+    limit: 100
+    timeFrame: second
+  - name: Webhook deliveries
+    scope: endpoint
+    metric: deliveries_per_second
+    limit: 50
+    timeFrame: second
+  - name: Bulk operations
+    scope: request
+    metric: items
+    limit: 100
+    timeFrame: request
