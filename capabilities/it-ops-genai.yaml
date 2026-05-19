@@ -1,0 +1,314 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — genai
+  description: 'Unified.to  API — genai. 4 operations. Lead operation: Create an embedding. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - genai
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: it-ops-genai
+    baseUri: https://api.unified.to
+    description: Unified.to  API — genai business capability. Self-contained, no shared references.
+    resources:
+    - name: genai-connection_id-embedding
+      path: /genai/{connection_id}/embedding
+      operations:
+      - name: creategenaiembedding
+        method: POST
+        description: Create an embedding
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: genai-connection_id-model
+      path: /genai/{connection_id}/model
+      operations:
+      - name: listgenaimodels
+        method: GET
+        description: List all models
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+    - name: genai-connection_id-model-id
+      path: /genai/{connection_id}/model/{id}
+      operations:
+      - name: getgenaimodel
+        method: GET
+        description: Retrieve a model
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Model
+          required: true
+    - name: genai-connection_id-prompt
+      path: /genai/{connection_id}/prompt
+      operations:
+      - name: creategenaiprompt
+        method: POST
+        description: Create a prompt
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: it-ops-genai-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — genai. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/genai/{connection-id}/embedding
+      name: genai-connection-id-embedding
+      description: REST surface for genai-connection_id-embedding.
+      operations:
+      - method: POST
+        name: creategenaiembedding
+        description: Create an embedding
+        call: it-ops-genai.creategenaiembedding
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/genai/{connection-id}/model
+      name: genai-connection-id-model
+      description: REST surface for genai-connection_id-model.
+      operations:
+      - method: GET
+        name: listgenaimodels
+        description: List all models
+        call: it-ops-genai.listgenaimodels
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/genai/{connection-id}/model/{id}
+      name: genai-connection-id-model-id
+      description: REST surface for genai-connection_id-model-id.
+      operations:
+      - method: GET
+        name: getgenaimodel
+        description: Retrieve a model
+        call: it-ops-genai.getgenaimodel
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/genai/{connection-id}/prompt
+      name: genai-connection-id-prompt
+      description: REST surface for genai-connection_id-prompt.
+      operations:
+      - method: POST
+        name: creategenaiprompt
+        description: Create a prompt
+        call: it-ops-genai.creategenaiprompt
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: it-ops-genai-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — genai. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-embedding
+      description: Create an embedding
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: it-ops-genai.creategenaiembedding
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-models
+      description: List all models
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: it-ops-genai.listgenaimodels
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-model
+      description: Retrieve a model
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: it-ops-genai.getgenaimodel
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-prompt
+      description: Create a prompt
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: it-ops-genai.creategenaiprompt
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

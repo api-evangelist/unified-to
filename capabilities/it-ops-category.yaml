@@ -1,0 +1,417 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — category
+  description: 'Unified.to  API — category. 6 operations. Lead operation: List all categories. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - category
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: it-ops-category
+    baseUri: https://api.unified.to
+    description: Unified.to  API — category business capability. Self-contained, no shared references.
+    resources:
+    - name: ticketing-connection_id-category
+      path: /ticketing/{connection_id}/category
+      operations:
+      - name: listticketingcategories
+        method: GET
+        description: List all categories
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: parent_id
+          in: query
+          type: string
+          description: The parent ID to filter by
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createticketingcategory
+        method: POST
+        description: Create a category
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: ticketing-connection_id-category-id
+      path: /ticketing/{connection_id}/category/{id}
+      operations:
+      - name: removeticketingcategory
+        method: DELETE
+        description: Remove a category
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Category
+          required: true
+      - name: getticketingcategory
+        method: GET
+        description: Retrieve a category
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Category
+          required: true
+      - name: patchticketingcategory
+        method: PATCH
+        description: Update a category
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Category
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateticketingcategory
+        method: PUT
+        description: Update a category
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Category
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: it-ops-category-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — category. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/ticketing/{connection-id}/category
+      name: ticketing-connection-id-category
+      description: REST surface for ticketing-connection_id-category.
+      operations:
+      - method: GET
+        name: listticketingcategories
+        description: List all categories
+        call: it-ops-category.listticketingcategories
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          parent_id: rest.parent_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createticketingcategory
+        description: Create a category
+        call: it-ops-category.createticketingcategory
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ticketing/{connection-id}/category/{id}
+      name: ticketing-connection-id-category-id
+      description: REST surface for ticketing-connection_id-category-id.
+      operations:
+      - method: DELETE
+        name: removeticketingcategory
+        description: Remove a category
+        call: it-ops-category.removeticketingcategory
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getticketingcategory
+        description: Retrieve a category
+        call: it-ops-category.getticketingcategory
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchticketingcategory
+        description: Update a category
+        call: it-ops-category.patchticketingcategory
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateticketingcategory
+        description: Update a category
+        call: it-ops-category.updateticketingcategory
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: it-ops-category-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — category. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-categories
+      description: List all categories
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: it-ops-category.listticketingcategories
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        parent_id: tools.parent_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-category
+      description: Create a category
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: it-ops-category.createticketingcategory
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-category
+      description: Remove a category
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: it-ops-category.removeticketingcategory
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-category
+      description: Retrieve a category
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: it-ops-category.getticketingcategory
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-category
+      description: Update a category
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: it-ops-category.patchticketingcategory
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-category-2
+      description: Update a category
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: it-ops-category.updateticketingcategory
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,423 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — commit
+  description: 'Unified.to  API — commit. 6 operations. Lead operation: List All Commits. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - commit
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-commit
+    baseUri: https://api.unified.to
+    description: Unified.to  API — commit business capability. Self-contained, no shared references.
+    resources:
+    - name: repo-connection_id-commit
+      path: /repo/{connection_id}/commit
+      operations:
+      - name: listrepocommits
+        method: GET
+        description: List All Commits
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: repo_id
+          in: query
+          type: string
+          description: The repo ID to filter by (reference to RepoRepository)
+        - name: branch_id
+          in: query
+          type: string
+          description: The repo branch ID to filter by (reference to RepoBranch)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createrepocommit
+        method: POST
+        description: Create a Commit
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: repo-connection_id-commit-id
+      path: /repo/{connection_id}/commit/{id}
+      operations:
+      - name: removerepocommit
+        method: DELETE
+        description: Remove a Commit
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Commit
+          required: true
+      - name: getrepocommit
+        method: GET
+        description: Retrieve a Commit
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Commit
+          required: true
+      - name: patchrepocommit
+        method: PATCH
+        description: Update a Commit
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Commit
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updaterepocommit
+        method: PUT
+        description: Update a Commit
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Commit
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-commit-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — commit. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/repo/{connection-id}/commit
+      name: repo-connection-id-commit
+      description: REST surface for repo-connection_id-commit.
+      operations:
+      - method: GET
+        name: listrepocommits
+        description: List All Commits
+        call: full-commit.listrepocommits
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          repo_id: rest.repo_id
+          branch_id: rest.branch_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createrepocommit
+        description: Create a Commit
+        call: full-commit.createrepocommit
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repo/{connection-id}/commit/{id}
+      name: repo-connection-id-commit-id
+      description: REST surface for repo-connection_id-commit-id.
+      operations:
+      - method: DELETE
+        name: removerepocommit
+        description: Remove a Commit
+        call: full-commit.removerepocommit
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getrepocommit
+        description: Retrieve a Commit
+        call: full-commit.getrepocommit
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchrepocommit
+        description: Update a Commit
+        call: full-commit.patchrepocommit
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updaterepocommit
+        description: Update a Commit
+        call: full-commit.updaterepocommit
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-commit-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — commit. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-commits
+      description: List All Commits
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-commit.listrepocommits
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        repo_id: tools.repo_id
+        branch_id: tools.branch_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-commit
+      description: Create a Commit
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-commit.createrepocommit
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-commit
+      description: Remove a Commit
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-commit.removerepocommit
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-commit
+      description: Retrieve a Commit
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-commit.getrepocommit
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-commit
+      description: Update a Commit
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-commit.patchrepocommit
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-commit-2
+      description: Update a Commit
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-commit.updaterepocommit
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,423 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — item
+  description: 'Unified.to  API — item. 6 operations. Lead operation: List All Items. Self-contained Naftiko capability covering
+    one Unified To business surface.'
+  tags:
+  - Unified To
+  - item
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-item
+    baseUri: https://api.unified.to
+    description: Unified.to  API — item business capability. Self-contained, no shared references.
+    resources:
+    - name: commerce-connection_id-item
+      path: /commerce/{connection_id}/item
+      operations:
+      - name: listcommerceitems
+        method: GET
+        description: List All Items
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: collection_id
+          in: query
+          type: string
+          description: The collection ID to filter by (reference to CommerceCollection)
+        - name: org_id
+          in: query
+          type: string
+          description: The org ID to filter by (reference to AccountingOrganization)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createcommerceitem
+        method: POST
+        description: Create an Item
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: commerce-connection_id-item-id
+      path: /commerce/{connection_id}/item/{id}
+      operations:
+      - name: removecommerceitem
+        method: DELETE
+        description: Remove an Item
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Item
+          required: true
+      - name: getcommerceitem
+        method: GET
+        description: Retrieve an Item
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Item
+          required: true
+      - name: patchcommerceitem
+        method: PATCH
+        description: Update an Item
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Item
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatecommerceitem
+        method: PUT
+        description: Update an Item
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Item
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-item-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — item. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/commerce/{connection-id}/item
+      name: commerce-connection-id-item
+      description: REST surface for commerce-connection_id-item.
+      operations:
+      - method: GET
+        name: listcommerceitems
+        description: List All Items
+        call: full-item.listcommerceitems
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          collection_id: rest.collection_id
+          org_id: rest.org_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcommerceitem
+        description: Create an Item
+        call: full-item.createcommerceitem
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/commerce/{connection-id}/item/{id}
+      name: commerce-connection-id-item-id
+      description: REST surface for commerce-connection_id-item-id.
+      operations:
+      - method: DELETE
+        name: removecommerceitem
+        description: Remove an Item
+        call: full-item.removecommerceitem
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getcommerceitem
+        description: Retrieve an Item
+        call: full-item.getcommerceitem
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchcommerceitem
+        description: Update an Item
+        call: full-item.patchcommerceitem
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecommerceitem
+        description: Update an Item
+        call: full-item.updatecommerceitem
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-item-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — item. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-items
+      description: List All Items
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-item.listcommerceitems
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        collection_id: tools.collection_id
+        org_id: tools.org_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-item
+      description: Create an Item
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-item.createcommerceitem
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-item
+      description: Remove an Item
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-item.removecommerceitem
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-item
+      description: Retrieve an Item
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-item.getcommerceitem
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-item
+      description: Update an Item
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-item.patchcommerceitem
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-item-2
+      description: Update an Item
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-item.updatecommerceitem
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

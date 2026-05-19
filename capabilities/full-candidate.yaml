@@ -1,0 +1,417 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — candidate
+  description: 'Unified.to  API — candidate. 6 operations. Lead operation: List All Candidates. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - candidate
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-candidate
+    baseUri: https://api.unified.to
+    description: Unified.to  API — candidate business capability. Self-contained, no shared references.
+    resources:
+    - name: ats-connection_id-candidate
+      path: /ats/{connection_id}/candidate
+      operations:
+      - name: listatscandidates
+        method: GET
+        description: List All Candidates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: company_id
+          in: query
+          type: string
+          description: The company ID to filter by (reference to AtsCompany)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createatscandidate
+        method: POST
+        description: Create a Candidate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: ats-connection_id-candidate-id
+      path: /ats/{connection_id}/candidate/{id}
+      operations:
+      - name: removeatscandidate
+        method: DELETE
+        description: Remove a Candidate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Candidate
+          required: true
+      - name: getatscandidate
+        method: GET
+        description: Retrieve a Candidate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Candidate
+          required: true
+      - name: patchatscandidate
+        method: PATCH
+        description: Update a Candidate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Candidate
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateatscandidate
+        method: PUT
+        description: Update a Candidate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Candidate
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-candidate-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — candidate. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/ats/{connection-id}/candidate
+      name: ats-connection-id-candidate
+      description: REST surface for ats-connection_id-candidate.
+      operations:
+      - method: GET
+        name: listatscandidates
+        description: List All Candidates
+        call: full-candidate.listatscandidates
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          company_id: rest.company_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createatscandidate
+        description: Create a Candidate
+        call: full-candidate.createatscandidate
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ats/{connection-id}/candidate/{id}
+      name: ats-connection-id-candidate-id
+      description: REST surface for ats-connection_id-candidate-id.
+      operations:
+      - method: DELETE
+        name: removeatscandidate
+        description: Remove a Candidate
+        call: full-candidate.removeatscandidate
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getatscandidate
+        description: Retrieve a Candidate
+        call: full-candidate.getatscandidate
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchatscandidate
+        description: Update a Candidate
+        call: full-candidate.patchatscandidate
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateatscandidate
+        description: Update a Candidate
+        call: full-candidate.updateatscandidate
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-candidate-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — candidate. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-all-candidates
+      description: List All Candidates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-candidate.listatscandidates
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        company_id: tools.company_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-candidate
+      description: Create a Candidate
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-candidate.createatscandidate
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-candidate
+      description: Remove a Candidate
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-candidate.removeatscandidate
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-candidate
+      description: Retrieve a Candidate
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-candidate.getatscandidate
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-candidate
+      description: Update a Candidate
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-candidate.patchatscandidate
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-candidate-2
+      description: Update a Candidate
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-candidate.updateatscandidate
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

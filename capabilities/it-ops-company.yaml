@@ -1,0 +1,94 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — company
+  description: 'Unified.to  API — company. 1 operations. Lead operation: Retrieve enrichment information for a company. Self-contained
+    Naftiko capability covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - company
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: it-ops-company
+    baseUri: https://api.unified.to
+    description: Unified.to  API — company business capability. Self-contained, no shared references.
+    resources:
+    - name: enrich-connection_id-company
+      path: /enrich/{connection_id}/company
+      operations:
+      - name: listenrichcompanies
+        method: GET
+        description: Retrieve enrichment information for a company
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: domain
+          in: query
+          type: string
+          description: The domain of the company to search
+        - name: name
+          in: query
+          type: string
+          description: The name of the company to search
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: it-ops-company-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — company. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/enrich/{connection-id}/company
+      name: enrich-connection-id-company
+      description: REST surface for enrich-connection_id-company.
+      operations:
+      - method: GET
+        name: listenrichcompanies
+        description: Retrieve enrichment information for a company
+        call: it-ops-company.listenrichcompanies
+        with:
+          domain: rest.domain
+          name: rest.name
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: it-ops-company-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — company. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: retrieve-enrichment-information-company
+      description: Retrieve enrichment information for a company
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: it-ops-company.listenrichcompanies
+      with:
+        domain: tools.domain
+        name: tools.name
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.

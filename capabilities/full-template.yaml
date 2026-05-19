@@ -1,0 +1,190 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — template
+  description: 'Unified.to  API — template. 2 operations. Lead operation: List All Templates. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - template
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-template
+    baseUri: https://api.unified.to
+    description: Unified.to  API — template business capability. Self-contained, no shared references.
+    resources:
+    - name: signing-connection_id-template
+      path: /signing/{connection_id}/template
+      operations:
+      - name: listsigningtemplates
+        method: GET
+        description: List All Templates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+    - name: signing-connection_id-template-id
+      path: /signing/{connection_id}/template/{id}
+      operations:
+      - name: getsigningtemplate
+        method: GET
+        description: Retrieve a Template
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Template
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-template-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — template. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/signing/{connection-id}/template
+      name: signing-connection-id-template
+      description: REST surface for signing-connection_id-template.
+      operations:
+      - method: GET
+        name: listsigningtemplates
+        description: List All Templates
+        call: full-template.listsigningtemplates
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/signing/{connection-id}/template/{id}
+      name: signing-connection-id-template-id
+      description: REST surface for signing-connection_id-template-id.
+      operations:
+      - method: GET
+        name: getsigningtemplate
+        description: Retrieve a Template
+        call: full-template.getsigningtemplate
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-template-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — template. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-templates
+      description: List All Templates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-template.listsigningtemplates
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-template
+      description: Retrieve a Template
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-template.getsigningtemplate
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

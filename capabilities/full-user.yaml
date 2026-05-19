@@ -1,0 +1,363 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — user
+  description: 'Unified.to  API — user. 6 operations. Lead operation: List Users. Self-contained Naftiko capability covering
+    one Unified To business surface.'
+  tags:
+  - Unified To
+  - user
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-user
+    baseUri: https://api.unified.to
+    description: Unified.to  API — user business capability. Self-contained, no shared references.
+    resources:
+    - name: scim-connection_id-users
+      path: /scim/{connection_id}/users
+      operations:
+      - name: listscimusers
+        method: GET
+        description: List Users
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter
+          in: query
+          type: string
+        - name: sortBy
+          in: query
+          type: string
+        - name: sortOrder
+          in: query
+          type: string
+        - name: startIndex
+          in: query
+          type: number
+        - name: count
+          in: query
+          type: number
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createscimusers
+        method: POST
+        description: Create User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter
+          in: query
+          type: string
+        - name: sortBy
+          in: query
+          type: string
+        - name: sortOrder
+          in: query
+          type: string
+        - name: startIndex
+          in: query
+          type: number
+        - name: count
+          in: query
+          type: number
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: scim-connection_id-users-id
+      path: /scim/{connection_id}/users/{id}
+      operations:
+      - name: removescimusers
+        method: DELETE
+        description: Delete User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the User
+          required: true
+      - name: getscimusers
+        method: GET
+        description: Get User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the User
+          required: true
+      - name: patchscimusers
+        method: PATCH
+        description: Update User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the User
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatescimusers
+        method: PUT
+        description: Update User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the User
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-user-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — user. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/scim/{connection-id}/users
+      name: scim-connection-id-users
+      description: REST surface for scim-connection_id-users.
+      operations:
+      - method: GET
+        name: listscimusers
+        description: List Users
+        call: full-user.listscimusers
+        with:
+          filter: rest.filter
+          sortBy: rest.sortBy
+          sortOrder: rest.sortOrder
+          startIndex: rest.startIndex
+          count: rest.count
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createscimusers
+        description: Create User
+        call: full-user.createscimusers
+        with:
+          filter: rest.filter
+          sortBy: rest.sortBy
+          sortOrder: rest.sortOrder
+          startIndex: rest.startIndex
+          count: rest.count
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/scim/{connection-id}/users/{id}
+      name: scim-connection-id-users-id
+      description: REST surface for scim-connection_id-users-id.
+      operations:
+      - method: DELETE
+        name: removescimusers
+        description: Delete User
+        call: full-user.removescimusers
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getscimusers
+        description: Get User
+        call: full-user.getscimusers
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchscimusers
+        description: Update User
+        call: full-user.patchscimusers
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatescimusers
+        description: Update User
+        call: full-user.updatescimusers
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-user-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — user. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-users
+      description: List Users
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-user.listscimusers
+      with:
+        filter: tools.filter
+        sortBy: tools.sortBy
+        sortOrder: tools.sortOrder
+        startIndex: tools.startIndex
+        count: tools.count
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-user
+      description: Create User
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-user.createscimusers
+      with:
+        filter: tools.filter
+        sortBy: tools.sortBy
+        sortOrder: tools.sortOrder
+        startIndex: tools.startIndex
+        count: tools.count
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-user
+      description: Delete User
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-user.removescimusers
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-user
+      description: Get User
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-user.getscimusers
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-user
+      description: Update User
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-user.patchscimusers
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-user-2
+      description: Update User
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-user.updatescimusers
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

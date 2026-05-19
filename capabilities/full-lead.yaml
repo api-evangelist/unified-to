@@ -1,0 +1,429 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — lead
+  description: 'Unified.to  API — lead. 6 operations. Lead operation: List All Leads. Self-contained Naftiko capability covering
+    one Unified To business surface.'
+  tags:
+  - Unified To
+  - lead
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-lead
+    baseUri: https://api.unified.to
+    description: Unified.to  API — lead business capability. Self-contained, no shared references.
+    resources:
+    - name: crm-connection_id-lead
+      path: /crm/{connection_id}/lead
+      operations:
+      - name: listcrmleads
+        method: GET
+        description: List All Leads
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: company_id
+          in: query
+          type: string
+          description: The company ID to filter by (reference to CrmCompany)
+        - name: contact_id
+          in: query
+          type: string
+          description: The contact ID to filter by (reference to CrmContact)
+        - name: user_id
+          in: query
+          type: string
+          description: The user/employee ID to filter by (reference to HrisEmployee)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createcrmlead
+        method: POST
+        description: Create a Lead
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: crm-connection_id-lead-id
+      path: /crm/{connection_id}/lead/{id}
+      operations:
+      - name: removecrmlead
+        method: DELETE
+        description: Remove a Lead
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Lead
+          required: true
+      - name: getcrmlead
+        method: GET
+        description: Retrieve a Lead
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Lead
+          required: true
+      - name: patchcrmlead
+        method: PATCH
+        description: Update a Lead
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Lead
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatecrmlead
+        method: PUT
+        description: Update a Lead
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Lead
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-lead-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — lead. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/crm/{connection-id}/lead
+      name: crm-connection-id-lead
+      description: REST surface for crm-connection_id-lead.
+      operations:
+      - method: GET
+        name: listcrmleads
+        description: List All Leads
+        call: full-lead.listcrmleads
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          company_id: rest.company_id
+          contact_id: rest.contact_id
+          user_id: rest.user_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcrmlead
+        description: Create a Lead
+        call: full-lead.createcrmlead
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/crm/{connection-id}/lead/{id}
+      name: crm-connection-id-lead-id
+      description: REST surface for crm-connection_id-lead-id.
+      operations:
+      - method: DELETE
+        name: removecrmlead
+        description: Remove a Lead
+        call: full-lead.removecrmlead
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getcrmlead
+        description: Retrieve a Lead
+        call: full-lead.getcrmlead
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchcrmlead
+        description: Update a Lead
+        call: full-lead.patchcrmlead
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecrmlead
+        description: Update a Lead
+        call: full-lead.updatecrmlead
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-lead-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — lead. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-leads
+      description: List All Leads
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-lead.listcrmleads
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        company_id: tools.company_id
+        contact_id: tools.contact_id
+        user_id: tools.user_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-lead
+      description: Create a Lead
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-lead.createcrmlead
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-lead
+      description: Remove a Lead
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-lead.removecrmlead
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-lead
+      description: Retrieve a Lead
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-lead.getcrmlead
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-lead
+      description: Update a Lead
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-lead.patchcrmlead
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-lead-2
+      description: Update a Lead
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-lead.updatecrmlead
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

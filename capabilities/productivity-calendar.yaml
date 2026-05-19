@@ -1,0 +1,2203 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — calendar
+  description: 'Unified.to  API — calendar. 33 operations. Lead operation: List all busies. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - calendar
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: productivity-calendar
+    baseUri: https://api.unified.to
+    description: Unified.to  API — calendar business capability. Self-contained, no shared references.
+    resources:
+    - name: calendar-connection_id-busy
+      path: /calendar/{connection_id}/busy
+      operations:
+      - name: listcalendarbusies
+        method: GET
+        description: List all busies
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: calendar_id
+          in: query
+          type: string
+          description: The calendar ID to filter by (reference to CalendarCalendar)
+        - name: start_gte
+          in: query
+          type: string
+          description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: end_lt
+          in: query
+          type: string
+          description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: user_id
+          in: query
+          type: string
+          description: The user/employee ID to filter by (reference to HrisEmployee)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+    - name: calendar-connection_id-calendar
+      path: /calendar/{connection_id}/calendar
+      operations:
+      - name: listcalendarcalendars
+        method: GET
+        description: List all calendars
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: listcalendarcalendars
+        method: GET
+        description: List all calendars
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createcalendarcalendar
+        method: POST
+        description: Create a calendar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: createcalendarcalendar
+        method: POST
+        description: Create a calendar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: calendar-connection_id-calendar-id
+      path: /calendar/{connection_id}/calendar/{id}
+      operations:
+      - name: removecalendarcalendar
+        method: DELETE
+        description: Remove a calendar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Calendar
+          required: true
+      - name: removecalendarcalendar
+        method: DELETE
+        description: Remove a calendar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Calendar
+          required: true
+      - name: getcalendarcalendar
+        method: GET
+        description: Retrieve a calendar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Calendar
+          required: true
+      - name: getcalendarcalendar
+        method: GET
+        description: Retrieve a calendar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Calendar
+          required: true
+      - name: patchcalendarcalendar
+        method: PATCH
+        description: Update a calendar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Calendar
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: patchcalendarcalendar
+        method: PATCH
+        description: Update a calendar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Calendar
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatecalendarcalendar
+        method: PUT
+        description: Update a calendar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Calendar
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatecalendarcalendar
+        method: PUT
+        description: Update a calendar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Calendar
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: calendar-connection_id-event
+      path: /calendar/{connection_id}/event
+      operations:
+      - name: listcalendarevents
+        method: GET
+        description: List all events
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: calendar_id
+          in: query
+          type: string
+          description: The calendar ID to filter by (reference to CalendarCalendar)
+        - name: start_gte
+          in: query
+          type: string
+          description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: end_lt
+          in: query
+          type: string
+          description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: expand
+          in: query
+          type: boolean
+          description: Whether to flatten grouped or recurring items into individual entries.
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createcalendarevent
+        method: POST
+        description: Create an event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: calendar-connection_id-event-id
+      path: /calendar/{connection_id}/event/{id}
+      operations:
+      - name: removecalendarevent
+        method: DELETE
+        description: Remove an event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Event
+          required: true
+      - name: getcalendarevent
+        method: GET
+        description: Retrieve an event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Event
+          required: true
+      - name: patchcalendarevent
+        method: PATCH
+        description: Update an event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Event
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatecalendarevent
+        method: PUT
+        description: Update an event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Event
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: calendar-connection_id-link
+      path: /calendar/{connection_id}/link
+      operations:
+      - name: listcalendarlinks
+        method: GET
+        description: List all links
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createcalendarlink
+        method: POST
+        description: Create a link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: calendar-connection_id-link-id
+      path: /calendar/{connection_id}/link/{id}
+      operations:
+      - name: removecalendarlink
+        method: DELETE
+        description: Remove a link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Link
+          required: true
+      - name: getcalendarlink
+        method: GET
+        description: Retrieve a link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Link
+          required: true
+      - name: patchcalendarlink
+        method: PATCH
+        description: Update a link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Link
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatecalendarlink
+        method: PUT
+        description: Update a link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Link
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: calendar-connection_id-recording
+      path: /calendar/{connection_id}/recording
+      operations:
+      - name: listcalendarrecordings
+        method: GET
+        description: List all recordings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: event_id
+          in: query
+          type: string
+          description: The event ID to filter by (reference to CalendarEvent)
+        - name: start_gte
+          in: query
+          type: string
+          description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: end_lt
+          in: query
+          type: string
+          description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+    - name: calendar-connection_id-recording-id
+      path: /calendar/{connection_id}/recording/{id}
+      operations:
+      - name: getcalendarrecording
+        method: GET
+        description: Retrieve a recording
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Recording
+          required: true
+    - name: calendar-connection_id-webinar
+      path: /calendar/{connection_id}/webinar
+      operations:
+      - name: listcalendarwebinars
+        method: GET
+        description: List all webinars
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: start_gte
+          in: query
+          type: string
+          description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: end_lt
+          in: query
+          type: string
+          description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: user_id
+          in: query
+          type: string
+          description: The user/employee ID to filter by (reference to HrisEmployee)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createcalendarwebinar
+        method: POST
+        description: Create a webinar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: calendar-connection_id-webinar-id
+      path: /calendar/{connection_id}/webinar/{id}
+      operations:
+      - name: removecalendarwebinar
+        method: DELETE
+        description: Remove a webinar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Webinar
+          required: true
+      - name: getcalendarwebinar
+        method: GET
+        description: Retrieve a webinar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Webinar
+          required: true
+      - name: patchcalendarwebinar
+        method: PATCH
+        description: Update a webinar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Webinar
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatecalendarwebinar
+        method: PUT
+        description: Update a webinar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Webinar
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: productivity-calendar-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — calendar. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/calendar/{connection-id}/busy
+      name: calendar-connection-id-busy
+      description: REST surface for calendar-connection_id-busy.
+      operations:
+      - method: GET
+        name: listcalendarbusies
+        description: List all busies
+        call: productivity-calendar.listcalendarbusies
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          calendar_id: rest.calendar_id
+          start_gte: rest.start_gte
+          end_lt: rest.end_lt
+          user_id: rest.user_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/calendar/{connection-id}/calendar
+      name: calendar-connection-id-calendar
+      description: REST surface for calendar-connection_id-calendar.
+      operations:
+      - method: GET
+        name: listcalendarcalendars
+        description: List all calendars
+        call: productivity-calendar.listcalendarcalendars
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listcalendarcalendars
+        description: List all calendars
+        call: productivity-calendar.listcalendarcalendars
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcalendarcalendar
+        description: Create a calendar
+        call: productivity-calendar.createcalendarcalendar
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcalendarcalendar
+        description: Create a calendar
+        call: productivity-calendar.createcalendarcalendar
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/calendar/{connection-id}/calendar/{id}
+      name: calendar-connection-id-calendar-id
+      description: REST surface for calendar-connection_id-calendar-id.
+      operations:
+      - method: DELETE
+        name: removecalendarcalendar
+        description: Remove a calendar
+        call: productivity-calendar.removecalendarcalendar
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: removecalendarcalendar
+        description: Remove a calendar
+        call: productivity-calendar.removecalendarcalendar
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getcalendarcalendar
+        description: Retrieve a calendar
+        call: productivity-calendar.getcalendarcalendar
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getcalendarcalendar
+        description: Retrieve a calendar
+        call: productivity-calendar.getcalendarcalendar
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchcalendarcalendar
+        description: Update a calendar
+        call: productivity-calendar.patchcalendarcalendar
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchcalendarcalendar
+        description: Update a calendar
+        call: productivity-calendar.patchcalendarcalendar
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecalendarcalendar
+        description: Update a calendar
+        call: productivity-calendar.updatecalendarcalendar
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecalendarcalendar
+        description: Update a calendar
+        call: productivity-calendar.updatecalendarcalendar
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/calendar/{connection-id}/event
+      name: calendar-connection-id-event
+      description: REST surface for calendar-connection_id-event.
+      operations:
+      - method: GET
+        name: listcalendarevents
+        description: List all events
+        call: productivity-calendar.listcalendarevents
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          calendar_id: rest.calendar_id
+          start_gte: rest.start_gte
+          end_lt: rest.end_lt
+          expand: rest.expand
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcalendarevent
+        description: Create an event
+        call: productivity-calendar.createcalendarevent
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/calendar/{connection-id}/event/{id}
+      name: calendar-connection-id-event-id
+      description: REST surface for calendar-connection_id-event-id.
+      operations:
+      - method: DELETE
+        name: removecalendarevent
+        description: Remove an event
+        call: productivity-calendar.removecalendarevent
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getcalendarevent
+        description: Retrieve an event
+        call: productivity-calendar.getcalendarevent
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchcalendarevent
+        description: Update an event
+        call: productivity-calendar.patchcalendarevent
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecalendarevent
+        description: Update an event
+        call: productivity-calendar.updatecalendarevent
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/calendar/{connection-id}/link
+      name: calendar-connection-id-link
+      description: REST surface for calendar-connection_id-link.
+      operations:
+      - method: GET
+        name: listcalendarlinks
+        description: List all links
+        call: productivity-calendar.listcalendarlinks
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcalendarlink
+        description: Create a link
+        call: productivity-calendar.createcalendarlink
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/calendar/{connection-id}/link/{id}
+      name: calendar-connection-id-link-id
+      description: REST surface for calendar-connection_id-link-id.
+      operations:
+      - method: DELETE
+        name: removecalendarlink
+        description: Remove a link
+        call: productivity-calendar.removecalendarlink
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getcalendarlink
+        description: Retrieve a link
+        call: productivity-calendar.getcalendarlink
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchcalendarlink
+        description: Update a link
+        call: productivity-calendar.patchcalendarlink
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecalendarlink
+        description: Update a link
+        call: productivity-calendar.updatecalendarlink
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/calendar/{connection-id}/recording
+      name: calendar-connection-id-recording
+      description: REST surface for calendar-connection_id-recording.
+      operations:
+      - method: GET
+        name: listcalendarrecordings
+        description: List all recordings
+        call: productivity-calendar.listcalendarrecordings
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          event_id: rest.event_id
+          start_gte: rest.start_gte
+          end_lt: rest.end_lt
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/calendar/{connection-id}/recording/{id}
+      name: calendar-connection-id-recording-id
+      description: REST surface for calendar-connection_id-recording-id.
+      operations:
+      - method: GET
+        name: getcalendarrecording
+        description: Retrieve a recording
+        call: productivity-calendar.getcalendarrecording
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/calendar/{connection-id}/webinar
+      name: calendar-connection-id-webinar
+      description: REST surface for calendar-connection_id-webinar.
+      operations:
+      - method: GET
+        name: listcalendarwebinars
+        description: List all webinars
+        call: productivity-calendar.listcalendarwebinars
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          start_gte: rest.start_gte
+          end_lt: rest.end_lt
+          user_id: rest.user_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcalendarwebinar
+        description: Create a webinar
+        call: productivity-calendar.createcalendarwebinar
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/calendar/{connection-id}/webinar/{id}
+      name: calendar-connection-id-webinar-id
+      description: REST surface for calendar-connection_id-webinar-id.
+      operations:
+      - method: DELETE
+        name: removecalendarwebinar
+        description: Remove a webinar
+        call: productivity-calendar.removecalendarwebinar
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getcalendarwebinar
+        description: Retrieve a webinar
+        call: productivity-calendar.getcalendarwebinar
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchcalendarwebinar
+        description: Update a webinar
+        call: productivity-calendar.patchcalendarwebinar
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecalendarwebinar
+        description: Update a webinar
+        call: productivity-calendar.updatecalendarwebinar
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: productivity-calendar-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — calendar. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-busies
+      description: List all busies
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.listcalendarbusies
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        calendar_id: tools.calendar_id
+        start_gte: tools.start_gte
+        end_lt: tools.end_lt
+        user_id: tools.user_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-calendars
+      description: List all calendars
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.listcalendarcalendars
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-calendars-2
+      description: List all calendars
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.listcalendarcalendars
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-calendar
+      description: Create a calendar
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: productivity-calendar.createcalendarcalendar
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-calendar-2
+      description: Create a calendar
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: productivity-calendar.createcalendarcalendar
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-calendar
+      description: Remove a calendar
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: productivity-calendar.removecalendarcalendar
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-calendar-2
+      description: Remove a calendar
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: productivity-calendar.removecalendarcalendar
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-calendar
+      description: Retrieve a calendar
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.getcalendarcalendar
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-calendar-2
+      description: Retrieve a calendar
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.getcalendarcalendar
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-calendar
+      description: Update a calendar
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.patchcalendarcalendar
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-calendar-2
+      description: Update a calendar
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.patchcalendarcalendar
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-calendar-3
+      description: Update a calendar
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.updatecalendarcalendar
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-calendar-4
+      description: Update a calendar
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.updatecalendarcalendar
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-events
+      description: List all events
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.listcalendarevents
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        calendar_id: tools.calendar_id
+        start_gte: tools.start_gte
+        end_lt: tools.end_lt
+        expand: tools.expand
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-event
+      description: Create an event
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: productivity-calendar.createcalendarevent
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-event
+      description: Remove an event
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: productivity-calendar.removecalendarevent
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-event
+      description: Retrieve an event
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.getcalendarevent
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-event
+      description: Update an event
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.patchcalendarevent
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-event-2
+      description: Update an event
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.updatecalendarevent
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-links
+      description: List all links
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.listcalendarlinks
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-link
+      description: Create a link
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: productivity-calendar.createcalendarlink
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-link
+      description: Remove a link
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: productivity-calendar.removecalendarlink
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-link
+      description: Retrieve a link
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.getcalendarlink
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-link
+      description: Update a link
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.patchcalendarlink
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-link-2
+      description: Update a link
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.updatecalendarlink
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-recordings
+      description: List all recordings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.listcalendarrecordings
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        event_id: tools.event_id
+        start_gte: tools.start_gte
+        end_lt: tools.end_lt
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-recording
+      description: Retrieve a recording
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.getcalendarrecording
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-webinars
+      description: List all webinars
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.listcalendarwebinars
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        start_gte: tools.start_gte
+        end_lt: tools.end_lt
+        user_id: tools.user_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-webinar
+      description: Create a webinar
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: productivity-calendar.createcalendarwebinar
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-webinar
+      description: Remove a webinar
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: productivity-calendar.removecalendarwebinar
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-webinar
+      description: Retrieve a webinar
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.getcalendarwebinar
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-webinar
+      description: Update a webinar
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.patchcalendarwebinar
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-webinar-2
+      description: Update a webinar
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: productivity-calendar.updatecalendarwebinar
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

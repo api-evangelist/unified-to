@@ -1,0 +1,812 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — campaign
+  description: 'Unified.to  API — campaign. 12 operations. Lead operation: List All Campaigns. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - campaign
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-campaign
+    baseUri: https://api.unified.to
+    description: Unified.to  API — campaign business capability. Self-contained, no shared references.
+    resources:
+    - name: ads-connection_id-campaign
+      path: /ads/{connection_id}/campaign
+      operations:
+      - name: listadscampaigns
+        method: GET
+        description: List All Campaigns
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: org_id
+          in: query
+          type: string
+          description: The org ID to filter by (reference to AdsOrganization)
+        - name: start_gte
+          in: query
+          type: string
+          description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: end_lt
+          in: query
+          type: string
+          description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createadscampaign
+        method: POST
+        description: Create a Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: ads-connection_id-campaign-id
+      path: /ads/{connection_id}/campaign/{id}
+      operations:
+      - name: removeadscampaign
+        method: DELETE
+        description: Remove a Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Campaign
+          required: true
+      - name: getadscampaign
+        method: GET
+        description: Retrieve a Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Campaign
+          required: true
+      - name: patchadscampaign
+        method: PATCH
+        description: Update a Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Campaign
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateadscampaign
+        method: PUT
+        description: Update a Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Campaign
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: martech-connection_id-campaign
+      path: /martech/{connection_id}/campaign
+      operations:
+      - name: listmartechcampaigns
+        method: GET
+        description: List All Campaigns
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: list_id
+          in: query
+          type: string
+          description: The list ID to filter by
+        - name: member_id
+          in: query
+          type: string
+          description: The member ID to filter by
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createmartechcampaign
+        method: POST
+        description: Create a Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: martech-connection_id-campaign-id
+      path: /martech/{connection_id}/campaign/{id}
+      operations:
+      - name: removemartechcampaign
+        method: DELETE
+        description: Remove a Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Campaign
+          required: true
+      - name: getmartechcampaign
+        method: GET
+        description: Retrieve a Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Campaign
+          required: true
+      - name: patchmartechcampaign
+        method: PATCH
+        description: Update a Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Campaign
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatemartechcampaign
+        method: PUT
+        description: Update a Campaign
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Campaign
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-campaign-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — campaign. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/ads/{connection-id}/campaign
+      name: ads-connection-id-campaign
+      description: REST surface for ads-connection_id-campaign.
+      operations:
+      - method: GET
+        name: listadscampaigns
+        description: List All Campaigns
+        call: full-campaign.listadscampaigns
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          org_id: rest.org_id
+          start_gte: rest.start_gte
+          end_lt: rest.end_lt
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createadscampaign
+        description: Create a Campaign
+        call: full-campaign.createadscampaign
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ads/{connection-id}/campaign/{id}
+      name: ads-connection-id-campaign-id
+      description: REST surface for ads-connection_id-campaign-id.
+      operations:
+      - method: DELETE
+        name: removeadscampaign
+        description: Remove a Campaign
+        call: full-campaign.removeadscampaign
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getadscampaign
+        description: Retrieve a Campaign
+        call: full-campaign.getadscampaign
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchadscampaign
+        description: Update a Campaign
+        call: full-campaign.patchadscampaign
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateadscampaign
+        description: Update a Campaign
+        call: full-campaign.updateadscampaign
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/martech/{connection-id}/campaign
+      name: martech-connection-id-campaign
+      description: REST surface for martech-connection_id-campaign.
+      operations:
+      - method: GET
+        name: listmartechcampaigns
+        description: List All Campaigns
+        call: full-campaign.listmartechcampaigns
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          list_id: rest.list_id
+          member_id: rest.member_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createmartechcampaign
+        description: Create a Campaign
+        call: full-campaign.createmartechcampaign
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/martech/{connection-id}/campaign/{id}
+      name: martech-connection-id-campaign-id
+      description: REST surface for martech-connection_id-campaign-id.
+      operations:
+      - method: DELETE
+        name: removemartechcampaign
+        description: Remove a Campaign
+        call: full-campaign.removemartechcampaign
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getmartechcampaign
+        description: Retrieve a Campaign
+        call: full-campaign.getmartechcampaign
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchmartechcampaign
+        description: Update a Campaign
+        call: full-campaign.patchmartechcampaign
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatemartechcampaign
+        description: Update a Campaign
+        call: full-campaign.updatemartechcampaign
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-campaign-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — campaign. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-campaigns
+      description: List All Campaigns
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-campaign.listadscampaigns
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        org_id: tools.org_id
+        start_gte: tools.start_gte
+        end_lt: tools.end_lt
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-campaign
+      description: Create a Campaign
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-campaign.createadscampaign
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-campaign
+      description: Remove a Campaign
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-campaign.removeadscampaign
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-campaign
+      description: Retrieve a Campaign
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-campaign.getadscampaign
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-campaign
+      description: Update a Campaign
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-campaign.patchadscampaign
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-campaign-2
+      description: Update a Campaign
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-campaign.updateadscampaign
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-campaigns-2
+      description: List All Campaigns
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-campaign.listmartechcampaigns
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        list_id: tools.list_id
+        member_id: tools.member_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-campaign-2
+      description: Create a Campaign
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-campaign.createmartechcampaign
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-campaign-2
+      description: Remove a Campaign
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-campaign.removemartechcampaign
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-campaign-2
+      description: Retrieve a Campaign
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-campaign.getmartechcampaign
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-campaign-3
+      description: Update a Campaign
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-campaign.patchmartechcampaign
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-campaign-4
+      description: Update a Campaign
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-campaign.updatemartechcampaign
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

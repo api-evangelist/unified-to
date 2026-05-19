@@ -1,0 +1,128 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — applicationstatus
+  description: 'Unified.to  API — applicationstatus. 1 operations. Lead operation: List all applicationstatuses. Self-contained
+    Naftiko capability covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - applicationstatus
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ats-applicationstatus
+    baseUri: https://api.unified.to
+    description: Unified.to  API — applicationstatus business capability. Self-contained, no shared references.
+    resources:
+    - name: ats-connection_id-applicationstatus
+      path: /ats/{connection_id}/applicationstatus
+      operations:
+      - name: listatsapplicationstatuses
+        method: GET
+        description: List all applicationstatuses
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: ats-applicationstatus-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — applicationstatus. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/ats/{connection-id}/applicationstatus
+      name: ats-connection-id-applicationstatus
+      description: REST surface for ats-connection_id-applicationstatus.
+      operations:
+      - method: GET
+        name: listatsapplicationstatuses
+        description: List all applicationstatuses
+        call: ats-applicationstatus.listatsapplicationstatuses
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ats-applicationstatus-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — applicationstatus. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-all-applicationstatuses
+      description: List all applicationstatuses
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ats-applicationstatus.listatsapplicationstatuses
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,458 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — message
+  description: 'Unified.to  API — message. 6 operations. Lead operation: List All Messages. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - message
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-message
+    baseUri: https://api.unified.to
+    description: Unified.to  API — message business capability. Self-contained, no shared references.
+    resources:
+    - name: messaging-connection_id-message
+      path: /messaging/{connection_id}/message
+      operations:
+      - name: listmessagingmessages
+        method: GET
+        description: List All Messages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: parent_id
+          in: query
+          type: string
+          description: The parent ID to filter by
+        - name: channel_id
+          in: query
+          type: string
+          description: The channel ID to filter by. You can also use these aliases; INBOX, SENT or DRAFT (reference to MessagingChannel)
+        - name: start_gte
+          in: query
+          type: string
+          description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: end_lt
+          in: query
+          type: string
+          description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: expand
+          in: query
+          type: boolean
+          description: Whether to flatten grouped or recurring items into individual entries.
+        - name: user_id
+          in: query
+          type: string
+          description: The user/employee ID to filter by (reference to HrisEmployee)
+        - name: type
+          in: query
+          type: string
+        - name: user_mentioned_id
+          in: query
+          type: string
+          description: The user/employee ID to filter by
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createmessagingmessage
+        method: POST
+        description: Create a Message
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: messaging-connection_id-message-id
+      path: /messaging/{connection_id}/message/{id}
+      operations:
+      - name: removemessagingmessage
+        method: DELETE
+        description: Remove a Message
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Message
+          required: true
+      - name: getmessagingmessage
+        method: GET
+        description: Retrieve a Message
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Message
+          required: true
+      - name: patchmessagingmessage
+        method: PATCH
+        description: Update a Message
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Message
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatemessagingmessage
+        method: PUT
+        description: Update a Message
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Message
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-message-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — message. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/messaging/{connection-id}/message
+      name: messaging-connection-id-message
+      description: REST surface for messaging-connection_id-message.
+      operations:
+      - method: GET
+        name: listmessagingmessages
+        description: List All Messages
+        call: full-message.listmessagingmessages
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          parent_id: rest.parent_id
+          channel_id: rest.channel_id
+          start_gte: rest.start_gte
+          end_lt: rest.end_lt
+          expand: rest.expand
+          user_id: rest.user_id
+          type: rest.type
+          user_mentioned_id: rest.user_mentioned_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createmessagingmessage
+        description: Create a Message
+        call: full-message.createmessagingmessage
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/messaging/{connection-id}/message/{id}
+      name: messaging-connection-id-message-id
+      description: REST surface for messaging-connection_id-message-id.
+      operations:
+      - method: DELETE
+        name: removemessagingmessage
+        description: Remove a Message
+        call: full-message.removemessagingmessage
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getmessagingmessage
+        description: Retrieve a Message
+        call: full-message.getmessagingmessage
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchmessagingmessage
+        description: Update a Message
+        call: full-message.patchmessagingmessage
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatemessagingmessage
+        description: Update a Message
+        call: full-message.updatemessagingmessage
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-message-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — message. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-messages
+      description: List All Messages
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-message.listmessagingmessages
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        parent_id: tools.parent_id
+        channel_id: tools.channel_id
+        start_gte: tools.start_gte
+        end_lt: tools.end_lt
+        expand: tools.expand
+        user_id: tools.user_id
+        type: tools.type
+        user_mentioned_id: tools.user_mentioned_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-message
+      description: Create a Message
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-message.createmessagingmessage
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-message
+      description: Remove a Message
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-message.removemessagingmessage
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-message
+      description: Retrieve a Message
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-message.getmessagingmessage
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-message
+      description: Update a Message
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-message.patchmessagingmessage
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-message-2
+      description: Update a Message
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-message.updatemessagingmessage
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

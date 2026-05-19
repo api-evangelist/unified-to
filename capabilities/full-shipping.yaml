@@ -1,0 +1,1074 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — shipping
+  description: 'Unified.to  API — shipping. 16 operations. Lead operation: List All Carriers. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - shipping
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-shipping
+    baseUri: https://api.unified.to
+    description: Unified.to  API — shipping business capability. Self-contained, no shared references.
+    resources:
+    - name: shipping-connection_id-carrier
+      path: /shipping/{connection_id}/carrier
+      operations:
+      - name: listshippingcarriers
+        method: GET
+        description: List All Carriers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+    - name: shipping-connection_id-carrier-id
+      path: /shipping/{connection_id}/carrier/{id}
+      operations:
+      - name: getshippingcarrier
+        method: GET
+        description: Retrieve a Carrier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Carrier
+          required: true
+    - name: shipping-connection_id-label
+      path: /shipping/{connection_id}/label
+      operations:
+      - name: listshippinglabels
+        method: GET
+        description: List All Labels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: shipment_id
+          in: query
+          type: string
+          description: The ShippingShipment ID to filter by
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createshippinglabel
+        method: POST
+        description: Create a Label
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: shipping-connection_id-label-id
+      path: /shipping/{connection_id}/label/{id}
+      operations:
+      - name: removeshippinglabel
+        method: DELETE
+        description: Remove a Label
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Label
+          required: true
+      - name: getshippinglabel
+        method: GET
+        description: Retrieve a Label
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Label
+          required: true
+      - name: patchshippinglabel
+        method: PATCH
+        description: Update a Label
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Label
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateshippinglabel
+        method: PUT
+        description: Update a Label
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Label
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: shipping-connection_id-rate
+      path: /shipping/{connection_id}/rate
+      operations:
+      - name: createshippingrate
+        method: POST
+        description: Create a Rate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: shipping-connection_id-shipment
+      path: /shipping/{connection_id}/shipment
+      operations:
+      - name: listshippingshipments
+        method: GET
+        description: List All Shipments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: order_id
+          in: query
+          type: string
+          description: The AccountingOrder ID to filter by
+        - name: carrier_id
+          in: query
+          type: string
+          description: The ShippingCarrier ID to filter by
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createshippingshipment
+        method: POST
+        description: Create a Shipment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: shipping-connection_id-shipment-id
+      path: /shipping/{connection_id}/shipment/{id}
+      operations:
+      - name: removeshippingshipment
+        method: DELETE
+        description: Remove a Shipment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Shipment
+          required: true
+      - name: getshippingshipment
+        method: GET
+        description: Retrieve a Shipment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Shipment
+          required: true
+      - name: patchshippingshipment
+        method: PATCH
+        description: Update a Shipment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Shipment
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateshippingshipment
+        method: PUT
+        description: Update a Shipment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Shipment
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: shipping-connection_id-tracking-id
+      path: /shipping/{connection_id}/tracking/{id}
+      operations:
+      - name: getshippingtracking
+        method: GET
+        description: Retrieve a Tracking
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Tracking
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-shipping-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — shipping. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/shipping/{connection-id}/carrier
+      name: shipping-connection-id-carrier
+      description: REST surface for shipping-connection_id-carrier.
+      operations:
+      - method: GET
+        name: listshippingcarriers
+        description: List All Carriers
+        call: full-shipping.listshippingcarriers
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/shipping/{connection-id}/carrier/{id}
+      name: shipping-connection-id-carrier-id
+      description: REST surface for shipping-connection_id-carrier-id.
+      operations:
+      - method: GET
+        name: getshippingcarrier
+        description: Retrieve a Carrier
+        call: full-shipping.getshippingcarrier
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/shipping/{connection-id}/label
+      name: shipping-connection-id-label
+      description: REST surface for shipping-connection_id-label.
+      operations:
+      - method: GET
+        name: listshippinglabels
+        description: List All Labels
+        call: full-shipping.listshippinglabels
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          shipment_id: rest.shipment_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createshippinglabel
+        description: Create a Label
+        call: full-shipping.createshippinglabel
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/shipping/{connection-id}/label/{id}
+      name: shipping-connection-id-label-id
+      description: REST surface for shipping-connection_id-label-id.
+      operations:
+      - method: DELETE
+        name: removeshippinglabel
+        description: Remove a Label
+        call: full-shipping.removeshippinglabel
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getshippinglabel
+        description: Retrieve a Label
+        call: full-shipping.getshippinglabel
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchshippinglabel
+        description: Update a Label
+        call: full-shipping.patchshippinglabel
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateshippinglabel
+        description: Update a Label
+        call: full-shipping.updateshippinglabel
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/shipping/{connection-id}/rate
+      name: shipping-connection-id-rate
+      description: REST surface for shipping-connection_id-rate.
+      operations:
+      - method: POST
+        name: createshippingrate
+        description: Create a Rate
+        call: full-shipping.createshippingrate
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/shipping/{connection-id}/shipment
+      name: shipping-connection-id-shipment
+      description: REST surface for shipping-connection_id-shipment.
+      operations:
+      - method: GET
+        name: listshippingshipments
+        description: List All Shipments
+        call: full-shipping.listshippingshipments
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          order_id: rest.order_id
+          carrier_id: rest.carrier_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createshippingshipment
+        description: Create a Shipment
+        call: full-shipping.createshippingshipment
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/shipping/{connection-id}/shipment/{id}
+      name: shipping-connection-id-shipment-id
+      description: REST surface for shipping-connection_id-shipment-id.
+      operations:
+      - method: DELETE
+        name: removeshippingshipment
+        description: Remove a Shipment
+        call: full-shipping.removeshippingshipment
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getshippingshipment
+        description: Retrieve a Shipment
+        call: full-shipping.getshippingshipment
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchshippingshipment
+        description: Update a Shipment
+        call: full-shipping.patchshippingshipment
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateshippingshipment
+        description: Update a Shipment
+        call: full-shipping.updateshippingshipment
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/shipping/{connection-id}/tracking/{id}
+      name: shipping-connection-id-tracking-id
+      description: REST surface for shipping-connection_id-tracking-id.
+      operations:
+      - method: GET
+        name: getshippingtracking
+        description: Retrieve a Tracking
+        call: full-shipping.getshippingtracking
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-shipping-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — shipping. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-carriers
+      description: List All Carriers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-shipping.listshippingcarriers
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-carrier
+      description: Retrieve a Carrier
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-shipping.getshippingcarrier
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-labels
+      description: List All Labels
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-shipping.listshippinglabels
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        shipment_id: tools.shipment_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-label
+      description: Create a Label
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-shipping.createshippinglabel
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-label
+      description: Remove a Label
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-shipping.removeshippinglabel
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-label
+      description: Retrieve a Label
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-shipping.getshippinglabel
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-label
+      description: Update a Label
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-shipping.patchshippinglabel
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-label-2
+      description: Update a Label
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-shipping.updateshippinglabel
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-rate
+      description: Create a Rate
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-shipping.createshippingrate
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-shipments
+      description: List All Shipments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-shipping.listshippingshipments
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        order_id: tools.order_id
+        carrier_id: tools.carrier_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-shipment
+      description: Create a Shipment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-shipping.createshippingshipment
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-shipment
+      description: Remove a Shipment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-shipping.removeshippingshipment
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-shipment
+      description: Retrieve a Shipment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-shipping.getshippingshipment
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-shipment
+      description: Update a Shipment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-shipping.patchshippingshipment
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-shipment-2
+      description: Update a Shipment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-shipping.updateshippingshipment
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-tracking
+      description: Retrieve a Tracking
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-shipping.getshippingtracking
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

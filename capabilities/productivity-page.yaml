@@ -1,0 +1,423 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — page
+  description: 'Unified.to  API — page. 6 operations. Lead operation: List all pages. Self-contained Naftiko capability covering
+    one Unified To business surface.'
+  tags:
+  - Unified To
+  - page
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: productivity-page
+    baseUri: https://api.unified.to
+    description: Unified.to  API — page business capability. Self-contained, no shared references.
+    resources:
+    - name: kms-connection_id-page
+      path: /kms/{connection_id}/page
+      operations:
+      - name: listkmspages
+        method: GET
+        description: List all pages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: space_id
+          in: query
+          type: string
+          description: The space ID to filter by (reference to KmsSpace)
+        - name: parent_id
+          in: query
+          type: string
+          description: The parent ID to filter by
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createkmspage
+        method: POST
+        description: Create a page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: kms-connection_id-page-id
+      path: /kms/{connection_id}/page/{id}
+      operations:
+      - name: removekmspage
+        method: DELETE
+        description: Remove a page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Page
+          required: true
+      - name: getkmspage
+        method: GET
+        description: Retrieve a page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Page
+          required: true
+      - name: patchkmspage
+        method: PATCH
+        description: Update a page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Page
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatekmspage
+        method: PUT
+        description: Update a page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Page
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: productivity-page-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — page. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/kms/{connection-id}/page
+      name: kms-connection-id-page
+      description: REST surface for kms-connection_id-page.
+      operations:
+      - method: GET
+        name: listkmspages
+        description: List all pages
+        call: productivity-page.listkmspages
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          space_id: rest.space_id
+          parent_id: rest.parent_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createkmspage
+        description: Create a page
+        call: productivity-page.createkmspage
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/kms/{connection-id}/page/{id}
+      name: kms-connection-id-page-id
+      description: REST surface for kms-connection_id-page-id.
+      operations:
+      - method: DELETE
+        name: removekmspage
+        description: Remove a page
+        call: productivity-page.removekmspage
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getkmspage
+        description: Retrieve a page
+        call: productivity-page.getkmspage
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchkmspage
+        description: Update a page
+        call: productivity-page.patchkmspage
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatekmspage
+        description: Update a page
+        call: productivity-page.updatekmspage
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: productivity-page-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — page. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-pages
+      description: List all pages
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: productivity-page.listkmspages
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        space_id: tools.space_id
+        parent_id: tools.parent_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-page
+      description: Create a page
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: productivity-page.createkmspage
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-page
+      description: Remove a page
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: productivity-page.removekmspage
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-page
+      description: Retrieve a page
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: productivity-page.getkmspage
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-page
+      description: Update a page
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: productivity-page.patchkmspage
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-page-2
+      description: Update a page
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: productivity-page.updatekmspage
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

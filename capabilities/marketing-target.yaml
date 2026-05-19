@@ -1,0 +1,201 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — target
+  description: 'Unified.to  API — target. 2 operations. Lead operation: List all targets. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - target
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketing-target
+    baseUri: https://api.unified.to
+    description: Unified.to  API — target business capability. Self-contained, no shared references.
+    resources:
+    - name: ads-connection_id-target
+      path: /ads/{connection_id}/target
+      operations:
+      - name: listadstargets
+        method: GET
+        description: List all targets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: org_id
+          in: query
+          type: string
+          description: The org ID to filter by (reference to AdsOrganization)
+        - name: type
+          in: query
+          type: string
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+    - name: ads-connection_id-target-id
+      path: /ads/{connection_id}/target/{id}
+      operations:
+      - name: getadstarget
+        method: GET
+        description: Retrieve a target
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Target
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: marketing-target-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — target. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/ads/{connection-id}/target
+      name: ads-connection-id-target
+      description: REST surface for ads-connection_id-target.
+      operations:
+      - method: GET
+        name: listadstargets
+        description: List all targets
+        call: marketing-target.listadstargets
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          org_id: rest.org_id
+          type: rest.type
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ads/{connection-id}/target/{id}
+      name: ads-connection-id-target-id
+      description: REST surface for ads-connection_id-target-id.
+      operations:
+      - method: GET
+        name: getadstarget
+        description: Retrieve a target
+        call: marketing-target.getadstarget
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketing-target-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — target. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-targets
+      description: List all targets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-target.listadstargets
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        org_id: tools.org_id
+        type: tools.type
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-target
+      description: Retrieve a target
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-target.getadstarget
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

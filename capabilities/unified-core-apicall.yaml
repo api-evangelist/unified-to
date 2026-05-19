@@ -1,0 +1,191 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — apicall
+  description: 'Unified.to  API — apicall. 2 operations. Lead operation: Returns API Calls. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - apicall
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: unified-core-apicall
+    baseUri: https://api.unified.to
+    description: Unified.to  API — apicall business capability. Self-contained, no shared references.
+    resources:
+    - name: unified-apicall
+      path: /unified/apicall
+      operations:
+      - name: listunifiedapicalls
+        method: GET
+        description: Returns API Calls
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: external_xref
+          in: query
+          type: string
+          description: Filter the results to only those integrations for your user referenced by this value
+        - name: integration_type
+          in: query
+          type: string
+          description: Filter the results to just this integration
+        - name: error
+          in: query
+          type: boolean
+          description: Filter the results for API Calls with errors
+        - name: connection_id
+          in: query
+          type: string
+          description: Filter the results to just this integration
+        - name: env
+          in: query
+          type: string
+        - name: webhook_id
+          in: query
+          type: string
+          description: Filter the results to just this webhook
+        - name: type
+          in: query
+          type: string
+          description: Filter the results to just this type
+        - name: is_billable
+          in: query
+          type: boolean
+          description: Filter the results for only billable API Calls
+    - name: unified-apicall-id
+      path: /unified/apicall/{id}
+      operations:
+      - name: getunifiedapicall
+        method: GET
+        description: Retrieve specific API Call by its ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the Apicall
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: unified-core-apicall-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — apicall. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/unified/apicall
+      name: unified-apicall
+      description: REST surface for unified-apicall.
+      operations:
+      - method: GET
+        name: listunifiedapicalls
+        description: Returns API Calls
+        call: unified-core-apicall.listunifiedapicalls
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          external_xref: rest.external_xref
+          integration_type: rest.integration_type
+          error: rest.error
+          connection_id: rest.connection_id
+          env: rest.env
+          webhook_id: rest.webhook_id
+          type: rest.type
+          is_billable: rest.is_billable
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/unified/apicall/{id}
+      name: unified-apicall-id
+      description: REST surface for unified-apicall-id.
+      operations:
+      - method: GET
+        name: getunifiedapicall
+        description: Retrieve specific API Call by its ID
+        call: unified-core-apicall.getunifiedapicall
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: unified-core-apicall-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — apicall. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: returns-api-calls
+      description: Returns API Calls
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-core-apicall.listunifiedapicalls
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        external_xref: tools.external_xref
+        integration_type: tools.integration_type
+        error: tools.error
+        connection_id: tools.connection_id
+        env: tools.env
+        webhook_id: tools.webhook_id
+        type: tools.type
+        is_billable: tools.is_billable
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-specific-api-call-its
+      description: Retrieve specific API Call by its ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: unified-core-apicall.getunifiedapicall
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

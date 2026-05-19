@@ -1,0 +1,214 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — balancesheet
+  description: 'Unified.to  API — balancesheet. 2 operations. Lead operation: List all balancesheets. Self-contained Naftiko
+    capability covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - balancesheet
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: accounting-balancesheet
+    baseUri: https://api.unified.to
+    description: Unified.to  API — balancesheet business capability. Self-contained, no shared references.
+    resources:
+    - name: accounting-connection_id-balancesheet
+      path: /accounting/{connection_id}/balancesheet
+      operations:
+      - name: listaccountingbalancesheets
+        method: GET
+        description: List all balancesheets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: start_gte
+          in: query
+          type: string
+          description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: end_lt
+          in: query
+          type: string
+          description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: category_id
+          in: query
+          type: string
+          description: The category ID to filter by (reference to AccountingCategory)
+        - name: contact_id
+          in: query
+          type: string
+          description: The contact ID to filter by (reference to AccountingContact)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+    - name: accounting-connection_id-balancesheet-id
+      path: /accounting/{connection_id}/balancesheet/{id}
+      operations:
+      - name: getaccountingbalancesheet
+        method: GET
+        description: Retrieve a balancesheet
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Balancesheet
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: accounting-balancesheet-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — balancesheet. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/accounting/{connection-id}/balancesheet
+      name: accounting-connection-id-balancesheet
+      description: REST surface for accounting-connection_id-balancesheet.
+      operations:
+      - method: GET
+        name: listaccountingbalancesheets
+        description: List all balancesheets
+        call: accounting-balancesheet.listaccountingbalancesheets
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          start_gte: rest.start_gte
+          end_lt: rest.end_lt
+          category_id: rest.category_id
+          contact_id: rest.contact_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounting/{connection-id}/balancesheet/{id}
+      name: accounting-connection-id-balancesheet-id
+      description: REST surface for accounting-connection_id-balancesheet-id.
+      operations:
+      - method: GET
+        name: getaccountingbalancesheet
+        description: Retrieve a balancesheet
+        call: accounting-balancesheet.getaccountingbalancesheet
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: accounting-balancesheet-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — balancesheet. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-all-balancesheets
+      description: List all balancesheets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: accounting-balancesheet.listaccountingbalancesheets
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        start_gte: tools.start_gte
+        end_lt: tools.end_lt
+        category_id: tools.category_id
+        contact_id: tools.contact_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-balancesheet
+      description: Retrieve a balancesheet
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: accounting-balancesheet.getaccountingbalancesheet
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

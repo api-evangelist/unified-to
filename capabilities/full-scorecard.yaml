@@ -1,0 +1,435 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — scorecard
+  description: 'Unified.to  API — scorecard. 6 operations. Lead operation: List All Scorecards. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - scorecard
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-scorecard
+    baseUri: https://api.unified.to
+    description: Unified.to  API — scorecard business capability. Self-contained, no shared references.
+    resources:
+    - name: ats-connection_id-scorecard
+      path: /ats/{connection_id}/scorecard
+      operations:
+      - name: listatsscorecards
+        method: GET
+        description: List All Scorecards
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: candidate_id
+          in: query
+          type: string
+          description: The candidate ID to filter by
+        - name: application_id
+          in: query
+          type: string
+          description: The application ID to filter by
+        - name: interview_id
+          in: query
+          type: string
+          description: The interview ID to filter by
+        - name: job_id
+          in: query
+          type: string
+          description: The job ID to filter by
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createatsscorecard
+        method: POST
+        description: Create a Scorecard
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: ats-connection_id-scorecard-id
+      path: /ats/{connection_id}/scorecard/{id}
+      operations:
+      - name: removeatsscorecard
+        method: DELETE
+        description: Remove a Scorecard
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Scorecard
+          required: true
+      - name: getatsscorecard
+        method: GET
+        description: Retrieve a Scorecard
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Scorecard
+          required: true
+      - name: patchatsscorecard
+        method: PATCH
+        description: Update a Scorecard
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Scorecard
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateatsscorecard
+        method: PUT
+        description: Update a Scorecard
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Scorecard
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-scorecard-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — scorecard. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/ats/{connection-id}/scorecard
+      name: ats-connection-id-scorecard
+      description: REST surface for ats-connection_id-scorecard.
+      operations:
+      - method: GET
+        name: listatsscorecards
+        description: List All Scorecards
+        call: full-scorecard.listatsscorecards
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          candidate_id: rest.candidate_id
+          application_id: rest.application_id
+          interview_id: rest.interview_id
+          job_id: rest.job_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createatsscorecard
+        description: Create a Scorecard
+        call: full-scorecard.createatsscorecard
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ats/{connection-id}/scorecard/{id}
+      name: ats-connection-id-scorecard-id
+      description: REST surface for ats-connection_id-scorecard-id.
+      operations:
+      - method: DELETE
+        name: removeatsscorecard
+        description: Remove a Scorecard
+        call: full-scorecard.removeatsscorecard
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getatsscorecard
+        description: Retrieve a Scorecard
+        call: full-scorecard.getatsscorecard
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchatsscorecard
+        description: Update a Scorecard
+        call: full-scorecard.patchatsscorecard
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateatsscorecard
+        description: Update a Scorecard
+        call: full-scorecard.updateatsscorecard
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-scorecard-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — scorecard. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-all-scorecards
+      description: List All Scorecards
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-scorecard.listatsscorecards
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        candidate_id: tools.candidate_id
+        application_id: tools.application_id
+        interview_id: tools.interview_id
+        job_id: tools.job_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-scorecard
+      description: Create a Scorecard
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-scorecard.createatsscorecard
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-scorecard
+      description: Remove a Scorecard
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-scorecard.removeatsscorecard
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-scorecard
+      description: Retrieve a Scorecard
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-scorecard.getatsscorecard
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-scorecard
+      description: Update a Scorecard
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-scorecard.patchatsscorecard
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-scorecard-2
+      description: Update a Scorecard
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-scorecard.updateatsscorecard
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

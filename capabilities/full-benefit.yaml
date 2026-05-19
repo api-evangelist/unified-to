@@ -1,0 +1,417 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — benefit
+  description: 'Unified.to  API — benefit. 6 operations. Lead operation: List All Benefits. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - benefit
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-benefit
+    baseUri: https://api.unified.to
+    description: Unified.to  API — benefit business capability. Self-contained, no shared references.
+    resources:
+    - name: hris-connection_id-benefit
+      path: /hris/{connection_id}/benefit
+      operations:
+      - name: listhrisbenefits
+        method: GET
+        description: List All Benefits
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: company_id
+          in: query
+          type: string
+          description: The company ID to filter by (reference to HrisCompany)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createhrisbenefit
+        method: POST
+        description: Create a Benefit
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: hris-connection_id-benefit-id
+      path: /hris/{connection_id}/benefit/{id}
+      operations:
+      - name: removehrisbenefit
+        method: DELETE
+        description: Remove a Benefit
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Benefit
+          required: true
+      - name: gethrisbenefit
+        method: GET
+        description: Retrieve a Benefit
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Benefit
+          required: true
+      - name: patchhrisbenefit
+        method: PATCH
+        description: Update a Benefit
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Benefit
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatehrisbenefit
+        method: PUT
+        description: Update a Benefit
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Benefit
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-benefit-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — benefit. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/hris/{connection-id}/benefit
+      name: hris-connection-id-benefit
+      description: REST surface for hris-connection_id-benefit.
+      operations:
+      - method: GET
+        name: listhrisbenefits
+        description: List All Benefits
+        call: full-benefit.listhrisbenefits
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          company_id: rest.company_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createhrisbenefit
+        description: Create a Benefit
+        call: full-benefit.createhrisbenefit
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/hris/{connection-id}/benefit/{id}
+      name: hris-connection-id-benefit-id
+      description: REST surface for hris-connection_id-benefit-id.
+      operations:
+      - method: DELETE
+        name: removehrisbenefit
+        description: Remove a Benefit
+        call: full-benefit.removehrisbenefit
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: gethrisbenefit
+        description: Retrieve a Benefit
+        call: full-benefit.gethrisbenefit
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchhrisbenefit
+        description: Update a Benefit
+        call: full-benefit.patchhrisbenefit
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatehrisbenefit
+        description: Update a Benefit
+        call: full-benefit.updatehrisbenefit
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-benefit-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — benefit. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-benefits
+      description: List All Benefits
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-benefit.listhrisbenefits
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        company_id: tools.company_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-benefit
+      description: Create a Benefit
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-benefit.createhrisbenefit
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-benefit
+      description: Remove a Benefit
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-benefit.removehrisbenefit
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-benefit
+      description: Retrieve a Benefit
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-benefit.gethrisbenefit
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-benefit
+      description: Update a Benefit
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-benefit.patchhrisbenefit
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-benefit-2
+      description: Update a Benefit
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-benefit.updatehrisbenefit
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

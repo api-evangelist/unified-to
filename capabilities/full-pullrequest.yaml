@@ -1,0 +1,417 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — pullrequest
+  description: 'Unified.to  API — pullrequest. 6 operations. Lead operation: List All Pullrequests. Self-contained Naftiko
+    capability covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - pullrequest
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-pullrequest
+    baseUri: https://api.unified.to
+    description: Unified.to  API — pullrequest business capability. Self-contained, no shared references.
+    resources:
+    - name: repo-connection_id-pullrequest
+      path: /repo/{connection_id}/pullrequest
+      operations:
+      - name: listrepopullrequests
+        method: GET
+        description: List All Pullrequests
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: repo_id
+          in: query
+          type: string
+          description: The repo ID to filter by (reference to RepoRepository)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createrepopullrequest
+        method: POST
+        description: Create a Pullrequest
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: repo-connection_id-pullrequest-id
+      path: /repo/{connection_id}/pullrequest/{id}
+      operations:
+      - name: removerepopullrequest
+        method: DELETE
+        description: Remove a Pullrequest
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Pullrequest
+          required: true
+      - name: getrepopullrequest
+        method: GET
+        description: Retrieve a Pullrequest
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Pullrequest
+          required: true
+      - name: patchrepopullrequest
+        method: PATCH
+        description: Update a Pullrequest
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Pullrequest
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updaterepopullrequest
+        method: PUT
+        description: Update a Pullrequest
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Pullrequest
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-pullrequest-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — pullrequest. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/repo/{connection-id}/pullrequest
+      name: repo-connection-id-pullrequest
+      description: REST surface for repo-connection_id-pullrequest.
+      operations:
+      - method: GET
+        name: listrepopullrequests
+        description: List All Pullrequests
+        call: full-pullrequest.listrepopullrequests
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          repo_id: rest.repo_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createrepopullrequest
+        description: Create a Pullrequest
+        call: full-pullrequest.createrepopullrequest
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repo/{connection-id}/pullrequest/{id}
+      name: repo-connection-id-pullrequest-id
+      description: REST surface for repo-connection_id-pullrequest-id.
+      operations:
+      - method: DELETE
+        name: removerepopullrequest
+        description: Remove a Pullrequest
+        call: full-pullrequest.removerepopullrequest
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getrepopullrequest
+        description: Retrieve a Pullrequest
+        call: full-pullrequest.getrepopullrequest
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchrepopullrequest
+        description: Update a Pullrequest
+        call: full-pullrequest.patchrepopullrequest
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updaterepopullrequest
+        description: Update a Pullrequest
+        call: full-pullrequest.updaterepopullrequest
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-pullrequest-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — pullrequest. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-all-pullrequests
+      description: List All Pullrequests
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-pullrequest.listrepopullrequests
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        repo_id: tools.repo_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-pullrequest
+      description: Create a Pullrequest
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-pullrequest.createrepopullrequest
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-pullrequest
+      description: Remove a Pullrequest
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-pullrequest.removerepopullrequest
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-pullrequest
+      description: Retrieve a Pullrequest
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-pullrequest.getrepopullrequest
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-pullrequest
+      description: Update a Pullrequest
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-pullrequest.patchrepopullrequest
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-pullrequest-2
+      description: Update a Pullrequest
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-pullrequest.updaterepopullrequest
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

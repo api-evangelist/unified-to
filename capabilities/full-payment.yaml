@@ -1,0 +1,1942 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — payment
+  description: 'Unified.to  API — payment. 28 operations. Lead operation: List All Links. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - payment
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-payment
+    baseUri: https://api.unified.to
+    description: Unified.to  API — payment business capability. Self-contained, no shared references.
+    resources:
+    - name: payment-connection_id-link
+      path: /payment/{connection_id}/link
+      operations:
+      - name: listpaymentlinks
+        method: GET
+        description: List All Links
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: contact_id
+          in: query
+          type: string
+          description: The contact ID to filter by (reference to AccountingContact)
+        - name: payment_id
+          in: query
+          type: string
+          description: The payment ID to filter by (reference to PaymentPayment)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createpaymentlink
+        method: POST
+        description: Create a Link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: payment-connection_id-link-id
+      path: /payment/{connection_id}/link/{id}
+      operations:
+      - name: removepaymentlink
+        method: DELETE
+        description: Remove a Link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Link
+          required: true
+      - name: getpaymentlink
+        method: GET
+        description: Retrieve a Link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Link
+          required: true
+      - name: patchpaymentlink
+        method: PATCH
+        description: Update a Link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Link
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatepaymentlink
+        method: PUT
+        description: Update a Link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Link
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: payment-connection_id-payment
+      path: /payment/{connection_id}/payment
+      operations:
+      - name: listpaymentpayments
+        method: GET
+        description: List All Payments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: invoice_id
+          in: query
+          type: string
+          description: The invoice ID to filter by (reference to AccountingInvoice)
+        - name: contact_id
+          in: query
+          type: string
+          description: The contact ID to filter by (reference to AccountingContact)
+        - name: link_id
+          in: query
+          type: string
+          description: The link ID to filter by
+        - name: bill_id
+          in: query
+          type: string
+          description: The bill ID to filter by
+        - name: type
+          in: query
+          type: string
+          description: The type to filter by
+        - name: org_id
+          in: query
+          type: string
+          description: The org ID to filter by (reference to AccountingOrganization)
+        - name: start_gte
+          in: query
+          type: string
+          description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: end_lt
+          in: query
+          type: string
+          description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: listpaymentpayments
+        method: GET
+        description: List All Payments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: invoice_id
+          in: query
+          type: string
+          description: The invoice ID to filter by (reference to AccountingInvoice)
+        - name: contact_id
+          in: query
+          type: string
+          description: The contact ID to filter by (reference to AccountingContact)
+        - name: link_id
+          in: query
+          type: string
+          description: The link ID to filter by
+        - name: bill_id
+          in: query
+          type: string
+          description: The bill ID to filter by
+        - name: type
+          in: query
+          type: string
+          description: The type to filter by
+        - name: org_id
+          in: query
+          type: string
+          description: The org ID to filter by (reference to AccountingOrganization)
+        - name: start_gte
+          in: query
+          type: string
+          description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: end_lt
+          in: query
+          type: string
+          description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createpaymentpayment
+        method: POST
+        description: Create a Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: createpaymentpayment
+        method: POST
+        description: Create a Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: payment-connection_id-payment-id
+      path: /payment/{connection_id}/payment/{id}
+      operations:
+      - name: removepaymentpayment
+        method: DELETE
+        description: Remove a Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Payment
+          required: true
+      - name: removepaymentpayment
+        method: DELETE
+        description: Remove a Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Payment
+          required: true
+      - name: getpaymentpayment
+        method: GET
+        description: Retrieve a Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Payment
+          required: true
+      - name: getpaymentpayment
+        method: GET
+        description: Retrieve a Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Payment
+          required: true
+      - name: patchpaymentpayment
+        method: PATCH
+        description: Update a Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Payment
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: patchpaymentpayment
+        method: PATCH
+        description: Update a Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Payment
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatepaymentpayment
+        method: PUT
+        description: Update a Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Payment
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatepaymentpayment
+        method: PUT
+        description: Update a Payment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Payment
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: payment-connection_id-payout
+      path: /payment/{connection_id}/payout
+      operations:
+      - name: listpaymentpayouts
+        method: GET
+        description: List All Payouts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+    - name: payment-connection_id-payout-id
+      path: /payment/{connection_id}/payout/{id}
+      operations:
+      - name: getpaymentpayout
+        method: GET
+        description: Retrieve a Payout
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Payout
+          required: true
+    - name: payment-connection_id-refund
+      path: /payment/{connection_id}/refund
+      operations:
+      - name: listpaymentrefunds
+        method: GET
+        description: List All Refunds
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: payment_id
+          in: query
+          type: string
+          description: The payment ID to filter by (reference to PaymentPayment)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+    - name: payment-connection_id-refund-id
+      path: /payment/{connection_id}/refund/{id}
+      operations:
+      - name: getpaymentrefund
+        method: GET
+        description: Retrieve a Refund
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Refund
+          required: true
+    - name: payment-connection_id-subscription
+      path: /payment/{connection_id}/subscription
+      operations:
+      - name: listpaymentsubscriptions
+        method: GET
+        description: List All Subscriptions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: contact_id
+          in: query
+          type: string
+          description: The contact ID to filter by (reference to AccountingContact)
+        - name: start_gte
+          in: query
+          type: string
+          description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: end_lt
+          in: query
+          type: string
+          description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createpaymentsubscription
+        method: POST
+        description: Create a Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: payment-connection_id-subscription-id
+      path: /payment/{connection_id}/subscription/{id}
+      operations:
+      - name: removepaymentsubscription
+        method: DELETE
+        description: Remove a Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Subscription
+          required: true
+      - name: getpaymentsubscription
+        method: GET
+        description: Retrieve a Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Subscription
+          required: true
+      - name: patchpaymentsubscription
+        method: PATCH
+        description: Update a Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Subscription
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatepaymentsubscription
+        method: PUT
+        description: Update a Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Subscription
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-payment-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — payment. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/payment/{connection-id}/link
+      name: payment-connection-id-link
+      description: REST surface for payment-connection_id-link.
+      operations:
+      - method: GET
+        name: listpaymentlinks
+        description: List All Links
+        call: full-payment.listpaymentlinks
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          contact_id: rest.contact_id
+          payment_id: rest.payment_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpaymentlink
+        description: Create a Link
+        call: full-payment.createpaymentlink
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment/{connection-id}/link/{id}
+      name: payment-connection-id-link-id
+      description: REST surface for payment-connection_id-link-id.
+      operations:
+      - method: DELETE
+        name: removepaymentlink
+        description: Remove a Link
+        call: full-payment.removepaymentlink
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getpaymentlink
+        description: Retrieve a Link
+        call: full-payment.getpaymentlink
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchpaymentlink
+        description: Update a Link
+        call: full-payment.patchpaymentlink
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatepaymentlink
+        description: Update a Link
+        call: full-payment.updatepaymentlink
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment/{connection-id}/payment
+      name: payment-connection-id-payment
+      description: REST surface for payment-connection_id-payment.
+      operations:
+      - method: GET
+        name: listpaymentpayments
+        description: List All Payments
+        call: full-payment.listpaymentpayments
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          invoice_id: rest.invoice_id
+          contact_id: rest.contact_id
+          link_id: rest.link_id
+          bill_id: rest.bill_id
+          type: rest.type
+          org_id: rest.org_id
+          start_gte: rest.start_gte
+          end_lt: rest.end_lt
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listpaymentpayments
+        description: List All Payments
+        call: full-payment.listpaymentpayments
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          invoice_id: rest.invoice_id
+          contact_id: rest.contact_id
+          link_id: rest.link_id
+          bill_id: rest.bill_id
+          type: rest.type
+          org_id: rest.org_id
+          start_gte: rest.start_gte
+          end_lt: rest.end_lt
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpaymentpayment
+        description: Create a Payment
+        call: full-payment.createpaymentpayment
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpaymentpayment
+        description: Create a Payment
+        call: full-payment.createpaymentpayment
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment/{connection-id}/payment/{id}
+      name: payment-connection-id-payment-id
+      description: REST surface for payment-connection_id-payment-id.
+      operations:
+      - method: DELETE
+        name: removepaymentpayment
+        description: Remove a Payment
+        call: full-payment.removepaymentpayment
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: removepaymentpayment
+        description: Remove a Payment
+        call: full-payment.removepaymentpayment
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getpaymentpayment
+        description: Retrieve a Payment
+        call: full-payment.getpaymentpayment
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getpaymentpayment
+        description: Retrieve a Payment
+        call: full-payment.getpaymentpayment
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchpaymentpayment
+        description: Update a Payment
+        call: full-payment.patchpaymentpayment
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchpaymentpayment
+        description: Update a Payment
+        call: full-payment.patchpaymentpayment
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatepaymentpayment
+        description: Update a Payment
+        call: full-payment.updatepaymentpayment
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatepaymentpayment
+        description: Update a Payment
+        call: full-payment.updatepaymentpayment
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment/{connection-id}/payout
+      name: payment-connection-id-payout
+      description: REST surface for payment-connection_id-payout.
+      operations:
+      - method: GET
+        name: listpaymentpayouts
+        description: List All Payouts
+        call: full-payment.listpaymentpayouts
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment/{connection-id}/payout/{id}
+      name: payment-connection-id-payout-id
+      description: REST surface for payment-connection_id-payout-id.
+      operations:
+      - method: GET
+        name: getpaymentpayout
+        description: Retrieve a Payout
+        call: full-payment.getpaymentpayout
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment/{connection-id}/refund
+      name: payment-connection-id-refund
+      description: REST surface for payment-connection_id-refund.
+      operations:
+      - method: GET
+        name: listpaymentrefunds
+        description: List All Refunds
+        call: full-payment.listpaymentrefunds
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          payment_id: rest.payment_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment/{connection-id}/refund/{id}
+      name: payment-connection-id-refund-id
+      description: REST surface for payment-connection_id-refund-id.
+      operations:
+      - method: GET
+        name: getpaymentrefund
+        description: Retrieve a Refund
+        call: full-payment.getpaymentrefund
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment/{connection-id}/subscription
+      name: payment-connection-id-subscription
+      description: REST surface for payment-connection_id-subscription.
+      operations:
+      - method: GET
+        name: listpaymentsubscriptions
+        description: List All Subscriptions
+        call: full-payment.listpaymentsubscriptions
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          contact_id: rest.contact_id
+          start_gte: rest.start_gte
+          end_lt: rest.end_lt
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpaymentsubscription
+        description: Create a Subscription
+        call: full-payment.createpaymentsubscription
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment/{connection-id}/subscription/{id}
+      name: payment-connection-id-subscription-id
+      description: REST surface for payment-connection_id-subscription-id.
+      operations:
+      - method: DELETE
+        name: removepaymentsubscription
+        description: Remove a Subscription
+        call: full-payment.removepaymentsubscription
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getpaymentsubscription
+        description: Retrieve a Subscription
+        call: full-payment.getpaymentsubscription
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchpaymentsubscription
+        description: Update a Subscription
+        call: full-payment.patchpaymentsubscription
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatepaymentsubscription
+        description: Update a Subscription
+        call: full-payment.updatepaymentsubscription
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-payment-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — payment. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-links
+      description: List All Links
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-payment.listpaymentlinks
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        contact_id: tools.contact_id
+        payment_id: tools.payment_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-link
+      description: Create a Link
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-payment.createpaymentlink
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-link
+      description: Remove a Link
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-payment.removepaymentlink
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-link
+      description: Retrieve a Link
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-payment.getpaymentlink
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-link
+      description: Update a Link
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-payment.patchpaymentlink
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-link-2
+      description: Update a Link
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-payment.updatepaymentlink
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-payments
+      description: List All Payments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-payment.listpaymentpayments
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        invoice_id: tools.invoice_id
+        contact_id: tools.contact_id
+        link_id: tools.link_id
+        bill_id: tools.bill_id
+        type: tools.type
+        org_id: tools.org_id
+        start_gte: tools.start_gte
+        end_lt: tools.end_lt
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-payments-2
+      description: List All Payments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-payment.listpaymentpayments
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        invoice_id: tools.invoice_id
+        contact_id: tools.contact_id
+        link_id: tools.link_id
+        bill_id: tools.bill_id
+        type: tools.type
+        org_id: tools.org_id
+        start_gte: tools.start_gte
+        end_lt: tools.end_lt
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-payment
+      description: Create a Payment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-payment.createpaymentpayment
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-payment-2
+      description: Create a Payment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-payment.createpaymentpayment
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-payment
+      description: Remove a Payment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-payment.removepaymentpayment
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-payment-2
+      description: Remove a Payment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-payment.removepaymentpayment
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-payment
+      description: Retrieve a Payment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-payment.getpaymentpayment
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-payment-2
+      description: Retrieve a Payment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-payment.getpaymentpayment
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-payment
+      description: Update a Payment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-payment.patchpaymentpayment
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-payment-2
+      description: Update a Payment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-payment.patchpaymentpayment
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-payment-3
+      description: Update a Payment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-payment.updatepaymentpayment
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-payment-4
+      description: Update a Payment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-payment.updatepaymentpayment
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-payouts
+      description: List All Payouts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-payment.listpaymentpayouts
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-payout
+      description: Retrieve a Payout
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-payment.getpaymentpayout
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-refunds
+      description: List All Refunds
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-payment.listpaymentrefunds
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        payment_id: tools.payment_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-refund
+      description: Retrieve a Refund
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-payment.getpaymentrefund
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-subscriptions
+      description: List All Subscriptions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-payment.listpaymentsubscriptions
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        contact_id: tools.contact_id
+        start_gte: tools.start_gte
+        end_lt: tools.end_lt
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-subscription
+      description: Create a Subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-payment.createpaymentsubscription
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-subscription
+      description: Remove a Subscription
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-payment.removepaymentsubscription
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-subscription
+      description: Retrieve a Subscription
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-payment.getpaymentsubscription
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-subscription
+      description: Update a Subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-payment.patchpaymentsubscription
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-subscription-2
+      description: Update a Subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-payment.updatepaymentsubscription
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

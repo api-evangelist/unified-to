@@ -1,0 +1,423 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — link
+  description: 'Unified.to  API — link. 6 operations. Lead operation: List all links. Self-contained Naftiko capability covering
+    one Unified To business surface.'
+  tags:
+  - Unified To
+  - link
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: it-ops-link
+    baseUri: https://api.unified.to
+    description: Unified.to  API — link business capability. Self-contained, no shared references.
+    resources:
+    - name: payment-connection_id-link
+      path: /payment/{connection_id}/link
+      operations:
+      - name: listpaymentlinks
+        method: GET
+        description: List all links
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: contact_id
+          in: query
+          type: string
+          description: The contact ID to filter by (reference to AccountingContact)
+        - name: payment_id
+          in: query
+          type: string
+          description: The payment ID to filter by (reference to PaymentPayment)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createpaymentlink
+        method: POST
+        description: Create a link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: payment-connection_id-link-id
+      path: /payment/{connection_id}/link/{id}
+      operations:
+      - name: removepaymentlink
+        method: DELETE
+        description: Remove a link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Link
+          required: true
+      - name: getpaymentlink
+        method: GET
+        description: Retrieve a link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Link
+          required: true
+      - name: patchpaymentlink
+        method: PATCH
+        description: Update a link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Link
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatepaymentlink
+        method: PUT
+        description: Update a link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Link
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: it-ops-link-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — link. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/payment/{connection-id}/link
+      name: payment-connection-id-link
+      description: REST surface for payment-connection_id-link.
+      operations:
+      - method: GET
+        name: listpaymentlinks
+        description: List all links
+        call: it-ops-link.listpaymentlinks
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          contact_id: rest.contact_id
+          payment_id: rest.payment_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpaymentlink
+        description: Create a link
+        call: it-ops-link.createpaymentlink
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment/{connection-id}/link/{id}
+      name: payment-connection-id-link-id
+      description: REST surface for payment-connection_id-link-id.
+      operations:
+      - method: DELETE
+        name: removepaymentlink
+        description: Remove a link
+        call: it-ops-link.removepaymentlink
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getpaymentlink
+        description: Retrieve a link
+        call: it-ops-link.getpaymentlink
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchpaymentlink
+        description: Update a link
+        call: it-ops-link.patchpaymentlink
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatepaymentlink
+        description: Update a link
+        call: it-ops-link.updatepaymentlink
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: it-ops-link-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — link. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-links
+      description: List all links
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: it-ops-link.listpaymentlinks
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        contact_id: tools.contact_id
+        payment_id: tools.payment_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-link
+      description: Create a link
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: it-ops-link.createpaymentlink
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-link
+      description: Remove a link
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: it-ops-link.removepaymentlink
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-link
+      description: Retrieve a link
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: it-ops-link.getpaymentlink
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-link
+      description: Update a link
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: it-ops-link.patchpaymentlink
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-link-2
+      description: Update a link
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: it-ops-link.updatepaymentlink
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

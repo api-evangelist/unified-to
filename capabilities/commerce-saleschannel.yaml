@@ -1,0 +1,411 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — saleschannel
+  description: 'Unified.to  API — saleschannel. 6 operations. Lead operation: List all saleschannels. Self-contained Naftiko
+    capability covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - saleschannel
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: commerce-saleschannel
+    baseUri: https://api.unified.to
+    description: Unified.to  API — saleschannel business capability. Self-contained, no shared references.
+    resources:
+    - name: commerce-connection_id-saleschannel
+      path: /commerce/{connection_id}/saleschannel
+      operations:
+      - name: listcommercesaleschannels
+        method: GET
+        description: List all saleschannels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createcommercesaleschannel
+        method: POST
+        description: Create a saleschannel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: commerce-connection_id-saleschannel-id
+      path: /commerce/{connection_id}/saleschannel/{id}
+      operations:
+      - name: removecommercesaleschannel
+        method: DELETE
+        description: Remove a saleschannel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Saleschannel
+          required: true
+      - name: getcommercesaleschannel
+        method: GET
+        description: Retrieve a saleschannel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Saleschannel
+          required: true
+      - name: patchcommercesaleschannel
+        method: PATCH
+        description: Update a saleschannel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Saleschannel
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatecommercesaleschannel
+        method: PUT
+        description: Update a saleschannel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Saleschannel
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: commerce-saleschannel-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — saleschannel. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/commerce/{connection-id}/saleschannel
+      name: commerce-connection-id-saleschannel
+      description: REST surface for commerce-connection_id-saleschannel.
+      operations:
+      - method: GET
+        name: listcommercesaleschannels
+        description: List all saleschannels
+        call: commerce-saleschannel.listcommercesaleschannels
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcommercesaleschannel
+        description: Create a saleschannel
+        call: commerce-saleschannel.createcommercesaleschannel
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/commerce/{connection-id}/saleschannel/{id}
+      name: commerce-connection-id-saleschannel-id
+      description: REST surface for commerce-connection_id-saleschannel-id.
+      operations:
+      - method: DELETE
+        name: removecommercesaleschannel
+        description: Remove a saleschannel
+        call: commerce-saleschannel.removecommercesaleschannel
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getcommercesaleschannel
+        description: Retrieve a saleschannel
+        call: commerce-saleschannel.getcommercesaleschannel
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchcommercesaleschannel
+        description: Update a saleschannel
+        call: commerce-saleschannel.patchcommercesaleschannel
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecommercesaleschannel
+        description: Update a saleschannel
+        call: commerce-saleschannel.updatecommercesaleschannel
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: commerce-saleschannel-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — saleschannel. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-all-saleschannels
+      description: List all saleschannels
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: commerce-saleschannel.listcommercesaleschannels
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-saleschannel
+      description: Create a saleschannel
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: commerce-saleschannel.createcommercesaleschannel
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-saleschannel
+      description: Remove a saleschannel
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: commerce-saleschannel.removecommercesaleschannel
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-saleschannel
+      description: Retrieve a saleschannel
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: commerce-saleschannel.getcommercesaleschannel
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-saleschannel
+      description: Update a saleschannel
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: commerce-saleschannel.patchcommercesaleschannel
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-saleschannel-2
+      description: Update a saleschannel
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: commerce-saleschannel.updatecommercesaleschannel
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

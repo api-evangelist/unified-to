@@ -1,0 +1,119 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — login
+  description: 'Unified.to  API — login. 1 operations. Lead operation: Sign in a User. Self-contained Naftiko capability covering
+    one Unified To business surface.'
+  tags:
+  - Unified To
+  - login
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-login
+    baseUri: https://api.unified.to
+    description: Unified.to  API — login business capability. Self-contained, no shared references.
+    resources:
+    - name: unified-integration-login-workspace_id-integration_type
+      path: /unified/integration/login/{workspace_id}/{integration_type}
+      operations:
+      - name: getunifiedintegrationlogin
+        method: GET
+        description: Sign in a User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: success_redirect
+          in: query
+          type: string
+          description: The URL where you want the user to be redirect to after a successful authentication/sign-in.  A "jwt"
+            parameter will be appended to the URL which will contain a
+        - name: failure_redirect
+          in: query
+          type: string
+          description: The URL where you want the user to be redirect to after an unsuccessful authentication. An "error"
+            variable will be appended.
+        - name: state
+          in: query
+          type: string
+          description: Extra state to send back to your success URL
+        - name: redirect
+          in: query
+          type: boolean
+        - name: env
+          in: query
+          type: string
+        - name: workspace_id
+          in: path
+          type: string
+          description: The ID of the workspace
+          required: true
+        - name: integration_type
+          in: path
+          type: string
+          description: Type of the supported integration
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-login-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — login. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/unified/integration/login/{workspace-id}/{integration-type}
+      name: unified-integration-login-workspace-id-integration-type
+      description: REST surface for unified-integration-login-workspace_id-integration_type.
+      operations:
+      - method: GET
+        name: getunifiedintegrationlogin
+        description: Sign in a User
+        call: full-login.getunifiedintegrationlogin
+        with:
+          success_redirect: rest.success_redirect
+          failure_redirect: rest.failure_redirect
+          state: rest.state
+          redirect: rest.redirect
+          env: rest.env
+          workspace_id: rest.workspace_id
+          integration_type: rest.integration_type
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-login-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — login. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: sign-user
+      description: Sign in a User
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-login.getunifiedintegrationlogin
+      with:
+        success_redirect: tools.success_redirect
+        failure_redirect: tools.failure_redirect
+        state: tools.state
+        redirect: tools.redirect
+        env: tools.env
+        workspace_id: tools.workspace_id
+        integration_type: tools.integration_type
+      outputParameters:
+      - type: object
+        mapping: $.

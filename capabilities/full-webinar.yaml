@@ -1,0 +1,429 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — webinar
+  description: 'Unified.to  API — webinar. 6 operations. Lead operation: List All Webinars. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - webinar
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-webinar
+    baseUri: https://api.unified.to
+    description: Unified.to  API — webinar business capability. Self-contained, no shared references.
+    resources:
+    - name: calendar-connection_id-webinar
+      path: /calendar/{connection_id}/webinar
+      operations:
+      - name: listcalendarwebinars
+        method: GET
+        description: List All Webinars
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: start_gte
+          in: query
+          type: string
+          description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: end_lt
+          in: query
+          type: string
+          description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: user_id
+          in: query
+          type: string
+          description: The user/employee ID to filter by (reference to HrisEmployee)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createcalendarwebinar
+        method: POST
+        description: Create a Webinar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: calendar-connection_id-webinar-id
+      path: /calendar/{connection_id}/webinar/{id}
+      operations:
+      - name: removecalendarwebinar
+        method: DELETE
+        description: Remove a Webinar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Webinar
+          required: true
+      - name: getcalendarwebinar
+        method: GET
+        description: Retrieve a Webinar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Webinar
+          required: true
+      - name: patchcalendarwebinar
+        method: PATCH
+        description: Update a Webinar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Webinar
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatecalendarwebinar
+        method: PUT
+        description: Update a Webinar
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Webinar
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-webinar-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — webinar. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/calendar/{connection-id}/webinar
+      name: calendar-connection-id-webinar
+      description: REST surface for calendar-connection_id-webinar.
+      operations:
+      - method: GET
+        name: listcalendarwebinars
+        description: List All Webinars
+        call: full-webinar.listcalendarwebinars
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          start_gte: rest.start_gte
+          end_lt: rest.end_lt
+          user_id: rest.user_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcalendarwebinar
+        description: Create a Webinar
+        call: full-webinar.createcalendarwebinar
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/calendar/{connection-id}/webinar/{id}
+      name: calendar-connection-id-webinar-id
+      description: REST surface for calendar-connection_id-webinar-id.
+      operations:
+      - method: DELETE
+        name: removecalendarwebinar
+        description: Remove a Webinar
+        call: full-webinar.removecalendarwebinar
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getcalendarwebinar
+        description: Retrieve a Webinar
+        call: full-webinar.getcalendarwebinar
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchcalendarwebinar
+        description: Update a Webinar
+        call: full-webinar.patchcalendarwebinar
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecalendarwebinar
+        description: Update a Webinar
+        call: full-webinar.updatecalendarwebinar
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-webinar-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — webinar. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-webinars
+      description: List All Webinars
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-webinar.listcalendarwebinars
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        start_gte: tools.start_gte
+        end_lt: tools.end_lt
+        user_id: tools.user_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-webinar
+      description: Create a Webinar
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-webinar.createcalendarwebinar
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-webinar
+      description: Remove a Webinar
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-webinar.removecalendarwebinar
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-webinar
+      description: Retrieve a Webinar
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-webinar.getcalendarwebinar
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-webinar
+      description: Update a Webinar
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-webinar.patchcalendarwebinar
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-webinar-2
+      description: Update a Webinar
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-webinar.updatecalendarwebinar
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

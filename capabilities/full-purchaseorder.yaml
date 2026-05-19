@@ -1,0 +1,423 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — purchaseorder
+  description: 'Unified.to  API — purchaseorder. 6 operations. Lead operation: List All Purchaseorders. Self-contained Naftiko
+    capability covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - purchaseorder
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-purchaseorder
+    baseUri: https://api.unified.to
+    description: Unified.to  API — purchaseorder business capability. Self-contained, no shared references.
+    resources:
+    - name: accounting-connection_id-purchaseorder
+      path: /accounting/{connection_id}/purchaseorder
+      operations:
+      - name: listaccountingpurchaseorders
+        method: GET
+        description: List All Purchaseorders
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: contact_id
+          in: query
+          type: string
+          description: The contact ID to filter by (reference to AccountingContact)
+        - name: org_id
+          in: query
+          type: string
+          description: The org ID to filter by (reference to AccountingOrganization)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createaccountingpurchaseorder
+        method: POST
+        description: Create a Purchaseorder
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: accounting-connection_id-purchaseorder-id
+      path: /accounting/{connection_id}/purchaseorder/{id}
+      operations:
+      - name: removeaccountingpurchaseorder
+        method: DELETE
+        description: Remove a Purchaseorder
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Purchaseorder
+          required: true
+      - name: getaccountingpurchaseorder
+        method: GET
+        description: Retrieve a Purchaseorder
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Purchaseorder
+          required: true
+      - name: patchaccountingpurchaseorder
+        method: PATCH
+        description: Update a Purchaseorder
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Purchaseorder
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateaccountingpurchaseorder
+        method: PUT
+        description: Update a Purchaseorder
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Purchaseorder
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-purchaseorder-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — purchaseorder. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/accounting/{connection-id}/purchaseorder
+      name: accounting-connection-id-purchaseorder
+      description: REST surface for accounting-connection_id-purchaseorder.
+      operations:
+      - method: GET
+        name: listaccountingpurchaseorders
+        description: List All Purchaseorders
+        call: full-purchaseorder.listaccountingpurchaseorders
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          contact_id: rest.contact_id
+          org_id: rest.org_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createaccountingpurchaseorder
+        description: Create a Purchaseorder
+        call: full-purchaseorder.createaccountingpurchaseorder
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounting/{connection-id}/purchaseorder/{id}
+      name: accounting-connection-id-purchaseorder-id
+      description: REST surface for accounting-connection_id-purchaseorder-id.
+      operations:
+      - method: DELETE
+        name: removeaccountingpurchaseorder
+        description: Remove a Purchaseorder
+        call: full-purchaseorder.removeaccountingpurchaseorder
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getaccountingpurchaseorder
+        description: Retrieve a Purchaseorder
+        call: full-purchaseorder.getaccountingpurchaseorder
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchaccountingpurchaseorder
+        description: Update a Purchaseorder
+        call: full-purchaseorder.patchaccountingpurchaseorder
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateaccountingpurchaseorder
+        description: Update a Purchaseorder
+        call: full-purchaseorder.updateaccountingpurchaseorder
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-purchaseorder-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — purchaseorder. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-all-purchaseorders
+      description: List All Purchaseorders
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-purchaseorder.listaccountingpurchaseorders
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        contact_id: tools.contact_id
+        org_id: tools.org_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-purchaseorder
+      description: Create a Purchaseorder
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-purchaseorder.createaccountingpurchaseorder
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-purchaseorder
+      description: Remove a Purchaseorder
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-purchaseorder.removeaccountingpurchaseorder
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-purchaseorder
+      description: Retrieve a Purchaseorder
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-purchaseorder.getaccountingpurchaseorder
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-purchaseorder
+      description: Update a Purchaseorder
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-purchaseorder.patchaccountingpurchaseorder
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-purchaseorder-2
+      description: Update a Purchaseorder
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-purchaseorder.updateaccountingpurchaseorder
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

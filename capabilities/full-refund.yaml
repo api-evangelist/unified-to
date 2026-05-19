@@ -1,0 +1,196 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — refund
+  description: 'Unified.to  API — refund. 2 operations. Lead operation: List All Refunds. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - refund
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-refund
+    baseUri: https://api.unified.to
+    description: Unified.to  API — refund business capability. Self-contained, no shared references.
+    resources:
+    - name: payment-connection_id-refund
+      path: /payment/{connection_id}/refund
+      operations:
+      - name: listpaymentrefunds
+        method: GET
+        description: List All Refunds
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: payment_id
+          in: query
+          type: string
+          description: The payment ID to filter by (reference to PaymentPayment)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+    - name: payment-connection_id-refund-id
+      path: /payment/{connection_id}/refund/{id}
+      operations:
+      - name: getpaymentrefund
+        method: GET
+        description: Retrieve a Refund
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Refund
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-refund-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — refund. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/payment/{connection-id}/refund
+      name: payment-connection-id-refund
+      description: REST surface for payment-connection_id-refund.
+      operations:
+      - method: GET
+        name: listpaymentrefunds
+        description: List All Refunds
+        call: full-refund.listpaymentrefunds
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          payment_id: rest.payment_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment/{connection-id}/refund/{id}
+      name: payment-connection-id-refund-id
+      description: REST surface for payment-connection_id-refund-id.
+      operations:
+      - method: GET
+        name: getpaymentrefund
+        description: Retrieve a Refund
+        call: full-refund.getpaymentrefund
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-refund-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — refund. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-refunds
+      description: List All Refunds
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-refund.listpaymentrefunds
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        payment_id: tools.payment_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-refund
+      description: Retrieve a Refund
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-refund.getpaymentrefund
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

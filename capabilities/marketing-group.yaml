@@ -1,0 +1,447 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — group
+  description: 'Unified.to  API — group. 6 operations. Lead operation: List all groups. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - group
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketing-group
+    baseUri: https://api.unified.to
+    description: Unified.to  API — group business capability. Self-contained, no shared references.
+    resources:
+    - name: ads-connection_id-group
+      path: /ads/{connection_id}/group
+      operations:
+      - name: listadsgroups
+        method: GET
+        description: List all groups
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: org_id
+          in: query
+          type: string
+          description: The org ID to filter by (reference to AdsOrganization)
+        - name: campaign_id
+          in: query
+          type: string
+          description: The campaign ID to filter by
+        - name: parent_id
+          in: query
+          type: string
+          description: The parent ID to filter by
+        - name: io_id
+          in: query
+          type: string
+          description: The IO ID to filter by
+        - name: start_gte
+          in: query
+          type: string
+          description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: end_lt
+          in: query
+          type: string
+          description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createadsgroup
+        method: POST
+        description: Create a group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: ads-connection_id-group-id
+      path: /ads/{connection_id}/group/{id}
+      operations:
+      - name: removeadsgroup
+        method: DELETE
+        description: Remove a group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Group
+          required: true
+      - name: getadsgroup
+        method: GET
+        description: Retrieve a group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Group
+          required: true
+      - name: patchadsgroup
+        method: PATCH
+        description: Update a group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Group
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateadsgroup
+        method: PUT
+        description: Update a group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Group
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: marketing-group-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — group. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/ads/{connection-id}/group
+      name: ads-connection-id-group
+      description: REST surface for ads-connection_id-group.
+      operations:
+      - method: GET
+        name: listadsgroups
+        description: List all groups
+        call: marketing-group.listadsgroups
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          org_id: rest.org_id
+          campaign_id: rest.campaign_id
+          parent_id: rest.parent_id
+          io_id: rest.io_id
+          start_gte: rest.start_gte
+          end_lt: rest.end_lt
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createadsgroup
+        description: Create a group
+        call: marketing-group.createadsgroup
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ads/{connection-id}/group/{id}
+      name: ads-connection-id-group-id
+      description: REST surface for ads-connection_id-group-id.
+      operations:
+      - method: DELETE
+        name: removeadsgroup
+        description: Remove a group
+        call: marketing-group.removeadsgroup
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getadsgroup
+        description: Retrieve a group
+        call: marketing-group.getadsgroup
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchadsgroup
+        description: Update a group
+        call: marketing-group.patchadsgroup
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateadsgroup
+        description: Update a group
+        call: marketing-group.updateadsgroup
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketing-group-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — group. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-groups
+      description: List all groups
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-group.listadsgroups
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        org_id: tools.org_id
+        campaign_id: tools.campaign_id
+        parent_id: tools.parent_id
+        io_id: tools.io_id
+        start_gte: tools.start_gte
+        end_lt: tools.end_lt
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-group
+      description: Create a group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: marketing-group.createadsgroup
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-group
+      description: Remove a group
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: marketing-group.removeadsgroup
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-group
+      description: Retrieve a group
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketing-group.getadsgroup
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-group
+      description: Update a group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: marketing-group.patchadsgroup
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-group-2
+      description: Update a group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: marketing-group.updateadsgroup
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

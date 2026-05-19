@@ -1,0 +1,102 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — tracking
+  description: 'Unified.to  API — tracking. 1 operations. Lead operation: Retrieve a Tracking. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - tracking
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-tracking
+    baseUri: https://api.unified.to
+    description: Unified.to  API — tracking business capability. Self-contained, no shared references.
+    resources:
+    - name: shipping-connection_id-tracking-id
+      path: /shipping/{connection_id}/tracking/{id}
+      operations:
+      - name: getshippingtracking
+        method: GET
+        description: Retrieve a Tracking
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Tracking
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-tracking-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — tracking. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/shipping/{connection-id}/tracking/{id}
+      name: shipping-connection-id-tracking-id
+      description: REST surface for shipping-connection_id-tracking-id.
+      operations:
+      - method: GET
+        name: getshippingtracking
+        description: Retrieve a Tracking
+        call: full-tracking.getshippingtracking
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-tracking-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — tracking. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: retrieve-tracking
+      description: Retrieve a Tracking
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-tracking.getshippingtracking
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

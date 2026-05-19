@@ -1,0 +1,441 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — recording
+  description: 'Unified.to  API — recording. 6 operations. Lead operation: List all recordings. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - recording
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: it-ops-recording
+    baseUri: https://api.unified.to
+    description: Unified.to  API — recording business capability. Self-contained, no shared references.
+    resources:
+    - name: uc-connection_id-recording
+      path: /uc/{connection_id}/recording
+      operations:
+      - name: listucrecordings
+        method: GET
+        description: List all recordings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: user_id
+          in: query
+          type: string
+          description: The user/employee ID to filter by (reference to HrisEmployee)
+        - name: call_id
+          in: query
+          type: string
+          description: The call ID to filter by
+        - name: start_gte
+          in: query
+          type: string
+          description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: end_lt
+          in: query
+          type: string
+          description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        - name: contact_id
+          in: query
+          type: string
+          description: The contact ID to filter by (reference to UcContact)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createucrecording
+        method: POST
+        description: Create a recording
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: uc-connection_id-recording-id
+      path: /uc/{connection_id}/recording/{id}
+      operations:
+      - name: removeucrecording
+        method: DELETE
+        description: Remove a recording
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Recording
+          required: true
+      - name: getucrecording
+        method: GET
+        description: Retrieve a recording
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Recording
+          required: true
+      - name: patchucrecording
+        method: PATCH
+        description: Update a recording
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Recording
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateucrecording
+        method: PUT
+        description: Update a recording
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Recording
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: it-ops-recording-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — recording. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/uc/{connection-id}/recording
+      name: uc-connection-id-recording
+      description: REST surface for uc-connection_id-recording.
+      operations:
+      - method: GET
+        name: listucrecordings
+        description: List all recordings
+        call: it-ops-recording.listucrecordings
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          user_id: rest.user_id
+          call_id: rest.call_id
+          start_gte: rest.start_gte
+          end_lt: rest.end_lt
+          contact_id: rest.contact_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createucrecording
+        description: Create a recording
+        call: it-ops-recording.createucrecording
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/uc/{connection-id}/recording/{id}
+      name: uc-connection-id-recording-id
+      description: REST surface for uc-connection_id-recording-id.
+      operations:
+      - method: DELETE
+        name: removeucrecording
+        description: Remove a recording
+        call: it-ops-recording.removeucrecording
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getucrecording
+        description: Retrieve a recording
+        call: it-ops-recording.getucrecording
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchucrecording
+        description: Update a recording
+        call: it-ops-recording.patchucrecording
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateucrecording
+        description: Update a recording
+        call: it-ops-recording.updateucrecording
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: it-ops-recording-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — recording. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-all-recordings
+      description: List all recordings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: it-ops-recording.listucrecordings
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        user_id: tools.user_id
+        call_id: tools.call_id
+        start_gte: tools.start_gte
+        end_lt: tools.end_lt
+        contact_id: tools.contact_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-recording
+      description: Create a recording
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: it-ops-recording.createucrecording
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-recording
+      description: Remove a recording
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: it-ops-recording.removeucrecording
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-recording
+      description: Retrieve a recording
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: it-ops-recording.getucrecording
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-recording
+      description: Update a recording
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: it-ops-recording.patchucrecording
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-recording-2
+      description: Update a recording
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: it-ops-recording.updateucrecording
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

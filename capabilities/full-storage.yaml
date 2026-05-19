@@ -1,0 +1,441 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — storage
+  description: 'Unified.to  API — storage. 6 operations. Lead operation: List All Files. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - storage
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-storage
+    baseUri: https://api.unified.to
+    description: Unified.to  API — storage business capability. Self-contained, no shared references.
+    resources:
+    - name: storage-connection_id-file
+      path: /storage/{connection_id}/file
+      operations:
+      - name: liststoragefiles
+        method: GET
+        description: List All Files
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: parent_id
+          in: query
+          type: string
+          description: The parent ID to filter by
+        - name: reference
+          in: query
+          type: string
+          description: The referenced entity ID to filter by (e.g. linked accounting record for storage_file)
+        - name: type
+          in: query
+          type: string
+          description: The type to filter by
+        - name: expand
+          in: query
+          type: boolean
+          description: Whether to flatten grouped or recurring items into individual entries.
+        - name: fulltext
+          in: query
+          type: string
+          description: The fulltext to filter by
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createstoragefile
+        method: POST
+        description: Create a File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: storage-connection_id-file-id
+      path: /storage/{connection_id}/file/{id}
+      operations:
+      - name: removestoragefile
+        method: DELETE
+        description: Remove a File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the File
+          required: true
+      - name: getstoragefile
+        method: GET
+        description: Retrieve a File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the File
+          required: true
+      - name: patchstoragefile
+        method: PATCH
+        description: Update a File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the File
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatestoragefile
+        method: PUT
+        description: Update a File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the File
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-storage-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — storage. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/storage/{connection-id}/file
+      name: storage-connection-id-file
+      description: REST surface for storage-connection_id-file.
+      operations:
+      - method: GET
+        name: liststoragefiles
+        description: List All Files
+        call: full-storage.liststoragefiles
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          parent_id: rest.parent_id
+          reference: rest.reference
+          type: rest.type
+          expand: rest.expand
+          fulltext: rest.fulltext
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createstoragefile
+        description: Create a File
+        call: full-storage.createstoragefile
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/storage/{connection-id}/file/{id}
+      name: storage-connection-id-file-id
+      description: REST surface for storage-connection_id-file-id.
+      operations:
+      - method: DELETE
+        name: removestoragefile
+        description: Remove a File
+        call: full-storage.removestoragefile
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getstoragefile
+        description: Retrieve a File
+        call: full-storage.getstoragefile
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchstoragefile
+        description: Update a File
+        call: full-storage.patchstoragefile
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatestoragefile
+        description: Update a File
+        call: full-storage.updatestoragefile
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-storage-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — storage. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-files
+      description: List All Files
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-storage.liststoragefiles
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        parent_id: tools.parent_id
+        reference: tools.reference
+        type: tools.type
+        expand: tools.expand
+        fulltext: tools.fulltext
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-file
+      description: Create a File
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-storage.createstoragefile
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-file
+      description: Remove a File
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-storage.removestoragefile
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-file
+      description: Retrieve a File
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-storage.getstoragefile
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-file
+      description: Update a File
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-storage.patchstoragefile
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-file-2
+      description: Update a File
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-storage.updatestoragefile
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

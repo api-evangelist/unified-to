@@ -1,0 +1,190 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — payout
+  description: 'Unified.to  API — payout. 2 operations. Lead operation: List All Payouts. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - payout
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-payout
+    baseUri: https://api.unified.to
+    description: Unified.to  API — payout business capability. Self-contained, no shared references.
+    resources:
+    - name: payment-connection_id-payout
+      path: /payment/{connection_id}/payout
+      operations:
+      - name: listpaymentpayouts
+        method: GET
+        description: List All Payouts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+    - name: payment-connection_id-payout-id
+      path: /payment/{connection_id}/payout/{id}
+      operations:
+      - name: getpaymentpayout
+        method: GET
+        description: Retrieve a Payout
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Payout
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-payout-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — payout. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/payment/{connection-id}/payout
+      name: payment-connection-id-payout
+      description: REST surface for payment-connection_id-payout.
+      operations:
+      - method: GET
+        name: listpaymentpayouts
+        description: List All Payouts
+        call: full-payout.listpaymentpayouts
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment/{connection-id}/payout/{id}
+      name: payment-connection-id-payout-id
+      description: REST surface for payment-connection_id-payout-id.
+      operations:
+      - method: GET
+        name: getpaymentpayout
+        description: Retrieve a Payout
+        call: full-payout.getpaymentpayout
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-payout-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — payout. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-payouts
+      description: List All Payouts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-payout.listpaymentpayouts
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-payout
+      description: Retrieve a Payout
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-payout.getpaymentpayout
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

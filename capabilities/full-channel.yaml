@@ -1,0 +1,201 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — channel
+  description: 'Unified.to  API — channel. 2 operations. Lead operation: List All Channels. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - channel
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-channel
+    baseUri: https://api.unified.to
+    description: Unified.to  API — channel business capability. Self-contained, no shared references.
+    resources:
+    - name: messaging-connection_id-channel
+      path: /messaging/{connection_id}/channel
+      operations:
+      - name: listmessagingchannels
+        method: GET
+        description: List All Channels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: parent_id
+          in: query
+          type: string
+          description: The parent ID to filter by
+        - name: type
+          in: query
+          type: string
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+    - name: messaging-connection_id-channel-id
+      path: /messaging/{connection_id}/channel/{id}
+      operations:
+      - name: getmessagingchannel
+        method: GET
+        description: Retrieve a Channel
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Channel
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-channel-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — channel. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/messaging/{connection-id}/channel
+      name: messaging-connection-id-channel
+      description: REST surface for messaging-connection_id-channel.
+      operations:
+      - method: GET
+        name: listmessagingchannels
+        description: List All Channels
+        call: full-channel.listmessagingchannels
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          parent_id: rest.parent_id
+          type: rest.type
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/messaging/{connection-id}/channel/{id}
+      name: messaging-connection-id-channel-id
+      description: REST surface for messaging-connection_id-channel-id.
+      operations:
+      - method: GET
+        name: getmessagingchannel
+        description: Retrieve a Channel
+        call: full-channel.getmessagingchannel
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-channel-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — channel. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-channels
+      description: List All Channels
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-channel.listmessagingchannels
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        parent_id: tools.parent_id
+        type: tools.type
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-channel
+      description: Retrieve a Channel
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-channel.getmessagingchannel
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

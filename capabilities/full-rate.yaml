@@ -1,0 +1,102 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — rate
+  description: 'Unified.to  API — rate. 1 operations. Lead operation: Create a Rate. Self-contained Naftiko capability covering
+    one Unified To business surface.'
+  tags:
+  - Unified To
+  - rate
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-rate
+    baseUri: https://api.unified.to
+    description: Unified.to  API — rate business capability. Self-contained, no shared references.
+    resources:
+    - name: shipping-connection_id-rate
+      path: /shipping/{connection_id}/rate
+      operations:
+      - name: createshippingrate
+        method: POST
+        description: Create a Rate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-rate-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — rate. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/shipping/{connection-id}/rate
+      name: shipping-connection-id-rate
+      description: REST surface for shipping-connection_id-rate.
+      operations:
+      - method: POST
+        name: createshippingrate
+        description: Create a Rate
+        call: full-rate.createshippingrate
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-rate-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — rate. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-rate
+      description: Create a Rate
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-rate.createshippingrate
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

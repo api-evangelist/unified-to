@@ -1,0 +1,1308 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — unified
+  description: 'Unified.to  API — unified. 24 operations. Lead operation: Returns Api Calls. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - unified
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-unified
+    baseUri: https://api.unified.to
+    description: Unified.to  API — unified business capability. Self-contained, no shared references.
+    resources:
+    - name: unified-apicall
+      path: /unified/apicall
+      operations:
+      - name: listunifiedapicalls
+        method: GET
+        description: Returns Api Calls
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: external_xref
+          in: query
+          type: string
+          description: Filter the results to only those integrations for your user referenced by this value
+        - name: integration_type
+          in: query
+          type: string
+          description: Filter the results to just this integration
+        - name: error
+          in: query
+          type: boolean
+          description: Filter the results for API Calls with errors
+        - name: connection_id
+          in: query
+          type: string
+          description: Filter the results to just this integration
+        - name: env
+          in: query
+          type: string
+        - name: webhook_id
+          in: query
+          type: string
+          description: Filter the results to just this webhook
+        - name: type
+          in: query
+          type: string
+          description: Filter the results to just this type
+        - name: is_billable
+          in: query
+          type: boolean
+          description: Filter the results for only billable API Calls
+    - name: unified-apicall-id
+      path: /unified/apicall/{id}
+      operations:
+      - name: getunifiedapicall
+        method: GET
+        description: Retrieve Specific Api Call by Its Id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the Apicall
+          required: true
+    - name: unified-connection
+      path: /unified/connection
+      operations:
+      - name: listunifiedconnections
+        method: GET
+        description: List All Connections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: external_xref
+          in: query
+          type: string
+          description: Filter the results to only those integrations for your user referenced by this value
+        - name: categories
+          in: query
+          type: array
+          description: Filter the results on these categories
+        - name: env
+          in: query
+          type: string
+      - name: createunifiedconnection
+        method: POST
+        description: Create Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: unified-connection-id
+      path: /unified/connection/{id}
+      operations:
+      - name: removeunifiedconnection
+        method: DELETE
+        description: Remove Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the Connection
+          required: true
+      - name: getunifiedconnection
+        method: GET
+        description: Retrieve Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the Connection
+          required: true
+      - name: patchunifiedconnection
+        method: PATCH
+        description: Update Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the Connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateunifiedconnection
+        method: PUT
+        description: Update Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the Connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: unified-environment
+      path: /unified/environment
+      operations:
+      - name: listunifiedenvironments
+        method: GET
+        description: Returns All Environments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createunifiedenvironment
+        method: POST
+        description: Create New Environments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: unified-environment-env
+      path: /unified/environment/{env}
+      operations:
+      - name: removeunifiedenvironment
+        method: DELETE
+        description: Remove an Environment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: env
+          in: path
+          type: string
+          required: true
+    - name: unified-integration
+      path: /unified/integration
+      operations:
+      - name: listunifiedintegrations
+        method: GET
+        description: Returns All Integrations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+        - name: categories
+          in: query
+          type: array
+          description: Filter the results on these categories
+        - name: summary
+          in: query
+          type: boolean
+        - name: active
+          in: query
+          type: boolean
+          description: Filter the results for only the workspace's active integrations
+        - name: env
+          in: query
+          type: string
+        - name: type
+          in: query
+          type: string
+          description: Filter the results for only this integration type
+    - name: unified-integration-auth-workspace_id-integration_type
+      path: /unified/integration/auth/{workspace_id}/{integration_type}
+      operations:
+      - name: getunifiedintegrationauth
+        method: GET
+        description: Authorize New Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: success_redirect
+          in: query
+          type: string
+          description: The URL where you want the user to be redirect to after a successful authorization.  The connection
+            ID will be appended with (id=<connectionId>) to this URL, as
+        - name: failure_redirect
+          in: query
+          type: string
+          description: The URL where you want the user to be redirect to after an unsuccessful authentication. An "error"
+            variable will be appended.
+        - name: state
+          in: query
+          type: string
+          description: Extra state to send back to your success URL
+        - name: external_xref
+          in: query
+          type: string
+          description: Your user identifier to associate with the new Integration
+        - name: scopes
+          in: query
+          type: array
+        - name: redirect
+          in: query
+          type: boolean
+        - name: env
+          in: query
+          type: string
+        - name: lang
+          in: query
+          type: string
+          description: 'Language: en, fr, es, it, pt, zh, hi'
+        - name: subdomain
+          in: query
+          type: string
+          description: Optional tenant domain or subdomain for integrations that require it to build the authorize, token,
+            or API URL. Depending on the integration, this may be a bare
+        - name: workspace_id
+          in: path
+          type: string
+          description: The ID of the workspace
+          required: true
+        - name: integration_type
+          in: path
+          type: string
+          description: Type of the supported integration
+          required: true
+    - name: unified-integration-workspace-workspace_id
+      path: /unified/integration/workspace/{workspace_id}
+      operations:
+      - name: listunifiedintegrationworkspaces
+        method: GET
+        description: Returns All Activated Integrations in a Workspace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+        - name: categories
+          in: query
+          type: array
+          description: Filter the results on these categories
+        - name: summary
+          in: query
+          type: boolean
+        - name: active
+          in: query
+          type: boolean
+          description: Filter the results for only the workspace's active integrations
+        - name: env
+          in: query
+          type: string
+        - name: workspace_id
+          in: path
+          type: string
+          description: The ID of the workspace
+          required: true
+    - name: unified-issue
+      path: /unified/issue
+      operations:
+      - name: listunifiedissues
+        method: GET
+        description: List Support Issues
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+    - name: unified-issue-id
+      path: /unified/issue/{id}
+      operations:
+      - name: getunifiedissue
+        method: GET
+        description: Retrieve Support Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the Issue
+          required: true
+    - name: unified-webhook
+      path: /unified/webhook
+      operations:
+      - name: listunifiedwebhooks
+        method: GET
+        description: Returns All Registered Webhooks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: object
+          in: query
+          type: string
+          description: Filter the results for webhooks for only this object
+        - name: integration_type
+          in: query
+          type: string
+          description: Filter the results to just this integration
+        - name: connection_id
+          in: query
+          type: string
+          description: Filter the results to just this integration
+        - name: created_lte
+          in: query
+          type: string
+          description: Return only results whose created date is equal or less to this value
+        - name: env
+          in: query
+          type: string
+      - name: createunifiedwebhook
+        method: POST
+        description: Create Webhook Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: include_all
+          in: query
+          type: boolean
+          description: When set, all of the existing data will sent back to your server.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: unified-webhook-id
+      path: /unified/webhook/{id}
+      operations:
+      - name: removeunifiedwebhook
+        method: DELETE
+        description: Remove Webhook Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the Webhook
+          required: true
+      - name: getunifiedwebhook
+        method: GET
+        description: Retrieve Webhook by Its Id
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the Webhook
+          required: true
+      - name: patchunifiedwebhook
+        method: PATCH
+        description: Update Webhook Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the Webhook
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updateunifiedwebhook
+        method: PUT
+        description: Update Webhook Subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the Webhook
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: unified-webhook-id-trigger
+      path: /unified/webhook/{id}/trigger
+      operations:
+      - name: patchunifiedwebhooktrigger
+        method: PATCH
+        description: Trigger Webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the Webhook
+          required: true
+      - name: updateunifiedwebhooktrigger
+        method: PUT
+        description: Trigger Webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: ID of the Webhook
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-unified-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — unified. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/unified/apicall
+      name: unified-apicall
+      description: REST surface for unified-apicall.
+      operations:
+      - method: GET
+        name: listunifiedapicalls
+        description: Returns Api Calls
+        call: full-unified.listunifiedapicalls
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          external_xref: rest.external_xref
+          integration_type: rest.integration_type
+          error: rest.error
+          connection_id: rest.connection_id
+          env: rest.env
+          webhook_id: rest.webhook_id
+          type: rest.type
+          is_billable: rest.is_billable
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/unified/apicall/{id}
+      name: unified-apicall-id
+      description: REST surface for unified-apicall-id.
+      operations:
+      - method: GET
+        name: getunifiedapicall
+        description: Retrieve Specific Api Call by Its Id
+        call: full-unified.getunifiedapicall
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/unified/connection
+      name: unified-connection
+      description: REST surface for unified-connection.
+      operations:
+      - method: GET
+        name: listunifiedconnections
+        description: List All Connections
+        call: full-unified.listunifiedconnections
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          external_xref: rest.external_xref
+          categories: rest.categories
+          env: rest.env
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createunifiedconnection
+        description: Create Connection
+        call: full-unified.createunifiedconnection
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/unified/connection/{id}
+      name: unified-connection-id
+      description: REST surface for unified-connection-id.
+      operations:
+      - method: DELETE
+        name: removeunifiedconnection
+        description: Remove Connection
+        call: full-unified.removeunifiedconnection
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getunifiedconnection
+        description: Retrieve Connection
+        call: full-unified.getunifiedconnection
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchunifiedconnection
+        description: Update Connection
+        call: full-unified.patchunifiedconnection
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateunifiedconnection
+        description: Update Connection
+        call: full-unified.updateunifiedconnection
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/unified/environment
+      name: unified-environment
+      description: REST surface for unified-environment.
+      operations:
+      - method: GET
+        name: listunifiedenvironments
+        description: Returns All Environments
+        call: full-unified.listunifiedenvironments
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createunifiedenvironment
+        description: Create New Environments
+        call: full-unified.createunifiedenvironment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/unified/environment/{env}
+      name: unified-environment-env
+      description: REST surface for unified-environment-env.
+      operations:
+      - method: DELETE
+        name: removeunifiedenvironment
+        description: Remove an Environment
+        call: full-unified.removeunifiedenvironment
+        with:
+          env: rest.env
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/unified/integration
+      name: unified-integration
+      description: REST surface for unified-integration.
+      operations:
+      - method: GET
+        name: listunifiedintegrations
+        description: Returns All Integrations
+        call: full-unified.listunifiedintegrations
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          categories: rest.categories
+          summary: rest.summary
+          active: rest.active
+          env: rest.env
+          type: rest.type
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/unified/integration/auth/{workspace-id}/{integration-type}
+      name: unified-integration-auth-workspace-id-integration-type
+      description: REST surface for unified-integration-auth-workspace_id-integration_type.
+      operations:
+      - method: GET
+        name: getunifiedintegrationauth
+        description: Authorize New Connection
+        call: full-unified.getunifiedintegrationauth
+        with:
+          success_redirect: rest.success_redirect
+          failure_redirect: rest.failure_redirect
+          state: rest.state
+          external_xref: rest.external_xref
+          scopes: rest.scopes
+          redirect: rest.redirect
+          env: rest.env
+          lang: rest.lang
+          subdomain: rest.subdomain
+          workspace_id: rest.workspace_id
+          integration_type: rest.integration_type
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/unified/integration/workspace/{workspace-id}
+      name: unified-integration-workspace-workspace-id
+      description: REST surface for unified-integration-workspace-workspace_id.
+      operations:
+      - method: GET
+        name: listunifiedintegrationworkspaces
+        description: Returns All Activated Integrations in a Workspace
+        call: full-unified.listunifiedintegrationworkspaces
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          categories: rest.categories
+          summary: rest.summary
+          active: rest.active
+          env: rest.env
+          workspace_id: rest.workspace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/unified/issue
+      name: unified-issue
+      description: REST surface for unified-issue.
+      operations:
+      - method: GET
+        name: listunifiedissues
+        description: List Support Issues
+        call: full-unified.listunifiedissues
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/unified/issue/{id}
+      name: unified-issue-id
+      description: REST surface for unified-issue-id.
+      operations:
+      - method: GET
+        name: getunifiedissue
+        description: Retrieve Support Issue
+        call: full-unified.getunifiedissue
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/unified/webhook
+      name: unified-webhook
+      description: REST surface for unified-webhook.
+      operations:
+      - method: GET
+        name: listunifiedwebhooks
+        description: Returns All Registered Webhooks
+        call: full-unified.listunifiedwebhooks
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          object: rest.object
+          integration_type: rest.integration_type
+          connection_id: rest.connection_id
+          created_lte: rest.created_lte
+          env: rest.env
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createunifiedwebhook
+        description: Create Webhook Subscription
+        call: full-unified.createunifiedwebhook
+        with:
+          include_all: rest.include_all
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/unified/webhook/{id}
+      name: unified-webhook-id
+      description: REST surface for unified-webhook-id.
+      operations:
+      - method: DELETE
+        name: removeunifiedwebhook
+        description: Remove Webhook Subscription
+        call: full-unified.removeunifiedwebhook
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getunifiedwebhook
+        description: Retrieve Webhook by Its Id
+        call: full-unified.getunifiedwebhook
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchunifiedwebhook
+        description: Update Webhook Subscription
+        call: full-unified.patchunifiedwebhook
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateunifiedwebhook
+        description: Update Webhook Subscription
+        call: full-unified.updateunifiedwebhook
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/unified/webhook/{id}/trigger
+      name: unified-webhook-id-trigger
+      description: REST surface for unified-webhook-id-trigger.
+      operations:
+      - method: PATCH
+        name: patchunifiedwebhooktrigger
+        description: Trigger Webhook
+        call: full-unified.patchunifiedwebhooktrigger
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateunifiedwebhooktrigger
+        description: Trigger Webhook
+        call: full-unified.updateunifiedwebhooktrigger
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-unified-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — unified. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: returns-api-calls
+      description: Returns Api Calls
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-unified.listunifiedapicalls
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        external_xref: tools.external_xref
+        integration_type: tools.integration_type
+        error: tools.error
+        connection_id: tools.connection_id
+        env: tools.env
+        webhook_id: tools.webhook_id
+        type: tools.type
+        is_billable: tools.is_billable
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-specific-api-call-its
+      description: Retrieve Specific Api Call by Its Id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-unified.getunifiedapicall
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-connections
+      description: List All Connections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-unified.listunifiedconnections
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        external_xref: tools.external_xref
+        categories: tools.categories
+        env: tools.env
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-connection
+      description: Create Connection
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-unified.createunifiedconnection
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-connection
+      description: Remove Connection
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-unified.removeunifiedconnection
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-connection
+      description: Retrieve Connection
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-unified.getunifiedconnection
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-connection
+      description: Update Connection
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-unified.patchunifiedconnection
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-connection-2
+      description: Update Connection
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-unified.updateunifiedconnection
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: returns-all-environments
+      description: Returns All Environments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-unified.listunifiedenvironments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-new-environments
+      description: Create New Environments
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-unified.createunifiedenvironment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-environment
+      description: Remove an Environment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-unified.removeunifiedenvironment
+      with:
+        env: tools.env
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: returns-all-integrations
+      description: Returns All Integrations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-unified.listunifiedintegrations
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        categories: tools.categories
+        summary: tools.summary
+        active: tools.active
+        env: tools.env
+        type: tools.type
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: authorize-new-connection
+      description: Authorize New Connection
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-unified.getunifiedintegrationauth
+      with:
+        success_redirect: tools.success_redirect
+        failure_redirect: tools.failure_redirect
+        state: tools.state
+        external_xref: tools.external_xref
+        scopes: tools.scopes
+        redirect: tools.redirect
+        env: tools.env
+        lang: tools.lang
+        subdomain: tools.subdomain
+        workspace_id: tools.workspace_id
+        integration_type: tools.integration_type
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: returns-all-activated-integrations-workspace
+      description: Returns All Activated Integrations in a Workspace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-unified.listunifiedintegrationworkspaces
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        categories: tools.categories
+        summary: tools.summary
+        active: tools.active
+        env: tools.env
+        workspace_id: tools.workspace_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-support-issues
+      description: List Support Issues
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-unified.listunifiedissues
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-support-issue
+      description: Retrieve Support Issue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-unified.getunifiedissue
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: returns-all-registered-webhooks
+      description: Returns All Registered Webhooks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-unified.listunifiedwebhooks
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        object: tools.object
+        integration_type: tools.integration_type
+        connection_id: tools.connection_id
+        created_lte: tools.created_lte
+        env: tools.env
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-webhook-subscription
+      description: Create Webhook Subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-unified.createunifiedwebhook
+      with:
+        include_all: tools.include_all
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-webhook-subscription
+      description: Remove Webhook Subscription
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-unified.removeunifiedwebhook
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-webhook-its-id
+      description: Retrieve Webhook by Its Id
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-unified.getunifiedwebhook
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-webhook-subscription
+      description: Update Webhook Subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-unified.patchunifiedwebhook
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-webhook-subscription-2
+      description: Update Webhook Subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-unified.updateunifiedwebhook
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: trigger-webhook
+      description: Trigger Webhook
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-unified.patchunifiedwebhooktrigger
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: trigger-webhook-2
+      description: Trigger Webhook
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-unified.updateunifiedwebhooktrigger
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

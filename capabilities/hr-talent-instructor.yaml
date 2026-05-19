@@ -1,0 +1,429 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — instructor
+  description: 'Unified.to  API — instructor. 6 operations. Lead operation: List all instructors. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - instructor
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: hr-talent-instructor
+    baseUri: https://api.unified.to
+    description: Unified.to  API — instructor business capability. Self-contained, no shared references.
+    resources:
+    - name: lms-connection_id-instructor
+      path: /lms/{connection_id}/instructor
+      operations:
+      - name: listlmsinstructors
+        method: GET
+        description: List all instructors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: class_id
+          in: query
+          type: string
+          description: The class ID to filter by (reference to LmsClass)
+        - name: course_id
+          in: query
+          type: string
+          description: The course ID to filter by (reference to Course)
+        - name: company_id
+          in: query
+          type: string
+          description: The company ID to filter by (reference to HrisCompany)
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createlmsinstructor
+        method: POST
+        description: Create an instructor
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: lms-connection_id-instructor-id
+      path: /lms/{connection_id}/instructor/{id}
+      operations:
+      - name: removelmsinstructor
+        method: DELETE
+        description: Remove an instructor
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Instructor
+          required: true
+      - name: getlmsinstructor
+        method: GET
+        description: Retrieve an instructor
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Instructor
+          required: true
+      - name: patchlmsinstructor
+        method: PATCH
+        description: Update an instructor
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Instructor
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatelmsinstructor
+        method: PUT
+        description: Update an instructor
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Instructor
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: hr-talent-instructor-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — instructor. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/lms/{connection-id}/instructor
+      name: lms-connection-id-instructor
+      description: REST surface for lms-connection_id-instructor.
+      operations:
+      - method: GET
+        name: listlmsinstructors
+        description: List all instructors
+        call: hr-talent-instructor.listlmsinstructors
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          class_id: rest.class_id
+          course_id: rest.course_id
+          company_id: rest.company_id
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createlmsinstructor
+        description: Create an instructor
+        call: hr-talent-instructor.createlmsinstructor
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/lms/{connection-id}/instructor/{id}
+      name: lms-connection-id-instructor-id
+      description: REST surface for lms-connection_id-instructor-id.
+      operations:
+      - method: DELETE
+        name: removelmsinstructor
+        description: Remove an instructor
+        call: hr-talent-instructor.removelmsinstructor
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getlmsinstructor
+        description: Retrieve an instructor
+        call: hr-talent-instructor.getlmsinstructor
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchlmsinstructor
+        description: Update an instructor
+        call: hr-talent-instructor.patchlmsinstructor
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatelmsinstructor
+        description: Update an instructor
+        call: hr-talent-instructor.updatelmsinstructor
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: hr-talent-instructor-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — instructor. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-all-instructors
+      description: List all instructors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hr-talent-instructor.listlmsinstructors
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        class_id: tools.class_id
+        course_id: tools.course_id
+        company_id: tools.company_id
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-instructor
+      description: Create an instructor
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: hr-talent-instructor.createlmsinstructor
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-instructor
+      description: Remove an instructor
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: hr-talent-instructor.removelmsinstructor
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-instructor
+      description: Retrieve an instructor
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hr-talent-instructor.getlmsinstructor
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-instructor
+      description: Update an instructor
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: hr-talent-instructor.patchlmsinstructor
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-instructor-2
+      description: Update an instructor
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: hr-talent-instructor.updatelmsinstructor
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

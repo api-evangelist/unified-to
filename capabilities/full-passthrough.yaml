@@ -1,0 +1,298 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — passthrough
+  description: 'Unified.to  API — passthrough. 5 operations. Lead operation: Passthrough Delete. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - passthrough
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-passthrough
+    baseUri: https://api.unified.to
+    description: Unified.to  API — passthrough business capability. Self-contained, no shared references.
+    resources:
+    - name: passthrough-connection_id-path
+      path: /passthrough/{connection_id}/{path}
+      operations:
+      - name: removepassthrough
+        method: DELETE
+        description: Passthrough Delete
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: path
+          in: path
+          type: string
+          required: true
+      - name: listpassthroughs
+        method: GET
+        description: Passthrough Get
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: path
+          in: path
+          type: string
+          required: true
+      - name: patchpassthrough
+        method: PATCH
+        description: Passthrough Put
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: path
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: createpassthrough
+        method: POST
+        description: Passthrough Post
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: path
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: updatepassthrough
+        method: PUT
+        description: Passthrough Put
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: path
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-passthrough-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — passthrough. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/passthrough/{connection-id}/{path}
+      name: passthrough-connection-id-path
+      description: REST surface for passthrough-connection_id-path.
+      operations:
+      - method: DELETE
+        name: removepassthrough
+        description: Passthrough Delete
+        call: full-passthrough.removepassthrough
+        with:
+          query: rest.query
+          connection_id: rest.connection_id
+          path: rest.path
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listpassthroughs
+        description: Passthrough Get
+        call: full-passthrough.listpassthroughs
+        with:
+          query: rest.query
+          connection_id: rest.connection_id
+          path: rest.path
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchpassthrough
+        description: Passthrough Put
+        call: full-passthrough.patchpassthrough
+        with:
+          query: rest.query
+          connection_id: rest.connection_id
+          path: rest.path
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpassthrough
+        description: Passthrough Post
+        call: full-passthrough.createpassthrough
+        with:
+          query: rest.query
+          connection_id: rest.connection_id
+          path: rest.path
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatepassthrough
+        description: Passthrough Put
+        call: full-passthrough.updatepassthrough
+        with:
+          query: rest.query
+          connection_id: rest.connection_id
+          path: rest.path
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-passthrough-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — passthrough. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: passthrough-delete
+      description: Passthrough Delete
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: full-passthrough.removepassthrough
+      with:
+        query: tools.query
+        connection_id: tools.connection_id
+        path: tools.path
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: passthrough-get
+      description: Passthrough Get
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-passthrough.listpassthroughs
+      with:
+        query: tools.query
+        connection_id: tools.connection_id
+        path: tools.path
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: passthrough-put
+      description: Passthrough Put
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-passthrough.patchpassthrough
+      with:
+        query: tools.query
+        connection_id: tools.connection_id
+        path: tools.path
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: passthrough-post
+      description: Passthrough Post
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: full-passthrough.createpassthrough
+      with:
+        query: tools.query
+        connection_id: tools.connection_id
+        path: tools.path
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: passthrough-put-2
+      description: Passthrough Put
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: full-passthrough.updatepassthrough
+      with:
+        query: tools.query
+        connection_id: tools.connection_id
+        path: tools.path
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

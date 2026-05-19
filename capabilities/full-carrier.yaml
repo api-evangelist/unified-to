@@ -1,0 +1,190 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — carrier
+  description: 'Unified.to  API — carrier. 2 operations. Lead operation: List All Carriers. Self-contained Naftiko capability
+    covering one Unified To business surface.'
+  tags:
+  - Unified To
+  - carrier
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: full-carrier
+    baseUri: https://api.unified.to
+    description: Unified.to  API — carrier business capability. Self-contained, no shared references.
+    resources:
+    - name: shipping-connection_id-carrier
+      path: /shipping/{connection_id}/carrier
+      operations:
+      - name: listshippingcarriers
+        method: GET
+        description: List All Carriers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: number
+        - name: offset
+          in: query
+          type: number
+        - name: updated_gte
+          in: query
+          type: string
+          description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ
+            format)
+        - name: sort
+          in: query
+          type: string
+        - name: order
+          in: query
+          type: string
+        - name: query
+          in: query
+          type: string
+          description: Query string to search. eg. email address or name
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+    - name: shipping-connection_id-carrier-id
+      path: /shipping/{connection_id}/carrier/{id}
+      operations:
+      - name: getshippingcarrier
+        method: GET
+        description: Retrieve a Carrier
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fields
+          in: query
+          type: array
+          description: Fields to return
+        - name: raw
+          in: query
+          type: string
+          description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters:
+            foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Carrier
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: full-carrier-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — carrier. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/shipping/{connection-id}/carrier
+      name: shipping-connection-id-carrier
+      description: REST surface for shipping-connection_id-carrier.
+      operations:
+      - method: GET
+        name: listshippingcarriers
+        description: List All Carriers
+        call: full-carrier.listshippingcarriers
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          updated_gte: rest.updated_gte
+          sort: rest.sort
+          order: rest.order
+          query: rest.query
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/shipping/{connection-id}/carrier/{id}
+      name: shipping-connection-id-carrier-id
+      description: REST surface for shipping-connection_id-carrier-id.
+      operations:
+      - method: GET
+        name: getshippingcarrier
+        description: Retrieve a Carrier
+        call: full-carrier.getshippingcarrier
+        with:
+          fields: rest.fields
+          raw: rest.raw
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: full-carrier-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — carrier. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-carriers
+      description: List All Carriers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-carrier.listshippingcarriers
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        updated_gte: tools.updated_gte
+        sort: tools.sort
+        order: tools.order
+        query: tools.query
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-carrier
+      description: Retrieve a Carrier
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: full-carrier.getshippingcarrier
+      with:
+        fields: tools.fields
+        raw: tools.raw
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.

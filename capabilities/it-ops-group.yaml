@@ -1,0 +1,338 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Unified.to  API — group
+  description: 'Unified.to  API — group. 6 operations. Lead operation: List groups. Self-contained Naftiko capability covering
+    one Unified To business surface.'
+  tags:
+  - Unified To
+  - group
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNIFIED_TO_API_KEY: UNIFIED_TO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: it-ops-group
+    baseUri: https://api.unified.to
+    description: Unified.to  API — group business capability. Self-contained, no shared references.
+    resources:
+    - name: scim-connection_id-groups
+      path: /scim/{connection_id}/groups
+      operations:
+      - name: listscimgroups
+        method: GET
+        description: List groups
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter
+          in: query
+          type: string
+        - name: sortBy
+          in: query
+          type: string
+        - name: sortOrder
+          in: query
+          type: string
+        - name: startIndex
+          in: query
+          type: number
+        - name: count
+          in: query
+          type: number
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+      - name: createscimgroups
+        method: POST
+        description: Create group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: scim-connection_id-groups-id
+      path: /scim/{connection_id}/groups/{id}
+      operations:
+      - name: removescimgroups
+        method: DELETE
+        description: Delete group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Group
+          required: true
+      - name: getscimgroups
+        method: GET
+        description: Get group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Group
+          required: true
+      - name: patchscimgroups
+        method: PATCH
+        description: Update group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Group
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatescimgroups
+        method: PUT
+        description: Update group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: connection_id
+          in: path
+          type: string
+          description: ID of the connection
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: ID of the Group
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authorization
+      value: '{{env.UNIFIED_TO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: it-ops-group-rest
+    port: 8080
+    description: REST adapter for Unified.to  API — group. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/scim/{connection-id}/groups
+      name: scim-connection-id-groups
+      description: REST surface for scim-connection_id-groups.
+      operations:
+      - method: GET
+        name: listscimgroups
+        description: List groups
+        call: it-ops-group.listscimgroups
+        with:
+          filter: rest.filter
+          sortBy: rest.sortBy
+          sortOrder: rest.sortOrder
+          startIndex: rest.startIndex
+          count: rest.count
+          connection_id: rest.connection_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createscimgroups
+        description: Create group
+        call: it-ops-group.createscimgroups
+        with:
+          connection_id: rest.connection_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/scim/{connection-id}/groups/{id}
+      name: scim-connection-id-groups-id
+      description: REST surface for scim-connection_id-groups-id.
+      operations:
+      - method: DELETE
+        name: removescimgroups
+        description: Delete group
+        call: it-ops-group.removescimgroups
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getscimgroups
+        description: Get group
+        call: it-ops-group.getscimgroups
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchscimgroups
+        description: Update group
+        call: it-ops-group.patchscimgroups
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatescimgroups
+        description: Update group
+        call: it-ops-group.updatescimgroups
+        with:
+          connection_id: rest.connection_id
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: it-ops-group-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Unified.to  API — group. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-groups
+      description: List groups
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: it-ops-group.listscimgroups
+      with:
+        filter: tools.filter
+        sortBy: tools.sortBy
+        sortOrder: tools.sortOrder
+        startIndex: tools.startIndex
+        count: tools.count
+        connection_id: tools.connection_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-group
+      description: Create group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: it-ops-group.createscimgroups
+      with:
+        connection_id: tools.connection_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-group
+      description: Delete group
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: it-ops-group.removescimgroups
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-group
+      description: Get group
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: it-ops-group.getscimgroups
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-group
+      description: Update group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: it-ops-group.patchscimgroups
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-group-2
+      description: Update group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: it-ops-group.updatescimgroups
+      with:
+        connection_id: tools.connection_id
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
