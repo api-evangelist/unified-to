@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ShippingTracking",
+  "title": "ShippingTracking",
+  "properties": {
+    "actual_delivery_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "carrier_id": {
+      "type": "string"
+    },
+    "carrier_status_code": {
+      "type": "string"
+    },
+    "carrier_status_description": {
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "estimated_delivery": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "events": {
+      "$ref": "#/components/schemas/property_ShippingTracking_events"
+    },
+    "id": {
+      "type": "string"
+    },
+    "raw": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "shipment_id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "PENDING",
+        "PROCESSING",
+        "IN_TRANSIT",
+        "DELIVERED",
+        "EXCEPTION",
+        "CANCELLED",
+        "LABEL_CREATED",
+        "PICKED_UP",
+        "OUT_FOR_DELIVERY",
+        "DELIVERY_ATTEMPTED",
+        "RETURNED_TO_SENDER",
+        "HELD_AT_LOCATION",
+        "CUSTOMS_CLEARANCE",
+        "EXCEPTION_RESOLVED"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "status_description": {
+      "type": "string"
+    },
+    "tracking_number": {
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

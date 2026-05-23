@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AssessmentAttribute",
+  "title": "AssessmentAttribute",
+  "properties": {
+    "label": {
+      "type": "string"
+    },
+    "reference": {
+      "type": "string"
+    },
+    "score_max": {
+      "type": "number"
+    },
+    "score_value": {
+      "type": "number"
+    },
+    "status": {
+      "enum": [
+        "OPEN",
+        "IN_PROGRESS",
+        "COMPLETED",
+        "FAILED",
+        "REJECTED"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "type": {
+      "enum": [
+        "TEXT",
+        "NUMBER",
+        "SUB_RESULT"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "value": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "label"
+  ],
+  "type": "object"
+}

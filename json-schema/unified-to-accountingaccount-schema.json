@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AccountingAccount",
+  "title": "AccountingAccount",
+  "description": "Chart of accounts",
+  "properties": {
+    "balance": {
+      "type": "number"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "customer_defined_code": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "group": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "is_payable": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": "string"
+    },
+    "organization_id": {
+      "type": "string"
+    },
+    "parent_id": {
+      "type": "string"
+    },
+    "raw": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "section": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "ACTIVE",
+        "ARCHIVED"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "subgroup": {
+      "type": "string"
+    },
+    "subsection": {
+      "type": "string"
+    },
+    "taxonomy": {
+      "$ref": "#/components/schemas/property_AccountingAccount_taxonomy"
+    },
+    "type": {
+      "enum": [
+        "ACCOUNTS_PAYABLE",
+        "ACCOUNTS_RECEIVABLE",
+        "BANK",
+        "CREDIT_CARD",
+        "FIXED_ASSET",
+        "LIABILITY",
+        "EQUITY",
+        "EXPENSE",
+        "REVENUE",
+        "OTHER"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

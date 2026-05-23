@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AssessmentPackage",
+  "title": "AssessmentPackage",
+  "description": "Used by assessment providers to SUBMIT packages to ATS systems",
+  "properties": {
+    "aliases": {
+      "$ref": "#/components/schemas/property_AssessmentPackage_aliases"
+    },
+    "connection_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "has_redirect_url": {
+      "type": "boolean"
+    },
+    "has_target_url": {
+      "type": "boolean"
+    },
+    "id": {
+      "type": "string"
+    },
+    "info_url": {
+      "type": "string"
+    },
+    "integration_types": {
+      "$ref": "#/components/schemas/property_AssessmentPackage_integration_types"
+    },
+    "max_score": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string"
+    },
+    "needs_ip_address": {
+      "type": "boolean"
+    },
+    "parameters": {
+      "$ref": "#/components/schemas/property_AssessmentPackage_parameters"
+    },
+    "raw": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "regions": {
+      "$ref": "#/components/schemas/property_AssessmentPackage_regions"
+    },
+    "tags": {
+      "$ref": "#/components/schemas/property_AssessmentPackage_tags"
+    },
+    "type": {
+      "enum": [
+        "SKILLS_TEST",
+        "BEHAVIORAL_ASSESSMENT",
+        "VIDEO_INTERVIEW",
+        "BACKGROUND_CHECK",
+        "REFERENCE_CHECK",
+        "OTHER"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "workspace_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "type"
+  ],
+  "type": "object"
+}

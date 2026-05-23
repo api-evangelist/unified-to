@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AdsTarget",
+  "title": "AdsTarget",
+  "description": "Targeting search result (for ads_target list endpoint)",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": "string"
+    },
+    "parent_id": {
+      "type": "string"
+    },
+    "raw": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "type": {
+      "enum": [
+        "INTEREST",
+        "BEHAVIOR",
+        "LOCALE",
+        "COUNTRY",
+        "REGION",
+        "CITY",
+        "ZIP",
+        "US_DMA",
+        "TOPIC",
+        "USER_LIST",
+        "AGE_RANGE",
+        "GENDER",
+        "CARRIER",
+        "DEVICE_MODEL",
+        "OS_VERSION"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    }
+  },
+  "required": [
+    "id"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PaymentPayout",
+  "title": "PaymentPayout",
+  "properties": {
+    "created_at": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "raw": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "status": {
+      "enum": [
+        "SUCCEEDED",
+        "PENDING",
+        "FAILED",
+        "CANCELED"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "total_amount": {
+      "type": "number"
+    },
+    "updated_at": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "total_amount"
+  ],
+  "type": "object"
+}

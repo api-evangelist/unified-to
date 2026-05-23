@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HrisPayslip",
+  "title": "HrisPayslip",
+  "properties": {
+    "company_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "deduction": {
+      "$ref": "#/components/schemas/property_HrisPayslip_deduction"
+    },
+    "details": {
+      "$ref": "#/components/schemas/property_HrisPayslip_details"
+    },
+    "end_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "gross_amount": {
+      "type": "number"
+    },
+    "id": {
+      "type": "string"
+    },
+    "net_amount": {
+      "type": "number"
+    },
+    "paid_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "payment_type": {
+      "enum": [
+        "DIRECT",
+        "CHEQUE",
+        "CASH"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "raw": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "start_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "raw"
+  ],
+  "type": "object"
+}

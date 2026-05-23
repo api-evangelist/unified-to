@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HrisGroup",
+  "title": "HrisGroup",
+  "properties": {
+    "company_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean"
+    },
+    "manager_ids": {
+      "$ref": "#/components/schemas/property_HrisGroup_manager_ids"
+    },
+    "name": {
+      "type": "string"
+    },
+    "parent_id": {
+      "type": "string"
+    },
+    "raw": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "type": {
+      "enum": [
+        "TEAM",
+        "GROUP",
+        "DEPARTMENT",
+        "DIVISION",
+        "BUSINESS_UNIT",
+        "BRANCH",
+        "SUB_DEPARTMENT"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "user_ids": {
+      "$ref": "#/components/schemas/property_HrisGroup_user_ids"
+    }
+  },
+  "type": "object"
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MarketingMember",
+  "title": "MarketingMember",
+  "description": "A member represents a person",
+  "properties": {
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "emails": {
+      "$ref": "#/components/schemas/property_MarketingMember_emails"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "list_ids": {
+      "$ref": "#/components/schemas/property_MarketingMember_list_ids"
+    },
+    "name": {
+      "type": "string"
+    },
+    "raw": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "status": {
+      "enum": [
+        "SUBSCRIBED",
+        "UNSUBSCRIBED",
+        "CLEANED",
+        "PENDING",
+        "TRANSACTIONAL"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "tags": {
+      "$ref": "#/components/schemas/property_MarketingMember_tags"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

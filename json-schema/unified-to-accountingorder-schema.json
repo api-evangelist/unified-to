@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AccountingOrder",
+  "title": "AccountingOrder",
+  "properties": {
+    "account_id": {
+      "type": "string"
+    },
+    "billing_address": {
+      "$ref": "#/components/schemas/property_AccountingOrder_billing_address"
+    },
+    "contact_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "lineitems": {
+      "$ref": "#/components/schemas/property_AccountingOrder_lineitems"
+    },
+    "posted_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "raw": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "shipping_address": {
+      "$ref": "#/components/schemas/property_AccountingOrder_shipping_address"
+    },
+    "status": {
+      "enum": [
+        "DRAFT",
+        "VOIDED",
+        "AUTHORIZED",
+        "PAID",
+        "PARTIALLY_PAID",
+        "PARTIALLY_REFUNDED",
+        "REFUNDED",
+        "SUBMITTED",
+        "DELETED"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "total_amount": {
+      "type": "number"
+    },
+    "type": {
+      "enum": [
+        "SALES",
+        "PURCHASE"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

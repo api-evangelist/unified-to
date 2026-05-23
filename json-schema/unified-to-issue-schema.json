@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Issue",
+  "title": "Issue",
+  "properties": {
+    "created_at": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "importance": {
+      "type": "number"
+    },
+    "resolution_time": {
+      "type": "number"
+    },
+    "size": {
+      "type": "number"
+    },
+    "status": {
+      "enum": [
+        "COMPLETED",
+        "NEW",
+        "ROADMAP",
+        "IN_PROGRESS",
+        "ON_HOLD",
+        "VALIDATING",
+        "REJECTED"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "ticket_ref": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "type": {
+      "$ref": "#/components/schemas/property_Issue_type"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "workspace_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "status",
+    "workspace_id",
+    "ticket_ref"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CommerceCollection",
+  "title": "CommerceCollection",
+  "description": "A collection of items/products/services",
+  "properties": {
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean"
+    },
+    "is_featured": {
+      "type": "boolean"
+    },
+    "is_visible": {
+      "type": "boolean"
+    },
+    "item_metadata": {
+      "$ref": "#/components/schemas/property_CommerceCollection_item_metadata"
+    },
+    "media": {
+      "$ref": "#/components/schemas/property_CommerceCollection_media"
+    },
+    "metadata": {
+      "$ref": "#/components/schemas/property_CommerceCollection_metadata"
+    },
+    "name": {
+      "type": "string"
+    },
+    "parent_id": {
+      "type": "string"
+    },
+    "public_description": {
+      "type": "string"
+    },
+    "public_name": {
+      "type": "string"
+    },
+    "raw": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "tags": {
+      "$ref": "#/components/schemas/property_CommerceCollection_tags"
+    },
+    "type": {
+      "enum": [
+        "COLLECTION",
+        "SAVED_SEARCH",
+        "CATEGORY"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "type": "object"
+}

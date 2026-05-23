@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ShippingTrackingEvent",
+  "title": "ShippingTrackingEvent",
+  "properties": {
+    "carrier_status_code": {
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "event_code": {
+      "type": "string"
+    },
+    "location_address": {
+      "$ref": "#/components/schemas/property_ShippingTrackingEvent_location_address"
+    },
+    "location_id": {
+      "type": "string"
+    },
+    "location_name": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "signed_by": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "PENDING",
+        "PROCESSING",
+        "IN_TRANSIT",
+        "DELIVERED",
+        "EXCEPTION",
+        "CANCELLED",
+        "LABEL_CREATED",
+        "PICKED_UP",
+        "OUT_FOR_DELIVERY",
+        "DELIVERY_ATTEMPTED",
+        "RETURNED_TO_SENDER",
+        "HELD_AT_LOCATION",
+        "CUSTOMS_CLEARANCE",
+        "EXCEPTION_RESOLVED"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    }
+  },
+  "type": "object"
+}

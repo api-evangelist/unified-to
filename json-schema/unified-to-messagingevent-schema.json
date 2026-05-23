@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MessagingEvent",
+  "title": "MessagingEvent",
+  "properties": {
+    "button": {
+      "$ref": "#/components/schemas/property_MessagingEvent_button"
+    },
+    "channel": {
+      "$ref": "#/components/schemas/property_MessagingEvent_channel"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "is_replacing_original": {
+      "type": "boolean"
+    },
+    "message": {
+      "$ref": "#/components/schemas/property_MessagingEvent_message"
+    },
+    "raw": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "type": {
+      "enum": [
+        "MESSAGE_RECEIVED",
+        "REACTION_ADDED",
+        "REACTION_REMOVED",
+        "BUTTON_CLICK",
+        "APP_MENTION",
+        "CHANNEL_JOINED",
+        "CHANNEL_LEFT",
+        "CHANNEL_CREATED",
+        "CHANNEL_DELETED",
+        "CHANNEL_RENAMED",
+        "USER_CREATED",
+        "USER_DELETED",
+        "USER_UPDATED"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "user": {
+      "$ref": "#/components/schemas/property_MessagingEvent_user"
+    }
+  },
+  "type": "object"
+}

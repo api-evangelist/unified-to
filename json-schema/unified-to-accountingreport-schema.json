@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AccountingReport",
+  "title": "AccountingReport",
+  "description": "@deprecated; use either AccountingProfitandloss, AccountingTrialbalance, AccountingBalancesheet, or AccountingCashflow instead",
+  "properties": {
+    "balance_sheet": {
+      "$ref": "#/components/schemas/property_AccountingReport_balance_sheet"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "end_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "profit_and_loss": {
+      "$ref": "#/components/schemas/property_AccountingReport_profit_and_loss"
+    },
+    "raw": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "start_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "trial_balance": {
+      "$ref": "#/components/schemas/property_AccountingReport_trial_balance"
+    },
+    "type": {
+      "enum": [
+        "TRIAL_BALANCE",
+        "BALANCE_SHEET",
+        "PROFIT_AND_LOSS"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

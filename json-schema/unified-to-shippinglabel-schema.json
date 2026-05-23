@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ShippingLabel",
+  "title": "ShippingLabel",
+  "properties": {
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "is_voided": {
+      "type": "boolean"
+    },
+    "label_cost": {
+      "type": "number"
+    },
+    "label_cost_currency": {
+      "type": "string"
+    },
+    "label_format": {
+      "enum": [
+        "PDF",
+        "PNG",
+        "ZPL",
+        "EPL2",
+        "PDF_4X6",
+        "PDF_4X8",
+        "PNG_4X6",
+        "PNG_4X8"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "label_url": {
+      "type": "string"
+    },
+    "rate_id": {
+      "type": "string"
+    },
+    "raw": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "service_code": {
+      "type": "string"
+    },
+    "shipment_id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "PENDING",
+        "PROCESSING",
+        "IN_TRANSIT",
+        "DELIVERED",
+        "EXCEPTION",
+        "CANCELLED",
+        "LABEL_CREATED",
+        "PICKED_UP",
+        "OUT_FOR_DELIVERY",
+        "DELIVERY_ATTEMPTED",
+        "RETURNED_TO_SENDER",
+        "HELD_AT_LOCATION",
+        "CUSTOMS_CLEARANCE",
+        "EXCEPTION_RESOLVED"
+      ],
+      "type": "string",
+      "x-speakeasy-unknown-values": "allow"
+    },
+    "tracking_number": {
+      "type": "string"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}
