@@ -1,0 +1,106 @@
+arazzo: 1.0.1
+info:
+  title: Unified.to CRM Contact Lifecycle
+  summary: Create a CRM contact on a connection, retrieve it, then confirm it appears in the contact list.
+  description: >-
+    A foundational CRM integration pattern against the Unified.to unified CRM
+    API. The workflow creates a new contact on a specific connection, reads the
+    created contact back by its id to confirm the write landed, and then lists
+    contacts filtered to the same person to verify it is searchable. Every step
+    spells out its request inline — including the required connection_id path
+    parameter — so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: crmApi
+  url: ../openapi/unified-to-crm-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: crm-contact-lifecycle
+  summary: Create, retrieve, and search a CRM contact on a single connection.
+  description: >-
+    Creates a contact for the supplied connection, fetches the created record by
+    id, and then queries the contact list by name to confirm the contact is
+    discoverable.
+  inputs:
+    type: object
+    required:
+    - connectionId
+    - firstName
+    - lastName
+    - email
+    properties:
+      connectionId:
+        type: string
+        description: The Unified.to connection id for the target CRM (e.g. a HubSpot or Salesforce connection).
+      firstName:
+        type: string
+        description: The contact's first name.
+      lastName:
+        type: string
+        description: The contact's last name.
+      email:
+        type: string
+        description: The contact's primary work email address.
+  steps:
+  - stepId: createContact
+    description: >-
+      Create a new contact on the connection using the supplied name and email.
+      The email is written as a single WORK address in the emails array.
+    operationId: createCrmContact
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    requestBody:
+      contentType: application/json
+      payload:
+        first_name: $inputs.firstName
+        last_name: $inputs.lastName
+        emails:
+        - email: $inputs.email
+          type: WORK
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      contactId: $response.body#/id
+  - stepId: getContact
+    description: >-
+      Read the newly created contact back by its id to confirm the write
+      succeeded and to capture the canonical record.
+    operationId: getCrmContact
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    - name: id
+      in: path
+      value: $steps.createContact.outputs.contactId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      contactName: $response.body#/name
+      contactEmails: $response.body#/emails
+  - stepId: findContact
+    description: >-
+      Search the connection's contacts by the supplied email to confirm the new
+      contact is discoverable through the list endpoint.
+    operationId: listCrmContacts
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    - name: query
+      in: query
+      value: $inputs.email
+    - name: limit
+      in: query
+      value: 10
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedContactId: $response.body#/0/id
+  outputs:
+    contactId: $steps.createContact.outputs.contactId
+    contactName: $steps.getContact.outputs.contactName
+    matchedContactId: $steps.findContact.outputs.matchedContactId

@@ -1,0 +1,111 @@
+arazzo: 1.0.1
+info:
+  title: Unified.to ATS Candidate Application
+  summary: Create an ATS candidate, submit their application to a job, and list applications for that candidate.
+  description: >-
+    The core recruiting pattern against the Unified.to unified ATS API. The
+    workflow creates a candidate on a connection, then submits an application
+    that links the new candidate to an existing job, and finally lists
+    applications filtered to the candidate to confirm the submission. Every step
+    inlines its request — including the required connection_id path parameter and
+    the candidate/job linkage — so the flow is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: atsApi
+  url: ../openapi/unified-to-ats-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: ats-candidate-application
+  summary: Create a candidate, submit an application for a job, and list the candidate's applications.
+  description: >-
+    Creates an ATS candidate, creates an application that references both the new
+    candidate id and an existing job id, then queries applications filtered to
+    the candidate to confirm the submission was recorded.
+  inputs:
+    type: object
+    required:
+    - connectionId
+    - firstName
+    - lastName
+    - email
+    - jobId
+    properties:
+      connectionId:
+        type: string
+        description: The Unified.to connection id for the target ATS (e.g. Greenhouse, Lever).
+      firstName:
+        type: string
+        description: The candidate's first name.
+      lastName:
+        type: string
+        description: The candidate's last name.
+      email:
+        type: string
+        description: The candidate's primary work email address.
+      jobId:
+        type: string
+        description: The id of an existing job the candidate is applying to.
+  steps:
+  - stepId: createCandidate
+    description: >-
+      Create the candidate on the connection with the supplied name and a single
+      WORK email.
+    operationId: createAtsCandidate
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    requestBody:
+      contentType: application/json
+      payload:
+        first_name: $inputs.firstName
+        last_name: $inputs.lastName
+        emails:
+        - email: $inputs.email
+          type: WORK
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      candidateId: $response.body#/id
+  - stepId: submitApplication
+    description: >-
+      Submit an application linking the new candidate to the supplied job, with
+      an initial NEW status.
+    operationId: createAtsApplication
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    requestBody:
+      contentType: application/json
+      payload:
+        candidate_id: $steps.createCandidate.outputs.candidateId
+        job_id: $inputs.jobId
+        status: NEW
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      applicationId: $response.body#/id
+  - stepId: listCandidateApplications
+    description: >-
+      List applications filtered to the new candidate to confirm the submission
+      is tracked.
+    operationId: listAtsApplications
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    - name: candidate_id
+      in: query
+      value: $steps.createCandidate.outputs.candidateId
+    - name: limit
+      in: query
+      value: 25
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstApplicationId: $response.body#/0/id
+  outputs:
+    candidateId: $steps.createCandidate.outputs.candidateId
+    applicationId: $steps.submitApplication.outputs.applicationId
+    firstApplicationId: $steps.listCandidateApplications.outputs.firstApplicationId

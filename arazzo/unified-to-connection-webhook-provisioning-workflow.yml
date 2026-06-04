@@ -1,0 +1,130 @@
+arazzo: 1.0.1
+info:
+  title: Unified.to Connection And Webhook Provisioning
+  summary: Import a connection, verify it is healthy, subscribe a webhook to an object, then confirm the subscription.
+  description: >-
+    The cross-cutting onboarding pattern that underpins every Unified.to
+    integration. The workflow imports an existing customer connection, reads it
+    back to inspect health, and branches: only when the connection is not paused
+    does it subscribe a webhook to receive create/update/delete events for a
+    given object type, then list the workspace webhooks to confirm the
+    subscription. Every step inlines its request so the flow is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: unifiedCoreApi
+  url: ../openapi/unified-to-unified-core-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: connection-webhook-provisioning
+  summary: Import a connection, confirm it is active, subscribe a webhook, and list webhooks.
+  description: >-
+    Creates (imports) a connection, fetches it to check the is_paused flag, and
+    when active subscribes a webhook for the supplied object type and event, then
+    lists webhooks to confirm the new subscription.
+  inputs:
+    type: object
+    required:
+    - integrationType
+    - category
+    - objectType
+    - event
+    - hookUrl
+    properties:
+      integrationType:
+        type: string
+        description: The integration type / vendor key for the connection (e.g. hubspot, greenhouse).
+      category:
+        type: string
+        description: The connection category (e.g. crm, ats, hris, accounting, commerce).
+      objectType:
+        type: string
+        description: The webhook object_type to subscribe to (e.g. crm_contact, ats_candidate).
+      event:
+        type: string
+        description: The webhook event to subscribe to — one of created, updated, deleted.
+      hookUrl:
+        type: string
+        description: The HTTPS URL that webhook payloads will be POSTed to.
+  steps:
+  - stepId: importConnection
+    description: >-
+      Import an existing customer connection. integration_type, permissions, and
+      categories are required by the Connection schema; permissions is sent empty
+      to inherit the integration defaults.
+    operationId: createUnifiedConnection
+    requestBody:
+      contentType: application/json
+      payload:
+        integration_type: $inputs.integrationType
+        categories:
+        - $inputs.category
+        permissions: []
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      connectionId: $response.body#/id
+  - stepId: getConnection
+    description: >-
+      Read the connection back by id to inspect its paused state before wiring up
+      a webhook.
+    operationId: getUnifiedConnection
+    parameters:
+    - name: id
+      in: path
+      value: $steps.importConnection.outputs.connectionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      isPaused: $response.body#/is_paused
+    onSuccess:
+    - name: connectionActive
+      type: goto
+      stepId: subscribeWebhook
+      criteria:
+      - context: $response.body
+        condition: $.is_paused != true
+        type: jsonpath
+    - name: connectionPaused
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.is_paused == true
+        type: jsonpath
+  - stepId: subscribeWebhook
+    description: >-
+      Subscribe a webhook for the supplied object type and event on the new
+      connection. connection_id, object_type, and event are required by the
+      Webhook schema.
+    operationId: createUnifiedWebhook
+    requestBody:
+      contentType: application/json
+      payload:
+        connection_id: $steps.importConnection.outputs.connectionId
+        object_type: $inputs.objectType
+        event: $inputs.event
+        hook_url: $inputs.hookUrl
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      webhookId: $response.body#/id
+  - stepId: listWebhooks
+    description: >-
+      List webhooks to confirm the new subscription is registered in the
+      workspace.
+    operationId: listUnifiedWebhooks
+    parameters:
+    - name: connection_id
+      in: query
+      value: $steps.importConnection.outputs.connectionId
+    - name: limit
+      in: query
+      value: 50
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstWebhookId: $response.body#/0/id
+  outputs:
+    connectionId: $steps.importConnection.outputs.connectionId
+    isPaused: $steps.getConnection.outputs.isPaused
+    webhookId: $steps.subscribeWebhook.outputs.webhookId
+    firstWebhookId: $steps.listWebhooks.outputs.firstWebhookId

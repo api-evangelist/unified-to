@@ -1,0 +1,104 @@
+arazzo: 1.0.1
+info:
+  title: Unified.to Commerce Item And Inventory
+  summary: Create a commerce item, set its stock level at a location, then list inventory for that location.
+  description: >-
+    A catalog-and-stock pattern against the Unified.to unified Commerce API. The
+    workflow creates a sellable item, records an inventory level for that item at
+    a supplied location, and then lists inventory filtered to the location to
+    confirm the stock record. Every step inlines its request — including the
+    required connection_id path parameter and the item/location linkage — so the
+    flow is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: commerceApi
+  url: ../openapi/unified-to-commerce-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: commerce-item-inventory
+  summary: Create an item, record its inventory at a location, and list that location's inventory.
+  description: >-
+    Creates a commerce item, creates an inventory record linking the item to a
+    location with an available quantity, then lists inventory filtered to the
+    location to confirm the stock level was set.
+  inputs:
+    type: object
+    required:
+    - connectionId
+    - itemName
+    - locationId
+    - available
+    properties:
+      connectionId:
+        type: string
+        description: The Unified.to connection id for the target commerce platform (e.g. Shopify, Square).
+      itemName:
+        type: string
+        description: The name of the item / product to create.
+      locationId:
+        type: string
+        description: The id of the location the inventory is held at.
+      available:
+        type: number
+        description: The available stock quantity for the item at the location.
+  steps:
+  - stepId: createItem
+    description: >-
+      Create the sellable item, marked active and visible.
+    operationId: createCommerceItem
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.itemName
+        is_active: true
+        is_visible: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      itemId: $response.body#/id
+  - stepId: createInventory
+    description: >-
+      Record an inventory level for the new item at the supplied location. The
+      available quantity is required by the schema.
+    operationId: createCommerceInventory
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    requestBody:
+      contentType: application/json
+      payload:
+        item_id: $steps.createItem.outputs.itemId
+        location_id: $inputs.locationId
+        available: $inputs.available
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      inventoryId: $response.body#/id
+  - stepId: listLocationInventory
+    description: >-
+      List inventory filtered to the location to confirm the new stock record is
+      present.
+    operationId: listCommerceInventories
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    - name: location_id
+      in: query
+      value: $inputs.locationId
+    - name: limit
+      in: query
+      value: 50
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstInventoryId: $response.body#/0/id
+  outputs:
+    itemId: $steps.createItem.outputs.itemId
+    inventoryId: $steps.createInventory.outputs.inventoryId
+    firstInventoryId: $steps.listLocationInventory.outputs.firstInventoryId

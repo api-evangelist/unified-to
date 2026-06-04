@@ -1,0 +1,104 @@
+arazzo: 1.0.1
+info:
+  title: Unified.to Accounting Invoice From Contact
+  summary: Create an accounting contact (customer), bill them with an invoice, and read the invoice back.
+  description: >-
+    A core finance pattern against the Unified.to unified Accounting API. The
+    workflow creates a customer contact, issues an invoice addressed to that
+    contact by linking the new contact id, and then reads the invoice back by id
+    to capture its number and totals. Every step inlines its request — including
+    the required connection_id path parameter and the contact linkage — so the
+    flow is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: accountingApi
+  url: ../openapi/unified-to-accounting-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: accounting-invoice-from-contact
+  summary: Create a customer contact, issue an invoice to them, and retrieve the invoice.
+  description: >-
+    Creates an accounting contact flagged as a customer, creates an INVOICE whose
+    contact_id references the new contact, then fetches the invoice by id to
+    confirm it was booked.
+  inputs:
+    type: object
+    required:
+    - connectionId
+    - contactName
+    - currency
+    properties:
+      connectionId:
+        type: string
+        description: The Unified.to connection id for the target accounting platform (e.g. QuickBooks, Xero).
+      contactName:
+        type: string
+        description: The display name of the customer contact to create.
+      companyName:
+        type: string
+        description: The company name for the customer contact.
+      currency:
+        type: string
+        description: The ISO currency code for the invoice (e.g. USD).
+  steps:
+  - stepId: createContact
+    description: >-
+      Create the customer contact that the invoice will be addressed to,
+      flagging it as a customer.
+    operationId: createAccountingContact
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.contactName
+        company_name: $inputs.companyName
+        currency: $inputs.currency
+        is_customer: true
+        is_active: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      contactId: $response.body#/id
+  - stepId: createInvoice
+    description: >-
+      Issue an INVOICE addressed to the new contact in DRAFT status.
+    operationId: createAccountingInvoice
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    requestBody:
+      contentType: application/json
+      payload:
+        contact_id: $steps.createContact.outputs.contactId
+        currency: $inputs.currency
+        type: INVOICE
+        status: DRAFT
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      invoiceId: $response.body#/id
+  - stepId: getInvoice
+    description: >-
+      Read the invoice back by id to capture its number and total amount.
+    operationId: getAccountingInvoice
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    - name: id
+      in: path
+      value: $steps.createInvoice.outputs.invoiceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      invoiceNumber: $response.body#/invoice_number
+      totalAmount: $response.body#/total_amount
+  outputs:
+    contactId: $steps.createContact.outputs.contactId
+    invoiceId: $steps.createInvoice.outputs.invoiceId
+    invoiceNumber: $steps.getInvoice.outputs.invoiceNumber
+    totalAmount: $steps.getInvoice.outputs.totalAmount

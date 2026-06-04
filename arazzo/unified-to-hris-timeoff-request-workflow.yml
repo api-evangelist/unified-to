@@ -1,0 +1,107 @@
+arazzo: 1.0.1
+info:
+  title: Unified.to HRIS Time-Off Request
+  summary: Look up an employee, file a time-off request for them, then list their time-off records.
+  description: >-
+    A people-operations pattern against the Unified.to unified HRIS API. The
+    workflow retrieves an employee by id to confirm they exist, files a time-off
+    request tied to that employee, and then lists time-off records filtered to
+    the same employee to confirm the request was recorded. Every step inlines its
+    request — including the required connection_id path parameter and the
+    employee linkage — so the flow is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: hrisApi
+  url: ../openapi/unified-to-hris-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: hris-timeoff-request
+  summary: Verify an employee, file a time-off request, and list their time-off records.
+  description: >-
+    Fetches an employee by id, creates a PENDING time-off request whose user_id
+    references that employee, then queries time-off records filtered to the
+    employee to confirm the request landed.
+  inputs:
+    type: object
+    required:
+    - connectionId
+    - employeeId
+    - startAt
+    - endAt
+    properties:
+      connectionId:
+        type: string
+        description: The Unified.to connection id for the target HRIS (e.g. Workday, BamboHR).
+      employeeId:
+        type: string
+        description: The id of the employee requesting time off.
+      startAt:
+        type: string
+        description: The start of the time-off window (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ).
+      endAt:
+        type: string
+        description: The end of the time-off window (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ).
+      reason:
+        type: string
+        description: The reason for the time-off request.
+  steps:
+  - stepId: getEmployee
+    description: >-
+      Read the employee by id to confirm they exist on the connection before
+      filing time off.
+    operationId: getHrisEmployee
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    - name: id
+      in: path
+      value: $inputs.employeeId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      employeeName: $response.body#/name
+  - stepId: createTimeoff
+    description: >-
+      File a PENDING time-off request for the employee over the supplied window.
+      start_at is required by the schema.
+    operationId: createHrisTimeoff
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    requestBody:
+      contentType: application/json
+      payload:
+        user_id: $inputs.employeeId
+        start_at: $inputs.startAt
+        end_at: $inputs.endAt
+        reason: $inputs.reason
+        status: PENDING
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      timeoffId: $response.body#/id
+  - stepId: listEmployeeTimeoffs
+    description: >-
+      List time-off records filtered to the employee to confirm the new request
+      is tracked.
+    operationId: listHrisTimeoffs
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    - name: user_id
+      in: query
+      value: $inputs.employeeId
+    - name: limit
+      in: query
+      value: 25
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstTimeoffId: $response.body#/0/id
+  outputs:
+    employeeName: $steps.getEmployee.outputs.employeeName
+    timeoffId: $steps.createTimeoff.outputs.timeoffId
+    firstTimeoffId: $steps.listEmployeeTimeoffs.outputs.firstTimeoffId

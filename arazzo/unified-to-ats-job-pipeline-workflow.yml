@@ -1,0 +1,95 @@
+arazzo: 1.0.1
+info:
+  title: Unified.to ATS Job Pipeline
+  summary: Open a new ATS job, retrieve it, then review the applications attached to it.
+  description: >-
+    A hiring-manager pattern against the Unified.to unified ATS API. The
+    workflow opens a new job requisition on a connection, reads it back by id to
+    confirm it is live, and then lists the applications filtered to that job so a
+    recruiter can review the candidate pipeline. Every step inlines its request —
+    including the required connection_id path parameter — so the flow is
+    self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: atsApi
+  url: ../openapi/unified-to-ats-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: ats-job-pipeline
+  summary: Create a job, fetch it, and list its applications.
+  description: >-
+    Creates an ATS job in OPEN status, retrieves the created job by id, then
+    lists applications filtered to that job id to surface the candidate pipeline.
+  inputs:
+    type: object
+    required:
+    - connectionId
+    - jobName
+    properties:
+      connectionId:
+        type: string
+        description: The Unified.to connection id for the target ATS.
+      jobName:
+        type: string
+        description: The title of the job requisition to open.
+      description:
+        type: string
+        description: The job description / responsibilities text.
+  steps:
+  - stepId: createJob
+    description: >-
+      Open a new job requisition in OPEN status with the supplied title and
+      description.
+    operationId: createAtsJob
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.jobName
+        description: $inputs.description
+        status: OPEN
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jobId: $response.body#/id
+  - stepId: getJob
+    description: >-
+      Read the created job back by id to confirm it is live on the connection.
+    operationId: getAtsJob
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    - name: id
+      in: path
+      value: $steps.createJob.outputs.jobId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      jobStatus: $response.body#/status
+  - stepId: listJobApplications
+    description: >-
+      List applications filtered to the new job to review the candidate
+      pipeline.
+    operationId: listAtsApplications
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    - name: job_id
+      in: query
+      value: $steps.createJob.outputs.jobId
+    - name: limit
+      in: query
+      value: 50
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstApplicationId: $response.body#/0/id
+  outputs:
+    jobId: $steps.createJob.outputs.jobId
+    jobStatus: $steps.getJob.outputs.jobStatus
+    firstApplicationId: $steps.listJobApplications.outputs.firstApplicationId

@@ -1,0 +1,108 @@
+arazzo: 1.0.1
+info:
+  title: Unified.to CRM Deal With Company
+  summary: Create a CRM company, open a deal tied to it, and confirm the deal in the pipeline list.
+  description: >-
+    A common revenue-team integration pattern against the Unified.to unified CRM
+    API. The workflow first creates a company (the account), then opens a deal
+    associated with that company by linking the new company id, and finally
+    lists deals for the same company to confirm the opportunity is tracked.
+    Every step inlines its request — including the required connection_id path
+    parameter and the company link — so the flow is self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: crmApi
+  url: ../openapi/unified-to-crm-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: crm-deal-with-company
+  summary: Create a company, open an associated deal, and list deals for the company.
+  description: >-
+    Creates a CRM company, creates a deal whose company_ids reference the new
+    company, then queries deals filtered to that company to confirm the deal was
+    recorded.
+  inputs:
+    type: object
+    required:
+    - connectionId
+    - companyName
+    - dealName
+    - amount
+    properties:
+      connectionId:
+        type: string
+        description: The Unified.to connection id for the target CRM.
+      companyName:
+        type: string
+        description: The name of the company / account to create.
+      dealName:
+        type: string
+        description: The name of the deal / opportunity to open.
+      amount:
+        type: number
+        description: The monetary amount of the deal.
+      currency:
+        type: string
+        description: The ISO currency code for the deal amount (e.g. USD).
+  steps:
+  - stepId: createCompany
+    description: >-
+      Create the company (account) that the deal will be associated with.
+    operationId: createCrmCompany
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.companyName
+        is_active: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      companyId: $response.body#/id
+  - stepId: createDeal
+    description: >-
+      Open a deal linked to the newly created company by referencing its id in
+      company_ids.
+    operationId: createCrmDeal
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.dealName
+        amount: $inputs.amount
+        currency: $inputs.currency
+        company_ids:
+        - $steps.createCompany.outputs.companyId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      dealId: $response.body#/id
+  - stepId: listCompanyDeals
+    description: >-
+      List deals filtered to the new company to confirm the opportunity is
+      tracked under that account.
+    operationId: listCrmDeals
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    - name: company_id
+      in: query
+      value: $steps.createCompany.outputs.companyId
+    - name: limit
+      in: query
+      value: 25
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstDealId: $response.body#/0/id
+  outputs:
+    companyId: $steps.createCompany.outputs.companyId
+    dealId: $steps.createDeal.outputs.dealId
+    firstDealId: $steps.listCompanyDeals.outputs.firstDealId

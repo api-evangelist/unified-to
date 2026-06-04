@@ -1,0 +1,109 @@
+arazzo: 1.0.1
+info:
+  title: Unified.to HRIS Employee Onboarding
+  summary: Add a new HRIS employee, read the record back, then confirm they appear in the employee directory.
+  description: >-
+    The first-day people-operations pattern against the Unified.to unified HRIS
+    API. The workflow creates a new employee on a connection, reads the record
+    back by id to confirm the write, and then searches the employee directory by
+    name to confirm the new hire is discoverable. Every step inlines its request —
+    including the required connection_id path parameter — so the flow is
+    self-describing.
+  version: 1.0.0
+sourceDescriptions:
+- name: hrisApi
+  url: ../openapi/unified-to-hris-openapi.yaml
+  type: openapi
+workflows:
+- workflowId: hris-employee-onboarding
+  summary: Create an employee, fetch the record, and search the directory for them.
+  description: >-
+    Creates an HRIS employee in ACTIVE status, retrieves the created record by
+    id, then queries the employee list by name to confirm the new hire is
+    searchable.
+  inputs:
+    type: object
+    required:
+    - connectionId
+    - firstName
+    - lastName
+    - email
+    properties:
+      connectionId:
+        type: string
+        description: The Unified.to connection id for the target HRIS.
+      firstName:
+        type: string
+        description: The employee's first name.
+      lastName:
+        type: string
+        description: The employee's last name.
+      email:
+        type: string
+        description: The employee's primary work email address.
+      employeeNumber:
+        type: string
+        description: The employer-assigned employee number.
+  steps:
+  - stepId: createEmployee
+    description: >-
+      Create the employee on the connection with the supplied name, work email,
+      and ACTIVE employment status.
+    operationId: createHrisEmployee
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    requestBody:
+      contentType: application/json
+      payload:
+        first_name: $inputs.firstName
+        last_name: $inputs.lastName
+        employee_number: $inputs.employeeNumber
+        employment_status: ACTIVE
+        emails:
+        - email: $inputs.email
+          type: WORK
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      employeeId: $response.body#/id
+  - stepId: getEmployee
+    description: >-
+      Read the new employee back by id to confirm the record was created.
+    operationId: getHrisEmployee
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    - name: id
+      in: path
+      value: $steps.createEmployee.outputs.employeeId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      employeeName: $response.body#/name
+      employmentStatus: $response.body#/employment_status
+  - stepId: findEmployee
+    description: >-
+      Search the employee directory by the supplied email to confirm the new
+      hire is discoverable.
+    operationId: listHrisEmployees
+    parameters:
+    - name: connection_id
+      in: path
+      value: $inputs.connectionId
+    - name: query
+      in: query
+      value: $inputs.email
+    - name: limit
+      in: query
+      value: 10
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedEmployeeId: $response.body#/0/id
+  outputs:
+    employeeId: $steps.createEmployee.outputs.employeeId
+    employeeName: $steps.getEmployee.outputs.employeeName
+    matchedEmployeeId: $steps.findEmployee.outputs.matchedEmployeeId
