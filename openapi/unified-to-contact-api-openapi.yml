@@ -1,0 +1,1631 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account contact API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: contact
+paths:
+  /accounting/{connection_id}/contact:
+    get:
+      operationId: listAccountingContacts
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      - description: The org ID to filter by (reference to AccountingOrganization)
+        in: query
+        name: org_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - telephones
+            - currency
+            - billing_address
+            - shipping_address
+            - is_active
+            - tax_exemption
+            - tax_number
+            - is_customer
+            - is_supplier
+            - portal_url
+            - payment_methods
+            - company_name
+            - identification
+            - associated_contacts
+            - organization_id
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingContacts'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all contacts
+      tags:
+      - contact
+    post:
+      operationId: createAccountingContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - telephones
+            - currency
+            - billing_address
+            - shipping_address
+            - is_active
+            - tax_exemption
+            - tax_number
+            - is_customer
+            - is_supplier
+            - portal_url
+            - payment_methods
+            - company_name
+            - identification
+            - associated_contacts
+            - organization_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountingContact'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a contact
+      tags:
+      - contact
+  /accounting/{connection_id}/contact/{id}:
+    delete:
+      operationId: removeAccountingContact
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a contact
+      tags:
+      - contact
+    get:
+      operationId: getAccountingContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - telephones
+            - currency
+            - billing_address
+            - shipping_address
+            - is_active
+            - tax_exemption
+            - tax_number
+            - is_customer
+            - is_supplier
+            - portal_url
+            - payment_methods
+            - company_name
+            - identification
+            - associated_contacts
+            - organization_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a contact
+      tags:
+      - contact
+    patch:
+      operationId: patchAccountingContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - telephones
+            - currency
+            - billing_address
+            - shipping_address
+            - is_active
+            - tax_exemption
+            - tax_number
+            - is_customer
+            - is_supplier
+            - portal_url
+            - payment_methods
+            - company_name
+            - identification
+            - associated_contacts
+            - organization_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountingContact'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a contact
+      tags:
+      - contact
+    put:
+      operationId: updateAccountingContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - telephones
+            - currency
+            - billing_address
+            - shipping_address
+            - is_active
+            - tax_exemption
+            - tax_number
+            - is_customer
+            - is_supplier
+            - portal_url
+            - payment_methods
+            - company_name
+            - identification
+            - associated_contacts
+            - organization_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountingContact'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a contact
+      tags:
+      - contact
+  /crm/{connection_id}/contact:
+    get:
+      operationId: listCrmContacts
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to CrmCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: The deal ID to filter by (reference to CrmDeal)
+        in: query
+        name: deal_id
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - deal_ids
+            - company_ids
+            - address
+            - user_id
+            - link_urls
+            - metadata
+            - department
+            - image_url
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmContacts'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all contacts
+      tags:
+      - contact
+    post:
+      operationId: createCrmContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - deal_ids
+            - company_ids
+            - address
+            - user_id
+            - link_urls
+            - metadata
+            - department
+            - image_url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmContact'
+        description: A contact represents a person that optionally is associated with a deal and/or a company
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a contact
+      tags:
+      - contact
+  /crm/{connection_id}/contact/{id}:
+    delete:
+      operationId: removeCrmContact
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a contact
+      tags:
+      - contact
+    get:
+      operationId: getCrmContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - deal_ids
+            - company_ids
+            - address
+            - user_id
+            - link_urls
+            - metadata
+            - department
+            - image_url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a contact
+      tags:
+      - contact
+    patch:
+      operationId: patchCrmContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - deal_ids
+            - company_ids
+            - address
+            - user_id
+            - link_urls
+            - metadata
+            - department
+            - image_url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmContact'
+        description: A contact represents a person that optionally is associated with a deal and/or a company
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a contact
+      tags:
+      - contact
+    put:
+      operationId: updateCrmContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - deal_ids
+            - company_ids
+            - address
+            - user_id
+            - link_urls
+            - metadata
+            - department
+            - image_url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmContact'
+        description: A contact represents a person that optionally is associated with a deal and/or a company
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a contact
+      tags:
+      - contact
+  /uc/{connection_id}/contact:
+    get:
+      operationId: listUcContacts
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcContacts'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Contacts
+      tags:
+      - contact
+    post:
+      operationId: createUcContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UcContact'
+        description: A contact represents a person that optionally is associated with a call
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Contact
+      tags:
+      - contact
+  /uc/{connection_id}/contact/{id}:
+    delete:
+      operationId: removeUcContact
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Contact
+      tags:
+      - contact
+    get:
+      operationId: getUcContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Contact
+      tags:
+      - contact
+    patch:
+      operationId: patchUcContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UcContact'
+        description: A contact represents a person that optionally is associated with a call
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Contact
+      tags:
+      - contact
+    put:
+      operationId: updateUcContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UcContact'
+        description: A contact represents a person that optionally is associated with a call
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Contact
+      tags:
+      - contact
+components:
+  schemas:
+    AccountingContactPaymentMethod:
+      properties:
+        default:
+          type: boolean
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          enum:
+          - ACH
+          - ALIPAY
+          - CARD
+          - GIROPAY
+          - IDEAL
+          - OTHER
+          - PAYPAL
+          - WIRE
+          - CHECK
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - type
+      type: object
+    CrmEmail:
+      properties:
+        email:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    CrmContacts:
+      items:
+        $ref: '#/components/schemas/CrmContact'
+      type: array
+    UcEmail:
+      properties:
+        email:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - email
+      type: object
+    UcTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    AccountingEmail:
+      properties:
+        email:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_AccountingContact_telephones:
+      items:
+        $ref: '#/components/schemas/AccountingTelephone'
+      type: array
+    AccountingContact:
+      properties:
+        associated_contacts:
+          $ref: '#/components/schemas/property_AccountingContact_associated_contacts'
+        billing_address:
+          $ref: '#/components/schemas/property_AccountingContact_billing_address'
+        company_name:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          default: USD
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_AccountingContact_emails'
+        first_name:
+          type: string
+        id:
+          type: string
+        identification:
+          type: string
+        is_active:
+          type: boolean
+        is_customer:
+          type: boolean
+        is_supplier:
+          type: boolean
+        last_name:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        payment_methods:
+          $ref: '#/components/schemas/property_AccountingContact_payment_methods'
+        portal_url:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        shipping_address:
+          $ref: '#/components/schemas/property_AccountingContact_shipping_address'
+        tax_exemption:
+          enum:
+          - FEDERAL_GOV
+          - REGION_GOV
+          - LOCAL_GOV
+          - TRIBAL_GOV
+          - CHARITABLE_ORG
+          - RELIGIOUS_ORG
+          - EDUCATIONAL_ORG
+          - MEDICAL_ORG
+          - RESALE
+          - FOREIGN
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        tax_number:
+          type: string
+        telephones:
+          $ref: '#/components/schemas/property_AccountingContact_telephones'
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_UcContact_emails:
+      description: An array of email addresses for this contact
+      items:
+        $ref: '#/components/schemas/UcEmail'
+      type: array
+    property_AccountingContact_payment_methods:
+      items:
+        $ref: '#/components/schemas/AccountingContactPaymentMethod'
+      type: array
+    property_UcContact_telephones:
+      description: An array of telephones for this contact
+      items:
+        $ref: '#/components/schemas/UcTelephone'
+      type: array
+    property_AccountingAssociatedContact_emails:
+      items:
+        $ref: '#/components/schemas/AccountingEmail'
+      type: array
+    property_AccountingContact_emails:
+      items:
+        $ref: '#/components/schemas/AccountingEmail'
+      type: array
+    CrmTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    UcContacts:
+      items:
+        $ref: '#/components/schemas/UcContact'
+      type: array
+    property_CrmContact_link_urls:
+      description: Additional URLs associated with the contact e.g., LinkedIn, website, etc
+      items:
+        type: string
+      type: array
+    AccountingContacts:
+      items:
+        $ref: '#/components/schemas/AccountingContact'
+      type: array
+    CrmContact:
+      description: A contact represents a person that optionally is associated with a deal and/or a company
+      properties:
+        address:
+          $ref: '#/components/schemas/property_CrmContact_address'
+        company:
+          type: string
+        company_ids:
+          $ref: '#/components/schemas/property_CrmContact_company_ids'
+        created_at:
+          format: date-time
+          type: string
+        deal_ids:
+          $ref: '#/components/schemas/property_CrmContact_deal_ids'
+        department:
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_CrmContact_emails'
+        first_name:
+          type: string
+        id:
+          type: string
+        image_url:
+          type: string
+        last_name:
+          type: string
+        link_urls:
+          $ref: '#/components/schemas/property_CrmContact_link_urls'
+        metadata:
+          $ref: '#/components/schemas/property_CrmContact_metadata'
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        telephones:
+          $ref: '#/components/schemas/property_CrmContact_telephones'
+        title:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_CrmContact_deal_ids:
+      description: An array of deal IDs associated with this contact
+      items:
+        type: string
+      type: array
+    property_AccountingContact_billing_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_CrmContact_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_CrmContact_company_ids:
+      description: An array of company IDs associated with this contact
+      items:
+        type: string
+      type: array
+    property_AccountingContact_shipping_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    CrmMetadata:
+      properties:
+        extra_data:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        format:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - MEASUREMENT
+          - PRICE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        namespace:
+          type: string
+        slug:
+          type: string
+        value:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+      type: object
+    property_CrmContact_telephones:
+      description: An array of telephones for this contact
+      items:
+        $ref: '#/components/schemas/CrmTelephone'
+      type: array
+    AccountingTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_CrmContact_metadata:
+      items:
+        $ref: '#/components/schemas/CrmMetadata'
+      type: array
+    AccountingAssociatedContact:
+      properties:
+        emails:
+          $ref: '#/components/schemas/property_AccountingAssociatedContact_emails'
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    property_CrmContact_emails:
+      description: An array of email addresses for this contact
+      items:
+        $ref: '#/components/schemas/CrmEmail'
+      type: array
+    property_AccountingContact_associated_contacts:
+      items:
+        $ref: '#/components/schemas/AccountingAssociatedContact'
+      type: array
+    UcContact:
+      description: A contact represents a person that optionally is associated with a call
+      properties:
+        company:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_UcContact_emails'
+        first_name:
+          type: string
+        id:
+          type: string
+        last_name:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        telephones:
+          $ref: '#/components/schemas/property_UcContact_telephones'
+        title:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

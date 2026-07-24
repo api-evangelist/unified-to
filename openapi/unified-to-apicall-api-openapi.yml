@@ -1,0 +1,204 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account apicall API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: apicall
+paths:
+  /unified/apicall:
+    get:
+      operationId: listUnifiedApicalls
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Filter the results to only those integrations for your user referenced by this value
+        in: query
+        name: external_xref
+        required: false
+        schema:
+          type: string
+      - description: Filter the results to just this integration
+        in: query
+        name: integration_type
+        required: false
+        schema:
+          type: string
+      - description: Filter the results for API Calls with errors
+        in: query
+        name: error
+        required: false
+        schema:
+          type: boolean
+      - description: Filter the results to just this integration
+        in: query
+        name: connection_id
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: env
+        required: false
+        schema:
+          type: string
+      - description: Filter the results to just this webhook
+        in: query
+        name: webhook_id
+        required: false
+        schema:
+          type: string
+      - description: Filter the results to just this type
+        in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      - description: Filter the results for only billable API Calls
+        in: query
+        name: is_billable
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiCalls'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Returns Api Calls
+      tags:
+      - apicall
+  /unified/apicall/{id}:
+    get:
+      operationId: getUnifiedApicall
+      parameters:
+      - description: ID of the Apicall
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiCall'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve Specific Api Call by Its Id
+      tags:
+      - apicall
+components:
+  schemas:
+    ApiCalls:
+      items:
+        $ref: '#/components/schemas/ApiCall'
+      type: array
+    ApiCall:
+      properties:
+        connection_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        endapi_response_time:
+          type: number
+        environment:
+          default: Production
+          type: string
+        error:
+          type: string
+        external_xref:
+          type: string
+        id:
+          type: string
+        integration_type:
+          type: string
+        ip_address:
+          type: string
+        is_billable:
+          type: boolean
+        method:
+          type: string
+        name:
+          type: string
+        path:
+          type: string
+        size:
+          type: number
+        status:
+          type: string
+        type:
+          enum:
+          - login
+          - webhook
+          - inbound
+          - mcp
+          type: string
+          x-speakeasy-unknown-values: allow
+        unified_response_time:
+          type: number
+        user_agent:
+          type: string
+        webhook_id:
+          type: string
+        workspace_id:
+          type: string
+      required:
+      - integration_type
+      - name
+      - path
+      - status
+      - type
+      - method
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

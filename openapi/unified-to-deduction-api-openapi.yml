@@ -1,0 +1,495 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account deduction API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: deduction
+paths:
+  /hris/{connection_id}/deduction:
+    get:
+      operationId: listHrisDeductions
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to HrisCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: The payslip ID to filter by
+        in: query
+        name: payslip_id
+        required: false
+        schema:
+          type: string
+      - description: The benefit ID to filter by
+        in: query
+        name: benefit_id
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - benefit_id
+            - amount
+            - type
+            - coverage_level
+            - frequency
+            - start_at
+            - end_at
+            - is_active
+            - notes
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisDeductions'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Deductions
+      tags:
+      - deduction
+    post:
+      operationId: createHrisDeduction
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - benefit_id
+            - amount
+            - type
+            - coverage_level
+            - frequency
+            - start_at
+            - end_at
+            - is_active
+            - notes
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisDeduction'
+        description: Employee-specific deduction/benefit enrolment.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisDeduction'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Deduction
+      tags:
+      - deduction
+  /hris/{connection_id}/deduction/{id}:
+    delete:
+      operationId: removeHrisDeduction
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Deduction
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Deduction
+      tags:
+      - deduction
+    get:
+      operationId: getHrisDeduction
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - benefit_id
+            - amount
+            - type
+            - coverage_level
+            - frequency
+            - start_at
+            - end_at
+            - is_active
+            - notes
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Deduction
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisDeduction'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Deduction
+      tags:
+      - deduction
+    patch:
+      operationId: patchHrisDeduction
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - benefit_id
+            - amount
+            - type
+            - coverage_level
+            - frequency
+            - start_at
+            - end_at
+            - is_active
+            - notes
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Deduction
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisDeduction'
+        description: Employee-specific deduction/benefit enrolment.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisDeduction'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Deduction
+      tags:
+      - deduction
+    put:
+      operationId: updateHrisDeduction
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - benefit_id
+            - amount
+            - type
+            - coverage_level
+            - frequency
+            - start_at
+            - end_at
+            - is_active
+            - notes
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Deduction
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisDeduction'
+        description: Employee-specific deduction/benefit enrolment.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisDeduction'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Deduction
+      tags:
+      - deduction
+components:
+  schemas:
+    HrisDeduction:
+      description: Employee-specific deduction/benefit enrolment.
+      properties:
+        amount:
+          type: number
+        benefit_id:
+          type: string
+        company_id:
+          type: string
+        coverage_level:
+          enum:
+          - EMPLOYEE_ONLY
+          - EMPLOYEE_SPOUSE
+          - EMPLOYEE_CHILD
+          - EMPLOYEE_CHILDREN
+          - EMPLOYEE_FAMILY
+          - FAMILY
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        created_at:
+          format: date-time
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        frequency:
+          enum:
+          - ONE_TIME
+          - DAY
+          - QUARTER
+          - YEAR
+          - HOUR
+          - MONTH
+          - WEEK
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        is_active:
+          type: boolean
+        notes:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        type:
+          enum:
+          - FIXED
+          - PERCENTAGE
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    HrisDeductions:
+      items:
+        $ref: '#/components/schemas/HrisDeduction'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

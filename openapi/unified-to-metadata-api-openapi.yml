@@ -1,0 +1,441 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account metadata API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: metadata
+paths:
+  /metadata/{connection_id}/metadata:
+    get:
+      operationId: listMetadataMetadatas
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The type to filter by
+        in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - slug
+            - format
+            - original_format
+            - options
+            - object_type
+            - objects
+            - is_required
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataMetadatas'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Metadatas
+      tags:
+      - metadata
+    post:
+      operationId: createMetadataMetadata
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - slug
+            - format
+            - original_format
+            - options
+            - object_type
+            - objects
+            - is_required
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetadataMetadata'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataMetadata'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Metadata
+      tags:
+      - metadata
+  /metadata/{connection_id}/metadata/{id}:
+    delete:
+      operationId: removeMetadataMetadata
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Metadata
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Metadata
+      tags:
+      - metadata
+    get:
+      operationId: getMetadataMetadata
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - slug
+            - format
+            - original_format
+            - options
+            - object_type
+            - objects
+            - is_required
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Metadata
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataMetadata'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Metadata
+      tags:
+      - metadata
+    patch:
+      operationId: patchMetadataMetadata
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - slug
+            - format
+            - original_format
+            - options
+            - object_type
+            - objects
+            - is_required
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Metadata
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetadataMetadata'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataMetadata'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Metadata
+      tags:
+      - metadata
+    put:
+      operationId: updateMetadataMetadata
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - slug
+            - format
+            - original_format
+            - options
+            - object_type
+            - objects
+            - is_required
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Metadata
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetadataMetadata'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataMetadata'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Metadata
+      tags:
+      - metadata
+components:
+  schemas:
+    property_MetadataMetadata_objects:
+      additionalProperties: true
+      type: object
+    MetadataMetadatas:
+      items:
+        $ref: '#/components/schemas/MetadataMetadata'
+      type: array
+    MetadataMetadata:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        format:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - MEASUREMENT
+          - PRICE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        is_required:
+          type: boolean
+        name:
+          type: string
+        object_type:
+          type: string
+        objects:
+          $ref: '#/components/schemas/property_MetadataMetadata_objects'
+        options:
+          $ref: '#/components/schemas/property_MetadataMetadata_options'
+        original_format:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        slug:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - name
+      - object_type
+      type: object
+    property_MetadataMetadata_options:
+      items:
+        type: string
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

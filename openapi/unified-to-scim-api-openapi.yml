@@ -1,0 +1,951 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account scim API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: scim
+paths:
+  /scim/{connection_id}/groups:
+    get:
+      operationId: listScimGroups
+      parameters:
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sortBy
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sortOrder
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: startIndex
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: count
+        required: false
+        schema:
+          type: number
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimGroups'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List Groups
+      tags:
+      - scim
+    post:
+      operationId: createScimGroups
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScimGroup'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimGroup'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create Group
+      tags:
+      - scim
+  /scim/{connection_id}/groups/{id}:
+    delete:
+      operationId: removeScimGroups
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Group
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Delete Group
+      tags:
+      - scim
+    get:
+      operationId: getScimGroups
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Group
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimGroup'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Get Group
+      tags:
+      - scim
+    patch:
+      operationId: patchScimGroups
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Group
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScimGroup'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimGroup'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update Group
+      tags:
+      - scim
+    put:
+      operationId: updateScimGroups
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Group
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScimGroup'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimGroup'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update Group
+      tags:
+      - scim
+  /scim/{connection_id}/users:
+    get:
+      operationId: listScimUsers
+      parameters:
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sortBy
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sortOrder
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: startIndex
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: count
+        required: false
+        schema:
+          type: number
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimUsers'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List Users
+      tags:
+      - scim
+    post:
+      operationId: createScimUsers
+      parameters:
+      - in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sortBy
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sortOrder
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: startIndex
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: count
+        required: false
+        schema:
+          type: number
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScimUser'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimUser'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create User
+      tags:
+      - scim
+  /scim/{connection_id}/users/{id}:
+    delete:
+      operationId: removeScimUsers
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the User
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Delete User
+      tags:
+      - scim
+    get:
+      operationId: getScimUsers
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the User
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimUser'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Get User
+      tags:
+      - scim
+    patch:
+      operationId: patchScimUsers
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the User
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScimUser'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimUser'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update User
+      tags:
+      - scim
+    put:
+      operationId: updateScimUsers
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the User
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScimUser'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimUser'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update User
+      tags:
+      - scim
+components:
+  schemas:
+    property_ScimGroup_members:
+      description: An array of members
+      items:
+        $ref: '#/components/schemas/ScimGroupMember'
+      type: array
+    property_ScimUser_name:
+      properties:
+        familyName:
+          type: string
+        formatted:
+          type: string
+        givenName:
+          type: string
+        honorificPrefix:
+          type: string
+        honorificSuffix:
+          type: string
+        middleName:
+          type: string
+      type: object
+    ScimGroup:
+      properties:
+        displayName:
+          type: string
+        externalId:
+          type: string
+        groupType:
+          type: string
+        id:
+          type: string
+        members:
+          $ref: '#/components/schemas/property_ScimGroup_members'
+        meta:
+          $ref: '#/components/schemas/property_ScimGroup_meta'
+        schemas:
+          $ref: '#/components/schemas/property_ScimGroup_schemas'
+      required:
+      - displayName
+      type: object
+    property_ScimGroup_meta:
+      properties:
+        created:
+          type: string
+        lastModified:
+          type: string
+        location:
+          type: string
+        resourceType:
+          enum:
+          - User
+          - Group
+          type: string
+          x-speakeasy-unknown-values: allow
+        version:
+          type: string
+      type: object
+    property_ScimUser_urn_ietf_params_scim_schemas_extension_enterprise_2_0_User_additionalManagers:
+      items:
+        $ref: '#/components/schemas/ScimManager'
+      type: array
+    property_ScimUser_groups:
+      items:
+        $ref: '#/components/schemas/ScimUserGroups'
+      type: array
+    property_ScimGroup_schemas:
+      description: Array of schema URIs
+      items:
+        enum:
+        - urn:ietf:params:scim:schemas:core:2.0:Group
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    ScimUserGroups:
+      properties:
+        $ref:
+          type: string
+        display:
+          type: string
+        type:
+          enum:
+          - direct
+          - indirect
+          type: string
+          x-speakeasy-unknown-values: allow
+        value:
+          type: string
+      required:
+      - value
+      type: object
+    property_ScimUser_entitlements:
+      items:
+        $ref: '#/components/schemas/ScimEntitlement'
+      type: array
+    property_ScimUser_schemas:
+      items:
+        enum:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        - urn:ietf:params:scim:schemas:extension:enterprise:2.0:User
+        - urn:ietf:params:scim:schemas:extension:lattice:attributes:1.0:User
+        - urn:ietf:params:scim:schemas:extension:peakon:2.0:User
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    ScimIms:
+      properties:
+        display:
+          type: string
+        primary:
+          type: boolean
+        type:
+          enum:
+          - aim
+          - qtalk
+          - icq
+          - xmpp
+          - msn
+          - skype
+          - qq
+          - yahoo
+          type: string
+          x-speakeasy-unknown-values: allow
+        value:
+          type: string
+      type: object
+    property_ScimUser_meta:
+      properties:
+        created:
+          type: string
+        lastModified:
+          type: string
+        location:
+          type: string
+        resourceType:
+          enum:
+          - User
+          - Group
+          type: string
+          x-speakeasy-unknown-values: allow
+        version:
+          type: string
+      type: object
+    property_ScimUser_urn_ietf_params_scim_schemas_extension_enterprise_2_0_User_manager:
+      description: '"id" attribute of another User.'
+      properties:
+        $ref:
+          type: string
+        displayName:
+          type: string
+        managerId:
+          type: string
+        type:
+          enum:
+          - direct
+          - indirect
+          type: string
+          x-speakeasy-unknown-values: allow
+        value:
+          type: string
+      type: object
+    ScimEmail:
+      properties:
+        display:
+          type: string
+        primary:
+          type: boolean
+        type:
+          enum:
+          - work
+          - home
+          - other
+          type: string
+          x-speakeasy-unknown-values: allow
+        value:
+          type: string
+      required:
+      - type
+      type: object
+    property_ScimUser_phoneNumbers:
+      items:
+        $ref: '#/components/schemas/ScimPhoneNumber'
+      type: array
+    property_ScimUser_ims:
+      items:
+        $ref: '#/components/schemas/ScimIms'
+      type: array
+    ScimGroups:
+      items:
+        $ref: '#/components/schemas/ScimGroup'
+      type: array
+    ScimEntitlement:
+      properties:
+        display:
+          type: string
+        primary:
+          type: boolean
+        type:
+          type: string
+        value:
+          type: string
+      required:
+      - value
+      type: object
+    property_ScimUser_emails:
+      items:
+        $ref: '#/components/schemas/ScimEmail'
+      type: array
+    property_ScimUser_roles:
+      description: Student, Faculty, ...
+      items:
+        $ref: '#/components/schemas/ScimRole'
+      type: array
+    ScimPhoto:
+      properties:
+        display:
+          type: string
+        primary:
+          type: boolean
+        type:
+          enum:
+          - photo
+          - thumbnail
+          type: string
+          x-speakeasy-unknown-values: allow
+        value:
+          type: string
+      type: object
+    ScimRole:
+      properties:
+        display:
+          type: string
+        primary:
+          type: boolean
+        type:
+          type: string
+        value:
+          type: string
+      required:
+      - value
+      type: object
+    property_ScimUser_addresses:
+      items:
+        $ref: '#/components/schemas/ScimAddress'
+      type: array
+    ScimGroupMember:
+      properties:
+        $ref:
+          type: string
+        display:
+          type: string
+        operation:
+          enum:
+          - add
+          - delete
+          type: string
+          x-speakeasy-unknown-values: allow
+        type:
+          enum:
+          - User
+          - Group
+          type: string
+          x-speakeasy-unknown-values: allow
+        value:
+          type: string
+      required:
+      - value
+      type: object
+    property_ScimUser_urn_ietf_params_scim_schemas_extension_lattice_attributes_1_0_User:
+      properties:
+        Job Level:
+          type: string
+        People Manager (Reviews):
+          type: string
+        Remote Work - Location:
+          type: string
+        Salary Information:
+          type: string
+        Sub Departments:
+          type: string
+        birthDate:
+          format: date-time
+          type: string
+        ethnicity:
+          enum:
+          - Caucasian
+          - East Asian
+          - Middle Eastern
+          - Black
+          - Biracial (South Asian & Caucasian)
+          - Filipino
+          - South Asian
+          - Indian
+          - White
+          - Asian
+          type: string
+          x-speakeasy-unknown-values: allow
+        gender:
+          enum:
+          - male
+          - female
+          type: string
+          x-speakeasy-unknown-values: allow
+        sexualOrientation:
+          enum:
+          - Queer
+          - Heterosexual
+          - Straight
+          type: string
+          x-speakeasy-unknown-values: allow
+        startDate:
+          format: date-time
+          type: string
+      type: object
+    ScimManager:
+      description: '"id" attribute of another User.'
+      properties:
+        $ref:
+          type: string
+        displayName:
+          type: string
+        managerId:
+          type: string
+        type:
+          enum:
+          - direct
+          - indirect
+          type: string
+          x-speakeasy-unknown-values: allow
+        value:
+          type: string
+      type: object
+    property_ScimUser_urn_ietf_params_scim_schemas_extension_peakon_2_0_User:
+      properties:
+        Date of Birth:
+          format: date-time
+          type: string
+        Gender:
+          enum:
+          - Female
+          - Male
+          type: string
+          x-speakeasy-unknown-values: allow
+        Manager:
+          type: string
+        Team:
+          type: string
+      type: object
+    property_ScimUser_urn_ietf_params_scim_schemas_extension_enterprise_2_0_User:
+      description: an organization.
+      properties:
+        additionalManagers:
+          $ref: '#/components/schemas/property_ScimUser_urn_ietf_params_scim_schemas_extension_enterprise_2_0_User_additionalManagers'
+        birthday:
+          format: date-time
+          type: string
+        costCenter:
+          type: string
+        currency:
+          type: string
+        department:
+          type: string
+        division:
+          type: string
+        employeeNumber:
+          type: string
+        endDate:
+          format: date-time
+          type: string
+        gender:
+          enum:
+          - male
+          - female
+          type: string
+          x-speakeasy-unknown-values: allow
+        level:
+          type: string
+        location:
+          type: string
+        manager:
+          $ref: '#/components/schemas/property_ScimUser_urn_ietf_params_scim_schemas_extension_enterprise_2_0_User_manager'
+        organization:
+          type: string
+        startDate:
+          format: date-time
+          type: string
+      type: object
+    property_ScimUser_photos:
+      items:
+        $ref: '#/components/schemas/ScimPhoto'
+      type: array
+    ScimUser:
+      properties:
+        active:
+          type: boolean
+        addresses:
+          $ref: '#/components/schemas/property_ScimUser_addresses'
+        displayName:
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_ScimUser_emails'
+        entitlements:
+          $ref: '#/components/schemas/property_ScimUser_entitlements'
+        externalId:
+          type: string
+        groups:
+          $ref: '#/components/schemas/property_ScimUser_groups'
+        id:
+          type: string
+        ims:
+          $ref: '#/components/schemas/property_ScimUser_ims'
+        locale:
+          type: string
+        meta:
+          $ref: '#/components/schemas/property_ScimUser_meta'
+        name:
+          $ref: '#/components/schemas/property_ScimUser_name'
+        nickName:
+          type: string
+        password:
+          type: string
+        phoneNumbers:
+          $ref: '#/components/schemas/property_ScimUser_phoneNumbers'
+        photos:
+          $ref: '#/components/schemas/property_ScimUser_photos'
+        preferredLanguage:
+          type: string
+        profileUrl:
+          type: string
+        roles:
+          $ref: '#/components/schemas/property_ScimUser_roles'
+        schemas:
+          $ref: '#/components/schemas/property_ScimUser_schemas'
+        timezone:
+          type: string
+        title:
+          type: string
+        urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:
+          $ref: '#/components/schemas/property_ScimUser_urn_ietf_params_scim_schemas_extension_enterprise_2_0_User'
+        urn:ietf:params:scim:schemas:extension:lattice:attributes:1.0:User:
+          $ref: '#/components/schemas/property_ScimUser_urn_ietf_params_scim_schemas_extension_lattice_attributes_1_0_User'
+        urn:ietf:params:scim:schemas:extension:peakon:2.0:User:
+          $ref: '#/components/schemas/property_ScimUser_urn_ietf_params_scim_schemas_extension_peakon_2_0_User'
+        userName:
+          type: string
+        userType:
+          type: string
+        x509Certificates:
+          $ref: '#/components/schemas/property_ScimUser_x509Certificates'
+      type: object
+    ScimUsers:
+      items:
+        $ref: '#/components/schemas/ScimUser'
+      type: array
+    property_ScimUser_x509Certificates:
+      items:
+        $ref: '#/components/schemas/ScimRole'
+      type: array
+    ScimPhoneNumber:
+      properties:
+        display:
+          type: string
+        primary:
+          type: boolean
+        type:
+          enum:
+          - work
+          - home
+          - other
+          - mobile
+          - fax
+          - pager
+          type: string
+          x-speakeasy-unknown-values: allow
+        value:
+          type: string
+      type: object
+    ScimAddress:
+      properties:
+        country:
+          type: string
+        formatted:
+          type: string
+        locality:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        streetAddress:
+          type: string
+        type:
+          enum:
+          - work
+          - home
+          - other
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

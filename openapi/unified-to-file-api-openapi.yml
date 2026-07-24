@@ -1,0 +1,527 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account file API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: file
+paths:
+  /storage/{connection_id}/file:
+    get:
+      operationId: listStorageFiles
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The parent ID to filter by
+        in: query
+        name: parent_id
+        required: false
+        schema:
+          type: string
+      - description: The referenced entity ID to filter by (e.g. linked accounting record for storage_file)
+        in: query
+        name: reference
+        required: false
+        schema:
+          type: string
+      - description: The type to filter by
+        in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      - description: Whether to flatten grouped or recurring items into individual entries.
+        in: query
+        name: expand
+        required: false
+        schema:
+          type: boolean
+      - description: The fulltext to filter by
+        in: query
+        name: fulltext
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - parent_id
+            - user_id
+            - size
+            - type
+            - mime_type
+            - permissions
+            - download_url
+            - hash
+            - data
+            - version
+            - web_url
+            - references
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageFiles'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Files
+      tags:
+      - file
+    post:
+      operationId: createStorageFile
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - parent_id
+            - user_id
+            - size
+            - type
+            - mime_type
+            - permissions
+            - download_url
+            - hash
+            - data
+            - version
+            - web_url
+            - references
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StorageFile'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageFile'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a File
+      tags:
+      - file
+  /storage/{connection_id}/file/{id}:
+    delete:
+      operationId: removeStorageFile
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the File
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a File
+      tags:
+      - file
+    get:
+      operationId: getStorageFile
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - parent_id
+            - user_id
+            - size
+            - type
+            - mime_type
+            - permissions
+            - download_url
+            - hash
+            - data
+            - version
+            - web_url
+            - references
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the File
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageFile'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a File
+      tags:
+      - file
+    patch:
+      operationId: patchStorageFile
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - parent_id
+            - user_id
+            - size
+            - type
+            - mime_type
+            - permissions
+            - download_url
+            - hash
+            - data
+            - version
+            - web_url
+            - references
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the File
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StorageFile'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageFile'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a File
+      tags:
+      - file
+    put:
+      operationId: updateStorageFile
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - parent_id
+            - user_id
+            - size
+            - type
+            - mime_type
+            - permissions
+            - download_url
+            - hash
+            - data
+            - version
+            - web_url
+            - references
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the File
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StorageFile'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageFile'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a File
+      tags:
+      - file
+components:
+  schemas:
+    property_StorageFile_permissions:
+      items:
+        $ref: '#/components/schemas/StoragePermission'
+      type: array
+    property_StoragePermission_roles:
+      items:
+        enum:
+        - OWNER
+        - READ
+        - WRITE
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    StorageFiles:
+      items:
+        $ref: '#/components/schemas/StorageFile'
+      type: array
+    StorageFile:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        data:
+          type: string
+        description:
+          type: string
+        download_url:
+          type: string
+        hash:
+          type: string
+        id:
+          type: string
+        mime_type:
+          type: string
+        name:
+          type: string
+        parent_id:
+          type: string
+        permissions:
+          $ref: '#/components/schemas/property_StorageFile_permissions'
+        raw:
+          additionalProperties: true
+          type: object
+        references:
+          $ref: '#/components/schemas/property_StorageFile_references'
+        size:
+          type: number
+        type:
+          enum:
+          - FILE
+          - FOLDER
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+        version:
+          type: string
+        web_url:
+          type: string
+      type: object
+    StorageReference:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+      type: object
+    property_StorageFile_references:
+      items:
+        $ref: '#/components/schemas/StorageReference'
+      type: array
+    StoragePermission:
+      properties:
+        group_id:
+          type: string
+        is_hidden:
+          type: boolean
+        is_public:
+          type: boolean
+        roles:
+          $ref: '#/components/schemas/property_StoragePermission_roles'
+        user_id:
+          type: string
+      required:
+      - roles
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

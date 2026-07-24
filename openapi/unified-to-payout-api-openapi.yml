@@ -1,0 +1,192 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account payout API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: payout
+paths:
+  /payment/{connection_id}/payout:
+    get:
+      operationId: listPaymentPayouts
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - total_amount
+            - currency
+            - notes
+            - status
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentPayouts'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Payouts
+      tags:
+      - payout
+  /payment/{connection_id}/payout/{id}:
+    get:
+      operationId: getPaymentPayout
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - total_amount
+            - currency
+            - notes
+            - status
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Payout
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentPayout'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Payout
+      tags:
+      - payout
+components:
+  schemas:
+    PaymentPayout:
+      properties:
+        created_at:
+          type: string
+        currency:
+          type: string
+        id:
+          type: string
+        notes:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        status:
+          enum:
+          - SUCCEEDED
+          - PENDING
+          - FAILED
+          - CANCELED
+          type: string
+          x-speakeasy-unknown-values: allow
+        total_amount:
+          type: number
+        updated_at:
+          type: string
+      required:
+      - total_amount
+      type: object
+    PaymentPayouts:
+      items:
+        $ref: '#/components/schemas/PaymentPayout'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

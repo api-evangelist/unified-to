@@ -1,0 +1,1532 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account uc API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: uc
+paths:
+  /uc/{connection_id}/call:
+    get:
+      operationId: listUcCalls
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The contact ID to filter by (reference to UcContact)
+        in: query
+        name: contact_id
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - contact_id
+            - telephone
+            - start_at
+            - end_at
+            - user_id
+            - contacts
+            - is_private
+            - user_name
+            - user_phone
+            - type
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcCalls'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Calls
+      tags:
+      - uc
+  /uc/{connection_id}/call/{id}:
+    get:
+      operationId: getUcCall
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - contact_id
+            - telephone
+            - start_at
+            - end_at
+            - user_id
+            - contacts
+            - is_private
+            - user_name
+            - user_phone
+            - type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Call
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcCall'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Call
+      tags:
+      - uc
+  /uc/{connection_id}/comment:
+    get:
+      operationId: listUcComments
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The call ID to filter by
+        in: query
+        name: call_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - content
+            - user_id
+            - call_id
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcComments'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Comments
+      tags:
+      - uc
+    post:
+      operationId: createUcComment
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - content
+            - user_id
+            - call_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UcComment'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcComment'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Comment
+      tags:
+      - uc
+  /uc/{connection_id}/comment/{id}:
+    delete:
+      operationId: removeUcComment
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Comment
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Comment
+      tags:
+      - uc
+    get:
+      operationId: getUcComment
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - content
+            - user_id
+            - call_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Comment
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcComment'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Comment
+      tags:
+      - uc
+    patch:
+      operationId: patchUcComment
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - content
+            - user_id
+            - call_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Comment
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UcComment'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcComment'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Comment
+      tags:
+      - uc
+    put:
+      operationId: updateUcComment
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - content
+            - user_id
+            - call_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Comment
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UcComment'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcComment'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Comment
+      tags:
+      - uc
+  /uc/{connection_id}/contact:
+    get:
+      operationId: listUcContacts
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcContacts'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Contacts
+      tags:
+      - uc
+    post:
+      operationId: createUcContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UcContact'
+        description: A contact represents a person that optionally is associated with a call
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Contact
+      tags:
+      - uc
+  /uc/{connection_id}/contact/{id}:
+    delete:
+      operationId: removeUcContact
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Contact
+      tags:
+      - uc
+    get:
+      operationId: getUcContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Contact
+      tags:
+      - uc
+    patch:
+      operationId: patchUcContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UcContact'
+        description: A contact represents a person that optionally is associated with a call
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Contact
+      tags:
+      - uc
+    put:
+      operationId: updateUcContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UcContact'
+        description: A contact represents a person that optionally is associated with a call
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Contact
+      tags:
+      - uc
+  /uc/{connection_id}/recording:
+    get:
+      operationId: listUcRecordings
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The call ID to filter by
+        in: query
+        name: call_id
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: The contact ID to filter by (reference to UcContact)
+        in: query
+        name: contact_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - start_at
+            - end_at
+            - expires_at
+            - call_id
+            - web_url
+            - contact_id
+            - contact_name
+            - contact_phone
+            - user_id
+            - media
+            - user_name
+            - user_phone
+            - type
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcRecordings'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Recordings
+      tags:
+      - uc
+    post:
+      operationId: createUcRecording
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - start_at
+            - end_at
+            - expires_at
+            - call_id
+            - web_url
+            - contact_id
+            - contact_name
+            - contact_phone
+            - user_id
+            - media
+            - user_name
+            - user_phone
+            - type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UcRecording'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcRecording'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Recording
+      tags:
+      - uc
+  /uc/{connection_id}/recording/{id}:
+    delete:
+      operationId: removeUcRecording
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Recording
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Recording
+      tags:
+      - uc
+    get:
+      operationId: getUcRecording
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - start_at
+            - end_at
+            - expires_at
+            - call_id
+            - web_url
+            - contact_id
+            - contact_name
+            - contact_phone
+            - user_id
+            - media
+            - user_name
+            - user_phone
+            - type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Recording
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcRecording'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Recording
+      tags:
+      - uc
+    patch:
+      operationId: patchUcRecording
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - start_at
+            - end_at
+            - expires_at
+            - call_id
+            - web_url
+            - contact_id
+            - contact_name
+            - contact_phone
+            - user_id
+            - media
+            - user_name
+            - user_phone
+            - type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Recording
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UcRecording'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcRecording'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Recording
+      tags:
+      - uc
+    put:
+      operationId: updateUcRecording
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - start_at
+            - end_at
+            - expires_at
+            - call_id
+            - web_url
+            - contact_id
+            - contact_name
+            - contact_phone
+            - user_id
+            - media
+            - user_name
+            - user_phone
+            - type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Recording
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UcRecording'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcRecording'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Recording
+      tags:
+      - uc
+components:
+  schemas:
+    UcRecording:
+      properties:
+        call_id:
+          type: string
+        contact_id:
+          type: string
+        contact_name:
+          type: string
+        contact_phone:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        expires_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        media:
+          $ref: '#/components/schemas/property_UcRecording_media'
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        type:
+          enum:
+          - INBOUND
+          - OUTBOUND
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+        user_name:
+          type: string
+        user_phone:
+          type: string
+        web_url:
+          type: string
+      type: object
+    UcContacts:
+      items:
+        $ref: '#/components/schemas/UcContact'
+      type: array
+    UcRecordingMedia:
+      properties:
+        end_at:
+          format: date-time
+          type: string
+        language:
+          type: string
+        recording_download_url:
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        transcript_download_url:
+          type: string
+        transcripts:
+          $ref: '#/components/schemas/property_UcRecordingMedia_transcripts'
+      type: object
+    property_UcContact_telephones:
+      description: An array of telephones for this contact
+      items:
+        $ref: '#/components/schemas/UcTelephone'
+      type: array
+    property_UcCall_contacts:
+      items:
+        $ref: '#/components/schemas/UcContact'
+      type: array
+    property_UcRecordingMedia_transcripts:
+      items:
+        $ref: '#/components/schemas/UcRecordingTranscript'
+      type: array
+    UcEmail:
+      properties:
+        email:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - email
+      type: object
+    UcCall:
+      properties:
+        contact_id:
+          type: string
+        contacts:
+          $ref: '#/components/schemas/property_UcCall_contacts'
+        created_at:
+          format: date-time
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        is_private:
+          type: boolean
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        telephone:
+          $ref: '#/components/schemas/property_UcCall_telephone'
+        type:
+          enum:
+          - INBOUND
+          - OUTBOUND
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+        user_name:
+          type: string
+        user_phone:
+          type: string
+      type: object
+    property_UcCall_telephone:
+      description: The telephone number called
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    UcTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    UcComment:
+      properties:
+        call_id:
+          type: string
+        content:
+          type: string
+        created_at:
+          type: string
+        id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          type: string
+        user_id:
+          type: string
+      required:
+      - content
+      type: object
+    UcCalls:
+      items:
+        $ref: '#/components/schemas/UcCall'
+      type: array
+    UcComments:
+      items:
+        $ref: '#/components/schemas/UcComment'
+      type: array
+    UcContact:
+      description: A contact represents a person that optionally is associated with a call
+      properties:
+        company:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_UcContact_emails'
+        first_name:
+          type: string
+        id:
+          type: string
+        last_name:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        telephones:
+          $ref: '#/components/schemas/property_UcContact_telephones'
+        title:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_UcRecording_media:
+      items:
+        $ref: '#/components/schemas/UcRecordingMedia'
+      type: array
+    UcRecordingTranscript:
+      properties:
+        contact_id:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        text:
+          type: string
+        user_id:
+          type: string
+      required:
+      - text
+      type: object
+    property_UcContact_emails:
+      description: An array of email addresses for this contact
+      items:
+        $ref: '#/components/schemas/UcEmail'
+      type: array
+    UcRecordings:
+      items:
+        $ref: '#/components/schemas/UcRecording'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

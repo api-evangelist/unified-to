@@ -1,0 +1,5057 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account hris API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: hris
+paths:
+  /hris/{connection_id}/bankaccount:
+    get:
+      operationId: listHrisBankaccounts
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to HrisCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - account_type
+            - bank_name
+            - routing_number
+            - account_number
+            - account_number_last4
+            - name
+            - is_primary
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisBankaccounts'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Bankaccounts
+      tags:
+      - hris
+    post:
+      operationId: createHrisBankaccount
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - account_type
+            - bank_name
+            - routing_number
+            - account_number
+            - account_number_last4
+            - name
+            - is_primary
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisBankaccount'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisBankaccount'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Bankaccount
+      tags:
+      - hris
+  /hris/{connection_id}/bankaccount/{id}:
+    delete:
+      operationId: removeHrisBankaccount
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Bankaccount
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Bankaccount
+      tags:
+      - hris
+    get:
+      operationId: getHrisBankaccount
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - account_type
+            - bank_name
+            - routing_number
+            - account_number
+            - account_number_last4
+            - name
+            - is_primary
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Bankaccount
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisBankaccount'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Bankaccount
+      tags:
+      - hris
+    patch:
+      operationId: patchHrisBankaccount
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - account_type
+            - bank_name
+            - routing_number
+            - account_number
+            - account_number_last4
+            - name
+            - is_primary
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Bankaccount
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisBankaccount'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisBankaccount'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Bankaccount
+      tags:
+      - hris
+    put:
+      operationId: updateHrisBankaccount
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - account_type
+            - bank_name
+            - routing_number
+            - account_number
+            - account_number_last4
+            - name
+            - is_primary
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Bankaccount
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisBankaccount'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisBankaccount'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Bankaccount
+      tags:
+      - hris
+  /hris/{connection_id}/benefit:
+    get:
+      operationId: listHrisBenefits
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to HrisCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - company_id
+            - type
+            - tax
+            - frequency
+            - is_active
+            - employer_contribution_type
+            - employer_contribution_amount
+            - employer_contribution_max_amount
+            - coverage_level
+            - currency
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisBenefits'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Benefits
+      tags:
+      - hris
+    post:
+      operationId: createHrisBenefit
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - company_id
+            - type
+            - tax
+            - frequency
+            - is_active
+            - employer_contribution_type
+            - employer_contribution_amount
+            - employer_contribution_max_amount
+            - coverage_level
+            - currency
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisBenefit'
+        description: Company-wide benefit plans available to employees.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisBenefit'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Benefit
+      tags:
+      - hris
+  /hris/{connection_id}/benefit/{id}:
+    delete:
+      operationId: removeHrisBenefit
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Benefit
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Benefit
+      tags:
+      - hris
+    get:
+      operationId: getHrisBenefit
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - company_id
+            - type
+            - tax
+            - frequency
+            - is_active
+            - employer_contribution_type
+            - employer_contribution_amount
+            - employer_contribution_max_amount
+            - coverage_level
+            - currency
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Benefit
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisBenefit'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Benefit
+      tags:
+      - hris
+    patch:
+      operationId: patchHrisBenefit
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - company_id
+            - type
+            - tax
+            - frequency
+            - is_active
+            - employer_contribution_type
+            - employer_contribution_amount
+            - employer_contribution_max_amount
+            - coverage_level
+            - currency
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Benefit
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisBenefit'
+        description: Company-wide benefit plans available to employees.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisBenefit'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Benefit
+      tags:
+      - hris
+    put:
+      operationId: updateHrisBenefit
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - company_id
+            - type
+            - tax
+            - frequency
+            - is_active
+            - employer_contribution_type
+            - employer_contribution_amount
+            - employer_contribution_max_amount
+            - coverage_level
+            - currency
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Benefit
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisBenefit'
+        description: Company-wide benefit plans available to employees.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisBenefit'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Benefit
+      tags:
+      - hris
+  /hris/{connection_id}/company:
+    get:
+      operationId: listHrisCompanies
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - legal_name
+            - address
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisCompanies'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Companies
+      tags:
+      - hris
+    post:
+      operationId: createHrisCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - legal_name
+            - address
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisCompany'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Company
+      tags:
+      - hris
+  /hris/{connection_id}/company/{id}:
+    delete:
+      operationId: removeHrisCompany
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Company
+      tags:
+      - hris
+    get:
+      operationId: getHrisCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - legal_name
+            - address
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Company
+      tags:
+      - hris
+    patch:
+      operationId: patchHrisCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - legal_name
+            - address
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisCompany'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Company
+      tags:
+      - hris
+    put:
+      operationId: updateHrisCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - legal_name
+            - address
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisCompany'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Company
+      tags:
+      - hris
+  /hris/{connection_id}/deduction:
+    get:
+      operationId: listHrisDeductions
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to HrisCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: The payslip ID to filter by
+        in: query
+        name: payslip_id
+        required: false
+        schema:
+          type: string
+      - description: The benefit ID to filter by
+        in: query
+        name: benefit_id
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - benefit_id
+            - amount
+            - type
+            - coverage_level
+            - frequency
+            - start_at
+            - end_at
+            - is_active
+            - notes
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisDeductions'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Deductions
+      tags:
+      - hris
+    post:
+      operationId: createHrisDeduction
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - benefit_id
+            - amount
+            - type
+            - coverage_level
+            - frequency
+            - start_at
+            - end_at
+            - is_active
+            - notes
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisDeduction'
+        description: Employee-specific deduction/benefit enrolment.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisDeduction'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Deduction
+      tags:
+      - hris
+  /hris/{connection_id}/deduction/{id}:
+    delete:
+      operationId: removeHrisDeduction
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Deduction
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Deduction
+      tags:
+      - hris
+    get:
+      operationId: getHrisDeduction
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - benefit_id
+            - amount
+            - type
+            - coverage_level
+            - frequency
+            - start_at
+            - end_at
+            - is_active
+            - notes
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Deduction
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisDeduction'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Deduction
+      tags:
+      - hris
+    patch:
+      operationId: patchHrisDeduction
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - benefit_id
+            - amount
+            - type
+            - coverage_level
+            - frequency
+            - start_at
+            - end_at
+            - is_active
+            - notes
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Deduction
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisDeduction'
+        description: Employee-specific deduction/benefit enrolment.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisDeduction'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Deduction
+      tags:
+      - hris
+    put:
+      operationId: updateHrisDeduction
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - benefit_id
+            - amount
+            - type
+            - coverage_level
+            - frequency
+            - start_at
+            - end_at
+            - is_active
+            - notes
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Deduction
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisDeduction'
+        description: Employee-specific deduction/benefit enrolment.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisDeduction'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Deduction
+      tags:
+      - hris
+  /hris/{connection_id}/device:
+    get:
+      operationId: listHrisDevices
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - asset_tag
+            - version
+            - manufacturer
+            - model
+            - os
+            - os_version
+            - user_ids
+            - admin_user_ids
+            - location_id
+            - has_antivirus
+            - has_password_manager
+            - has_firewall
+            - has_hd_encrypted
+            - has_screenlock
+            - is_missing
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisDevices'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Devices
+      tags:
+      - hris
+    post:
+      operationId: createHrisDevice
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - asset_tag
+            - version
+            - manufacturer
+            - model
+            - os
+            - os_version
+            - user_ids
+            - admin_user_ids
+            - location_id
+            - has_antivirus
+            - has_password_manager
+            - has_firewall
+            - has_hd_encrypted
+            - has_screenlock
+            - is_missing
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisDevice'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisDevice'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Device
+      tags:
+      - hris
+  /hris/{connection_id}/device/{id}:
+    delete:
+      operationId: removeHrisDevice
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Device
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Device
+      tags:
+      - hris
+    get:
+      operationId: getHrisDevice
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - asset_tag
+            - version
+            - manufacturer
+            - model
+            - os
+            - os_version
+            - user_ids
+            - admin_user_ids
+            - location_id
+            - has_antivirus
+            - has_password_manager
+            - has_firewall
+            - has_hd_encrypted
+            - has_screenlock
+            - is_missing
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Device
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisDevice'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Device
+      tags:
+      - hris
+    patch:
+      operationId: patchHrisDevice
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - asset_tag
+            - version
+            - manufacturer
+            - model
+            - os
+            - os_version
+            - user_ids
+            - admin_user_ids
+            - location_id
+            - has_antivirus
+            - has_password_manager
+            - has_firewall
+            - has_hd_encrypted
+            - has_screenlock
+            - is_missing
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Device
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisDevice'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisDevice'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Device
+      tags:
+      - hris
+    put:
+      operationId: updateHrisDevice
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - asset_tag
+            - version
+            - manufacturer
+            - model
+            - os
+            - os_version
+            - user_ids
+            - admin_user_ids
+            - location_id
+            - has_antivirus
+            - has_password_manager
+            - has_firewall
+            - has_hd_encrypted
+            - has_screenlock
+            - is_missing
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Device
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisDevice'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisDevice'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Device
+      tags:
+      - hris
+  /hris/{connection_id}/employee:
+    get:
+      operationId: listHrisEmployees
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to HrisCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - title
+            - manager_id
+            - employment_status
+            - gender
+            - telephones
+            - date_of_birth
+            - employee_number
+            - hired_at
+            - terminated_at
+            - termination_reason
+            - marital_status
+            - employment_type
+            - address
+            - language_locale
+            - currency
+            - timezone
+            - image_url
+            - company_id
+            - pronouns
+            - employee_roles
+            - compensation
+            - salutation
+            - bio
+            - ssn_sin
+            - groups
+            - locations
+            - metadata
+            - storage_quota_allocated
+            - storage_quota_used
+            - storage_quota_available
+            - relationships
+            - has_mfa
+            - timeoff_days_total
+            - timeoff_days_used
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisEmployees'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Employees
+      tags:
+      - hris
+    post:
+      operationId: createHrisEmployee
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - title
+            - manager_id
+            - employment_status
+            - gender
+            - telephones
+            - date_of_birth
+            - employee_number
+            - hired_at
+            - terminated_at
+            - termination_reason
+            - marital_status
+            - employment_type
+            - address
+            - language_locale
+            - currency
+            - timezone
+            - image_url
+            - company_id
+            - pronouns
+            - employee_roles
+            - compensation
+            - salutation
+            - bio
+            - ssn_sin
+            - groups
+            - locations
+            - metadata
+            - storage_quota_allocated
+            - storage_quota_used
+            - storage_quota_available
+            - relationships
+            - has_mfa
+            - timeoff_days_total
+            - timeoff_days_used
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisEmployee'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisEmployee'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an Employee
+      tags:
+      - hris
+  /hris/{connection_id}/employee/{id}:
+    delete:
+      operationId: removeHrisEmployee
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Employee
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an Employee
+      tags:
+      - hris
+    get:
+      operationId: getHrisEmployee
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - title
+            - manager_id
+            - employment_status
+            - gender
+            - telephones
+            - date_of_birth
+            - employee_number
+            - hired_at
+            - terminated_at
+            - termination_reason
+            - marital_status
+            - employment_type
+            - address
+            - language_locale
+            - currency
+            - timezone
+            - image_url
+            - company_id
+            - pronouns
+            - employee_roles
+            - compensation
+            - salutation
+            - bio
+            - ssn_sin
+            - groups
+            - locations
+            - metadata
+            - storage_quota_allocated
+            - storage_quota_used
+            - storage_quota_available
+            - relationships
+            - has_mfa
+            - timeoff_days_total
+            - timeoff_days_used
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Employee
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisEmployee'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an Employee
+      tags:
+      - hris
+    patch:
+      operationId: patchHrisEmployee
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - title
+            - manager_id
+            - employment_status
+            - gender
+            - telephones
+            - date_of_birth
+            - employee_number
+            - hired_at
+            - terminated_at
+            - termination_reason
+            - marital_status
+            - employment_type
+            - address
+            - language_locale
+            - currency
+            - timezone
+            - image_url
+            - company_id
+            - pronouns
+            - employee_roles
+            - compensation
+            - salutation
+            - bio
+            - ssn_sin
+            - groups
+            - locations
+            - metadata
+            - storage_quota_allocated
+            - storage_quota_used
+            - storage_quota_available
+            - relationships
+            - has_mfa
+            - timeoff_days_total
+            - timeoff_days_used
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Employee
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisEmployee'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisEmployee'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Employee
+      tags:
+      - hris
+    put:
+      operationId: updateHrisEmployee
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - title
+            - manager_id
+            - employment_status
+            - gender
+            - telephones
+            - date_of_birth
+            - employee_number
+            - hired_at
+            - terminated_at
+            - termination_reason
+            - marital_status
+            - employment_type
+            - address
+            - language_locale
+            - currency
+            - timezone
+            - image_url
+            - company_id
+            - pronouns
+            - employee_roles
+            - compensation
+            - salutation
+            - bio
+            - ssn_sin
+            - groups
+            - locations
+            - metadata
+            - storage_quota_allocated
+            - storage_quota_used
+            - storage_quota_available
+            - relationships
+            - has_mfa
+            - timeoff_days_total
+            - timeoff_days_used
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Employee
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisEmployee'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisEmployee'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Employee
+      tags:
+      - hris
+  /hris/{connection_id}/group:
+    get:
+      operationId: listHrisGroups
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to HrisCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: The type to filter by
+        in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - parent_id
+            - type
+            - user_ids
+            - manager_ids
+            - is_active
+            - company_id
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisGroups'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Groups
+      tags:
+      - hris
+    post:
+      operationId: createHrisGroup
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - parent_id
+            - type
+            - user_ids
+            - manager_ids
+            - is_active
+            - company_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisGroup'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisGroup'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Group
+      tags:
+      - hris
+  /hris/{connection_id}/group/{id}:
+    delete:
+      operationId: removeHrisGroup
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Group
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Group
+      tags:
+      - hris
+    get:
+      operationId: getHrisGroup
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - parent_id
+            - type
+            - user_ids
+            - manager_ids
+            - is_active
+            - company_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Group
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisGroup'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Group
+      tags:
+      - hris
+    patch:
+      operationId: patchHrisGroup
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - parent_id
+            - type
+            - user_ids
+            - manager_ids
+            - is_active
+            - company_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Group
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisGroup'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisGroup'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Group
+      tags:
+      - hris
+    put:
+      operationId: updateHrisGroup
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - parent_id
+            - type
+            - user_ids
+            - manager_ids
+            - is_active
+            - company_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Group
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisGroup'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisGroup'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Group
+      tags:
+      - hris
+  /hris/{connection_id}/location:
+    get:
+      operationId: listHrisLocations
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to HrisCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - address
+            - parent_id
+            - external_identifier
+            - telephones
+            - timezone
+            - currency
+            - language_locale
+            - is_active
+            - is_hq
+            - company_id
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisLocations'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Locations
+      tags:
+      - hris
+    post:
+      operationId: createHrisLocation
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - address
+            - parent_id
+            - external_identifier
+            - telephones
+            - timezone
+            - currency
+            - language_locale
+            - is_active
+            - is_hq
+            - company_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisLocation'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisLocation'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Location
+      tags:
+      - hris
+  /hris/{connection_id}/location/{id}:
+    delete:
+      operationId: removeHrisLocation
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Location
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Location
+      tags:
+      - hris
+    get:
+      operationId: getHrisLocation
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - address
+            - parent_id
+            - external_identifier
+            - telephones
+            - timezone
+            - currency
+            - language_locale
+            - is_active
+            - is_hq
+            - company_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Location
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisLocation'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Location
+      tags:
+      - hris
+    patch:
+      operationId: patchHrisLocation
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - address
+            - parent_id
+            - external_identifier
+            - telephones
+            - timezone
+            - currency
+            - language_locale
+            - is_active
+            - is_hq
+            - company_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Location
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisLocation'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisLocation'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Location
+      tags:
+      - hris
+    put:
+      operationId: updateHrisLocation
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - address
+            - parent_id
+            - external_identifier
+            - telephones
+            - timezone
+            - currency
+            - language_locale
+            - is_active
+            - is_hq
+            - company_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Location
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisLocation'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisLocation'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Location
+      tags:
+      - hris
+  /hris/{connection_id}/payslip:
+    get:
+      operationId: listHrisPayslips
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to HrisCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - payment_type
+            - paid_at
+            - start_at
+            - end_at
+            - currency
+            - gross_amount
+            - net_amount
+            - details
+            - raw
+            - deduction
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisPayslips'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Payslips
+      tags:
+      - hris
+  /hris/{connection_id}/payslip/{id}:
+    get:
+      operationId: getHrisPayslip
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - payment_type
+            - paid_at
+            - start_at
+            - end_at
+            - currency
+            - gross_amount
+            - net_amount
+            - details
+            - raw
+            - deduction
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Payslip
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisPayslip'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Payslip
+      tags:
+      - hris
+  /hris/{connection_id}/timeoff:
+    get:
+      operationId: listHrisTimeoffs
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to HrisCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - start_at
+            - end_at
+            - is_paid
+            - status
+            - approver_user_id
+            - approved_at
+            - comments
+            - raw
+            - reason
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisTimeoffs'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Timeoffs
+      tags:
+      - hris
+    post:
+      operationId: createHrisTimeoff
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - start_at
+            - end_at
+            - is_paid
+            - status
+            - approver_user_id
+            - approved_at
+            - comments
+            - raw
+            - reason
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisTimeoff'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisTimeoff'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Timeoff
+      tags:
+      - hris
+  /hris/{connection_id}/timeoff/{id}:
+    delete:
+      operationId: removeHrisTimeoff
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Timeoff
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Timeoff
+      tags:
+      - hris
+    get:
+      operationId: getHrisTimeoff
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - start_at
+            - end_at
+            - is_paid
+            - status
+            - approver_user_id
+            - approved_at
+            - comments
+            - raw
+            - reason
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Timeoff
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisTimeoff'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Timeoff
+      tags:
+      - hris
+    patch:
+      operationId: patchHrisTimeoff
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - start_at
+            - end_at
+            - is_paid
+            - status
+            - approver_user_id
+            - approved_at
+            - comments
+            - raw
+            - reason
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Timeoff
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisTimeoff'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisTimeoff'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Timeoff
+      tags:
+      - hris
+    put:
+      operationId: updateHrisTimeoff
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - start_at
+            - end_at
+            - is_paid
+            - status
+            - approver_user_id
+            - approved_at
+            - comments
+            - raw
+            - reason
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Timeoff
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisTimeoff'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisTimeoff'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Timeoff
+      tags:
+      - hris
+  /hris/{connection_id}/timeshift:
+    get:
+      operationId: listHrisTimeshifts
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to HrisCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: The location ID to filter by (reference to HrisLocation)
+        in: query
+        name: location_id
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - employee_user_id
+            - start_at
+            - end_at
+            - location_id
+            - company_id
+            - group_id
+            - compensation
+            - approver_user_id
+            - approved_at
+            - hours
+            - is_approved
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisTimeshifts'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Timeshifts
+      tags:
+      - hris
+    post:
+      operationId: createHrisTimeshift
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - employee_user_id
+            - start_at
+            - end_at
+            - location_id
+            - company_id
+            - group_id
+            - compensation
+            - approver_user_id
+            - approved_at
+            - hours
+            - is_approved
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisTimeshift'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisTimeshift'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Timeshift
+      tags:
+      - hris
+  /hris/{connection_id}/timeshift/{id}:
+    delete:
+      operationId: removeHrisTimeshift
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Timeshift
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Timeshift
+      tags:
+      - hris
+    get:
+      operationId: getHrisTimeshift
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - employee_user_id
+            - start_at
+            - end_at
+            - location_id
+            - company_id
+            - group_id
+            - compensation
+            - approver_user_id
+            - approved_at
+            - hours
+            - is_approved
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Timeshift
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisTimeshift'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Timeshift
+      tags:
+      - hris
+    patch:
+      operationId: patchHrisTimeshift
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - employee_user_id
+            - start_at
+            - end_at
+            - location_id
+            - company_id
+            - group_id
+            - compensation
+            - approver_user_id
+            - approved_at
+            - hours
+            - is_approved
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Timeshift
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisTimeshift'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisTimeshift'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Timeshift
+      tags:
+      - hris
+    put:
+      operationId: updateHrisTimeshift
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - employee_user_id
+            - start_at
+            - end_at
+            - location_id
+            - company_id
+            - group_id
+            - compensation
+            - approver_user_id
+            - approved_at
+            - hours
+            - is_approved
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Timeshift
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisTimeshift'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisTimeshift'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Timeshift
+      tags:
+      - hris
+components:
+  schemas:
+    HrisGroup:
+      properties:
+        company_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        manager_ids:
+          $ref: '#/components/schemas/property_HrisGroup_manager_ids'
+        name:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        type:
+          enum:
+          - TEAM
+          - GROUP
+          - DEPARTMENT
+          - DIVISION
+          - BUSINESS_UNIT
+          - BRANCH
+          - SUB_DEPARTMENT
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_ids:
+          $ref: '#/components/schemas/property_HrisGroup_user_ids'
+      type: object
+    HrisLocations:
+      items:
+        $ref: '#/components/schemas/HrisLocation'
+      type: array
+    property_HrisEmployeerelationship_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    HrisBenefits:
+      items:
+        $ref: '#/components/schemas/HrisBenefit'
+      type: array
+    property_HrisTimeshift_compensation:
+      items:
+        $ref: '#/components/schemas/HrisCompensation'
+      type: array
+    HrisPayslips:
+      items:
+        $ref: '#/components/schemas/HrisPayslip'
+      type: array
+    HrisTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    property_HrisEmployee_groups:
+      description: Which groups/teams/units that this employee/user belongs to.  May not have all of the Group fields present, but should have id, name, or email.
+      items:
+        $ref: '#/components/schemas/HrisGroup'
+      type: array
+    property_HrisLocation_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    HrisEmployee:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_HrisEmployee_address'
+        bio:
+          type: string
+        company_id:
+          type: string
+        compensation:
+          $ref: '#/components/schemas/property_HrisEmployee_compensation'
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        date_of_birth:
+          format: date-time
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_HrisEmployee_emails'
+        employee_number:
+          type: string
+        employee_roles:
+          $ref: '#/components/schemas/property_HrisEmployee_employee_roles'
+        employment_status:
+          enum:
+          - ACTIVE
+          - INACTIVE
+          type: string
+          x-speakeasy-unknown-values: allow
+        employment_type:
+          enum:
+          - FULL_TIME
+          - PART_TIME
+          - CONTRACTOR
+          - INTERN
+          - CONSULTANT
+          - VOLUNTEER
+          - CASUAL
+          - SEASONAL
+          - FREELANCE
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        first_name:
+          type: string
+        gender:
+          enum:
+          - MALE
+          - FEMALE
+          - INTERSEX
+          - TRANS
+          - NON_BINARY
+          type: string
+          x-speakeasy-unknown-values: allow
+        groups:
+          $ref: '#/components/schemas/property_HrisEmployee_groups'
+        has_mfa:
+          type: boolean
+        hired_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        image_url:
+          type: string
+        language_locale:
+          type: string
+        last_name:
+          type: string
+        locations:
+          $ref: '#/components/schemas/property_HrisEmployee_locations'
+        manager_id:
+          type: string
+        marital_status:
+          enum:
+          - MARRIED
+          - SINGLE
+          type: string
+          x-speakeasy-unknown-values: allow
+        metadata:
+          $ref: '#/components/schemas/property_HrisEmployee_metadata'
+        name:
+          type: string
+        pronouns:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        relationships:
+          $ref: '#/components/schemas/property_HrisEmployee_relationships'
+        salutation:
+          type: string
+        ssn_sin:
+          type: string
+        storage_quota_allocated:
+          type: number
+        storage_quota_available:
+          type: number
+        storage_quota_used:
+          type: number
+        telephones:
+          $ref: '#/components/schemas/property_HrisEmployee_telephones'
+        terminated_at:
+          format: date-time
+          type: string
+        termination_reason:
+          type: string
+        timeoff_days_total:
+          type: number
+        timeoff_days_used:
+          type: number
+        timezone:
+          type: string
+        title:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    HrisMetadata:
+      properties:
+        extra_data:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        format:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - MEASUREMENT
+          - PRICE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        namespace:
+          type: string
+        slug:
+          type: string
+        value:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+      type: object
+    property_HrisPayslip_details:
+      items:
+        $ref: '#/components/schemas/HrisPayslipDetail'
+      type: array
+    HrisDeduction:
+      description: Employee-specific deduction/benefit enrolment.
+      properties:
+        amount:
+          type: number
+        benefit_id:
+          type: string
+        company_id:
+          type: string
+        coverage_level:
+          enum:
+          - EMPLOYEE_ONLY
+          - EMPLOYEE_SPOUSE
+          - EMPLOYEE_CHILD
+          - EMPLOYEE_CHILDREN
+          - EMPLOYEE_FAMILY
+          - FAMILY
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        created_at:
+          format: date-time
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        frequency:
+          enum:
+          - ONE_TIME
+          - DAY
+          - QUARTER
+          - YEAR
+          - HOUR
+          - MONTH
+          - WEEK
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        is_active:
+          type: boolean
+        notes:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        type:
+          enum:
+          - FIXED
+          - PERCENTAGE
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_HrisLocation_telephones:
+      items:
+        $ref: '#/components/schemas/HrisTelephone'
+      type: array
+    HrisCompany:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_HrisCompany_address'
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        legal_name:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    HrisTimeoffs:
+      items:
+        $ref: '#/components/schemas/HrisTimeoff'
+      type: array
+    HrisDevice:
+      properties:
+        admin_user_ids:
+          $ref: '#/components/schemas/property_HrisDevice_admin_user_ids'
+        asset_tag:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        has_antivirus:
+          type: boolean
+        has_firewall:
+          type: boolean
+        has_hd_encrypted:
+          type: boolean
+        has_password_manager:
+          type: boolean
+        has_screenlock:
+          type: boolean
+        id:
+          type: string
+        is_missing:
+          type: boolean
+        location_id:
+          type: string
+        manufacturer:
+          type: string
+        model:
+          type: string
+        name:
+          type: string
+        os:
+          type: string
+        os_version:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          format: date-time
+          type: string
+        user_ids:
+          $ref: '#/components/schemas/property_HrisDevice_user_ids'
+        version:
+          type: string
+      required:
+      - name
+      type: object
+    HrisBankaccounts:
+      items:
+        $ref: '#/components/schemas/HrisBankaccount'
+      type: array
+    property_HrisEmployee_emails:
+      items:
+        $ref: '#/components/schemas/HrisEmail'
+      type: array
+    HrisBankaccount:
+      properties:
+        account_number:
+          type: string
+        account_number_last4:
+          type: string
+        account_type:
+          enum:
+          - CHECKING
+          - SAVINGS
+          type: string
+          x-speakeasy-unknown-values: allow
+        bank_name:
+          type: string
+        company_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        is_primary:
+          type: boolean
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        routing_number:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_HrisDevice_admin_user_ids:
+      items:
+        type: string
+      type: array
+    HrisPayslipDetail:
+      properties:
+        amount:
+          type: number
+        company_amount:
+          type: number
+        description:
+          type: string
+        employee_amount:
+          type: number
+        name:
+          type: string
+        type:
+          enum:
+          - EARNING_SALARY
+          - EARNING_OVERTIME
+          - EARNING_TIP
+          - EARNING_BONUS
+          - EARNING_COMMISSION
+          - EARNING_ADJUSTMENT
+          - EARNING
+          - PRETAX_DEDUCTION
+          - PRETAX_DEDUCTION_HEALTH_INSURANCE
+          - PRETAX_DEDUCTION_RETIREMENT
+          - PRETAX_DEDUCTION_HRA
+          - TAX_FEDERAL
+          - TAX_REGION
+          - TAX_LOCAL
+          - POSTTAX_BENEFIT
+          - POSTTAX_GARNISHMENT
+          - REIMBURSEMENT
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - amount
+      type: object
+    HrisEmployees:
+      items:
+        $ref: '#/components/schemas/HrisEmployee'
+      type: array
+    property_HrisEmployee_locations:
+      items:
+        $ref: '#/components/schemas/HrisLocation'
+      type: array
+    property_HrisPayslip_deduction:
+      description: The ID (and optionally name) of the employee deduction (if this detail represents a deduction)
+      properties:
+        amount:
+          type: number
+        benefit_id:
+          type: string
+        company_id:
+          type: string
+        coverage_level:
+          enum:
+          - EMPLOYEE_ONLY
+          - EMPLOYEE_SPOUSE
+          - EMPLOYEE_CHILD
+          - EMPLOYEE_CHILDREN
+          - EMPLOYEE_FAMILY
+          - FAMILY
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        created_at:
+          format: date-time
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        frequency:
+          enum:
+          - ONE_TIME
+          - DAY
+          - QUARTER
+          - YEAR
+          - HOUR
+          - MONTH
+          - WEEK
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        is_active:
+          type: boolean
+        notes:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        type:
+          enum:
+          - FIXED
+          - PERCENTAGE
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_HrisEmployee_telephones:
+      items:
+        $ref: '#/components/schemas/HrisTelephone'
+      type: array
+    property_HrisEmployee_metadata:
+      items:
+        $ref: '#/components/schemas/HrisMetadata'
+      type: array
+    HrisBenefit:
+      description: Company-wide benefit plans available to employees.
+      properties:
+        company_id:
+          type: string
+        coverage_level:
+          enum:
+          - EMPLOYEE_ONLY
+          - EMPLOYEE_SPOUSE
+          - EMPLOYEE_CHILD
+          - EMPLOYEE_CHILDREN
+          - EMPLOYEE_FAMILY
+          - FAMILY
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        description:
+          type: string
+        employer_contribution_amount:
+          type: number
+        employer_contribution_max_amount:
+          type: number
+        employer_contribution_type:
+          enum:
+          - PERCENTAGE
+          - FIXED
+          type: string
+          x-speakeasy-unknown-values: allow
+        frequency:
+          enum:
+          - ONE_TIME
+          - DAY
+          - QUARTER
+          - YEAR
+          - HOUR
+          - MONTH
+          - WEEK
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        is_active:
+          type: boolean
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        tax:
+          enum:
+          - PRE_TAX
+          - POST_TAX
+          - TAXABLE
+          - NON_TAXABLE
+          - TAX
+          type: string
+          x-speakeasy-unknown-values: allow
+        type:
+          enum:
+          - RETIREMENT
+          - HEALTH
+          - DENTAL
+          - VISION
+          - LIFE
+          - HSA
+          - FSA
+          - SHORT_TERM_DISABILITY
+          - LONG_TERM_DISABILITY
+          - WORKERS_COMP
+          - HOUSING_STIPEND
+          - EMPLOYER_TAX_CONTRIBUTION
+          - GARNISHMENT
+          - LOAN_REPAYMENT
+          - CHARITABLE_CONTRIBUTION
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_HrisEmployeerelationship_emails:
+      items:
+        $ref: '#/components/schemas/HrisEmail'
+      type: array
+    property_HrisEmployee_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    HrisCompanies:
+      items:
+        $ref: '#/components/schemas/HrisCompany'
+      type: array
+    HrisDeductions:
+      items:
+        $ref: '#/components/schemas/HrisDeduction'
+      type: array
+    property_HrisEmployee_relationships:
+      description: the employee's personal relationships (eg. emergency contacts, spouse, dependants, ...)
+      items:
+        $ref: '#/components/schemas/HrisEmployeerelationship'
+      type: array
+    HrisGroups:
+      items:
+        $ref: '#/components/schemas/HrisGroup'
+      type: array
+    HrisDevices:
+      items:
+        $ref: '#/components/schemas/HrisDevice'
+      type: array
+    property_HrisEmployee_compensation:
+      items:
+        $ref: '#/components/schemas/HrisCompensation'
+      type: array
+    property_HrisEmployeerelationship_telephones:
+      items:
+        $ref: '#/components/schemas/HrisTelephone'
+      type: array
+    property_HrisCompany_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    HrisCompensation:
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+        frequency:
+          enum:
+          - ONE_TIME
+          - DAY
+          - QUARTER
+          - YEAR
+          - HOUR
+          - MONTH
+          - WEEK
+          type: string
+          x-speakeasy-unknown-values: allow
+        group_id:
+          type: string
+        notes:
+          type: string
+        type:
+          enum:
+          - SALARY
+          - BONUS
+          - STOCK_OPTIONS
+          - EQUITY
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    HrisEmail:
+      properties:
+        email:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - email
+      type: object
+    property_HrisEmployee_employee_roles:
+      items:
+        enum:
+        - ADMIN
+        - MANAGER
+        - RECRUITER
+        - SALESREP
+        - INTERVIEWER
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    HrisTimeshifts:
+      items:
+        $ref: '#/components/schemas/HrisTimeshift'
+      type: array
+    HrisLocation:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_HrisLocation_address'
+        company_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        description:
+          type: string
+        external_identifier:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        is_hq:
+          type: boolean
+        language_locale:
+          type: string
+        name:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        telephones:
+          $ref: '#/components/schemas/property_HrisLocation_telephones'
+        timezone:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    HrisPayslip:
+      properties:
+        company_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        deduction:
+          $ref: '#/components/schemas/property_HrisPayslip_deduction'
+        details:
+          $ref: '#/components/schemas/property_HrisPayslip_details'
+        end_at:
+          format: date-time
+          type: string
+        gross_amount:
+          type: number
+        id:
+          type: string
+        net_amount:
+          type: number
+        paid_at:
+          format: date-time
+          type: string
+        payment_type:
+          enum:
+          - DIRECT
+          - CHEQUE
+          - CASH
+          type: string
+          x-speakeasy-unknown-values: allow
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      required:
+      - raw
+      type: object
+    HrisTimeoff:
+      properties:
+        approved_at:
+          format: date-time
+          type: string
+        approver_user_id:
+          type: string
+        comments:
+          type: string
+        company_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        is_paid:
+          type: boolean
+        raw:
+          additionalProperties: true
+          type: object
+        reason:
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - APPROVED
+          - PENDING
+          - DENIED
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      required:
+      - start_at
+      type: object
+    HrisTimeshift:
+      properties:
+        approved_at:
+          format: date-time
+          type: string
+        approver_user_id:
+          type: string
+        company_id:
+          type: string
+        compensation:
+          $ref: '#/components/schemas/property_HrisTimeshift_compensation'
+        created_at:
+          format: date-time
+          type: string
+        employee_user_id:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        group_id:
+          type: string
+        hours:
+          type: number
+        id:
+          type: string
+        is_approved:
+          type: boolean
+        location_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - employee_user_id
+      - start_at
+      - end_at
+      type: object
+    HrisEmployeerelationship:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_HrisEmployeerelationship_address'
+        emails:
+          $ref: '#/components/schemas/property_HrisEmployeerelationship_emails'
+        end_at:
+          format: date-time
+          type: string
+        first_name:
+          type: string
+        is_beneficiary:
+          type: boolean
+        is_dependent:
+          type: boolean
+        last_name:
+          type: string
+        name:
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        telephones:
+          $ref: '#/components/schemas/property_HrisEmployeerelationship_telephones'
+        type:
+          enum:
+          - EMERGENCY
+          - SPOUSE
+          - CHILD
+          - PARENT
+          - SIBLING
+          - FRIEND
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_HrisDevice_user_ids:
+      description: users who have this device
+      items:
+        type: string
+      type: array
+    property_HrisGroup_user_ids:
+      items:
+        type: string
+      type: array
+    property_HrisGroup_manager_ids:
+      items:
+        type: string
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

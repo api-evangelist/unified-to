@@ -1,0 +1,456 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account label API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: label
+paths:
+  /shipping/{connection_id}/label:
+    get:
+      operationId: listShippingLabels
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The ShippingShipment ID to filter by
+        in: query
+        name: shipment_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - shipment_id
+            - tracking_number
+            - label_url
+            - label_format
+            - status
+            - is_voided
+            - label_cost
+            - label_cost_currency
+            - rate_id
+            - service_code
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingLabels'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Labels
+      tags:
+      - label
+    post:
+      operationId: createShippingLabel
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - shipment_id
+            - tracking_number
+            - label_url
+            - label_format
+            - status
+            - is_voided
+            - label_cost
+            - label_cost_currency
+            - rate_id
+            - service_code
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShippingLabel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingLabel'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Label
+      tags:
+      - label
+  /shipping/{connection_id}/label/{id}:
+    delete:
+      operationId: removeShippingLabel
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Label
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Label
+      tags:
+      - label
+    get:
+      operationId: getShippingLabel
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - shipment_id
+            - tracking_number
+            - label_url
+            - label_format
+            - status
+            - is_voided
+            - label_cost
+            - label_cost_currency
+            - rate_id
+            - service_code
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Label
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingLabel'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Label
+      tags:
+      - label
+    patch:
+      operationId: patchShippingLabel
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - shipment_id
+            - tracking_number
+            - label_url
+            - label_format
+            - status
+            - is_voided
+            - label_cost
+            - label_cost_currency
+            - rate_id
+            - service_code
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Label
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShippingLabel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingLabel'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Label
+      tags:
+      - label
+    put:
+      operationId: updateShippingLabel
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - shipment_id
+            - tracking_number
+            - label_url
+            - label_format
+            - status
+            - is_voided
+            - label_cost
+            - label_cost_currency
+            - rate_id
+            - service_code
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Label
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShippingLabel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingLabel'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Label
+      tags:
+      - label
+components:
+  schemas:
+    ShippingLabels:
+      items:
+        $ref: '#/components/schemas/ShippingLabel'
+      type: array
+    ShippingLabel:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        is_voided:
+          type: boolean
+        label_cost:
+          type: number
+        label_cost_currency:
+          type: string
+        label_format:
+          enum:
+          - PDF
+          - PNG
+          - ZPL
+          - EPL2
+          - PDF_4X6
+          - PDF_4X8
+          - PNG_4X6
+          - PNG_4X8
+          type: string
+          x-speakeasy-unknown-values: allow
+        label_url:
+          type: string
+        rate_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        service_code:
+          type: string
+        shipment_id:
+          type: string
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - IN_TRANSIT
+          - DELIVERED
+          - EXCEPTION
+          - CANCELLED
+          - LABEL_CREATED
+          - PICKED_UP
+          - OUT_FOR_DELIVERY
+          - DELIVERY_ATTEMPTED
+          - RETURNED_TO_SENDER
+          - HELD_AT_LOCATION
+          - CUSTOMS_CLEARANCE
+          - EXCEPTION_RESOLVED
+          type: string
+          x-speakeasy-unknown-values: allow
+        tracking_number:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

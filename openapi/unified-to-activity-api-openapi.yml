@@ -1,0 +1,966 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account activity API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: activity
+paths:
+  /ats/{connection_id}/activity:
+    get:
+      operationId: listAtsActivities
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The application ID to filter by
+        in: query
+        name: application_id
+        required: false
+        schema:
+          type: string
+      - description: The candidate ID to filter by
+        in: query
+        name: candidate_id
+        required: false
+        schema:
+          type: string
+      - description: The job ID to filter by
+        in: query
+        name: job_id
+        required: false
+        schema:
+          type: string
+      - description: The document ID to filter by
+        in: query
+        name: document_id
+        required: false
+        schema:
+          type: string
+      - description: The interview ID to filter by
+        in: query
+        name: interview_id
+        required: false
+        schema:
+          type: string
+      - description: The type to filter by
+        in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - candidate_id
+            - application_id
+            - job_id
+            - interview_id
+            - document_ids
+            - title
+            - description
+            - is_private
+            - user_ids
+            - type
+            - from
+            - to
+            - cc
+            - bcc
+            - sub_type
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsActivities'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all activities
+      tags:
+      - activity
+    post:
+      operationId: createAtsActivity
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - candidate_id
+            - application_id
+            - job_id
+            - interview_id
+            - document_ids
+            - title
+            - description
+            - is_private
+            - user_ids
+            - type
+            - from
+            - to
+            - cc
+            - bcc
+            - sub_type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsActivity'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsActivity'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an activity
+      tags:
+      - activity
+  /ats/{connection_id}/activity/{id}:
+    delete:
+      operationId: removeAtsActivity
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Activity
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an activity
+      tags:
+      - activity
+    get:
+      operationId: getAtsActivity
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - candidate_id
+            - application_id
+            - job_id
+            - interview_id
+            - document_ids
+            - title
+            - description
+            - is_private
+            - user_ids
+            - type
+            - from
+            - to
+            - cc
+            - bcc
+            - sub_type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Activity
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsActivity'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an activity
+      tags:
+      - activity
+    patch:
+      operationId: patchAtsActivity
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - candidate_id
+            - application_id
+            - job_id
+            - interview_id
+            - document_ids
+            - title
+            - description
+            - is_private
+            - user_ids
+            - type
+            - from
+            - to
+            - cc
+            - bcc
+            - sub_type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Activity
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsActivity'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsActivity'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an activity
+      tags:
+      - activity
+    put:
+      operationId: updateAtsActivity
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - candidate_id
+            - application_id
+            - job_id
+            - interview_id
+            - document_ids
+            - title
+            - description
+            - is_private
+            - user_ids
+            - type
+            - from
+            - to
+            - cc
+            - bcc
+            - sub_type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Activity
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsActivity'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsActivity'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an activity
+      tags:
+      - activity
+  /lms/{connection_id}/activity:
+    get:
+      operationId: listLmsActivities
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The content ID to filter by
+        in: query
+        name: content_id
+        required: false
+        schema:
+          type: string
+      - description: The student ID to filter by (reference to LmsStudent)
+        in: query
+        name: student_id
+        required: false
+        schema:
+          type: string
+      - description: The course ID to filter by (reference to Course)
+        in: query
+        name: course_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - content_id
+            - course_id
+            - student_id
+            - duration_minutes
+            - assigned_grade
+            - is_completed
+            - progress_percentage
+            - started_at
+            - completed_at
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LmsActivities'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Activities
+      tags:
+      - activity
+    post:
+      operationId: createLmsActivity
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - content_id
+            - course_id
+            - student_id
+            - duration_minutes
+            - assigned_grade
+            - is_completed
+            - progress_percentage
+            - started_at
+            - completed_at
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LmsActivity'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LmsActivity'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an Activity
+      tags:
+      - activity
+  /lms/{connection_id}/activity/{id}:
+    delete:
+      operationId: removeLmsActivity
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Activity
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an Activity
+      tags:
+      - activity
+    get:
+      operationId: getLmsActivity
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - content_id
+            - course_id
+            - student_id
+            - duration_minutes
+            - assigned_grade
+            - is_completed
+            - progress_percentage
+            - started_at
+            - completed_at
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Activity
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LmsActivity'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an Activity
+      tags:
+      - activity
+    patch:
+      operationId: patchLmsActivity
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - content_id
+            - course_id
+            - student_id
+            - duration_minutes
+            - assigned_grade
+            - is_completed
+            - progress_percentage
+            - started_at
+            - completed_at
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Activity
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LmsActivity'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LmsActivity'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Activity
+      tags:
+      - activity
+    put:
+      operationId: updateLmsActivity
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - content_id
+            - course_id
+            - student_id
+            - duration_minutes
+            - assigned_grade
+            - is_completed
+            - progress_percentage
+            - started_at
+            - completed_at
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Activity
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LmsActivity'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LmsActivity'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Activity
+      tags:
+      - activity
+components:
+  schemas:
+    property_AtsActivity_cc:
+      items:
+        $ref: '#/components/schemas/AtsEmail'
+      type: array
+    AtsEmail:
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - email
+      type: object
+    LmsActivities:
+      items:
+        $ref: '#/components/schemas/LmsActivity'
+      type: array
+    property_AtsActivity_bcc:
+      items:
+        $ref: '#/components/schemas/AtsEmail'
+      type: array
+    LmsActivity:
+      properties:
+        assigned_grade:
+          type: string
+        completed_at:
+          format: date-time
+          type: string
+        content_id:
+          type: string
+        course_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        duration_minutes:
+          type: number
+        id:
+          type: string
+        is_completed:
+          type: boolean
+        progress_percentage:
+          type: number
+        raw:
+          additionalProperties: true
+          type: object
+        started_at:
+          format: date-time
+          type: string
+        student_id:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    AtsActivity:
+      properties:
+        application_id:
+          type: string
+        bcc:
+          $ref: '#/components/schemas/property_AtsActivity_bcc'
+        candidate_id:
+          type: string
+        cc:
+          $ref: '#/components/schemas/property_AtsActivity_cc'
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        document_ids:
+          $ref: '#/components/schemas/property_AtsActivity_document_ids'
+        from:
+          $ref: '#/components/schemas/property_AtsActivity_from'
+        id:
+          type: string
+        interview_id:
+          type: string
+        is_private:
+          type: boolean
+        job_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        sub_type:
+          type: string
+        title:
+          type: string
+        to:
+          $ref: '#/components/schemas/property_AtsActivity_to'
+        type:
+          enum:
+          - NOTE
+          - TASK
+          - EMAIL
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_ids:
+          $ref: '#/components/schemas/property_AtsActivity_user_ids'
+      type: object
+    property_AtsActivity_user_ids:
+      description: id values of the recruiters associated with the activity.
+      items:
+        type: string
+      type: array
+    property_AtsActivity_from:
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - email
+      type: object
+    property_AtsActivity_to:
+      items:
+        $ref: '#/components/schemas/AtsEmail'
+      type: array
+    AtsActivities:
+      items:
+        $ref: '#/components/schemas/AtsActivity'
+      type: array
+    property_AtsActivity_document_ids:
+      description: IDs for AtsDocument.get
+      items:
+        type: string
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

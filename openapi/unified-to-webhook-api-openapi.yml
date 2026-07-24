@@ -1,0 +1,509 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account webhook API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: webhook
+paths:
+  /unified/webhook:
+    get:
+      operationId: listUnifiedWebhooks
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Filter the results for webhooks for only this object
+        in: query
+        name: object
+        required: false
+        schema:
+          type: string
+      - description: Filter the results to just this integration
+        in: query
+        name: integration_type
+        required: false
+        schema:
+          type: string
+      - description: Filter the results to just this integration
+        in: query
+        name: connection_id
+        required: false
+        schema:
+          type: string
+      - description: Return only results whose created date is equal or less to this value
+        in: query
+        name: created_lte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: env
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhooks'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Returns All Registered Webhooks
+      tags:
+      - webhook
+    post:
+      description: The data payload received by your server is described at https://docs.unified.to/unified/overview. The `interval` field can be set as low as 1 minute for paid accounts, and 60 minutes for free accounts.
+      operationId: createUnifiedWebhook
+      parameters:
+      - description: When set, all of the existing data will sent back to your server.
+        in: query
+        name: include_all
+        required: false
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+        description: A webhook is used to POST new/updated information to your server.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create Webhook Subscription
+      tags:
+      - webhook
+  /unified/webhook/{id}:
+    delete:
+      operationId: removeUnifiedWebhook
+      parameters:
+      - description: ID of the Webhook
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove Webhook Subscription
+      tags:
+      - webhook
+    get:
+      operationId: getUnifiedWebhook
+      parameters:
+      - description: ID of the Webhook
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve Webhook by Its Id
+      tags:
+      - webhook
+    patch:
+      operationId: patchUnifiedWebhook
+      parameters:
+      - description: ID of the Webhook
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+        description: A webhook is used to POST new/updated information to your server.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update Webhook Subscription
+      tags:
+      - webhook
+    put:
+      operationId: updateUnifiedWebhook
+      parameters:
+      - description: ID of the Webhook
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+        description: A webhook is used to POST new/updated information to your server.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update Webhook Subscription
+      tags:
+      - webhook
+  /unified/webhook/{id}/trigger:
+    patch:
+      operationId: patchUnifiedWebhookTrigger
+      parameters:
+      - description: ID of the Webhook
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Trigger Webhook
+      tags:
+      - webhook
+    put:
+      operationId: updateUnifiedWebhookTrigger
+      parameters:
+      - description: ID of the Webhook
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Trigger Webhook
+      tags:
+      - webhook
+components:
+  schemas:
+    property_Webhook_runs:
+      description: An array of the most revent virtual webhook runs
+      items:
+        type: string
+      type: array
+    Webhooks:
+      items:
+        $ref: '#/components/schemas/Webhook'
+      type: array
+    property_Webhook_filters:
+      additionalProperties:
+        type: string
+      type: object
+    Webhook:
+      description: A webhook is used to POST new/updated information to your server.
+      properties:
+        checked_at:
+          format: date-time
+          type: string
+        connection_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        db_name_prefix:
+          type: string
+        db_schema:
+          type: string
+        db_type:
+          enum:
+          - mongodb
+          - mysql
+          - postgres
+          - mssql
+          - mariadb
+          - supabase
+          type: string
+          x-speakeasy-unknown-values: allow
+        db_url:
+          type: string
+        environment:
+          default: Production
+          type: string
+        event:
+          enum:
+          - updated
+          - created
+          - deleted
+          type: string
+          x-speakeasy-unknown-values: allow
+        fields:
+          type: string
+        filters:
+          $ref: '#/components/schemas/property_Webhook_filters'
+        hook_url:
+          type: string
+        id:
+          type: string
+        integration_type:
+          type: string
+        interval:
+          type: number
+        is_beta:
+          type: boolean
+        is_healthy:
+          type: boolean
+        is_paused:
+          type: boolean
+        object_type:
+          enum:
+          - accounting_account
+          - accounting_transaction
+          - accounting_journal
+          - accounting_contact
+          - accounting_invoice
+          - accounting_bill
+          - accounting_creditmemo
+          - accounting_taxrate
+          - accounting_organization
+          - accounting_order
+          - accounting_salesorder
+          - accounting_purchaseorder
+          - accounting_report
+          - accounting_balancesheet
+          - accounting_profitloss
+          - accounting_trialbalance
+          - accounting_category
+          - accounting_expense
+          - accounting_cashflow
+          - payment_payment
+          - payment_link
+          - payment_payout
+          - payment_refund
+          - payment_subscription
+          - commerce_item
+          - commerce_collection
+          - commerce_inventory
+          - commerce_location
+          - commerce_review
+          - commerce_saleschannel
+          - commerce_itemvariant
+          - commerce_reservation
+          - commerce_availability
+          - verification_package
+          - verification_request
+          - assessment_package
+          - assessment_order
+          - ats_activity
+          - ats_application
+          - ats_applicationstatus
+          - ats_candidate
+          - ats_document
+          - ats_interview
+          - ats_job
+          - ats_scorecard
+          - ats_company
+          - crm_company
+          - crm_contact
+          - crm_deal
+          - crm_event
+          - crm_lead
+          - crm_pipeline
+          - hris_employee
+          - hris_group
+          - hris_payslip
+          - hris_timeoff
+          - hris_company
+          - hris_location
+          - hris_device
+          - hris_timeshift
+          - hris_deduction
+          - hris_benefit
+          - hris_bankaccount
+          - martech_list
+          - martech_member
+          - martech_campaign
+          - martech_report
+          - passthrough
+          - ticketing_note
+          - ticketing_ticket
+          - ticketing_customer
+          - ticketing_category
+          - uc_contact
+          - uc_call
+          - uc_comment
+          - uc_recording
+          - enrich_person
+          - enrich_company
+          - storage_file
+          - genai_model
+          - genai_prompt
+          - genai_embedding
+          - messaging_message
+          - messaging_channel
+          - messaging_event
+          - kms_space
+          - kms_page
+          - kms_comment
+          - task_project
+          - task_task
+          - task_comment
+          - task_change
+          - scim_users
+          - scim_groups
+          - lms_course
+          - lms_class
+          - lms_student
+          - lms_instructor
+          - lms_content
+          - lms_collection
+          - lms_activity
+          - repo_organization
+          - repo_repository
+          - repo_branch
+          - repo_commit
+          - repo_pullrequest
+          - metadata_metadata
+          - calendar_calendar
+          - calendar_event
+          - calendar_busy
+          - calendar_link
+          - calendar_recording
+          - calendar_webinar
+          - ads_organization
+          - ads_ad
+          - ads_campaign
+          - ads_report
+          - ads_group
+          - ads_creative
+          - ads_insertionorder
+          - ads_target
+          - ads_promoted
+          - forms_form
+          - forms_submission
+          - shipping_carrier
+          - shipping_rate
+          - shipping_shipment
+          - shipping_label
+          - shipping_tracking
+          - signing_document
+          - signing_signatory
+          - signing_template
+          type: string
+          x-speakeasy-unknown-values: allow
+        page_max_limit:
+          type: number
+        runs:
+          $ref: '#/components/schemas/property_Webhook_runs'
+        updated_at:
+          format: date-time
+          type: string
+        webhook_type:
+          enum:
+          - virtual
+          - native
+          type: string
+          x-speakeasy-unknown-values: allow
+        workspace_id:
+          type: string
+      required:
+      - connection_id
+      - object_type
+      - event
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

@@ -1,0 +1,603 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account insertionorder API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: insertionorder
+paths:
+  /ads/{connection_id}/insertionorder:
+    get:
+      operationId: listAdsInsertionorders
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The org ID to filter by (reference to AdsOrganization)
+        in: query
+        name: org_id
+        required: false
+        schema:
+          type: string
+      - description: The campaign ID to filter by
+        in: query
+        name: campaign_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - organization_id
+            - campaign_id
+            - status
+            - pacing
+            - frequency_cap
+            - kpi
+            - budget_unit
+            - budget_segments
+            - bid_strategy
+            - reference
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsInsertionorders'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Insertionorders
+      tags:
+      - insertionorder
+    post:
+      operationId: createAdsInsertionorder
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - organization_id
+            - campaign_id
+            - status
+            - pacing
+            - frequency_cap
+            - kpi
+            - budget_unit
+            - budget_segments
+            - bid_strategy
+            - reference
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsInsertionorder'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsInsertionorder'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an Insertionorder
+      tags:
+      - insertionorder
+  /ads/{connection_id}/insertionorder/{id}:
+    delete:
+      operationId: removeAdsInsertionorder
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Insertionorder
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an Insertionorder
+      tags:
+      - insertionorder
+    get:
+      operationId: getAdsInsertionorder
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - organization_id
+            - campaign_id
+            - status
+            - pacing
+            - frequency_cap
+            - kpi
+            - budget_unit
+            - budget_segments
+            - bid_strategy
+            - reference
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Insertionorder
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsInsertionorder'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an Insertionorder
+      tags:
+      - insertionorder
+    patch:
+      operationId: patchAdsInsertionorder
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - organization_id
+            - campaign_id
+            - status
+            - pacing
+            - frequency_cap
+            - kpi
+            - budget_unit
+            - budget_segments
+            - bid_strategy
+            - reference
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Insertionorder
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsInsertionorder'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsInsertionorder'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Insertionorder
+      tags:
+      - insertionorder
+    put:
+      operationId: updateAdsInsertionorder
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - organization_id
+            - campaign_id
+            - status
+            - pacing
+            - frequency_cap
+            - kpi
+            - budget_unit
+            - budget_segments
+            - bid_strategy
+            - reference
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Insertionorder
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsInsertionorder'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsInsertionorder'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Insertionorder
+      tags:
+      - insertionorder
+components:
+  schemas:
+    property_AdsInsertionorder_pacing:
+      properties:
+        daily_max_amount:
+          type: number
+        daily_max_impressions:
+          type: number
+        period:
+          enum:
+          - UNSPECIFIED
+          - DAILY
+          - FLIGHT
+          type: string
+          x-speakeasy-unknown-values: allow
+        type:
+          type: string
+      type: object
+    property_AdsInsertionorder_budget_segments:
+      items:
+        $ref: '#/components/schemas/AdsInsertionorderBudgetSegment'
+      type: array
+    property_AdsInsertionorder_kpi:
+      properties:
+        algorithm_id:
+          type: string
+        amount:
+          type: number
+        percentage:
+          type: number
+        string_value:
+          type: string
+        type:
+          enum:
+          - UNSPECIFIED
+          - CPM
+          - CPC
+          - CPA
+          - CTR
+          - VIEWABILITY
+          - CPIAVC
+          - CPE
+          - CPV
+          - CLICK_CVR
+          - IMPRESSION_CVR
+          - VCPM
+          - VTR
+          - AUDIO_COMPLETION_RATE
+          - VIDEO_COMPLETION_RATE
+          - CPCL
+          - CPCV
+          - TOS10
+          - MAXIMIZE_PACING
+          - CUSTOM_IMPRESSION_VALUE_OVER_COST
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    AdsInsertionorder:
+      properties:
+        bid_strategy:
+          $ref: '#/components/schemas/property_AdsInsertionorder_bid_strategy'
+        budget_segments:
+          $ref: '#/components/schemas/property_AdsInsertionorder_budget_segments'
+        budget_unit:
+          enum:
+          - UNSPECIFIED
+          - CURRENCY
+          - IMPRESSIONS
+          type: string
+          x-speakeasy-unknown-values: allow
+        campaign_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        frequency_cap:
+          $ref: '#/components/schemas/property_AdsInsertionorder_frequency_cap'
+        id:
+          type: string
+        kpi:
+          $ref: '#/components/schemas/property_AdsInsertionorder_kpi'
+        name:
+          type: string
+        organization_id:
+          type: string
+        pacing:
+          $ref: '#/components/schemas/property_AdsInsertionorder_pacing'
+        raw:
+          additionalProperties: true
+          type: object
+        reference:
+          type: string
+        status:
+          enum:
+          - UNSPECIFIED
+          - ACTIVE
+          - PAUSED
+          - ARCHIVED
+          - DRAFT
+          - SCHEDULED_FOR_DELETION
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AdsInsertionorder_bid_strategy:
+      description: YOUTUBE_AND_PARTNERS
+      properties:
+        custom_bidding_algorithm_id:
+          type: string
+        fixed_bid_amount:
+          type: number
+        max_average_cpm_bid_amount:
+          type: number
+        performance_goal_amount:
+          type: number
+        performance_goal_type:
+          enum:
+          - UNSPECIFIED
+          - CPA
+          - CPC
+          - VIEWABLE_CPM
+          - CUSTOM_ALGO
+          - CIVA
+          - IVO_TEN
+          - AV_VIEWED
+          - REACH
+          type: string
+          x-speakeasy-unknown-values: allow
+        raise_bid_for_deals:
+          type: boolean
+        target_roas:
+          type: number
+        type:
+          enum:
+          - FIXED_BID
+          - MAXIMIZE_SPEND
+          - PERFORMANCE_GOAL
+          - YOUTUBE_AND_PARTNERS
+          type: string
+          x-speakeasy-unknown-values: allow
+        youtube_and_partners_type:
+          enum:
+          - UNSPECIFIED
+          - MANUAL_CPV
+          - MANUAL_CPM
+          - TARGET_CPA
+          - TARGET_CPM
+          - RESERVE_CPM
+          - MAXIMIZE_LIFT
+          - MAXIMIZE_CONVERSIONS
+          - TARGET_CPV
+          - TARGET_ROAS
+          - MAXIMIZE_CONVERSION_VALUE
+          type: string
+          x-speakeasy-unknown-values: allow
+        youtube_and_partners_value:
+          type: string
+      required:
+      - type
+      type: object
+    AdsInsertionorderBudgetSegment:
+      properties:
+        budget_amount:
+          type: number
+        description:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        start_at:
+          format: date-time
+          type: string
+      type: object
+    AdsInsertionorders:
+      items:
+        $ref: '#/components/schemas/AdsInsertionorder'
+      type: array
+    property_AdsInsertionorder_frequency_cap:
+      properties:
+        is_unlimited:
+          type: boolean
+        max_impressions:
+          type: number
+        max_views:
+          type: number
+        time_unit:
+          enum:
+          - UNSPECIFIED
+          - LIFETIME
+          - MONTHS
+          - WEEKS
+          - DAYS
+          - HOURS
+          - MINUTES
+          type: string
+          x-speakeasy-unknown-values: allow
+        time_unit_count:
+          type: number
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

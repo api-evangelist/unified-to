@@ -1,0 +1,831 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account job API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: job
+paths:
+  /ats/{connection_id}/job:
+    get:
+      operationId: listAtsJobs
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to AtsCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: The status to filter by
+        in: query
+        name: status
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - recruiter_ids
+            - hiring_manager_ids
+            - hiring_managers
+            - status
+            - closed_at
+            - addresses
+            - compensation
+            - employment_type
+            - remote
+            - language_locale
+            - public_job_urls
+            - number_of_openings
+            - company_id
+            - questions
+            - postings
+            - groups
+            - openings
+            - minimum_experience_years
+            - minimum_degree
+            - skills
+            - metadata
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsJobs'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all jobs
+      tags:
+      - job
+    post:
+      operationId: createAtsJob
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - recruiter_ids
+            - hiring_manager_ids
+            - hiring_managers
+            - status
+            - closed_at
+            - addresses
+            - compensation
+            - employment_type
+            - remote
+            - language_locale
+            - public_job_urls
+            - number_of_openings
+            - company_id
+            - questions
+            - postings
+            - groups
+            - openings
+            - minimum_experience_years
+            - minimum_degree
+            - skills
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsJob'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsJob'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a job
+      tags:
+      - job
+  /ats/{connection_id}/job/{id}:
+    delete:
+      operationId: removeAtsJob
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Job
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a job
+      tags:
+      - job
+    get:
+      operationId: getAtsJob
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - recruiter_ids
+            - hiring_manager_ids
+            - hiring_managers
+            - status
+            - closed_at
+            - addresses
+            - compensation
+            - employment_type
+            - remote
+            - language_locale
+            - public_job_urls
+            - number_of_openings
+            - company_id
+            - questions
+            - postings
+            - groups
+            - openings
+            - minimum_experience_years
+            - minimum_degree
+            - skills
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Job
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsJob'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a job
+      tags:
+      - job
+    patch:
+      operationId: patchAtsJob
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - recruiter_ids
+            - hiring_manager_ids
+            - hiring_managers
+            - status
+            - closed_at
+            - addresses
+            - compensation
+            - employment_type
+            - remote
+            - language_locale
+            - public_job_urls
+            - number_of_openings
+            - company_id
+            - questions
+            - postings
+            - groups
+            - openings
+            - minimum_experience_years
+            - minimum_degree
+            - skills
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Job
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsJob'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsJob'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a job
+      tags:
+      - job
+    put:
+      operationId: updateAtsJob
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - recruiter_ids
+            - hiring_manager_ids
+            - hiring_managers
+            - status
+            - closed_at
+            - addresses
+            - compensation
+            - employment_type
+            - remote
+            - language_locale
+            - public_job_urls
+            - number_of_openings
+            - company_id
+            - questions
+            - postings
+            - groups
+            - openings
+            - minimum_experience_years
+            - minimum_degree
+            - skills
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Job
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsJob'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsJob'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a job
+      tags:
+      - job
+components:
+  schemas:
+    property_AtsJob_metadata:
+      items:
+        $ref: '#/components/schemas/AtsMetadata'
+      type: array
+    AtsGroup:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          enum:
+          - TEAM
+          - GROUP
+          - DEPARTMENT
+          - DIVISION
+          - BUSINESS_UNIT
+          - BRANCH
+          - SUB_DEPARTMENT
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    AtsCompensation:
+      properties:
+        currency:
+          type: string
+        frequency:
+          enum:
+          - ONE_TIME
+          - DAY
+          - QUARTER
+          - YEAR
+          - HOUR
+          - MONTH
+          - WEEK
+          type: string
+          x-speakeasy-unknown-values: allow
+        max:
+          type: number
+        min:
+          type: number
+        type:
+          enum:
+          - SALARY
+          - BONUS
+          - STOCK_OPTIONS
+          - EQUITY
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_AtsJob_groups:
+      description: The departments/divisions/teams that this job belongs to
+      items:
+        $ref: '#/components/schemas/AtsGroup'
+      type: array
+    AtsReference:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    property_AtsJobPosting_address:
+      description: job-post-specific address
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    AtsJobPosting:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_AtsJobPosting_address'
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        location:
+          type: string
+        name:
+          type: string
+        posting_url:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AtsJob_openings:
+      items:
+        $ref: '#/components/schemas/AtsJobOpening'
+      type: array
+    AtsJobs:
+      items:
+        $ref: '#/components/schemas/AtsJob'
+      type: array
+    property_AtsJob_compensation:
+      items:
+        $ref: '#/components/schemas/AtsCompensation'
+      type: array
+    AtsJob:
+      properties:
+        addresses:
+          $ref: '#/components/schemas/property_AtsJob_addresses'
+        closed_at:
+          format: date-time
+          type: string
+        company_id:
+          type: string
+        compensation:
+          $ref: '#/components/schemas/property_AtsJob_compensation'
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        employment_type:
+          enum:
+          - FULL_TIME
+          - PART_TIME
+          - CONTRACTOR
+          - INTERN
+          - CONSULTANT
+          - VOLUNTEER
+          - CASUAL
+          - SEASONAL
+          - FREELANCE
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        groups:
+          $ref: '#/components/schemas/property_AtsJob_groups'
+        hiring_manager_ids:
+          $ref: '#/components/schemas/property_AtsJob_hiring_manager_ids'
+        hiring_managers:
+          $ref: '#/components/schemas/property_AtsJob_hiring_managers'
+        id:
+          type: string
+        language_locale:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/property_AtsJob_metadata'
+        minimum_degree:
+          type: string
+        minimum_experience_years:
+          type: number
+        name:
+          type: string
+        number_of_openings:
+          type: number
+        openings:
+          $ref: '#/components/schemas/property_AtsJob_openings'
+        postings:
+          $ref: '#/components/schemas/property_AtsJob_postings'
+        public_job_urls:
+          $ref: '#/components/schemas/property_AtsJob_public_job_urls'
+        questions:
+          $ref: '#/components/schemas/property_AtsJob_questions'
+        raw:
+          additionalProperties: true
+          type: object
+        recruiter_ids:
+          $ref: '#/components/schemas/property_AtsJob_recruiter_ids'
+        remote:
+          type: boolean
+        skills:
+          $ref: '#/components/schemas/property_AtsJob_skills'
+        status:
+          enum:
+          - ARCHIVED
+          - PENDING
+          - DRAFT
+          - OPEN
+          - CLOSED
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AtsJob_postings:
+      description: Public job postings
+      items:
+        $ref: '#/components/schemas/AtsJobPosting'
+      type: array
+    property_AtsJob_public_job_urls:
+      description: URLs for pages containing public listings for the job
+      items:
+        type: string
+      type: array
+    property_AtsJobQuestion_options:
+      items:
+        type: string
+      type: array
+    AtsMetadata:
+      properties:
+        extra_data:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        format:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - MEASUREMENT
+          - PRICE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        namespace:
+          type: string
+        slug:
+          type: string
+        value:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+      type: object
+    AtsJobQuestion:
+      properties:
+        description:
+          type: string
+        id:
+          type: string
+        options:
+          $ref: '#/components/schemas/property_AtsJobQuestion_options'
+        prompt:
+          type: string
+        question:
+          type: string
+        required:
+          type: boolean
+        type:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - MULTIPLE_CHOICE
+          - FILE
+          - TEXTAREA
+          - MULTIPLE_SELECT
+          - UNIVERSITY
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - question
+      - type
+      type: object
+    property_AtsJob_hiring_manager_ids:
+      items:
+        type: string
+      type: array
+    AtsAddress:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_AtsJob_recruiter_ids:
+      items:
+        type: string
+      type: array
+    property_AtsJob_hiring_managers:
+      items:
+        $ref: '#/components/schemas/AtsReference'
+      type: array
+    property_AtsJob_skills:
+      items:
+        type: string
+      type: array
+    property_AtsJob_questions:
+      items:
+        $ref: '#/components/schemas/AtsJobQuestion'
+      type: array
+    property_AtsJob_addresses:
+      items:
+        $ref: '#/components/schemas/AtsAddress'
+      type: array
+    AtsJobOpening:
+      properties:
+        application_id:
+          type: string
+        close_reason:
+          type: string
+        closed_at:
+          format: date-time
+          type: string
+        opened_at:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - OPEN
+          - CLOSED
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

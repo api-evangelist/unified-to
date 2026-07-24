@@ -1,0 +1,455 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account scorecard API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: scorecard
+paths:
+  /ats/{connection_id}/scorecard:
+    get:
+      operationId: listAtsScorecards
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The candidate ID to filter by
+        in: query
+        name: candidate_id
+        required: false
+        schema:
+          type: string
+      - description: The application ID to filter by
+        in: query
+        name: application_id
+        required: false
+        schema:
+          type: string
+      - description: The interview ID to filter by
+        in: query
+        name: interview_id
+        required: false
+        schema:
+          type: string
+      - description: The job ID to filter by
+        in: query
+        name: job_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - application_id
+            - interviewer_id
+            - interview_id
+            - candidate_id
+            - job_id
+            - recommendation
+            - comment
+            - questions
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsScorecards'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all scorecards
+      tags:
+      - scorecard
+    post:
+      operationId: createAtsScorecard
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - application_id
+            - interviewer_id
+            - interview_id
+            - candidate_id
+            - job_id
+            - recommendation
+            - comment
+            - questions
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsScorecard'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsScorecard'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a scorecard
+      tags:
+      - scorecard
+  /ats/{connection_id}/scorecard/{id}:
+    delete:
+      operationId: removeAtsScorecard
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Scorecard
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a scorecard
+      tags:
+      - scorecard
+    get:
+      operationId: getAtsScorecard
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - application_id
+            - interviewer_id
+            - interview_id
+            - candidate_id
+            - job_id
+            - recommendation
+            - comment
+            - questions
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Scorecard
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsScorecard'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a scorecard
+      tags:
+      - scorecard
+    patch:
+      operationId: patchAtsScorecard
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - application_id
+            - interviewer_id
+            - interview_id
+            - candidate_id
+            - job_id
+            - recommendation
+            - comment
+            - questions
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Scorecard
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsScorecard'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsScorecard'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a scorecard
+      tags:
+      - scorecard
+    put:
+      operationId: updateAtsScorecard
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - application_id
+            - interviewer_id
+            - interview_id
+            - candidate_id
+            - job_id
+            - recommendation
+            - comment
+            - questions
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Scorecard
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsScorecard'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsScorecard'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a scorecard
+      tags:
+      - scorecard
+components:
+  schemas:
+    property_AtsScorecard_questions:
+      items:
+        $ref: '#/components/schemas/AtsScorecardQuestion'
+      type: array
+    AtsScorecard:
+      properties:
+        application_id:
+          type: string
+        candidate_id:
+          type: string
+        comment:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        interview_id:
+          type: string
+        interviewer_id:
+          type: string
+        job_id:
+          type: string
+        questions:
+          $ref: '#/components/schemas/property_AtsScorecard_questions'
+        raw:
+          additionalProperties: true
+          type: object
+        recommendation:
+          enum:
+          - DEFINITELY_NO
+          - 'NO'
+          - 'YES'
+          - STRONG_YES
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    AtsScorecardQuestion:
+      properties:
+        answer:
+          type: string
+        description:
+          type: string
+        text:
+          type: string
+      required:
+      - text
+      type: object
+    AtsScorecards:
+      items:
+        $ref: '#/components/schemas/AtsScorecard'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

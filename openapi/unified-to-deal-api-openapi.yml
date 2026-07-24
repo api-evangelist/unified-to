@@ -1,0 +1,611 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account deal API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: deal
+paths:
+  /crm/{connection_id}/deal:
+    get:
+      operationId: listCrmDeals
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to CrmCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: The contact ID to filter by (reference to CrmContact)
+        in: query
+        name: contact_id
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The pipeline ID to filter by
+        in: query
+        name: pipeline_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - amount
+            - currency
+            - closed_at
+            - closing_at
+            - stage
+            - stage_id
+            - pipeline
+            - pipeline_id
+            - stages
+            - pipelines
+            - source
+            - probability
+            - tags
+            - lost_reason
+            - won_reason
+            - user_id
+            - contact_ids
+            - company_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmDeals'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all deals
+      tags:
+      - deal
+    post:
+      operationId: createCrmDeal
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - amount
+            - currency
+            - closed_at
+            - closing_at
+            - stage
+            - stage_id
+            - pipeline
+            - pipeline_id
+            - stages
+            - pipelines
+            - source
+            - probability
+            - tags
+            - lost_reason
+            - won_reason
+            - user_id
+            - contact_ids
+            - company_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmDeal'
+        description: A deal represents an opportunity with companies and/or contacts
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmDeal'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a deal
+      tags:
+      - deal
+  /crm/{connection_id}/deal/{id}:
+    delete:
+      operationId: removeCrmDeal
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Deal
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a deal
+      tags:
+      - deal
+    get:
+      operationId: getCrmDeal
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - amount
+            - currency
+            - closed_at
+            - closing_at
+            - stage
+            - stage_id
+            - pipeline
+            - pipeline_id
+            - stages
+            - pipelines
+            - source
+            - probability
+            - tags
+            - lost_reason
+            - won_reason
+            - user_id
+            - contact_ids
+            - company_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Deal
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmDeal'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a deal
+      tags:
+      - deal
+    patch:
+      operationId: patchCrmDeal
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - amount
+            - currency
+            - closed_at
+            - closing_at
+            - stage
+            - stage_id
+            - pipeline
+            - pipeline_id
+            - stages
+            - pipelines
+            - source
+            - probability
+            - tags
+            - lost_reason
+            - won_reason
+            - user_id
+            - contact_ids
+            - company_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Deal
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmDeal'
+        description: A deal represents an opportunity with companies and/or contacts
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmDeal'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a deal
+      tags:
+      - deal
+    put:
+      operationId: updateCrmDeal
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - amount
+            - currency
+            - closed_at
+            - closing_at
+            - stage
+            - stage_id
+            - pipeline
+            - pipeline_id
+            - stages
+            - pipelines
+            - source
+            - probability
+            - tags
+            - lost_reason
+            - won_reason
+            - user_id
+            - contact_ids
+            - company_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Deal
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmDeal'
+        description: A deal represents an opportunity with companies and/or contacts
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmDeal'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a deal
+      tags:
+      - deal
+components:
+  schemas:
+    CrmMetadata:
+      properties:
+        extra_data:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        format:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - MEASUREMENT
+          - PRICE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        namespace:
+          type: string
+        slug:
+          type: string
+        value:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+      type: object
+    property_CrmDeal_metadata:
+      items:
+        $ref: '#/components/schemas/CrmMetadata'
+      type: array
+    property_CrmDeal_company_ids:
+      items:
+        type: string
+      type: array
+    property_CrmDeal_contact_ids:
+      items:
+        type: string
+      type: array
+    property_CrmDeal_pipelines:
+      items:
+        $ref: '#/components/schemas/CrmReference'
+      type: array
+    CrmDeals:
+      items:
+        $ref: '#/components/schemas/CrmDeal'
+      type: array
+    CrmReference:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+      type: object
+    property_CrmDeal_tags:
+      items:
+        type: string
+      type: array
+    CrmDeal:
+      description: A deal represents an opportunity with companies and/or contacts
+      properties:
+        amount:
+          type: number
+        closed_at:
+          format: date-time
+          type: string
+        closing_at:
+          format: date-time
+          type: string
+        company_ids:
+          $ref: '#/components/schemas/property_CrmDeal_company_ids'
+        contact_ids:
+          $ref: '#/components/schemas/property_CrmDeal_contact_ids'
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        id:
+          type: string
+        lost_reason:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/property_CrmDeal_metadata'
+        name:
+          type: string
+        pipeline:
+          type: string
+        pipeline_id:
+          type: string
+        pipelines:
+          $ref: '#/components/schemas/property_CrmDeal_pipelines'
+        probability:
+          type: number
+        raw:
+          additionalProperties: true
+          type: object
+        source:
+          type: string
+        stage:
+          type: string
+        stage_id:
+          type: string
+        stages:
+          $ref: '#/components/schemas/property_CrmDeal_stages'
+        tags:
+          $ref: '#/components/schemas/property_CrmDeal_tags'
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+        won_reason:
+          type: string
+      type: object
+    property_CrmDeal_stages:
+      items:
+        $ref: '#/components/schemas/CrmReference'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

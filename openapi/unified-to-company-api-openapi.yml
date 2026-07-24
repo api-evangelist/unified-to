@@ -1,0 +1,1589 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account company API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: company
+paths:
+  /ats/{connection_id}/company:
+    get:
+      operationId: listAtsCompanies
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - address
+            - website_url
+            - phone
+            - parent_id
+            - recruiter_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsCompanies'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all companies
+      tags:
+      - company
+    post:
+      operationId: createAtsCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - address
+            - website_url
+            - phone
+            - parent_id
+            - recruiter_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsCompany'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a company
+      tags:
+      - company
+  /ats/{connection_id}/company/{id}:
+    delete:
+      operationId: removeAtsCompany
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a company
+      tags:
+      - company
+    get:
+      operationId: getAtsCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - address
+            - website_url
+            - phone
+            - parent_id
+            - recruiter_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a company
+      tags:
+      - company
+    patch:
+      operationId: patchAtsCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - address
+            - website_url
+            - phone
+            - parent_id
+            - recruiter_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsCompany'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a company
+      tags:
+      - company
+    put:
+      operationId: updateAtsCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - address
+            - website_url
+            - phone
+            - parent_id
+            - recruiter_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsCompany'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a company
+      tags:
+      - company
+  /crm/{connection_id}/company:
+    get:
+      operationId: listCrmCompanies
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The deal ID to filter by (reference to CrmDeal)
+        in: query
+        name: deal_id
+        required: false
+        schema:
+          type: string
+      - description: The contact ID to filter by (reference to CrmContact)
+        in: query
+        name: contact_id
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - deal_ids
+            - contact_ids
+            - emails
+            - telephones
+            - websites
+            - address
+            - is_active
+            - tags
+            - description
+            - industry
+            - link_urls
+            - employees
+            - timezone
+            - user_id
+            - metadata
+            - domains
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmCompanies'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all companies
+      tags:
+      - company
+    post:
+      operationId: createCrmCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - deal_ids
+            - contact_ids
+            - emails
+            - telephones
+            - websites
+            - address
+            - is_active
+            - tags
+            - description
+            - industry
+            - link_urls
+            - employees
+            - timezone
+            - user_id
+            - metadata
+            - domains
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmCompany'
+        description: A company represents an organization that optionally is associated with a deal and/or contacts
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a company
+      tags:
+      - company
+  /crm/{connection_id}/company/{id}:
+    delete:
+      operationId: removeCrmCompany
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a company
+      tags:
+      - company
+    get:
+      operationId: getCrmCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - deal_ids
+            - contact_ids
+            - emails
+            - telephones
+            - websites
+            - address
+            - is_active
+            - tags
+            - description
+            - industry
+            - link_urls
+            - employees
+            - timezone
+            - user_id
+            - metadata
+            - domains
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a company
+      tags:
+      - company
+    patch:
+      operationId: patchCrmCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - deal_ids
+            - contact_ids
+            - emails
+            - telephones
+            - websites
+            - address
+            - is_active
+            - tags
+            - description
+            - industry
+            - link_urls
+            - employees
+            - timezone
+            - user_id
+            - metadata
+            - domains
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmCompany'
+        description: A company represents an organization that optionally is associated with a deal and/or contacts
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a company
+      tags:
+      - company
+    put:
+      operationId: updateCrmCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - deal_ids
+            - contact_ids
+            - emails
+            - telephones
+            - websites
+            - address
+            - is_active
+            - tags
+            - description
+            - industry
+            - link_urls
+            - employees
+            - timezone
+            - user_id
+            - metadata
+            - domains
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmCompany'
+        description: A company represents an organization that optionally is associated with a deal and/or contacts
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a company
+      tags:
+      - company
+  /enrich/{connection_id}/company:
+    get:
+      operationId: listEnrichCompanies
+      parameters:
+      - description: The domain of the company to search
+        in: query
+        name: domain
+        required: false
+        schema:
+          type: string
+      - description: The name of the company to search
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrichCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve Enrichment Information for a Company
+      tags:
+      - company
+  /hris/{connection_id}/company:
+    get:
+      operationId: listHrisCompanies
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - legal_name
+            - address
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisCompanies'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Companies
+      tags:
+      - company
+    post:
+      operationId: createHrisCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - legal_name
+            - address
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisCompany'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Company
+      tags:
+      - company
+  /hris/{connection_id}/company/{id}:
+    delete:
+      operationId: removeHrisCompany
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Company
+      tags:
+      - company
+    get:
+      operationId: getHrisCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - legal_name
+            - address
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Company
+      tags:
+      - company
+    patch:
+      operationId: patchHrisCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - legal_name
+            - address
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisCompany'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Company
+      tags:
+      - company
+    put:
+      operationId: updateHrisCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - legal_name
+            - address
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisCompany'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Company
+      tags:
+      - company
+components:
+  schemas:
+    CrmEmail:
+      properties:
+        email:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_CrmCompany_emails:
+      items:
+        $ref: '#/components/schemas/CrmEmail'
+      type: array
+    HrisCompany:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_HrisCompany_address'
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        legal_name:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    CrmCompany:
+      description: A company represents an organization that optionally is associated with a deal and/or contacts
+      properties:
+        address:
+          $ref: '#/components/schemas/property_CrmCompany_address'
+        contact_ids:
+          $ref: '#/components/schemas/property_CrmCompany_contact_ids'
+        created_at:
+          format: date-time
+          type: string
+        deal_ids:
+          $ref: '#/components/schemas/property_CrmCompany_deal_ids'
+        description:
+          type: string
+        domains:
+          $ref: '#/components/schemas/property_CrmCompany_domains'
+        emails:
+          $ref: '#/components/schemas/property_CrmCompany_emails'
+        employees:
+          type: number
+        id:
+          type: string
+        industry:
+          type: string
+        is_active:
+          type: boolean
+        link_urls:
+          $ref: '#/components/schemas/property_CrmCompany_link_urls'
+        metadata:
+          $ref: '#/components/schemas/property_CrmCompany_metadata'
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        tags:
+          $ref: '#/components/schemas/property_CrmCompany_tags'
+        telephones:
+          $ref: '#/components/schemas/property_CrmCompany_telephones'
+        timezone:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+        websites:
+          $ref: '#/components/schemas/property_CrmCompany_websites'
+      type: object
+    property_CrmCompany_deal_ids:
+      description: An array of deal IDs associated with this contact
+      items:
+        type: string
+      type: array
+    property_CrmCompany_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    CrmCompanies:
+      items:
+        $ref: '#/components/schemas/CrmCompany'
+      type: array
+    AtsCompany:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_AtsCompany_address'
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/property_AtsCompany_metadata'
+        name:
+          type: string
+        parent_id:
+          type: string
+        phone:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        recruiter_ids:
+          $ref: '#/components/schemas/property_AtsCompany_recruiter_ids'
+        updated_at:
+          format: date-time
+          type: string
+        website_url:
+          type: string
+      required:
+      - name
+      type: object
+    property_CrmCompany_link_urls:
+      description: Additional URLs associated with the contact e.g., LinkedIn, website, etc
+      items:
+        type: string
+      type: array
+    property_CrmCompany_metadata:
+      items:
+        $ref: '#/components/schemas/CrmMetadata'
+      type: array
+    property_AtsCompany_metadata:
+      items:
+        $ref: '#/components/schemas/AtsMetadata'
+      type: array
+    EnrichTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    CrmTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    property_CrmCompany_websites:
+      items:
+        type: string
+      type: array
+    property_CrmCompany_telephones:
+      items:
+        $ref: '#/components/schemas/CrmTelephone'
+      type: array
+    property_CrmCompany_domains:
+      items:
+        type: string
+      type: array
+    HrisCompanies:
+      items:
+        $ref: '#/components/schemas/HrisCompany'
+      type: array
+    property_EnrichCompany_address:
+      description: The address of the company
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_AtsCompany_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_CrmCompany_contact_ids:
+      description: An array of contact IDs associated with this company
+      items:
+        type: string
+      type: array
+    property_HrisCompany_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_CrmCompany_tags:
+      items:
+        type: string
+      type: array
+    AtsMetadata:
+      properties:
+        extra_data:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        format:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - MEASUREMENT
+          - PRICE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        namespace:
+          type: string
+        slug:
+          type: string
+        value:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+      type: object
+    EnrichCompany:
+      description: A company object from an enrichment integration
+      properties:
+        address:
+          $ref: '#/components/schemas/property_EnrichCompany_address'
+        alexa_rank:
+          type: number
+        created_at:
+          format: date-time
+          type: string
+        crunchbase_url:
+          type: string
+        description:
+          type: string
+        domain:
+          type: string
+        employees:
+          type: string
+        exchange:
+          type: string
+        facebook_url:
+          type: string
+        id:
+          type: string
+        industry:
+          type: string
+        instagram_url:
+          type: string
+        linkedin_url:
+          type: string
+        logo_url:
+          type: string
+        naics_code:
+          type: number
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        revenue:
+          type: string
+        sic_code:
+          type: number
+        stock:
+          type: string
+        telephones:
+          $ref: '#/components/schemas/property_EnrichCompany_telephones'
+        twitter_handle:
+          type: string
+        twitter_url:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        year_founded:
+          type: number
+        yelp_url:
+          type: string
+        youtube_url:
+          type: string
+      type: object
+    AtsCompanies:
+      items:
+        $ref: '#/components/schemas/AtsCompany'
+      type: array
+    CrmMetadata:
+      properties:
+        extra_data:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        format:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - MEASUREMENT
+          - PRICE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        namespace:
+          type: string
+        slug:
+          type: string
+        value:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+      type: object
+    property_AtsCompany_recruiter_ids:
+      items:
+        type: string
+      type: array
+    property_EnrichCompany_telephones:
+      description: An array of telephones for this company
+      items:
+        $ref: '#/components/schemas/EnrichTelephone'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

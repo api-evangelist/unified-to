@@ -1,0 +1,233 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account person API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: person
+paths:
+  /enrich/{connection_id}/person:
+    get:
+      operationId: listEnrichPeople
+      parameters:
+      - description: The email of the person to search
+        in: query
+        name: email
+        required: false
+        schema:
+          type: string
+      - description: The twitter handle of the person to search
+        in: query
+        name: twitter
+        required: false
+        schema:
+          type: string
+      - description: The name of the person to search
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+      - description: The LinkedIn URL of the person to search
+        in: query
+        name: linkedin_url
+        required: false
+        schema:
+          type: string
+      - description: The name of the company the person is associated with.  Not valid by itself.
+        in: query
+        name: company_name
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnrichPerson'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve Enrichment Information for a Person
+      tags:
+      - person
+components:
+  schemas:
+    EnrichEmail:
+      properties:
+        email:
+          type: string
+        is_verified:
+          type: boolean
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - email
+      type: object
+    property_EnrichPerson_work_histories:
+      items:
+        $ref: '#/components/schemas/EnrichPersonWorkHistory'
+      type: array
+    property_EnrichPerson_address:
+      description: The address of the person
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    EnrichPersonWorkHistory:
+      properties:
+        company_domain:
+          type: string
+        company_id:
+          type: string
+        company_name:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        location:
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        title:
+          type: string
+      required:
+      - title
+      type: object
+    property_EnrichPerson_telephones:
+      description: An array of telephones for this person
+      items:
+        $ref: '#/components/schemas/EnrichTelephone'
+      type: array
+    EnrichPerson:
+      description: A person object from an enrichment integration
+      properties:
+        address:
+          $ref: '#/components/schemas/property_EnrichPerson_address'
+        bio:
+          type: string
+        birthdate:
+          type: string
+        company:
+          type: string
+        company_domain:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_EnrichPerson_emails'
+        facebook_url:
+          type: string
+        first_name:
+          type: string
+        gender:
+          enum:
+          - MALE
+          - FEMALE
+          type: string
+          x-speakeasy-unknown-values: allow
+        github_url:
+          type: string
+        github_username:
+          type: string
+        id:
+          type: string
+        image_url:
+          type: string
+        last_name:
+          type: string
+        linkedin_url:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        telephones:
+          $ref: '#/components/schemas/property_EnrichPerson_telephones'
+        timezone:
+          type: string
+        title:
+          type: string
+        twitter_handle:
+          type: string
+        twitter_url:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        utc_offset:
+          type: number
+        work_histories:
+          $ref: '#/components/schemas/property_EnrichPerson_work_histories'
+      type: object
+    EnrichTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    property_EnrichPerson_emails:
+      description: An array of email addresses for this person
+      items:
+        $ref: '#/components/schemas/EnrichEmail'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

@@ -1,0 +1,1081 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account location API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: location
+paths:
+  /commerce/{connection_id}/location:
+    get:
+      operationId: listCommerceLocations
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The org ID to filter by (reference to AccountingOrganization)
+        in: query
+        name: org_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - address
+            - description
+            - is_active
+            - language_locale
+            - parent_id
+            - currency
+            - location_type
+            - telephones
+            - rating
+            - review_count
+            - price_level
+            - latitude
+            - longitude
+            - image_url
+            - web_url
+            - media
+            - raw
+            - categories
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceLocations'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all locations
+      tags:
+      - location
+    post:
+      operationId: createCommerceLocation
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - address
+            - description
+            - is_active
+            - language_locale
+            - parent_id
+            - currency
+            - location_type
+            - telephones
+            - rating
+            - review_count
+            - price_level
+            - latitude
+            - longitude
+            - image_url
+            - web_url
+            - media
+            - raw
+            - categories
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommerceLocation'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceLocation'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a location
+      tags:
+      - location
+  /commerce/{connection_id}/location/{id}:
+    delete:
+      operationId: removeCommerceLocation
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Location
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a location
+      tags:
+      - location
+    get:
+      operationId: getCommerceLocation
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - address
+            - description
+            - is_active
+            - language_locale
+            - parent_id
+            - currency
+            - location_type
+            - telephones
+            - rating
+            - review_count
+            - price_level
+            - latitude
+            - longitude
+            - image_url
+            - web_url
+            - media
+            - raw
+            - categories
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Location
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceLocation'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a location
+      tags:
+      - location
+    patch:
+      operationId: patchCommerceLocation
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - address
+            - description
+            - is_active
+            - language_locale
+            - parent_id
+            - currency
+            - location_type
+            - telephones
+            - rating
+            - review_count
+            - price_level
+            - latitude
+            - longitude
+            - image_url
+            - web_url
+            - media
+            - raw
+            - categories
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Location
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommerceLocation'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceLocation'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a location
+      tags:
+      - location
+    put:
+      operationId: updateCommerceLocation
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - address
+            - description
+            - is_active
+            - language_locale
+            - parent_id
+            - currency
+            - location_type
+            - telephones
+            - rating
+            - review_count
+            - price_level
+            - latitude
+            - longitude
+            - image_url
+            - web_url
+            - media
+            - raw
+            - categories
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Location
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommerceLocation'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceLocation'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a location
+      tags:
+      - location
+  /hris/{connection_id}/location:
+    get:
+      operationId: listHrisLocations
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to HrisCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - address
+            - parent_id
+            - external_identifier
+            - telephones
+            - timezone
+            - currency
+            - language_locale
+            - is_active
+            - is_hq
+            - company_id
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisLocations'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Locations
+      tags:
+      - location
+    post:
+      operationId: createHrisLocation
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - address
+            - parent_id
+            - external_identifier
+            - telephones
+            - timezone
+            - currency
+            - language_locale
+            - is_active
+            - is_hq
+            - company_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisLocation'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisLocation'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Location
+      tags:
+      - location
+  /hris/{connection_id}/location/{id}:
+    delete:
+      operationId: removeHrisLocation
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Location
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Location
+      tags:
+      - location
+    get:
+      operationId: getHrisLocation
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - address
+            - parent_id
+            - external_identifier
+            - telephones
+            - timezone
+            - currency
+            - language_locale
+            - is_active
+            - is_hq
+            - company_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Location
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisLocation'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Location
+      tags:
+      - location
+    patch:
+      operationId: patchHrisLocation
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - address
+            - parent_id
+            - external_identifier
+            - telephones
+            - timezone
+            - currency
+            - language_locale
+            - is_active
+            - is_hq
+            - company_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Location
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisLocation'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisLocation'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Location
+      tags:
+      - location
+    put:
+      operationId: updateHrisLocation
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - address
+            - parent_id
+            - external_identifier
+            - telephones
+            - timezone
+            - currency
+            - language_locale
+            - is_active
+            - is_hq
+            - company_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Location
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisLocation'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisLocation'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Location
+      tags:
+      - location
+components:
+  schemas:
+    HrisLocations:
+      items:
+        $ref: '#/components/schemas/HrisLocation'
+      type: array
+    property_CommerceLocation_telephones:
+      items:
+        $ref: '#/components/schemas/CommerceTelephone'
+      type: array
+    property_CommerceLocation_media:
+      items:
+        $ref: '#/components/schemas/CommerceItemMedia'
+      type: array
+    CommerceMetadata:
+      properties:
+        description:
+          type: string
+        extra_data:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        format:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - MEASUREMENT
+          - PRICE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        is_required:
+          type: boolean
+        namespace:
+          type: string
+        slug:
+          type: string
+        value:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+      type: object
+    property_CommerceLocation_categories:
+      items:
+        type: string
+      type: array
+    HrisLocation:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_HrisLocation_address'
+        company_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        description:
+          type: string
+        external_identifier:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        is_hq:
+          type: boolean
+        language_locale:
+          type: string
+        name:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        telephones:
+          $ref: '#/components/schemas/property_HrisLocation_telephones'
+        timezone:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_CommerceLocation_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    CommerceLocation:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_CommerceLocation_address'
+        categories:
+          $ref: '#/components/schemas/property_CommerceLocation_categories'
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        image_url:
+          type: string
+        is_active:
+          type: boolean
+        language_locale:
+          type: string
+        latitude:
+          type: number
+        location_type:
+          enum:
+          - RESTAURANT
+          - SALON
+          - WAREHOUSE
+          - STORE
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        longitude:
+          type: number
+        media:
+          $ref: '#/components/schemas/property_CommerceLocation_media'
+        name:
+          type: string
+        parent_id:
+          type: string
+        price_level:
+          type: string
+        rating:
+          type: number
+        raw:
+          additionalProperties: true
+          type: object
+        review_count:
+          type: number
+        telephones:
+          $ref: '#/components/schemas/property_CommerceLocation_telephones'
+        updated_at:
+          format: date-time
+          type: string
+        web_url:
+          type: string
+      required:
+      - name
+      type: object
+    property_CommerceItemMedia_metadata:
+      items:
+        $ref: '#/components/schemas/CommerceMetadata'
+      type: array
+    CommerceTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - FAX
+          - MOBILE
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    HrisTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    property_HrisLocation_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    CommerceItemMedia:
+      properties:
+        alt:
+          type: string
+        height:
+          type: number
+        id:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/property_CommerceItemMedia_metadata'
+        position:
+          type: number
+        type:
+          enum:
+          - image
+          - video
+          type: string
+          x-speakeasy-unknown-values: allow
+        url:
+          type: string
+        width:
+          type: number
+      required:
+      - url
+      type: object
+    property_HrisLocation_telephones:
+      items:
+        $ref: '#/components/schemas/HrisTelephone'
+      type: array
+    CommerceLocations:
+      items:
+        $ref: '#/components/schemas/CommerceLocation'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

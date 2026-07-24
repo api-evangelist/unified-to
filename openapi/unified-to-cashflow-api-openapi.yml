@@ -1,0 +1,296 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account cashflow API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: cashflow
+paths:
+  /accounting/{connection_id}/cashflow:
+    get:
+      operationId: listAccountingCashflows
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: The contact ID to filter by (reference to AccountingContact)
+        in: query
+        name: contact_id
+        required: false
+        schema:
+          type: string
+      - description: The category ID to filter by (reference to AccountingCategory)
+        in: query
+        name: category_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - start_at
+            - end_at
+            - category_ids
+            - contact_id
+            - name
+            - currency
+            - cash_beginning_amount
+            - cash_ending_amount
+            - net_change_in_cash_amount
+            - operating_sections
+            - investing_sections
+            - financing_sections
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingCashflows'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all cashflows
+      tags:
+      - cashflow
+  /accounting/{connection_id}/cashflow/{id}:
+    get:
+      operationId: getAccountingCashflow
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - start_at
+            - end_at
+            - category_ids
+            - contact_id
+            - name
+            - currency
+            - cash_beginning_amount
+            - cash_ending_amount
+            - net_change_in_cash_amount
+            - operating_sections
+            - investing_sections
+            - financing_sections
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Cashflow
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingCashflow'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a cashflow
+      tags:
+      - cashflow
+components:
+  schemas:
+    AccountingCashflow:
+      description: Sections
+      properties:
+        cash_beginning_amount:
+          type: number
+        cash_ending_amount:
+          type: number
+        category_ids:
+          $ref: '#/components/schemas/property_AccountingCashflow_category_ids'
+        contact_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        financing_sections:
+          $ref: '#/components/schemas/property_AccountingCashflow_financing_sections'
+        id:
+          type: string
+        investing_sections:
+          $ref: '#/components/schemas/property_AccountingCashflow_investing_sections'
+        name:
+          type: string
+        net_change_in_cash_amount:
+          type: number
+        operating_sections:
+          $ref: '#/components/schemas/property_AccountingCashflow_operating_sections'
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AccountingCashflow_investing_sections:
+      items:
+        $ref: '#/components/schemas/AccountingCashflowSection'
+      type: array
+    property_AccountingCashflow_operating_sections:
+      items:
+        $ref: '#/components/schemas/AccountingCashflowSection'
+      type: array
+    property_AccountingCashflow_financing_sections:
+      items:
+        $ref: '#/components/schemas/AccountingCashflowSection'
+      type: array
+    property_AccountingCashflowItem_sub_items:
+      items:
+        $ref: '#/components/schemas/AccountingCashflowItem'
+      type: array
+    property_AccountingCashflowSection_items:
+      items:
+        $ref: '#/components/schemas/AccountingCashflowItem'
+      type: array
+    property_AccountingCashflow_category_ids:
+      items:
+        type: string
+      type: array
+    AccountingCashflows:
+      items:
+        $ref: '#/components/schemas/AccountingCashflow'
+      type: array
+    property_AccountingCashflowItem_transaction_ids:
+      description: Optional linkage to transactions
+      items:
+        type: string
+      type: array
+    AccountingCashflowSection:
+      properties:
+        items:
+          $ref: '#/components/schemas/property_AccountingCashflowSection_items'
+        section_name:
+          type: string
+        total_amount:
+          type: number
+      type: object
+    AccountingCashflowItem:
+      properties:
+        account_id:
+          type: string
+        amount:
+          type: number
+        name:
+          type: string
+        sub_items:
+          $ref: '#/components/schemas/property_AccountingCashflowItem_sub_items'
+        transaction_ids:
+          $ref: '#/components/schemas/property_AccountingCashflowItem_transaction_ids'
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

@@ -1,0 +1,1749 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account event API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: event
+paths:
+  /crm/{connection_id}/event:
+    get:
+      operationId: listCrmEvents
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The deal ID to filter by (reference to CrmDeal)
+        in: query
+        name: deal_id
+        required: false
+        schema:
+          type: string
+      - description: The contact ID to filter by (reference to CrmContact)
+        in: query
+        name: contact_id
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to CrmCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      - description: The CRM lead ID to filter by (reference to CrmLead)
+        in: query
+        name: lead_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - type
+            - note
+            - meeting
+            - email
+            - call
+            - task
+            - marketing_email
+            - form
+            - page_view
+            - deal_ids
+            - company_ids
+            - contact_ids
+            - lead_ids
+            - user_id
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmEvents'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all events
+      tags:
+      - event
+    post:
+      operationId: createCrmEvent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - type
+            - note
+            - meeting
+            - email
+            - call
+            - task
+            - marketing_email
+            - form
+            - page_view
+            - deal_ids
+            - company_ids
+            - contact_ids
+            - lead_ids
+            - user_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmEvent'
+        description: An event represents an event, activity, or engagement and is always associated with a deal, contact, or company
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmEvent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an event
+      tags:
+      - event
+  /crm/{connection_id}/event/{id}:
+    delete:
+      operationId: removeCrmEvent
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Event
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an event
+      tags:
+      - event
+    get:
+      operationId: getCrmEvent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - type
+            - note
+            - meeting
+            - email
+            - call
+            - task
+            - marketing_email
+            - form
+            - page_view
+            - deal_ids
+            - company_ids
+            - contact_ids
+            - lead_ids
+            - user_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Event
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmEvent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an event
+      tags:
+      - event
+    patch:
+      operationId: patchCrmEvent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - type
+            - note
+            - meeting
+            - email
+            - call
+            - task
+            - marketing_email
+            - form
+            - page_view
+            - deal_ids
+            - company_ids
+            - contact_ids
+            - lead_ids
+            - user_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Event
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmEvent'
+        description: An event represents an event, activity, or engagement and is always associated with a deal, contact, or company
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmEvent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an event
+      tags:
+      - event
+    put:
+      operationId: updateCrmEvent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - type
+            - note
+            - meeting
+            - email
+            - call
+            - task
+            - marketing_email
+            - form
+            - page_view
+            - deal_ids
+            - company_ids
+            - contact_ids
+            - lead_ids
+            - user_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Event
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmEvent'
+        description: An event represents an event, activity, or engagement and is always associated with a deal, contact, or company
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmEvent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an event
+      tags:
+      - event
+  /calendar/{connection_id}/event:
+    get:
+      operationId: listCalendarEvents
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The calendar ID to filter by (reference to CalendarCalendar)
+        in: query
+        name: calendar_id
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: Whether to flatten grouped or recurring items into individual entries.
+        in: query
+        name: expand
+        required: false
+        schema:
+          type: boolean
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - calendar_id
+            - subject
+            - start_at
+            - end_at
+            - is_all_day
+            - timezone
+            - notes
+            - location
+            - is_free
+            - is_private
+            - status
+            - organizer
+            - attendees
+            - recurring_event_id
+            - recurrence
+            - web_url
+            - has_conference
+            - conference
+            - attachments
+            - send_notifications
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarEvents'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Events
+      tags:
+      - event
+    post:
+      operationId: createCalendarEvent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - calendar_id
+            - subject
+            - start_at
+            - end_at
+            - is_all_day
+            - timezone
+            - notes
+            - location
+            - is_free
+            - is_private
+            - status
+            - organizer
+            - attendees
+            - recurring_event_id
+            - recurrence
+            - web_url
+            - has_conference
+            - conference
+            - attachments
+            - send_notifications
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalendarEvent'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarEvent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an Event
+      tags:
+      - event
+  /calendar/{connection_id}/event/{id}:
+    delete:
+      operationId: removeCalendarEvent
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Event
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an Event
+      tags:
+      - event
+    get:
+      operationId: getCalendarEvent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - calendar_id
+            - subject
+            - start_at
+            - end_at
+            - is_all_day
+            - timezone
+            - notes
+            - location
+            - is_free
+            - is_private
+            - status
+            - organizer
+            - attendees
+            - recurring_event_id
+            - recurrence
+            - web_url
+            - has_conference
+            - conference
+            - attachments
+            - send_notifications
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Event
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarEvent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an Event
+      tags:
+      - event
+    patch:
+      operationId: patchCalendarEvent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - calendar_id
+            - subject
+            - start_at
+            - end_at
+            - is_all_day
+            - timezone
+            - notes
+            - location
+            - is_free
+            - is_private
+            - status
+            - organizer
+            - attendees
+            - recurring_event_id
+            - recurrence
+            - web_url
+            - has_conference
+            - conference
+            - attachments
+            - send_notifications
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Event
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalendarEvent'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarEvent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Event
+      tags:
+      - event
+    put:
+      operationId: updateCalendarEvent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - calendar_id
+            - subject
+            - start_at
+            - end_at
+            - is_all_day
+            - timezone
+            - notes
+            - location
+            - is_free
+            - is_private
+            - status
+            - organizer
+            - attendees
+            - recurring_event_id
+            - recurrence
+            - web_url
+            - has_conference
+            - conference
+            - attachments
+            - send_notifications
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Event
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalendarEvent'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarEvent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Event
+      tags:
+      - event
+  /messaging/{connection_id}/event/{id}:
+    patch:
+      operationId: patchMessagingEvent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - type
+            - channel
+            - message
+            - button
+            - user
+            - raw
+            - is_replacing_original
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Event
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessagingEvent'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagingEvent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Event
+      tags:
+      - event
+    put:
+      operationId: updateMessagingEvent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - type
+            - channel
+            - message
+            - button
+            - user
+            - raw
+            - is_replacing_original
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Event
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessagingEvent'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagingEvent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Event
+      tags:
+      - event
+components:
+  schemas:
+    property_CrmEvent_company_ids:
+      description: An array of company IDs associated with this event
+      items:
+        type: string
+      type: array
+    property_CalendarEventRecurrence_included_dates:
+      description: dates to include in the recurrence, defaults to undefined (no inclusions)
+      items:
+        type: string
+      type: array
+    property_CrmEvent_email_attachment_file_ids:
+      items:
+        type: string
+      type: array
+    property_CrmEvent_marketing_email_attachment_file_ids:
+      items:
+        type: string
+      type: array
+    CrmEvent:
+      description: An event represents an event, activity, or engagement and is always associated with a deal, contact, or company
+      properties:
+        call:
+          $ref: '#/components/schemas/property_CrmEvent_call'
+        company_ids:
+          $ref: '#/components/schemas/property_CrmEvent_company_ids'
+        contact_ids:
+          $ref: '#/components/schemas/property_CrmEvent_contact_ids'
+        created_at:
+          format: date-time
+          type: string
+        deal_ids:
+          $ref: '#/components/schemas/property_CrmEvent_deal_ids'
+        email:
+          $ref: '#/components/schemas/property_CrmEvent_email'
+        form:
+          $ref: '#/components/schemas/property_CrmEvent_form'
+        id:
+          type: string
+        lead_ids:
+          $ref: '#/components/schemas/property_CrmEvent_lead_ids'
+        marketing_email:
+          $ref: '#/components/schemas/property_CrmEvent_marketing_email'
+        meeting:
+          $ref: '#/components/schemas/property_CrmEvent_meeting'
+        note:
+          $ref: '#/components/schemas/property_CrmEvent_note'
+        page_view:
+          $ref: '#/components/schemas/property_CrmEvent_page_view'
+        raw:
+          additionalProperties: true
+          type: object
+        task:
+          $ref: '#/components/schemas/property_CrmEvent_task'
+        type:
+          enum:
+          - NOTE
+          - EMAIL
+          - TASK
+          - MEETING
+          - CALL
+          - MARKETING_EMAIL
+          - FORM
+          - PAGE_VIEW
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_CrmEvent_email_cc:
+      description: The event email's cc name & email (name <test@test.com>)
+      items:
+        type: string
+      type: array
+    property_MessagingEvent_message:
+      properties:
+        attachments:
+          $ref: '#/components/schemas/property_MessagingEvent_message_attachments'
+        author_member:
+          $ref: '#/components/schemas/property_MessagingEvent_message_author_member'
+        buttons:
+          $ref: '#/components/schemas/property_MessagingEvent_message_buttons'
+        channel_id:
+          type: string
+        channel_ids:
+          $ref: '#/components/schemas/property_MessagingEvent_message_channel_ids'
+        channels:
+          $ref: '#/components/schemas/property_MessagingEvent_message_channels'
+        created_at:
+          format: date-time
+          type: string
+        destination_members:
+          $ref: '#/components/schemas/property_MessagingEvent_message_destination_members'
+        has_children:
+          type: boolean
+        hidden_members:
+          $ref: '#/components/schemas/property_MessagingEvent_message_hidden_members'
+        id:
+          type: string
+        is_unread:
+          type: boolean
+        mentioned_members:
+          $ref: '#/components/schemas/property_MessagingEvent_message_mentioned_members'
+        message:
+          type: string
+        message_html:
+          type: string
+        message_markdown:
+          type: string
+        message_thread_identifier:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        reactions:
+          $ref: '#/components/schemas/property_MessagingEvent_message_reactions'
+        reference:
+          type: string
+        root_message_id:
+          type: string
+        subject:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        web_url:
+          type: string
+      type: object
+    property_CrmEvent_form:
+      properties:
+        archived_at:
+          format: date-time
+          type: string
+        fields:
+          $ref: '#/components/schemas/property_CrmEvent_form_fields'
+        name:
+          type: string
+        redirect_url:
+          type: string
+      type: object
+    property_CalendarEvent_attendees:
+      items:
+        $ref: '#/components/schemas/CalendarAttendee'
+      type: array
+    property_MessagingEvent_user:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    property_MessagingEvent_message_channels:
+      description: Represents the names of all channels to which the message is sent. Identifies the channels where the message is posted.
+      items:
+        $ref: '#/components/schemas/MessagingReference'
+      type: array
+    CalendarConference:
+      properties:
+        conference_identifier:
+          type: string
+        country_code:
+          type: string
+        host_access_code:
+          type: string
+        label:
+          type: string
+        notes:
+          type: string
+        participant_access_code:
+          type: string
+        region_code:
+          type: string
+        telephone:
+          type: string
+        url:
+          type: string
+      type: object
+    property_CrmEvent_form_fields:
+      items:
+        $ref: '#/components/schemas/CrmEventFormField'
+      type: array
+    MessagingEvent:
+      properties:
+        button:
+          $ref: '#/components/schemas/property_MessagingEvent_button'
+        channel:
+          $ref: '#/components/schemas/property_MessagingEvent_channel'
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        is_replacing_original:
+          type: boolean
+        message:
+          $ref: '#/components/schemas/property_MessagingEvent_message'
+        raw:
+          additionalProperties: true
+          type: object
+        type:
+          enum:
+          - MESSAGE_RECEIVED
+          - REACTION_ADDED
+          - REACTION_REMOVED
+          - BUTTON_CLICK
+          - APP_MENTION
+          - CHANNEL_JOINED
+          - CHANNEL_LEFT
+          - CHANNEL_CREATED
+          - CHANNEL_DELETED
+          - CHANNEL_RENAMED
+          - USER_CREATED
+          - USER_DELETED
+          - USER_UPDATED
+          type: string
+          x-speakeasy-unknown-values: allow
+        user:
+          $ref: '#/components/schemas/property_MessagingEvent_user'
+      type: object
+    property_CrmEvent_call:
+      description: The call object, when type = call
+      properties:
+        description:
+          type: string
+        duration:
+          type: number
+        start_at:
+          format: date-time
+          type: string
+      type: object
+    property_CalendarEventRecurrence_on_weeks:
+      description: week ordinals for BYDAY (e.g., -1 for last, -2 for second-to-last, 1 for first, 2 for second), only used with on_days. 0 is used for days without week ordinals.
+      items:
+        type: number
+      type: array
+    property_CalendarEvent_organizer:
+      properties:
+        email:
+          type: string
+        is_cohost:
+          type: boolean
+        name:
+          type: string
+        required:
+          type: boolean
+        status:
+          enum:
+          - ACCEPTED
+          - REJECTED
+          - TENTATIVE
+          type: string
+          x-speakeasy-unknown-values: allow
+        user_id:
+          type: string
+      type: object
+    CalendarAttendee:
+      properties:
+        email:
+          type: string
+        is_cohost:
+          type: boolean
+        name:
+          type: string
+        required:
+          type: boolean
+        status:
+          enum:
+          - ACCEPTED
+          - REJECTED
+          - TENTATIVE
+          type: string
+          x-speakeasy-unknown-values: allow
+        user_id:
+          type: string
+      type: object
+    property_MessagingEvent_message_destination_members:
+      description: for email systems, this field represents the To value
+      items:
+        $ref: '#/components/schemas/MessagingMember'
+      type: array
+    property_CalendarEventRecurrence_excluded_dates:
+      description: dates to exclude from the recurrence, defaults to undefined (no exclusions)
+      items:
+        type: string
+      type: array
+    property_MessagingEvent_message_mentioned_members:
+      description: for email systems, this field represents the CC value
+      items:
+        $ref: '#/components/schemas/MessagingMember'
+      type: array
+    property_CrmEvent_marketing_email_to:
+      description: The event email's "to" name & email (name <test@test.com>)
+      items:
+        type: string
+      type: array
+    property_CrmEvent_email_to:
+      description: The event email's "to" name & email (name <test@test.com>)
+      items:
+        type: string
+      type: array
+    property_CrmEvent_lead_ids:
+      items:
+        type: string
+      type: array
+    MessagingReference:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    CrmEventFormOption:
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+      type: object
+    property_MessagingEvent_button:
+      properties:
+        icon:
+          type: string
+        id:
+          type: string
+        text:
+          type: string
+      required:
+      - id
+      type: object
+    property_CrmEvent_contact_ids:
+      description: An array of contact IDs associated with this event
+      items:
+        type: string
+      type: array
+    property_CalendarEvent_attachments:
+      items:
+        $ref: '#/components/schemas/CalendarAttachment'
+      type: array
+    property_MessagingEvent_message_buttons:
+      items:
+        $ref: '#/components/schemas/MessagingButton'
+      type: array
+    property_CalendarEventRecurrence_on_month_days:
+      description: days of the month to repeat on, defaults to undefined (every day), only used if frequency is MONTHLY
+      items:
+        type: number
+      type: array
+    property_CrmEvent_email:
+      description: The email object, when type = email
+      properties:
+        attachment_file_ids:
+          $ref: '#/components/schemas/property_CrmEvent_email_attachment_file_ids'
+        body:
+          type: string
+        cc:
+          $ref: '#/components/schemas/property_CrmEvent_email_cc'
+        from:
+          type: string
+        subject:
+          type: string
+        to:
+          $ref: '#/components/schemas/property_CrmEvent_email_to'
+      type: object
+    property_CalendarEvent_conference:
+      items:
+        $ref: '#/components/schemas/CalendarConference'
+      type: array
+    CrmEventFormField:
+      properties:
+        name:
+          type: string
+        options:
+          $ref: '#/components/schemas/property_CrmEventFormField_options'
+        required:
+          type: boolean
+        type:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - MULTIPLE_CHOICE
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - EMAIL
+          - PHONE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_CalendarEventRecurrence_on_months:
+      description: months of the year to repeat on, defaults to undefined (every month), only used if frequency is YEARLY, January is 1
+      items:
+        type: number
+      type: array
+    property_CrmEvent_page_view:
+      properties:
+        average:
+          type: number
+        count:
+          type: number
+        url:
+          type: string
+      type: object
+    MessagingMember:
+      properties:
+        email:
+          type: string
+        image_url:
+          type: string
+        name:
+          type: string
+        user_id:
+          type: string
+      type: object
+    CalendarEvent:
+      properties:
+        attachments:
+          $ref: '#/components/schemas/property_CalendarEvent_attachments'
+        attendees:
+          $ref: '#/components/schemas/property_CalendarEvent_attendees'
+        calendar_id:
+          type: string
+        conference:
+          $ref: '#/components/schemas/property_CalendarEvent_conference'
+        created_at:
+          type: string
+        end_at:
+          type: string
+        has_conference:
+          type: boolean
+        id:
+          type: string
+        is_all_day:
+          type: boolean
+        is_free:
+          type: boolean
+        is_private:
+          type: boolean
+        location:
+          type: string
+        notes:
+          type: string
+        organizer:
+          $ref: '#/components/schemas/property_CalendarEvent_organizer'
+        raw:
+          additionalProperties: true
+          type: object
+        recurrence:
+          $ref: '#/components/schemas/property_CalendarEvent_recurrence'
+        recurring_event_id:
+          type: string
+        send_notifications:
+          type: boolean
+        start_at:
+          type: string
+        status:
+          enum:
+          - CANCELED
+          - CONFIRMED
+          - TENTATIVE
+          type: string
+          x-speakeasy-unknown-values: allow
+        subject:
+          type: string
+        timezone:
+          type: string
+        updated_at:
+          type: string
+        web_url:
+          type: string
+      type: object
+    property_MessagingEvent_channel_members:
+      items:
+        $ref: '#/components/schemas/MessagingMember'
+      type: array
+    property_MessagingEvent_message_hidden_members:
+      description: for email systems, this field represents the BCC value
+      items:
+        $ref: '#/components/schemas/MessagingMember'
+      type: array
+    property_CalendarEventRecurrence_on_year_days:
+      description: days of the year to repeat on, defaults to undefined (every day), only used if frequency is YEARLY
+      items:
+        type: number
+      type: array
+    MessagingButton:
+      properties:
+        icon:
+          type: string
+        id:
+          type: string
+        text:
+          type: string
+      required:
+      - id
+      type: object
+    CalendarAttachment:
+      properties:
+        download_url:
+          type: string
+        id:
+          type: string
+        mime_type:
+          type: string
+        name:
+          type: string
+      type: object
+    property_CrmEvent_marketing_email:
+      properties:
+        attachment_file_ids:
+          $ref: '#/components/schemas/property_CrmEvent_marketing_email_attachment_file_ids'
+        body:
+          type: string
+        cc:
+          $ref: '#/components/schemas/property_CrmEvent_marketing_email_cc'
+        from:
+          type: string
+        name:
+          type: string
+        subject:
+          type: string
+        to:
+          $ref: '#/components/schemas/property_CrmEvent_marketing_email_to'
+      type: object
+    MessagingReaction:
+      properties:
+        member:
+          $ref: '#/components/schemas/property_MessagingReaction_member'
+        reaction:
+          type: string
+      required:
+      - reaction
+      - member
+      type: object
+    property_MessagingEvent_message_author_member:
+      description: for email systems, this field represents the From value
+      properties:
+        email:
+          type: string
+        image_url:
+          type: string
+        name:
+          type: string
+        user_id:
+          type: string
+      type: object
+    CalendarEventRecurrence:
+      properties:
+        count:
+          type: number
+        end_at:
+          format: date-time
+          type: string
+        excluded_dates:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_excluded_dates'
+        frequency:
+          enum:
+          - DAILY
+          - WEEKLY
+          - MONTHLY
+          - YEARLY
+          type: string
+          x-speakeasy-unknown-values: allow
+        included_dates:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_included_dates'
+        interval:
+          type: number
+        on_days:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_days'
+        on_month_days:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_month_days'
+        on_months:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_months'
+        on_weeks:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_weeks'
+        on_year_days:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_year_days'
+        timezone:
+          type: string
+        week_start:
+          enum:
+          - SU
+          - MO
+          - TU
+          - WE
+          - TH
+          - FR
+          - SA
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_CrmEventFormField_options:
+      items:
+        $ref: '#/components/schemas/CrmEventFormOption'
+      type: array
+    property_CrmEvent_note:
+      description: The note object, when type = note
+      properties:
+        description:
+          type: string
+        title:
+          type: string
+      type: object
+    property_CalendarEventRecurrence_on_days:
+      description: days of the week to repeat on, defaults to undefined (every day), only used if frequency is WEEKLY
+      items:
+        enum:
+        - SU
+        - MO
+        - TU
+        - WE
+        - TH
+        - FR
+        - SA
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_CrmEvent_meeting:
+      description: The meeting object, when type = meeting
+      properties:
+        description:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        title:
+          type: string
+      type: object
+    CalendarEvents:
+      items:
+        $ref: '#/components/schemas/CalendarEvent'
+      type: array
+    CrmEvents:
+      items:
+        $ref: '#/components/schemas/CrmEvent'
+      type: array
+    property_CalendarEvent_recurrence:
+      items:
+        $ref: '#/components/schemas/CalendarEventRecurrence'
+      type: array
+    property_CrmEvent_deal_ids:
+      description: An array of deal IDs associated with this event
+      items:
+        type: string
+      type: array
+    property_MessagingEvent_message_channel_ids:
+      description: '@deprecated; use channels instead'
+      items:
+        type: string
+      type: array
+    property_MessagingEvent_message_attachments:
+      items:
+        $ref: '#/components/schemas/MessagingAttachment'
+      type: array
+    MessagingAttachment:
+      properties:
+        content_identifier:
+          type: string
+        content_type:
+          type: string
+        download_url:
+          type: string
+        filename:
+          type: string
+        message_id:
+          type: string
+        size:
+          type: number
+      type: object
+    property_MessagingEvent_message_reactions:
+      items:
+        $ref: '#/components/schemas/MessagingReaction'
+      type: array
+    property_CrmEvent_marketing_email_cc:
+      description: The event email's cc name & email (name <test@test.com>)
+      items:
+        type: string
+      type: array
+    property_MessagingEvent_channel:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        has_subchannels:
+          type: boolean
+        id:
+          type: string
+        is_active:
+          type: boolean
+        is_private:
+          type: boolean
+        members:
+          $ref: '#/components/schemas/property_MessagingEvent_channel_members'
+        name:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          format: date-time
+          type: string
+        web_url:
+          type: string
+      required:
+      - name
+      type: object
+    property_CrmEvent_task:
+      description: The task object, when type = task
+      properties:
+        description:
+          type: string
+        due_at:
+          format: date-time
+          type: string
+        name:
+          type: string
+        priority:
+          enum:
+          - HIGH
+          - MEDIUM
+          - LOW
+          type: string
+          x-speakeasy-unknown-values: allow
+        status:
+          enum:
+          - COMPLETED
+          - NOT_STARTED
+          - WORK_IN_PROGRESS
+          - DEFERRED
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_MessagingReaction_member:
+      properties:
+        email:
+          type: string
+        image_url:
+          type: string
+        name:
+          type: string
+        user_id:
+          type: string
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

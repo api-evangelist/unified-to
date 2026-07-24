@@ -1,0 +1,682 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account course API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: course
+paths:
+  /lms/{connection_id}/course:
+    get:
+      operationId: listLmsCourses
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The class ID to filter by (reference to LmsClass)
+        in: query
+        name: class_id
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to HrisCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - is_private
+            - is_active
+            - price_amount
+            - languages
+            - categories
+            - currency
+            - media
+            - instructor_ids
+            - instructors
+            - student_ids
+            - students
+            - content_ids
+            - skills
+            - duration_minutes
+            - provider_name
+            - raw
+            - published_at
+            - time_estimate_minutes
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LmsCourses'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Courses
+      tags:
+      - course
+    post:
+      operationId: createLmsCourse
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - is_private
+            - is_active
+            - price_amount
+            - languages
+            - categories
+            - currency
+            - media
+            - instructor_ids
+            - instructors
+            - student_ids
+            - students
+            - content_ids
+            - skills
+            - duration_minutes
+            - provider_name
+            - raw
+            - published_at
+            - time_estimate_minutes
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LmsCourse'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LmsCourse'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Course
+      tags:
+      - course
+  /lms/{connection_id}/course/{id}:
+    delete:
+      operationId: removeLmsCourse
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Course
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Course
+      tags:
+      - course
+    get:
+      operationId: getLmsCourse
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - is_private
+            - is_active
+            - price_amount
+            - languages
+            - categories
+            - currency
+            - media
+            - instructor_ids
+            - instructors
+            - student_ids
+            - students
+            - content_ids
+            - skills
+            - duration_minutes
+            - provider_name
+            - raw
+            - published_at
+            - time_estimate_minutes
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Course
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LmsCourse'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Course
+      tags:
+      - course
+    patch:
+      operationId: patchLmsCourse
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - is_private
+            - is_active
+            - price_amount
+            - languages
+            - categories
+            - currency
+            - media
+            - instructor_ids
+            - instructors
+            - student_ids
+            - students
+            - content_ids
+            - skills
+            - duration_minutes
+            - provider_name
+            - raw
+            - published_at
+            - time_estimate_minutes
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Course
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LmsCourse'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LmsCourse'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Course
+      tags:
+      - course
+    put:
+      operationId: updateLmsCourse
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - is_private
+            - is_active
+            - price_amount
+            - languages
+            - categories
+            - currency
+            - media
+            - instructor_ids
+            - instructors
+            - student_ids
+            - students
+            - content_ids
+            - skills
+            - duration_minutes
+            - provider_name
+            - raw
+            - published_at
+            - time_estimate_minutes
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Course
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LmsCourse'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LmsCourse'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Course
+      tags:
+      - course
+components:
+  schemas:
+    property_LmsCourse_media:
+      items:
+        $ref: '#/components/schemas/LmsMedia'
+      type: array
+    property_LmsMedia_languages:
+      description: ISO 2-digit language codes
+      items:
+        type: string
+      type: array
+    LmsEmail:
+      properties: {}
+      type: object
+    property_LmsStudent_telephones:
+      items:
+        $ref: '#/components/schemas/LmsTelephone'
+      type: array
+    LmsCourse:
+      properties:
+        categories:
+          $ref: '#/components/schemas/property_LmsCourse_categories'
+        content_ids:
+          $ref: '#/components/schemas/property_LmsCourse_content_ids'
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        description:
+          type: string
+        duration_minutes:
+          type: number
+        id:
+          type: string
+        instructor_ids:
+          $ref: '#/components/schemas/property_LmsCourse_instructor_ids'
+        instructors:
+          $ref: '#/components/schemas/property_LmsCourse_instructors'
+        is_active:
+          type: boolean
+        is_private:
+          type: boolean
+        languages:
+          $ref: '#/components/schemas/property_LmsCourse_languages'
+        media:
+          $ref: '#/components/schemas/property_LmsCourse_media'
+        name:
+          type: string
+        price_amount:
+          type: number
+        provider_name:
+          type: string
+        published_at:
+          format: date-time
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        skills:
+          $ref: '#/components/schemas/property_LmsCourse_skills'
+        student_ids:
+          $ref: '#/components/schemas/property_LmsCourse_student_ids'
+        students:
+          $ref: '#/components/schemas/property_LmsCourse_students'
+        time_estimate_minutes:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - name
+      type: object
+    LmsInstructor:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_LmsInstructor_emails'
+        first_name:
+          type: string
+        id:
+          type: string
+        image_url:
+          type: string
+        last_name:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        telephones:
+          $ref: '#/components/schemas/property_LmsInstructor_telephones'
+        title:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_LmsCourse_content_ids:
+      items:
+        type: string
+      type: array
+    property_LmsCourse_students:
+      items:
+        $ref: '#/components/schemas/LmsStudent'
+      type: array
+    property_LmsCourse_instructors:
+      items:
+        $ref: '#/components/schemas/LmsInstructor'
+      type: array
+    property_LmsStudent_emails:
+      items:
+        $ref: '#/components/schemas/LmsEmail'
+      type: array
+    property_LmsCourse_student_ids:
+      description: '@deprecated; use students'
+      items:
+        type: string
+      type: array
+    property_LmsCourse_instructor_ids:
+      description: '@deprecated; use instructors'
+      items:
+        type: string
+      type: array
+    LmsTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    property_LmsInstructor_emails:
+      items:
+        $ref: '#/components/schemas/LmsEmail'
+      type: array
+    LmsStudent:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_LmsStudent_address'
+        created_at:
+          format: date-time
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_LmsStudent_emails'
+        first_name:
+          type: string
+        id:
+          type: string
+        image_url:
+          type: string
+        last_name:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        telephones:
+          $ref: '#/components/schemas/property_LmsStudent_telephones'
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    LmsCourses:
+      items:
+        $ref: '#/components/schemas/LmsCourse'
+      type: array
+    property_LmsInstructor_telephones:
+      items:
+        $ref: '#/components/schemas/LmsTelephone'
+      type: array
+    property_LmsStudent_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_LmsCourse_skills:
+      items:
+        type: string
+      type: array
+    property_LmsCourse_languages:
+      items:
+        type: string
+      type: array
+    LmsMedia:
+      properties:
+        content:
+          type: string
+        description:
+          type: string
+        languages:
+          $ref: '#/components/schemas/property_LmsMedia_languages'
+        name:
+          type: string
+        thumbnail_url:
+          type: string
+        type:
+          enum:
+          - IMAGE
+          - HEADSHOT
+          - VIDEO
+          - WEB
+          - DOCUMENT
+          - TEXT
+          - HTML
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        url:
+          type: string
+      type: object
+    property_LmsCourse_categories:
+      items:
+        type: string
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

@@ -1,0 +1,595 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account creative API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: creative
+paths:
+  /ads/{connection_id}/creative:
+    get:
+      operationId: listAdsCreatives
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The org ID to filter by (reference to AdsOrganization)
+        in: query
+        name: org_id
+        required: false
+        schema:
+          type: string
+      - description: The group ID to filter by (reference to AdsGroup)
+        in: query
+        name: group_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - item_id
+            - organization_id
+            - status
+            - creative_type
+            - hosting_source
+            - width
+            - height
+            - asset_urls
+            - link_url
+            - body
+            - title
+            - cta
+            - third_party_tag
+            - vast_tag_url
+            - external_creative_reference
+            - external_placement_reference
+            - external_ad_reference
+            - promoted
+            - path1
+            - path2
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsCreatives'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Creatives
+      tags:
+      - creative
+    post:
+      operationId: createAdsCreative
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - item_id
+            - organization_id
+            - status
+            - creative_type
+            - hosting_source
+            - width
+            - height
+            - asset_urls
+            - link_url
+            - body
+            - title
+            - cta
+            - third_party_tag
+            - vast_tag_url
+            - external_creative_reference
+            - external_placement_reference
+            - external_ad_reference
+            - promoted
+            - path1
+            - path2
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsCreative'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsCreative'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Creative
+      tags:
+      - creative
+  /ads/{connection_id}/creative/{id}:
+    delete:
+      operationId: removeAdsCreative
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Creative
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Creative
+      tags:
+      - creative
+    get:
+      operationId: getAdsCreative
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - item_id
+            - organization_id
+            - status
+            - creative_type
+            - hosting_source
+            - width
+            - height
+            - asset_urls
+            - link_url
+            - body
+            - title
+            - cta
+            - third_party_tag
+            - vast_tag_url
+            - external_creative_reference
+            - external_placement_reference
+            - external_ad_reference
+            - promoted
+            - path1
+            - path2
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Creative
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsCreative'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Creative
+      tags:
+      - creative
+    patch:
+      operationId: patchAdsCreative
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - item_id
+            - organization_id
+            - status
+            - creative_type
+            - hosting_source
+            - width
+            - height
+            - asset_urls
+            - link_url
+            - body
+            - title
+            - cta
+            - third_party_tag
+            - vast_tag_url
+            - external_creative_reference
+            - external_placement_reference
+            - external_ad_reference
+            - promoted
+            - path1
+            - path2
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Creative
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsCreative'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsCreative'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Creative
+      tags:
+      - creative
+    put:
+      operationId: updateAdsCreative
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - item_id
+            - organization_id
+            - status
+            - creative_type
+            - hosting_source
+            - width
+            - height
+            - asset_urls
+            - link_url
+            - body
+            - title
+            - cta
+            - third_party_tag
+            - vast_tag_url
+            - external_creative_reference
+            - external_placement_reference
+            - external_ad_reference
+            - promoted
+            - path1
+            - path2
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Creative
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsCreative'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsCreative'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Creative
+      tags:
+      - creative
+components:
+  schemas:
+    AdsCreatives:
+      items:
+        $ref: '#/components/schemas/AdsCreative'
+      type: array
+    property_AdsCreative_promoted:
+      items:
+        $ref: '#/components/schemas/AdsPromoted'
+      type: array
+    property_AdsCreative_asset_urls:
+      description: Hosted asset mode (best-effort, provider-specific
+      items:
+        type: string
+      type: array
+    AdsCreative:
+      properties:
+        asset_urls:
+          $ref: '#/components/schemas/property_AdsCreative_asset_urls'
+        body:
+          type: string
+        campaign_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        creative_type:
+          enum:
+          - UNSPECIFIED
+          - STANDARD
+          - EXPANDABLE
+          - VIDEO
+          - NATIVE
+          - AUDIO
+          - PUBLISHER_HOSTED
+          - ASSET_BASED
+          type: string
+          x-speakeasy-unknown-values: allow
+        cta:
+          type: string
+        external_ad_reference:
+          type: string
+        external_creative_reference:
+          type: string
+        external_placement_reference:
+          type: string
+        group_id:
+          type: string
+        height:
+          type: number
+        hosting_source:
+          enum:
+          - UNSPECIFIED
+          - CM
+          - THIRD_PARTY
+          - HOSTED
+          - RICH_MEDIA
+          - PUBLISHER_HOSTED
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        item_id:
+          type: string
+        link_url:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        path1:
+          type: string
+        path2:
+          type: string
+        promoted:
+          $ref: '#/components/schemas/property_AdsCreative_promoted'
+        raw:
+          additionalProperties: true
+          type: object
+        status:
+          enum:
+          - UNSPECIFIED
+          - ACTIVE
+          - PAUSED
+          - ARCHIVED
+          - DRAFT
+          - SCHEDULED_FOR_DELETION
+          type: string
+          x-speakeasy-unknown-values: allow
+        third_party_tag:
+          type: string
+        title:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        vast_tag_url:
+          type: string
+        width:
+          type: number
+      type: object
+    AdsPromoted:
+      description: Promoted entity (e.g. page, app, product, tweet) for ads create
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        type:
+          enum:
+          - PAGE_ID
+          - APP_ID
+          - STORE_URL
+          - PIXEL_ID
+          - CUSTOM_CONVERSION_ID
+          - CATALOG_ID
+          - PRODUCT_SET_ID
+          - PRIORITIZED_SET_ID
+          - EVENT_ID
+          - OFFER_ID
+          - LEAD_FORM_ID
+          - MESSAGING_CHANNEL_ID
+          - PRODUCT_ID
+          - TWEET_ID
+          - AD_GROUP_TYPE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - id
+      - type
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

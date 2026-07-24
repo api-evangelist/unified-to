@@ -1,0 +1,95 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account environment API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: environment
+paths:
+  /unified/environment:
+    get:
+      operationId: listUnifiedEnvironments
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environments'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Returns All Environments
+      tags:
+      - environment
+    post:
+      operationId: createUnifiedEnvironment
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Environments'
+        description: A list of environments in the workspace.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environments'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create New Environments
+      tags:
+      - environment
+  /unified/environment/{env}:
+    delete:
+      operationId: removeUnifiedEnvironment
+      parameters:
+      - in: path
+        name: env
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environments'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Remove an Environment
+      tags:
+      - environment
+components:
+  schemas:
+    Environments:
+      description: A list of environments in the workspace.
+      items:
+        type: string
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

@@ -1,0 +1,85 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account login API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: login
+paths:
+  /unified/integration/login/{workspace_id}/{integration_type}:
+    get:
+      description: Returns an authentication URL for the specified integration.  Once a successful authentication occurs, the name and email are returned inside a jwt parameter, which is a JSON web token that is base-64 encoded.
+      operationId: getUnifiedIntegrationLogin
+      parameters:
+      - description: The URL where you want the user to be redirect to after a successful authentication/sign-in.  A "jwt" parameter will be appended to the URL which will contain a name and email of the user who just signed-in.
+        in: query
+        name: success_redirect
+        required: false
+        schema:
+          type: string
+      - description: The URL where you want the user to be redirect to after an unsuccessful authentication. An "error" variable will be appended.
+        in: query
+        name: failure_redirect
+        required: false
+        schema:
+          type: string
+      - description: Extra state to send back to your success URL
+        in: query
+        name: state
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: redirect
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: env
+        required: false
+        schema:
+          type: string
+      - description: The ID of the workspace
+        in: path
+        name: workspace_id
+        required: true
+        schema:
+          type: string
+      - description: Type of the supported integration
+        in: path
+        name: integration_type
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Successful
+      summary: Sign in a User
+      tags:
+      - login
+components:
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

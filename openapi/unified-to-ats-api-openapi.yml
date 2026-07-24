@@ -1,0 +1,4227 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account ats API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: ats
+paths:
+  /ats/{connection_id}/activity:
+    get:
+      operationId: listAtsActivities
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The application ID to filter by
+        in: query
+        name: application_id
+        required: false
+        schema:
+          type: string
+      - description: The candidate ID to filter by
+        in: query
+        name: candidate_id
+        required: false
+        schema:
+          type: string
+      - description: The job ID to filter by
+        in: query
+        name: job_id
+        required: false
+        schema:
+          type: string
+      - description: The document ID to filter by
+        in: query
+        name: document_id
+        required: false
+        schema:
+          type: string
+      - description: The interview ID to filter by
+        in: query
+        name: interview_id
+        required: false
+        schema:
+          type: string
+      - description: The type to filter by
+        in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - candidate_id
+            - application_id
+            - job_id
+            - interview_id
+            - document_ids
+            - title
+            - description
+            - is_private
+            - user_ids
+            - type
+            - from
+            - to
+            - cc
+            - bcc
+            - sub_type
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsActivities'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all activities
+      tags:
+      - ats
+    post:
+      operationId: createAtsActivity
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - candidate_id
+            - application_id
+            - job_id
+            - interview_id
+            - document_ids
+            - title
+            - description
+            - is_private
+            - user_ids
+            - type
+            - from
+            - to
+            - cc
+            - bcc
+            - sub_type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsActivity'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsActivity'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an activity
+      tags:
+      - ats
+  /ats/{connection_id}/activity/{id}:
+    delete:
+      operationId: removeAtsActivity
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Activity
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an activity
+      tags:
+      - ats
+    get:
+      operationId: getAtsActivity
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - candidate_id
+            - application_id
+            - job_id
+            - interview_id
+            - document_ids
+            - title
+            - description
+            - is_private
+            - user_ids
+            - type
+            - from
+            - to
+            - cc
+            - bcc
+            - sub_type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Activity
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsActivity'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an activity
+      tags:
+      - ats
+    patch:
+      operationId: patchAtsActivity
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - candidate_id
+            - application_id
+            - job_id
+            - interview_id
+            - document_ids
+            - title
+            - description
+            - is_private
+            - user_ids
+            - type
+            - from
+            - to
+            - cc
+            - bcc
+            - sub_type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Activity
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsActivity'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsActivity'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an activity
+      tags:
+      - ats
+    put:
+      operationId: updateAtsActivity
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - candidate_id
+            - application_id
+            - job_id
+            - interview_id
+            - document_ids
+            - title
+            - description
+            - is_private
+            - user_ids
+            - type
+            - from
+            - to
+            - cc
+            - bcc
+            - sub_type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Activity
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsActivity'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsActivity'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an activity
+      tags:
+      - ats
+  /ats/{connection_id}/application:
+    get:
+      operationId: listAtsApplications
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The job ID to filter by
+        in: query
+        name: job_id
+        required: false
+        schema:
+          type: string
+      - description: The candidate ID to filter by
+        in: query
+        name: candidate_id
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to AtsCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - candidate_id
+            - job_id
+            - created_at
+            - updated_at
+            - applied_at
+            - hired_at
+            - rejected_at
+            - rejected_reason
+            - source
+            - status
+            - original_status
+            - answers
+            - offers
+            - user_id
+            - metadata
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsApplications'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all applications
+      tags:
+      - ats
+    post:
+      operationId: createAtsApplication
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - candidate_id
+            - job_id
+            - created_at
+            - updated_at
+            - applied_at
+            - hired_at
+            - rejected_at
+            - rejected_reason
+            - source
+            - status
+            - original_status
+            - answers
+            - offers
+            - user_id
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsApplication'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsApplication'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an application
+      tags:
+      - ats
+  /ats/{connection_id}/application/{id}:
+    delete:
+      operationId: removeAtsApplication
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Application
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an application
+      tags:
+      - ats
+    get:
+      operationId: getAtsApplication
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - candidate_id
+            - job_id
+            - created_at
+            - updated_at
+            - applied_at
+            - hired_at
+            - rejected_at
+            - rejected_reason
+            - source
+            - status
+            - original_status
+            - answers
+            - offers
+            - user_id
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Application
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsApplication'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an application
+      tags:
+      - ats
+    patch:
+      operationId: patchAtsApplication
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - candidate_id
+            - job_id
+            - created_at
+            - updated_at
+            - applied_at
+            - hired_at
+            - rejected_at
+            - rejected_reason
+            - source
+            - status
+            - original_status
+            - answers
+            - offers
+            - user_id
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Application
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsApplication'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsApplication'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an application
+      tags:
+      - ats
+    put:
+      operationId: updateAtsApplication
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - candidate_id
+            - job_id
+            - created_at
+            - updated_at
+            - applied_at
+            - hired_at
+            - rejected_at
+            - rejected_reason
+            - source
+            - status
+            - original_status
+            - answers
+            - offers
+            - user_id
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Application
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsApplication'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsApplication'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an application
+      tags:
+      - ats
+  /ats/{connection_id}/applicationstatus:
+    get:
+      operationId: listAtsApplicationstatuses
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - status
+            - original_status
+            - description
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsStatuses'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all applicationstatuses
+      tags:
+      - ats
+  /ats/{connection_id}/candidate:
+    get:
+      operationId: listAtsCandidates
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to AtsCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - title
+            - telephones
+            - company_name
+            - image_url
+            - tags
+            - address
+            - external_identifier
+            - link_urls
+            - origin
+            - company_id
+            - sources
+            - date_of_birth
+            - user_id
+            - web_url
+            - experiences
+            - education
+            - skills
+            - metadata
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsCandidates'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all candidates
+      tags:
+      - ats
+    post:
+      operationId: createAtsCandidate
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - title
+            - telephones
+            - company_name
+            - image_url
+            - tags
+            - address
+            - external_identifier
+            - link_urls
+            - origin
+            - company_id
+            - sources
+            - date_of_birth
+            - user_id
+            - web_url
+            - experiences
+            - education
+            - skills
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsCandidate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsCandidate'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a candidate
+      tags:
+      - ats
+  /ats/{connection_id}/candidate/{id}:
+    delete:
+      operationId: removeAtsCandidate
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Candidate
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a candidate
+      tags:
+      - ats
+    get:
+      operationId: getAtsCandidate
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - title
+            - telephones
+            - company_name
+            - image_url
+            - tags
+            - address
+            - external_identifier
+            - link_urls
+            - origin
+            - company_id
+            - sources
+            - date_of_birth
+            - user_id
+            - web_url
+            - experiences
+            - education
+            - skills
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Candidate
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsCandidate'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a candidate
+      tags:
+      - ats
+    patch:
+      operationId: patchAtsCandidate
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - title
+            - telephones
+            - company_name
+            - image_url
+            - tags
+            - address
+            - external_identifier
+            - link_urls
+            - origin
+            - company_id
+            - sources
+            - date_of_birth
+            - user_id
+            - web_url
+            - experiences
+            - education
+            - skills
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Candidate
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsCandidate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsCandidate'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a candidate
+      tags:
+      - ats
+    put:
+      operationId: updateAtsCandidate
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - title
+            - telephones
+            - company_name
+            - image_url
+            - tags
+            - address
+            - external_identifier
+            - link_urls
+            - origin
+            - company_id
+            - sources
+            - date_of_birth
+            - user_id
+            - web_url
+            - experiences
+            - education
+            - skills
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Candidate
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsCandidate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsCandidate'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a candidate
+      tags:
+      - ats
+  /ats/{connection_id}/company:
+    get:
+      operationId: listAtsCompanies
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - address
+            - website_url
+            - phone
+            - parent_id
+            - recruiter_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsCompanies'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all companies
+      tags:
+      - ats
+    post:
+      operationId: createAtsCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - address
+            - website_url
+            - phone
+            - parent_id
+            - recruiter_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsCompany'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a company
+      tags:
+      - ats
+  /ats/{connection_id}/company/{id}:
+    delete:
+      operationId: removeAtsCompany
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a company
+      tags:
+      - ats
+    get:
+      operationId: getAtsCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - address
+            - website_url
+            - phone
+            - parent_id
+            - recruiter_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a company
+      tags:
+      - ats
+    patch:
+      operationId: patchAtsCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - address
+            - website_url
+            - phone
+            - parent_id
+            - recruiter_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsCompany'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a company
+      tags:
+      - ats
+    put:
+      operationId: updateAtsCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - address
+            - website_url
+            - phone
+            - parent_id
+            - recruiter_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsCompany'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a company
+      tags:
+      - ats
+  /ats/{connection_id}/document:
+    get:
+      operationId: listAtsDocuments
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The application ID to filter by
+        in: query
+        name: application_id
+        required: false
+        schema:
+          type: string
+      - description: The candidate ID to filter by
+        in: query
+        name: candidate_id
+        required: false
+        schema:
+          type: string
+      - description: The job ID to filter by
+        in: query
+        name: job_id
+        required: false
+        schema:
+          type: string
+      - description: The type to filter by
+        in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - document_url
+            - document_data
+            - filename
+            - type
+            - candidate_id
+            - application_id
+            - job_id
+            - user_id
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsDocuments'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all documents
+      tags:
+      - ats
+    post:
+      operationId: createAtsDocument
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - document_url
+            - document_data
+            - filename
+            - type
+            - candidate_id
+            - application_id
+            - job_id
+            - user_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsDocument'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsDocument'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a document
+      tags:
+      - ats
+  /ats/{connection_id}/document/{id}:
+    delete:
+      operationId: removeAtsDocument
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Document
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a document
+      tags:
+      - ats
+    get:
+      operationId: getAtsDocument
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - document_url
+            - document_data
+            - filename
+            - type
+            - candidate_id
+            - application_id
+            - job_id
+            - user_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Document
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsDocument'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a document
+      tags:
+      - ats
+    patch:
+      operationId: patchAtsDocument
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - document_url
+            - document_data
+            - filename
+            - type
+            - candidate_id
+            - application_id
+            - job_id
+            - user_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Document
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsDocument'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsDocument'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a document
+      tags:
+      - ats
+    put:
+      operationId: updateAtsDocument
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - document_url
+            - document_data
+            - filename
+            - type
+            - candidate_id
+            - application_id
+            - job_id
+            - user_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Document
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsDocument'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsDocument'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a document
+      tags:
+      - ats
+  /ats/{connection_id}/interview:
+    get:
+      operationId: listAtsInterviews
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The application ID to filter by
+        in: query
+        name: application_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - candidate_id
+            - job_id
+            - application_id
+            - user_ids
+            - status
+            - start_at
+            - end_at
+            - location
+            - external_event_xref
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsInterviews'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all interviews
+      tags:
+      - ats
+    post:
+      operationId: createAtsInterview
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - candidate_id
+            - job_id
+            - application_id
+            - user_ids
+            - status
+            - start_at
+            - end_at
+            - location
+            - external_event_xref
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsInterview'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsInterview'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an interview
+      tags:
+      - ats
+  /ats/{connection_id}/interview/{id}:
+    delete:
+      operationId: removeAtsInterview
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Interview
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an interview
+      tags:
+      - ats
+    get:
+      operationId: getAtsInterview
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - candidate_id
+            - job_id
+            - application_id
+            - user_ids
+            - status
+            - start_at
+            - end_at
+            - location
+            - external_event_xref
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Interview
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsInterview'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an interview
+      tags:
+      - ats
+    patch:
+      operationId: patchAtsInterview
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - candidate_id
+            - job_id
+            - application_id
+            - user_ids
+            - status
+            - start_at
+            - end_at
+            - location
+            - external_event_xref
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Interview
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsInterview'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsInterview'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an interview
+      tags:
+      - ats
+    put:
+      operationId: updateAtsInterview
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - candidate_id
+            - job_id
+            - application_id
+            - user_ids
+            - status
+            - start_at
+            - end_at
+            - location
+            - external_event_xref
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Interview
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsInterview'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsInterview'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an interview
+      tags:
+      - ats
+  /ats/{connection_id}/job:
+    get:
+      operationId: listAtsJobs
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to AtsCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: The status to filter by
+        in: query
+        name: status
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - recruiter_ids
+            - hiring_manager_ids
+            - hiring_managers
+            - status
+            - closed_at
+            - addresses
+            - compensation
+            - employment_type
+            - remote
+            - language_locale
+            - public_job_urls
+            - number_of_openings
+            - company_id
+            - questions
+            - postings
+            - groups
+            - openings
+            - minimum_experience_years
+            - minimum_degree
+            - skills
+            - metadata
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsJobs'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all jobs
+      tags:
+      - ats
+    post:
+      operationId: createAtsJob
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - recruiter_ids
+            - hiring_manager_ids
+            - hiring_managers
+            - status
+            - closed_at
+            - addresses
+            - compensation
+            - employment_type
+            - remote
+            - language_locale
+            - public_job_urls
+            - number_of_openings
+            - company_id
+            - questions
+            - postings
+            - groups
+            - openings
+            - minimum_experience_years
+            - minimum_degree
+            - skills
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsJob'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsJob'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a job
+      tags:
+      - ats
+  /ats/{connection_id}/job/{id}:
+    delete:
+      operationId: removeAtsJob
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Job
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a job
+      tags:
+      - ats
+    get:
+      operationId: getAtsJob
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - recruiter_ids
+            - hiring_manager_ids
+            - hiring_managers
+            - status
+            - closed_at
+            - addresses
+            - compensation
+            - employment_type
+            - remote
+            - language_locale
+            - public_job_urls
+            - number_of_openings
+            - company_id
+            - questions
+            - postings
+            - groups
+            - openings
+            - minimum_experience_years
+            - minimum_degree
+            - skills
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Job
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsJob'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a job
+      tags:
+      - ats
+    patch:
+      operationId: patchAtsJob
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - recruiter_ids
+            - hiring_manager_ids
+            - hiring_managers
+            - status
+            - closed_at
+            - addresses
+            - compensation
+            - employment_type
+            - remote
+            - language_locale
+            - public_job_urls
+            - number_of_openings
+            - company_id
+            - questions
+            - postings
+            - groups
+            - openings
+            - minimum_experience_years
+            - minimum_degree
+            - skills
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Job
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsJob'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsJob'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a job
+      tags:
+      - ats
+    put:
+      operationId: updateAtsJob
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - recruiter_ids
+            - hiring_manager_ids
+            - hiring_managers
+            - status
+            - closed_at
+            - addresses
+            - compensation
+            - employment_type
+            - remote
+            - language_locale
+            - public_job_urls
+            - number_of_openings
+            - company_id
+            - questions
+            - postings
+            - groups
+            - openings
+            - minimum_experience_years
+            - minimum_degree
+            - skills
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Job
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsJob'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsJob'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a job
+      tags:
+      - ats
+  /ats/{connection_id}/scorecard:
+    get:
+      operationId: listAtsScorecards
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The candidate ID to filter by
+        in: query
+        name: candidate_id
+        required: false
+        schema:
+          type: string
+      - description: The application ID to filter by
+        in: query
+        name: application_id
+        required: false
+        schema:
+          type: string
+      - description: The interview ID to filter by
+        in: query
+        name: interview_id
+        required: false
+        schema:
+          type: string
+      - description: The job ID to filter by
+        in: query
+        name: job_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - application_id
+            - interviewer_id
+            - interview_id
+            - candidate_id
+            - job_id
+            - recommendation
+            - comment
+            - questions
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsScorecards'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all scorecards
+      tags:
+      - ats
+    post:
+      operationId: createAtsScorecard
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - application_id
+            - interviewer_id
+            - interview_id
+            - candidate_id
+            - job_id
+            - recommendation
+            - comment
+            - questions
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsScorecard'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsScorecard'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a scorecard
+      tags:
+      - ats
+  /ats/{connection_id}/scorecard/{id}:
+    delete:
+      operationId: removeAtsScorecard
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Scorecard
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a scorecard
+      tags:
+      - ats
+    get:
+      operationId: getAtsScorecard
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - application_id
+            - interviewer_id
+            - interview_id
+            - candidate_id
+            - job_id
+            - recommendation
+            - comment
+            - questions
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Scorecard
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsScorecard'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a scorecard
+      tags:
+      - ats
+    patch:
+      operationId: patchAtsScorecard
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - application_id
+            - interviewer_id
+            - interview_id
+            - candidate_id
+            - job_id
+            - recommendation
+            - comment
+            - questions
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Scorecard
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsScorecard'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsScorecard'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a scorecard
+      tags:
+      - ats
+    put:
+      operationId: updateAtsScorecard
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - application_id
+            - interviewer_id
+            - interview_id
+            - candidate_id
+            - job_id
+            - recommendation
+            - comment
+            - questions
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Scorecard
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtsScorecard'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsScorecard'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a scorecard
+      tags:
+      - ats
+components:
+  schemas:
+    property_AtsActivity_cc:
+      items:
+        $ref: '#/components/schemas/AtsEmail'
+      type: array
+    property_AtsJob_metadata:
+      items:
+        $ref: '#/components/schemas/AtsMetadata'
+      type: array
+    AtsCompanies:
+      items:
+        $ref: '#/components/schemas/AtsCompany'
+      type: array
+    AtsGroup:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          enum:
+          - TEAM
+          - GROUP
+          - DEPARTMENT
+          - DIVISION
+          - BUSINESS_UNIT
+          - BRANCH
+          - SUB_DEPARTMENT
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_AtsApplication_metadata:
+      items:
+        $ref: '#/components/schemas/AtsMetadata'
+      type: array
+    AtsInterviews:
+      items:
+        $ref: '#/components/schemas/AtsInterview'
+      type: array
+    AtsApplications:
+      items:
+        $ref: '#/components/schemas/AtsApplication'
+      type: array
+    property_AtsOffer_compensation:
+      description: compensation details for the offer
+      items:
+        $ref: '#/components/schemas/AtsCompensation'
+      type: array
+    AtsStatus:
+      properties:
+        description:
+          type: string
+        id:
+          type: string
+        original_status:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        status:
+          enum:
+          - NEW
+          - REVIEWING
+          - SCREENING
+          - SUBMITTED
+          - FIRST_INTERVIEW
+          - SECOND_INTERVIEW
+          - THIRD_INTERVIEW
+          - BACKGROUND_CHECK
+          - OFFERED
+          - ACCEPTED
+          - HIRED
+          - REJECTED
+          - DECLINED
+          - WITHDRAWN
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    AtsCompensation:
+      properties:
+        currency:
+          type: string
+        frequency:
+          enum:
+          - ONE_TIME
+          - DAY
+          - QUARTER
+          - YEAR
+          - HOUR
+          - MONTH
+          - WEEK
+          type: string
+          x-speakeasy-unknown-values: allow
+        max:
+          type: number
+        min:
+          type: number
+        type:
+          enum:
+          - SALARY
+          - BONUS
+          - STOCK_OPTIONS
+          - EQUITY
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_AtsJob_groups:
+      description: The departments/divisions/teams that this job belongs to
+      items:
+        $ref: '#/components/schemas/AtsGroup'
+      type: array
+    AtsCandidateExperience:
+      properties:
+        company_name:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        title:
+          type: string
+      type: object
+    AtsReference:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    property_AtsCandidate_emails:
+      items:
+        $ref: '#/components/schemas/AtsEmail'
+      type: array
+    property_AtsCandidate_link_urls:
+      description: URLs for web pages containing additional material about the candidate (LinkedIn, other social media, articles, etc.)
+      items:
+        type: string
+      type: array
+    AtsOffer:
+      properties:
+        accepted_at:
+          format: date-time
+          type: string
+        compensation:
+          $ref: '#/components/schemas/property_AtsOffer_compensation'
+        created_at:
+          format: date-time
+          type: string
+        creator_user_id:
+          type: string
+        employee_user_id:
+          type: string
+        id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        rejected_at:
+          format: date-time
+          type: string
+        sent_at:
+          format: date-time
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - CREATED
+          - SENT
+          - ACCEPTED
+          - REJECTED
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    AtsCompany:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_AtsCompany_address'
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/property_AtsCompany_metadata'
+        name:
+          type: string
+        parent_id:
+          type: string
+        phone:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        recruiter_ids:
+          $ref: '#/components/schemas/property_AtsCompany_recruiter_ids'
+        updated_at:
+          format: date-time
+          type: string
+        website_url:
+          type: string
+      required:
+      - name
+      type: object
+    AtsJobPosting:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_AtsJobPosting_address'
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        location:
+          type: string
+        name:
+          type: string
+        posting_url:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AtsJobPosting_address:
+      description: job-post-specific address
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_AtsJob_openings:
+      items:
+        $ref: '#/components/schemas/AtsJobOpening'
+      type: array
+    property_AtsActivity_from:
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - email
+      type: object
+    property_AtsCandidate_metadata:
+      items:
+        $ref: '#/components/schemas/AtsMetadata'
+      type: array
+    AtsJobs:
+      items:
+        $ref: '#/components/schemas/AtsJob'
+      type: array
+    property_AtsJob_compensation:
+      items:
+        $ref: '#/components/schemas/AtsCompensation'
+      type: array
+    AtsCandidates:
+      items:
+        $ref: '#/components/schemas/AtsCandidate'
+      type: array
+    AtsActivities:
+      items:
+        $ref: '#/components/schemas/AtsActivity'
+      type: array
+    property_AtsCompany_metadata:
+      items:
+        $ref: '#/components/schemas/AtsMetadata'
+      type: array
+    AtsStatuses:
+      items:
+        $ref: '#/components/schemas/AtsStatus'
+      type: array
+    AtsApplicationAnswer:
+      properties:
+        answers:
+          $ref: '#/components/schemas/property_AtsApplicationAnswer_answers'
+        question:
+          type: string
+        question_id:
+          type: string
+      required:
+      - question_id
+      - answers
+      type: object
+    property_AtsApplication_answers:
+      items:
+        $ref: '#/components/schemas/AtsApplicationAnswer'
+      type: array
+    property_AtsCandidate_telephones:
+      items:
+        $ref: '#/components/schemas/AtsTelephone'
+      type: array
+    property_AtsCandidate_sources:
+      items:
+        type: string
+      type: array
+    AtsJob:
+      properties:
+        addresses:
+          $ref: '#/components/schemas/property_AtsJob_addresses'
+        closed_at:
+          format: date-time
+          type: string
+        company_id:
+          type: string
+        compensation:
+          $ref: '#/components/schemas/property_AtsJob_compensation'
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        employment_type:
+          enum:
+          - FULL_TIME
+          - PART_TIME
+          - CONTRACTOR
+          - INTERN
+          - CONSULTANT
+          - VOLUNTEER
+          - CASUAL
+          - SEASONAL
+          - FREELANCE
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        groups:
+          $ref: '#/components/schemas/property_AtsJob_groups'
+        hiring_manager_ids:
+          $ref: '#/components/schemas/property_AtsJob_hiring_manager_ids'
+        hiring_managers:
+          $ref: '#/components/schemas/property_AtsJob_hiring_managers'
+        id:
+          type: string
+        language_locale:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/property_AtsJob_metadata'
+        minimum_degree:
+          type: string
+        minimum_experience_years:
+          type: number
+        name:
+          type: string
+        number_of_openings:
+          type: number
+        openings:
+          $ref: '#/components/schemas/property_AtsJob_openings'
+        postings:
+          $ref: '#/components/schemas/property_AtsJob_postings'
+        public_job_urls:
+          $ref: '#/components/schemas/property_AtsJob_public_job_urls'
+        questions:
+          $ref: '#/components/schemas/property_AtsJob_questions'
+        raw:
+          additionalProperties: true
+          type: object
+        recruiter_ids:
+          $ref: '#/components/schemas/property_AtsJob_recruiter_ids'
+        remote:
+          type: boolean
+        skills:
+          $ref: '#/components/schemas/property_AtsJob_skills'
+        status:
+          enum:
+          - ARCHIVED
+          - PENDING
+          - DRAFT
+          - OPEN
+          - CLOSED
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AtsJob_postings:
+      description: Public job postings
+      items:
+        $ref: '#/components/schemas/AtsJobPosting'
+      type: array
+    property_AtsJob_public_job_urls:
+      description: URLs for pages containing public listings for the job
+      items:
+        type: string
+      type: array
+    AtsScorecards:
+      items:
+        $ref: '#/components/schemas/AtsScorecard'
+      type: array
+    AtsDocuments:
+      items:
+        $ref: '#/components/schemas/AtsDocument'
+      type: array
+    property_AtsApplicationAnswer_answers:
+      items:
+        type: string
+      type: array
+    property_AtsApplication_offers:
+      items:
+        $ref: '#/components/schemas/AtsOffer'
+      type: array
+    AtsTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    property_AtsJobQuestion_options:
+      items:
+        type: string
+      type: array
+    property_AtsScorecard_questions:
+      items:
+        $ref: '#/components/schemas/AtsScorecardQuestion'
+      type: array
+    AtsActivity:
+      properties:
+        application_id:
+          type: string
+        bcc:
+          $ref: '#/components/schemas/property_AtsActivity_bcc'
+        candidate_id:
+          type: string
+        cc:
+          $ref: '#/components/schemas/property_AtsActivity_cc'
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        document_ids:
+          $ref: '#/components/schemas/property_AtsActivity_document_ids'
+        from:
+          $ref: '#/components/schemas/property_AtsActivity_from'
+        id:
+          type: string
+        interview_id:
+          type: string
+        is_private:
+          type: boolean
+        job_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        sub_type:
+          type: string
+        title:
+          type: string
+        to:
+          $ref: '#/components/schemas/property_AtsActivity_to'
+        type:
+          enum:
+          - NOTE
+          - TASK
+          - EMAIL
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_ids:
+          $ref: '#/components/schemas/property_AtsActivity_user_ids'
+      type: object
+    property_AtsCompany_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_AtsCandidate_experiences:
+      items:
+        $ref: '#/components/schemas/AtsCandidateExperience'
+      type: array
+    property_AtsActivity_to:
+      items:
+        $ref: '#/components/schemas/AtsEmail'
+      type: array
+    property_AtsCandidate_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_AtsInterview_user_ids:
+      items:
+        type: string
+      type: array
+    AtsMetadata:
+      properties:
+        extra_data:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        format:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - MEASUREMENT
+          - PRICE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        namespace:
+          type: string
+        slug:
+          type: string
+        value:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+      type: object
+    AtsApplication:
+      properties:
+        answers:
+          $ref: '#/components/schemas/property_AtsApplication_answers'
+        applied_at:
+          format: date-time
+          type: string
+        candidate_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        hired_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        job_id:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/property_AtsApplication_metadata'
+        offers:
+          $ref: '#/components/schemas/property_AtsApplication_offers'
+        original_status:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        rejected_at:
+          format: date-time
+          type: string
+        rejected_reason:
+          type: string
+        source:
+          type: string
+        status:
+          enum:
+          - NEW
+          - REVIEWING
+          - SCREENING
+          - SUBMITTED
+          - FIRST_INTERVIEW
+          - SECOND_INTERVIEW
+          - THIRD_INTERVIEW
+          - BACKGROUND_CHECK
+          - OFFERED
+          - ACCEPTED
+          - HIRED
+          - REJECTED
+          - DECLINED
+          - WITHDRAWN
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    AtsDocument:
+      properties:
+        application_id:
+          type: string
+        candidate_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        document_data:
+          type: string
+        document_url:
+          type: string
+        filename:
+          type: string
+        id:
+          type: string
+        job_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        type:
+          enum:
+          - RESUME
+          - COVER_LETTER
+          - OFFER_PACKET
+          - OFFER_LETTER
+          - TAKE_HOME_TEST
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    AtsJobQuestion:
+      properties:
+        description:
+          type: string
+        id:
+          type: string
+        options:
+          $ref: '#/components/schemas/property_AtsJobQuestion_options'
+        prompt:
+          type: string
+        question:
+          type: string
+        required:
+          type: boolean
+        type:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - MULTIPLE_CHOICE
+          - FILE
+          - TEXTAREA
+          - MULTIPLE_SELECT
+          - UNIVERSITY
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - question
+      - type
+      type: object
+    property_AtsJob_hiring_manager_ids:
+      items:
+        type: string
+      type: array
+    AtsCandidate:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_AtsCandidate_address'
+        company_id:
+          type: string
+        company_name:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        date_of_birth:
+          format: date-time
+          type: string
+        education:
+          $ref: '#/components/schemas/property_AtsCandidate_education'
+        emails:
+          $ref: '#/components/schemas/property_AtsCandidate_emails'
+        experiences:
+          $ref: '#/components/schemas/property_AtsCandidate_experiences'
+        external_identifier:
+          type: string
+        first_name:
+          type: string
+        id:
+          type: string
+        image_url:
+          type: string
+        last_name:
+          type: string
+        link_urls:
+          $ref: '#/components/schemas/property_AtsCandidate_link_urls'
+        metadata:
+          $ref: '#/components/schemas/property_AtsCandidate_metadata'
+        name:
+          type: string
+        origin:
+          enum:
+          - AGENCY
+          - APPLIED
+          - INTERNAL
+          - REFERRED
+          - SOURCED
+          - UNIVERSITY
+          type: string
+          x-speakeasy-unknown-values: allow
+        raw:
+          additionalProperties: true
+          type: object
+        skills:
+          $ref: '#/components/schemas/property_AtsCandidate_skills'
+        sources:
+          $ref: '#/components/schemas/property_AtsCandidate_sources'
+        tags:
+          $ref: '#/components/schemas/property_AtsCandidate_tags'
+        telephones:
+          $ref: '#/components/schemas/property_AtsCandidate_telephones'
+        title:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+        web_url:
+          type: string
+      type: object
+    AtsEmail:
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - email
+      type: object
+    property_AtsCandidate_skills:
+      items:
+        type: string
+      type: array
+    AtsAddress:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_AtsActivity_bcc:
+      items:
+        $ref: '#/components/schemas/AtsEmail'
+      type: array
+    property_AtsJob_hiring_managers:
+      items:
+        $ref: '#/components/schemas/AtsReference'
+      type: array
+    property_AtsJob_recruiter_ids:
+      items:
+        type: string
+      type: array
+    property_AtsJob_skills:
+      items:
+        type: string
+      type: array
+    property_AtsJob_questions:
+      items:
+        $ref: '#/components/schemas/AtsJobQuestion'
+      type: array
+    property_AtsJob_addresses:
+      items:
+        $ref: '#/components/schemas/AtsAddress'
+      type: array
+    property_AtsCompany_recruiter_ids:
+      items:
+        type: string
+      type: array
+    AtsScorecard:
+      properties:
+        application_id:
+          type: string
+        candidate_id:
+          type: string
+        comment:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        interview_id:
+          type: string
+        interviewer_id:
+          type: string
+        job_id:
+          type: string
+        questions:
+          $ref: '#/components/schemas/property_AtsScorecard_questions'
+        raw:
+          additionalProperties: true
+          type: object
+        recommendation:
+          enum:
+          - DEFINITELY_NO
+          - 'NO'
+          - 'YES'
+          - STRONG_YES
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    AtsScorecardQuestion:
+      properties:
+        answer:
+          type: string
+        description:
+          type: string
+        text:
+          type: string
+      required:
+      - text
+      type: object
+    AtsInterview:
+      properties:
+        application_id:
+          type: string
+        candidate_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        external_event_xref:
+          type: string
+        id:
+          type: string
+        job_id:
+          type: string
+        location:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - SCHEDULED
+          - AWAITING_FEEDBACK
+          - COMPLETE
+          - CANCELED
+          - NEEDS_SCHEDULING
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_ids:
+          $ref: '#/components/schemas/property_AtsInterview_user_ids'
+      type: object
+    AtsCandidateEducation:
+      properties:
+        degree:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        field_of_study:
+          type: string
+        institution:
+          type: string
+        level:
+          type: string
+        start_at:
+          format: date-time
+          type: string
+      type: object
+    property_AtsActivity_user_ids:
+      description: id values of the recruiters associated with the activity.
+      items:
+        type: string
+      type: array
+    property_AtsCandidate_education:
+      items:
+        $ref: '#/components/schemas/AtsCandidateEducation'
+      type: array
+    AtsJobOpening:
+      properties:
+        application_id:
+          type: string
+        close_reason:
+          type: string
+        closed_at:
+          format: date-time
+          type: string
+        opened_at:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - OPEN
+          - CLOSED
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_AtsCandidate_tags:
+      items:
+        type: string
+      type: array
+    property_AtsActivity_document_ids:
+      description: IDs for AtsDocument.get
+      items:
+        type: string
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

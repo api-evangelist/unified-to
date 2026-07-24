@@ -1,0 +1,381 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account genai API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: genai
+paths:
+  /genai/{connection_id}/embedding:
+    post:
+      operationId: createGenaiEmbedding
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - model_id
+            - content
+            - enconding_format
+            - type
+            - dimension
+            - max_tokens
+            - embeddings
+            - tokens_used
+            - raw
+            - id
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenaiEmbedding'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenaiEmbedding'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an Embedding
+      tags:
+      - genai
+  /genai/{connection_id}/model:
+    get:
+      operationId: listGenaiModels
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - name
+            - description
+            - max_tokens
+            - web_url
+            - has_temperature
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenaiModels'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Models
+      tags:
+      - genai
+  /genai/{connection_id}/model/{id}:
+    get:
+      operationId: getGenaiModel
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - name
+            - description
+            - max_tokens
+            - web_url
+            - has_temperature
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Model
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenaiModel'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Model
+      tags:
+      - genai
+  /genai/{connection_id}/prompt:
+    post:
+      operationId: createGenaiPrompt
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - model_id
+            - messages
+            - temperature
+            - max_tokens
+            - responses
+            - tokens_used
+            - mcp_url
+            - mcp_deferred_tools
+            - mcp_authorization_token
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenaiPrompt'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenaiPrompt'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Prompt
+      tags:
+      - genai
+components:
+  schemas:
+    GenaiContent:
+      properties:
+        content:
+          type: string
+        role:
+          enum:
+          - SYSTEM
+          - USER
+          - ASSISTANT
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - content
+      type: object
+    property_GenaiPrompt_messages:
+      items:
+        $ref: '#/components/schemas/GenaiContent'
+      type: array
+    property_GenaiEmbedding_content:
+      items:
+        $ref: '#/components/schemas/GenaiEmbeddingContent'
+      type: array
+    GenaiModel:
+      properties:
+        description:
+          type: string
+        has_temperature:
+          type: boolean
+        id:
+          type: string
+        max_tokens:
+          type: number
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        web_url:
+          type: string
+      type: object
+    GenaiEmbeddingContent:
+      properties:
+        text:
+          type: string
+      required:
+      - text
+      type: object
+    property_GenaiPrompt_mcp_deferred_tools:
+      items:
+        type: string
+      type: array
+    property_GenaiPrompt_responses:
+      items:
+        type: string
+      type: array
+    GenaiEmbedding:
+      properties:
+        content:
+          $ref: '#/components/schemas/property_GenaiEmbedding_content'
+        dimension:
+          type: number
+        embeddings:
+          type: string
+        enconding_format:
+          enum:
+          - FLOAT
+          - UINT8
+          - INT8
+          - BINARY
+          - UBINARY
+          - BASE64
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        max_tokens:
+          type: number
+        model_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        tokens_used:
+          type: number
+        type:
+          type: string
+      type: object
+    GenaiModels:
+      items:
+        $ref: '#/components/schemas/GenaiModel'
+      type: array
+    GenaiPrompt:
+      properties:
+        max_tokens:
+          type: number
+        mcp_authorization_token:
+          type: string
+        mcp_deferred_tools:
+          $ref: '#/components/schemas/property_GenaiPrompt_mcp_deferred_tools'
+        mcp_url:
+          type: string
+        messages:
+          $ref: '#/components/schemas/property_GenaiPrompt_messages'
+        model_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        responses:
+          $ref: '#/components/schemas/property_GenaiPrompt_responses'
+        temperature:
+          type: number
+        tokens_used:
+          type: number
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

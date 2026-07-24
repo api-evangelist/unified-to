@@ -1,0 +1,503 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account timeshift API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: timeshift
+paths:
+  /hris/{connection_id}/timeshift:
+    get:
+      operationId: listHrisTimeshifts
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to HrisCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: The location ID to filter by (reference to HrisLocation)
+        in: query
+        name: location_id
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - employee_user_id
+            - start_at
+            - end_at
+            - location_id
+            - company_id
+            - group_id
+            - compensation
+            - approver_user_id
+            - approved_at
+            - hours
+            - is_approved
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisTimeshifts'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Timeshifts
+      tags:
+      - timeshift
+    post:
+      operationId: createHrisTimeshift
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - employee_user_id
+            - start_at
+            - end_at
+            - location_id
+            - company_id
+            - group_id
+            - compensation
+            - approver_user_id
+            - approved_at
+            - hours
+            - is_approved
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisTimeshift'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisTimeshift'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Timeshift
+      tags:
+      - timeshift
+  /hris/{connection_id}/timeshift/{id}:
+    delete:
+      operationId: removeHrisTimeshift
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Timeshift
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Timeshift
+      tags:
+      - timeshift
+    get:
+      operationId: getHrisTimeshift
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - employee_user_id
+            - start_at
+            - end_at
+            - location_id
+            - company_id
+            - group_id
+            - compensation
+            - approver_user_id
+            - approved_at
+            - hours
+            - is_approved
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Timeshift
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisTimeshift'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Timeshift
+      tags:
+      - timeshift
+    patch:
+      operationId: patchHrisTimeshift
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - employee_user_id
+            - start_at
+            - end_at
+            - location_id
+            - company_id
+            - group_id
+            - compensation
+            - approver_user_id
+            - approved_at
+            - hours
+            - is_approved
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Timeshift
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisTimeshift'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisTimeshift'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Timeshift
+      tags:
+      - timeshift
+    put:
+      operationId: updateHrisTimeshift
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - employee_user_id
+            - start_at
+            - end_at
+            - location_id
+            - company_id
+            - group_id
+            - compensation
+            - approver_user_id
+            - approved_at
+            - hours
+            - is_approved
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Timeshift
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisTimeshift'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisTimeshift'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Timeshift
+      tags:
+      - timeshift
+components:
+  schemas:
+    HrisCompensation:
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+        frequency:
+          enum:
+          - ONE_TIME
+          - DAY
+          - QUARTER
+          - YEAR
+          - HOUR
+          - MONTH
+          - WEEK
+          type: string
+          x-speakeasy-unknown-values: allow
+        group_id:
+          type: string
+        notes:
+          type: string
+        type:
+          enum:
+          - SALARY
+          - BONUS
+          - STOCK_OPTIONS
+          - EQUITY
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    HrisTimeshifts:
+      items:
+        $ref: '#/components/schemas/HrisTimeshift'
+      type: array
+    property_HrisTimeshift_compensation:
+      items:
+        $ref: '#/components/schemas/HrisCompensation'
+      type: array
+    HrisTimeshift:
+      properties:
+        approved_at:
+          format: date-time
+          type: string
+        approver_user_id:
+          type: string
+        company_id:
+          type: string
+        compensation:
+          $ref: '#/components/schemas/property_HrisTimeshift_compensation'
+        created_at:
+          format: date-time
+          type: string
+        employee_user_id:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        group_id:
+          type: string
+        hours:
+          type: number
+        id:
+          type: string
+        is_approved:
+          type: boolean
+        location_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - employee_user_id
+      - start_at
+      - end_at
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

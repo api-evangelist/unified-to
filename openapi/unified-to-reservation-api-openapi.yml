@@ -1,0 +1,491 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account reservation API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: reservation
+paths:
+  /commerce/{connection_id}/reservation:
+    get:
+      operationId: listCommerceReservations
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The location ID to filter by (reference to CommerceLocation)
+        in: query
+        name: location_id
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: The item ID to filter by (reference to CommerceItem)
+        in: query
+        name: item_id
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - location_id
+            - start_at
+            - end_at
+            - size
+            - status
+            - guest_name
+            - guest_phone
+            - guest_email
+            - notes
+            - item_id
+            - item_name
+            - staff_user_id
+            - staff_name
+            - created_at
+            - updated_at
+            - url
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceReservations'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all reservations
+      tags:
+      - reservation
+    post:
+      operationId: createCommerceReservation
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - location_id
+            - start_at
+            - end_at
+            - size
+            - status
+            - guest_name
+            - guest_phone
+            - guest_email
+            - notes
+            - item_id
+            - item_name
+            - staff_user_id
+            - staff_name
+            - created_at
+            - updated_at
+            - url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommerceReservation'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceReservation'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a reservation
+      tags:
+      - reservation
+  /commerce/{connection_id}/reservation/{id}:
+    delete:
+      operationId: removeCommerceReservation
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Reservation
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a reservation
+      tags:
+      - reservation
+    get:
+      operationId: getCommerceReservation
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - location_id
+            - start_at
+            - end_at
+            - size
+            - status
+            - guest_name
+            - guest_phone
+            - guest_email
+            - notes
+            - item_id
+            - item_name
+            - staff_user_id
+            - staff_name
+            - created_at
+            - updated_at
+            - url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Reservation
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceReservation'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a reservation
+      tags:
+      - reservation
+    patch:
+      operationId: patchCommerceReservation
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - location_id
+            - start_at
+            - end_at
+            - size
+            - status
+            - guest_name
+            - guest_phone
+            - guest_email
+            - notes
+            - item_id
+            - item_name
+            - staff_user_id
+            - staff_name
+            - created_at
+            - updated_at
+            - url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Reservation
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommerceReservation'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceReservation'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a reservation
+      tags:
+      - reservation
+    put:
+      operationId: updateCommerceReservation
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - location_id
+            - start_at
+            - end_at
+            - size
+            - status
+            - guest_name
+            - guest_phone
+            - guest_email
+            - notes
+            - item_id
+            - item_name
+            - staff_user_id
+            - staff_name
+            - created_at
+            - updated_at
+            - url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Reservation
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommerceReservation'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceReservation'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a reservation
+      tags:
+      - reservation
+components:
+  schemas:
+    CommerceReservations:
+      items:
+        $ref: '#/components/schemas/CommerceReservation'
+      type: array
+    CommerceReservation:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        guest_email:
+          type: string
+        guest_name:
+          type: string
+        guest_phone:
+          type: string
+        id:
+          type: string
+        item_id:
+          type: string
+        item_name:
+          type: string
+        location_id:
+          type: string
+        notes:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        size:
+          type: number
+        staff_name:
+          type: string
+        staff_user_id:
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - PENDING
+          - CONFIRMED
+          - CANCELLED
+          - NO_SHOW
+          - COMPLETED
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        url:
+          type: string
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

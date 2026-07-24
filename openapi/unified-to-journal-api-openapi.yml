@@ -1,0 +1,470 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account journal API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: journal
+paths:
+  /accounting/{connection_id}/journal:
+    get:
+      operationId: listAccountingJournals
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The org ID to filter by (reference to AccountingOrganization)
+        in: query
+        name: org_id
+        required: false
+        schema:
+          type: string
+      - description: The account ID to filter by (reference to AccountingAccount)
+        in: query
+        name: account_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - reference
+            - tax_amount
+            - currency
+            - lineitems
+            - taxrate_id
+            - description
+            - posted_at
+            - source
+            - organization_id
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingJournals'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all journals
+      tags:
+      - journal
+    post:
+      operationId: createAccountingJournal
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - reference
+            - tax_amount
+            - currency
+            - lineitems
+            - taxrate_id
+            - description
+            - posted_at
+            - source
+            - organization_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountingJournal'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingJournal'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a journal
+      tags:
+      - journal
+  /accounting/{connection_id}/journal/{id}:
+    delete:
+      operationId: removeAccountingJournal
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Journal
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a journal
+      tags:
+      - journal
+    get:
+      operationId: getAccountingJournal
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - reference
+            - tax_amount
+            - currency
+            - lineitems
+            - taxrate_id
+            - description
+            - posted_at
+            - source
+            - organization_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Journal
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingJournal'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a journal
+      tags:
+      - journal
+    patch:
+      operationId: patchAccountingJournal
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - reference
+            - tax_amount
+            - currency
+            - lineitems
+            - taxrate_id
+            - description
+            - posted_at
+            - source
+            - organization_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Journal
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountingJournal'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingJournal'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a journal
+      tags:
+      - journal
+    put:
+      operationId: updateAccountingJournal
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - reference
+            - tax_amount
+            - currency
+            - lineitems
+            - taxrate_id
+            - description
+            - posted_at
+            - source
+            - organization_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Journal
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountingJournal'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingJournal'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a journal
+      tags:
+      - journal
+components:
+  schemas:
+    AccountingJournalLineitem:
+      properties:
+        account_id:
+          type: string
+        category_ids:
+          $ref: '#/components/schemas/property_AccountingJournalLineitem_category_ids'
+        contact_id:
+          type: string
+        credit_amount:
+          type: number
+        debit_amount:
+          type: number
+        description:
+          type: string
+        group_id:
+          type: string
+        id:
+          type: string
+        invoice_id:
+          type: string
+        organization_id:
+          type: string
+        payment_id:
+          type: string
+        project_id:
+          type: string
+        tax_amount:
+          type: number
+        total_amount:
+          type: number
+      type: object
+    property_AccountingJournalLineitem_category_ids:
+      items:
+        type: string
+      type: array
+    AccountingJournal:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        lineitems:
+          $ref: '#/components/schemas/property_AccountingJournal_lineitems'
+        organization_id:
+          type: string
+        posted_at:
+          format: date-time
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        reference:
+          type: string
+        source:
+          type: string
+        tax_amount:
+          type: number
+        taxrate_id:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AccountingJournal_lineitems:
+      description: new field name
+      items:
+        $ref: '#/components/schemas/AccountingJournalLineitem'
+      type: array
+    AccountingJournals:
+      items:
+        $ref: '#/components/schemas/AccountingJournal'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

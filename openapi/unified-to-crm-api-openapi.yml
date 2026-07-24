@@ -1,0 +1,3202 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account crm API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: crm
+paths:
+  /crm/{connection_id}/company:
+    get:
+      operationId: listCrmCompanies
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The deal ID to filter by (reference to CrmDeal)
+        in: query
+        name: deal_id
+        required: false
+        schema:
+          type: string
+      - description: The contact ID to filter by (reference to CrmContact)
+        in: query
+        name: contact_id
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - deal_ids
+            - contact_ids
+            - emails
+            - telephones
+            - websites
+            - address
+            - is_active
+            - tags
+            - description
+            - industry
+            - link_urls
+            - employees
+            - timezone
+            - user_id
+            - metadata
+            - domains
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmCompanies'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all companies
+      tags:
+      - crm
+    post:
+      operationId: createCrmCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - deal_ids
+            - contact_ids
+            - emails
+            - telephones
+            - websites
+            - address
+            - is_active
+            - tags
+            - description
+            - industry
+            - link_urls
+            - employees
+            - timezone
+            - user_id
+            - metadata
+            - domains
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmCompany'
+        description: A company represents an organization that optionally is associated with a deal and/or contacts
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a company
+      tags:
+      - crm
+  /crm/{connection_id}/company/{id}:
+    delete:
+      operationId: removeCrmCompany
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a company
+      tags:
+      - crm
+    get:
+      operationId: getCrmCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - deal_ids
+            - contact_ids
+            - emails
+            - telephones
+            - websites
+            - address
+            - is_active
+            - tags
+            - description
+            - industry
+            - link_urls
+            - employees
+            - timezone
+            - user_id
+            - metadata
+            - domains
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a company
+      tags:
+      - crm
+    patch:
+      operationId: patchCrmCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - deal_ids
+            - contact_ids
+            - emails
+            - telephones
+            - websites
+            - address
+            - is_active
+            - tags
+            - description
+            - industry
+            - link_urls
+            - employees
+            - timezone
+            - user_id
+            - metadata
+            - domains
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmCompany'
+        description: A company represents an organization that optionally is associated with a deal and/or contacts
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a company
+      tags:
+      - crm
+    put:
+      operationId: updateCrmCompany
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - deal_ids
+            - contact_ids
+            - emails
+            - telephones
+            - websites
+            - address
+            - is_active
+            - tags
+            - description
+            - industry
+            - link_urls
+            - employees
+            - timezone
+            - user_id
+            - metadata
+            - domains
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Company
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmCompany'
+        description: A company represents an organization that optionally is associated with a deal and/or contacts
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmCompany'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a company
+      tags:
+      - crm
+  /crm/{connection_id}/contact:
+    get:
+      operationId: listCrmContacts
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to CrmCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: The deal ID to filter by (reference to CrmDeal)
+        in: query
+        name: deal_id
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - deal_ids
+            - company_ids
+            - address
+            - user_id
+            - link_urls
+            - metadata
+            - department
+            - image_url
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmContacts'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all contacts
+      tags:
+      - crm
+    post:
+      operationId: createCrmContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - deal_ids
+            - company_ids
+            - address
+            - user_id
+            - link_urls
+            - metadata
+            - department
+            - image_url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmContact'
+        description: A contact represents a person that optionally is associated with a deal and/or a company
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a contact
+      tags:
+      - crm
+  /crm/{connection_id}/contact/{id}:
+    delete:
+      operationId: removeCrmContact
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a contact
+      tags:
+      - crm
+    get:
+      operationId: getCrmContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - deal_ids
+            - company_ids
+            - address
+            - user_id
+            - link_urls
+            - metadata
+            - department
+            - image_url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a contact
+      tags:
+      - crm
+    patch:
+      operationId: patchCrmContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - deal_ids
+            - company_ids
+            - address
+            - user_id
+            - link_urls
+            - metadata
+            - department
+            - image_url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmContact'
+        description: A contact represents a person that optionally is associated with a deal and/or a company
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a contact
+      tags:
+      - crm
+    put:
+      operationId: updateCrmContact
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - title
+            - company
+            - emails
+            - telephones
+            - deal_ids
+            - company_ids
+            - address
+            - user_id
+            - link_urls
+            - metadata
+            - department
+            - image_url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Contact
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmContact'
+        description: A contact represents a person that optionally is associated with a deal and/or a company
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmContact'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a contact
+      tags:
+      - crm
+  /crm/{connection_id}/deal:
+    get:
+      operationId: listCrmDeals
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to CrmCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: The contact ID to filter by (reference to CrmContact)
+        in: query
+        name: contact_id
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The pipeline ID to filter by
+        in: query
+        name: pipeline_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - amount
+            - currency
+            - closed_at
+            - closing_at
+            - stage
+            - stage_id
+            - pipeline
+            - pipeline_id
+            - stages
+            - pipelines
+            - source
+            - probability
+            - tags
+            - lost_reason
+            - won_reason
+            - user_id
+            - contact_ids
+            - company_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmDeals'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all deals
+      tags:
+      - crm
+    post:
+      operationId: createCrmDeal
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - amount
+            - currency
+            - closed_at
+            - closing_at
+            - stage
+            - stage_id
+            - pipeline
+            - pipeline_id
+            - stages
+            - pipelines
+            - source
+            - probability
+            - tags
+            - lost_reason
+            - won_reason
+            - user_id
+            - contact_ids
+            - company_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmDeal'
+        description: A deal represents an opportunity with companies and/or contacts
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmDeal'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a deal
+      tags:
+      - crm
+  /crm/{connection_id}/deal/{id}:
+    delete:
+      operationId: removeCrmDeal
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Deal
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a deal
+      tags:
+      - crm
+    get:
+      operationId: getCrmDeal
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - amount
+            - currency
+            - closed_at
+            - closing_at
+            - stage
+            - stage_id
+            - pipeline
+            - pipeline_id
+            - stages
+            - pipelines
+            - source
+            - probability
+            - tags
+            - lost_reason
+            - won_reason
+            - user_id
+            - contact_ids
+            - company_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Deal
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmDeal'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a deal
+      tags:
+      - crm
+    patch:
+      operationId: patchCrmDeal
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - amount
+            - currency
+            - closed_at
+            - closing_at
+            - stage
+            - stage_id
+            - pipeline
+            - pipeline_id
+            - stages
+            - pipelines
+            - source
+            - probability
+            - tags
+            - lost_reason
+            - won_reason
+            - user_id
+            - contact_ids
+            - company_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Deal
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmDeal'
+        description: A deal represents an opportunity with companies and/or contacts
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmDeal'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a deal
+      tags:
+      - crm
+    put:
+      operationId: updateCrmDeal
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - amount
+            - currency
+            - closed_at
+            - closing_at
+            - stage
+            - stage_id
+            - pipeline
+            - pipeline_id
+            - stages
+            - pipelines
+            - source
+            - probability
+            - tags
+            - lost_reason
+            - won_reason
+            - user_id
+            - contact_ids
+            - company_ids
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Deal
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmDeal'
+        description: A deal represents an opportunity with companies and/or contacts
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmDeal'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a deal
+      tags:
+      - crm
+  /crm/{connection_id}/event:
+    get:
+      operationId: listCrmEvents
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The deal ID to filter by (reference to CrmDeal)
+        in: query
+        name: deal_id
+        required: false
+        schema:
+          type: string
+      - description: The contact ID to filter by (reference to CrmContact)
+        in: query
+        name: contact_id
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to CrmCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      - description: The CRM lead ID to filter by (reference to CrmLead)
+        in: query
+        name: lead_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - type
+            - note
+            - meeting
+            - email
+            - call
+            - task
+            - marketing_email
+            - form
+            - page_view
+            - deal_ids
+            - company_ids
+            - contact_ids
+            - lead_ids
+            - user_id
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmEvents'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all events
+      tags:
+      - crm
+    post:
+      operationId: createCrmEvent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - type
+            - note
+            - meeting
+            - email
+            - call
+            - task
+            - marketing_email
+            - form
+            - page_view
+            - deal_ids
+            - company_ids
+            - contact_ids
+            - lead_ids
+            - user_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmEvent'
+        description: An event represents an event, activity, or engagement and is always associated with a deal, contact, or company
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmEvent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an event
+      tags:
+      - crm
+  /crm/{connection_id}/event/{id}:
+    delete:
+      operationId: removeCrmEvent
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Event
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an event
+      tags:
+      - crm
+    get:
+      operationId: getCrmEvent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - type
+            - note
+            - meeting
+            - email
+            - call
+            - task
+            - marketing_email
+            - form
+            - page_view
+            - deal_ids
+            - company_ids
+            - contact_ids
+            - lead_ids
+            - user_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Event
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmEvent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an event
+      tags:
+      - crm
+    patch:
+      operationId: patchCrmEvent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - type
+            - note
+            - meeting
+            - email
+            - call
+            - task
+            - marketing_email
+            - form
+            - page_view
+            - deal_ids
+            - company_ids
+            - contact_ids
+            - lead_ids
+            - user_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Event
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmEvent'
+        description: An event represents an event, activity, or engagement and is always associated with a deal, contact, or company
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmEvent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an event
+      tags:
+      - crm
+    put:
+      operationId: updateCrmEvent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - type
+            - note
+            - meeting
+            - email
+            - call
+            - task
+            - marketing_email
+            - form
+            - page_view
+            - deal_ids
+            - company_ids
+            - contact_ids
+            - lead_ids
+            - user_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Event
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmEvent'
+        description: An event represents an event, activity, or engagement and is always associated with a deal, contact, or company
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmEvent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an event
+      tags:
+      - crm
+  /crm/{connection_id}/lead:
+    get:
+      operationId: listCrmLeads
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to CrmCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: The contact ID to filter by (reference to CrmContact)
+        in: query
+        name: contact_id
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - user_id
+            - creator_user_id
+            - contact_id
+            - company_id
+            - company_name
+            - is_active
+            - address
+            - emails
+            - telephones
+            - source
+            - status
+            - link_urls
+            - metadata
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmLeads'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all leads
+      tags:
+      - crm
+    post:
+      operationId: createCrmLead
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - user_id
+            - creator_user_id
+            - contact_id
+            - company_id
+            - company_name
+            - is_active
+            - address
+            - emails
+            - telephones
+            - source
+            - status
+            - link_urls
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmLead'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmLead'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a lead
+      tags:
+      - crm
+  /crm/{connection_id}/lead/{id}:
+    delete:
+      operationId: removeCrmLead
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Lead
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a lead
+      tags:
+      - crm
+    get:
+      operationId: getCrmLead
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - user_id
+            - creator_user_id
+            - contact_id
+            - company_id
+            - company_name
+            - is_active
+            - address
+            - emails
+            - telephones
+            - source
+            - status
+            - link_urls
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Lead
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmLead'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a lead
+      tags:
+      - crm
+    patch:
+      operationId: patchCrmLead
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - user_id
+            - creator_user_id
+            - contact_id
+            - company_id
+            - company_name
+            - is_active
+            - address
+            - emails
+            - telephones
+            - source
+            - status
+            - link_urls
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Lead
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmLead'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmLead'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a lead
+      tags:
+      - crm
+    put:
+      operationId: updateCrmLead
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - user_id
+            - creator_user_id
+            - contact_id
+            - company_id
+            - company_name
+            - is_active
+            - address
+            - emails
+            - telephones
+            - source
+            - status
+            - link_urls
+            - metadata
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Lead
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmLead'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmLead'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a lead
+      tags:
+      - crm
+  /crm/{connection_id}/pipeline:
+    get:
+      operationId: listCrmPipelines
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - is_active
+            - deal_probability
+            - display_order
+            - stages
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmPipelines'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all pipelines
+      tags:
+      - crm
+    post:
+      operationId: createCrmPipeline
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - is_active
+            - deal_probability
+            - display_order
+            - stages
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmPipeline'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmPipeline'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a pipeline
+      tags:
+      - crm
+  /crm/{connection_id}/pipeline/{id}:
+    delete:
+      operationId: removeCrmPipeline
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Pipeline
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a pipeline
+      tags:
+      - crm
+    get:
+      operationId: getCrmPipeline
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - is_active
+            - deal_probability
+            - display_order
+            - stages
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Pipeline
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmPipeline'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a pipeline
+      tags:
+      - crm
+    patch:
+      operationId: patchCrmPipeline
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - is_active
+            - deal_probability
+            - display_order
+            - stages
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Pipeline
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmPipeline'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmPipeline'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a pipeline
+      tags:
+      - crm
+    put:
+      operationId: updateCrmPipeline
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - is_active
+            - deal_probability
+            - display_order
+            - stages
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Pipeline
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrmPipeline'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrmPipeline'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a pipeline
+      tags:
+      - crm
+components:
+  schemas:
+    property_CrmEvent_company_ids:
+      description: An array of company IDs associated with this event
+      items:
+        type: string
+      type: array
+    CrmEmail:
+      properties:
+        email:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_CrmEvent_email_attachment_file_ids:
+      items:
+        type: string
+      type: array
+    CrmContacts:
+      items:
+        $ref: '#/components/schemas/CrmContact'
+      type: array
+    property_CrmLead_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_CrmDeal_company_ids:
+      items:
+        type: string
+      type: array
+    CrmStage:
+      properties:
+        active:
+          type: boolean
+        created_at:
+          format: date-time
+          type: string
+        deal_probability:
+          type: number
+        display_order:
+          type: number
+        id:
+          type: string
+        is_closed:
+          type: boolean
+        name:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    CrmEvent:
+      description: An event represents an event, activity, or engagement and is always associated with a deal, contact, or company
+      properties:
+        call:
+          $ref: '#/components/schemas/property_CrmEvent_call'
+        company_ids:
+          $ref: '#/components/schemas/property_CrmEvent_company_ids'
+        contact_ids:
+          $ref: '#/components/schemas/property_CrmEvent_contact_ids'
+        created_at:
+          format: date-time
+          type: string
+        deal_ids:
+          $ref: '#/components/schemas/property_CrmEvent_deal_ids'
+        email:
+          $ref: '#/components/schemas/property_CrmEvent_email'
+        form:
+          $ref: '#/components/schemas/property_CrmEvent_form'
+        id:
+          type: string
+        lead_ids:
+          $ref: '#/components/schemas/property_CrmEvent_lead_ids'
+        marketing_email:
+          $ref: '#/components/schemas/property_CrmEvent_marketing_email'
+        meeting:
+          $ref: '#/components/schemas/property_CrmEvent_meeting'
+        note:
+          $ref: '#/components/schemas/property_CrmEvent_note'
+        page_view:
+          $ref: '#/components/schemas/property_CrmEvent_page_view'
+        raw:
+          additionalProperties: true
+          type: object
+        task:
+          $ref: '#/components/schemas/property_CrmEvent_task'
+        type:
+          enum:
+          - NOTE
+          - EMAIL
+          - TASK
+          - MEETING
+          - CALL
+          - MARKETING_EMAIL
+          - FORM
+          - PAGE_VIEW
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_CrmEvent_email_cc:
+      description: The event email's cc name & email (name <test@test.com>)
+      items:
+        type: string
+      type: array
+    property_CrmEvent_form:
+      properties:
+        archived_at:
+          format: date-time
+          type: string
+        fields:
+          $ref: '#/components/schemas/property_CrmEvent_form_fields'
+        name:
+          type: string
+        redirect_url:
+          type: string
+      type: object
+    property_CrmEvent_marketing_email_attachment_file_ids:
+      items:
+        type: string
+      type: array
+    CrmLead:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_CrmLead_address'
+        company_id:
+          type: string
+        company_name:
+          type: string
+        contact_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        creator_user_id:
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_CrmLead_emails'
+        first_name:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        last_name:
+          type: string
+        link_urls:
+          $ref: '#/components/schemas/property_CrmLead_link_urls'
+        metadata:
+          $ref: '#/components/schemas/property_CrmLead_metadata'
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        source:
+          type: string
+        status:
+          type: string
+        telephones:
+          $ref: '#/components/schemas/property_CrmLead_telephones'
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_CrmDeal_tags:
+      items:
+        type: string
+      type: array
+    CrmLeads:
+      items:
+        $ref: '#/components/schemas/CrmLead'
+      type: array
+    property_CrmEvent_form_fields:
+      items:
+        $ref: '#/components/schemas/CrmEventFormField'
+      type: array
+    property_CrmEvent_call:
+      description: The call object, when type = call
+      properties:
+        description:
+          type: string
+        duration:
+          type: number
+        start_at:
+          format: date-time
+          type: string
+      type: object
+    property_CrmCompany_emails:
+      items:
+        $ref: '#/components/schemas/CrmEmail'
+      type: array
+    property_CrmDeal_stages:
+      items:
+        $ref: '#/components/schemas/CrmReference'
+      type: array
+    CrmCompany:
+      description: A company represents an organization that optionally is associated with a deal and/or contacts
+      properties:
+        address:
+          $ref: '#/components/schemas/property_CrmCompany_address'
+        contact_ids:
+          $ref: '#/components/schemas/property_CrmCompany_contact_ids'
+        created_at:
+          format: date-time
+          type: string
+        deal_ids:
+          $ref: '#/components/schemas/property_CrmCompany_deal_ids'
+        description:
+          type: string
+        domains:
+          $ref: '#/components/schemas/property_CrmCompany_domains'
+        emails:
+          $ref: '#/components/schemas/property_CrmCompany_emails'
+        employees:
+          type: number
+        id:
+          type: string
+        industry:
+          type: string
+        is_active:
+          type: boolean
+        link_urls:
+          $ref: '#/components/schemas/property_CrmCompany_link_urls'
+        metadata:
+          $ref: '#/components/schemas/property_CrmCompany_metadata'
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        tags:
+          $ref: '#/components/schemas/property_CrmCompany_tags'
+        telephones:
+          $ref: '#/components/schemas/property_CrmCompany_telephones'
+        timezone:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+        websites:
+          $ref: '#/components/schemas/property_CrmCompany_websites'
+      type: object
+    property_CrmCompany_deal_ids:
+      description: An array of deal IDs associated with this contact
+      items:
+        type: string
+      type: array
+    property_CrmDeal_metadata:
+      items:
+        $ref: '#/components/schemas/CrmMetadata'
+      type: array
+    property_CrmCompany_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_CrmLead_emails:
+      items:
+        $ref: '#/components/schemas/CrmEmail'
+      type: array
+    property_CrmLead_link_urls:
+      items:
+        type: string
+      type: array
+    CrmCompanies:
+      items:
+        $ref: '#/components/schemas/CrmCompany'
+      type: array
+    property_CrmCompany_metadata:
+      items:
+        $ref: '#/components/schemas/CrmMetadata'
+      type: array
+    property_CrmCompany_link_urls:
+      description: Additional URLs associated with the contact e.g., LinkedIn, website, etc
+      items:
+        type: string
+      type: array
+    CrmDeals:
+      items:
+        $ref: '#/components/schemas/CrmDeal'
+      type: array
+    property_CrmLead_telephones:
+      items:
+        $ref: '#/components/schemas/CrmTelephone'
+      type: array
+    property_CrmEvent_email_to:
+      description: The event email's "to" name & email (name <test@test.com>)
+      items:
+        type: string
+      type: array
+    property_CrmEvent_marketing_email_to:
+      description: The event email's "to" name & email (name <test@test.com>)
+      items:
+        type: string
+      type: array
+    property_CrmEvent_lead_ids:
+      items:
+        type: string
+      type: array
+    CrmTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    CrmEventFormOption:
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+      type: object
+    property_CrmLead_metadata:
+      items:
+        $ref: '#/components/schemas/CrmMetadata'
+      type: array
+    property_CrmCompany_websites:
+      items:
+        type: string
+      type: array
+    property_CrmEvent_contact_ids:
+      description: An array of contact IDs associated with this event
+      items:
+        type: string
+      type: array
+    property_CrmContact_link_urls:
+      description: Additional URLs associated with the contact e.g., LinkedIn, website, etc
+      items:
+        type: string
+      type: array
+    property_CrmCompany_telephones:
+      items:
+        $ref: '#/components/schemas/CrmTelephone'
+      type: array
+    CrmContact:
+      description: A contact represents a person that optionally is associated with a deal and/or a company
+      properties:
+        address:
+          $ref: '#/components/schemas/property_CrmContact_address'
+        company:
+          type: string
+        company_ids:
+          $ref: '#/components/schemas/property_CrmContact_company_ids'
+        created_at:
+          format: date-time
+          type: string
+        deal_ids:
+          $ref: '#/components/schemas/property_CrmContact_deal_ids'
+        department:
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_CrmContact_emails'
+        first_name:
+          type: string
+        id:
+          type: string
+        image_url:
+          type: string
+        last_name:
+          type: string
+        link_urls:
+          $ref: '#/components/schemas/property_CrmContact_link_urls'
+        metadata:
+          $ref: '#/components/schemas/property_CrmContact_metadata'
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        telephones:
+          $ref: '#/components/schemas/property_CrmContact_telephones'
+        title:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_CrmContact_deal_ids:
+      description: An array of deal IDs associated with this contact
+      items:
+        type: string
+      type: array
+    property_CrmCompany_domains:
+      items:
+        type: string
+      type: array
+    property_CrmEvent_email:
+      description: The email object, when type = email
+      properties:
+        attachment_file_ids:
+          $ref: '#/components/schemas/property_CrmEvent_email_attachment_file_ids'
+        body:
+          type: string
+        cc:
+          $ref: '#/components/schemas/property_CrmEvent_email_cc'
+        from:
+          type: string
+        subject:
+          type: string
+        to:
+          $ref: '#/components/schemas/property_CrmEvent_email_to'
+      type: object
+    property_CrmDeal_contact_ids:
+      items:
+        type: string
+      type: array
+    CrmEventFormField:
+      properties:
+        name:
+          type: string
+        options:
+          $ref: '#/components/schemas/property_CrmEventFormField_options'
+        required:
+          type: boolean
+        type:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - MULTIPLE_CHOICE
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - EMAIL
+          - PHONE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_CrmCompany_contact_ids:
+      description: An array of contact IDs associated with this company
+      items:
+        type: string
+      type: array
+    property_CrmEvent_page_view:
+      properties:
+        average:
+          type: number
+        count:
+          type: number
+        url:
+          type: string
+      type: object
+    CrmReference:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+      type: object
+    property_CrmPipeline_stages:
+      items:
+        $ref: '#/components/schemas/CrmStage'
+      type: array
+    property_CrmContact_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_CrmCompany_tags:
+      items:
+        type: string
+      type: array
+    property_CrmContact_company_ids:
+      description: An array of company IDs associated with this contact
+      items:
+        type: string
+      type: array
+    property_CrmEvent_marketing_email:
+      properties:
+        attachment_file_ids:
+          $ref: '#/components/schemas/property_CrmEvent_marketing_email_attachment_file_ids'
+        body:
+          type: string
+        cc:
+          $ref: '#/components/schemas/property_CrmEvent_marketing_email_cc'
+        from:
+          type: string
+        name:
+          type: string
+        subject:
+          type: string
+        to:
+          $ref: '#/components/schemas/property_CrmEvent_marketing_email_to'
+      type: object
+    CrmMetadata:
+      properties:
+        extra_data:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        format:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - MEASUREMENT
+          - PRICE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        namespace:
+          type: string
+        slug:
+          type: string
+        value:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+      type: object
+    property_CrmEventFormField_options:
+      items:
+        $ref: '#/components/schemas/CrmEventFormOption'
+      type: array
+    property_CrmEvent_meeting:
+      description: The meeting object, when type = meeting
+      properties:
+        description:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        title:
+          type: string
+      type: object
+    property_CrmEvent_note:
+      description: The note object, when type = note
+      properties:
+        description:
+          type: string
+        title:
+          type: string
+      type: object
+    property_CrmContact_telephones:
+      description: An array of telephones for this contact
+      items:
+        $ref: '#/components/schemas/CrmTelephone'
+      type: array
+    CrmEvents:
+      items:
+        $ref: '#/components/schemas/CrmEvent'
+      type: array
+    property_CrmContact_metadata:
+      items:
+        $ref: '#/components/schemas/CrmMetadata'
+      type: array
+    property_CrmEvent_deal_ids:
+      description: An array of deal IDs associated with this event
+      items:
+        type: string
+      type: array
+    property_CrmDeal_pipelines:
+      items:
+        $ref: '#/components/schemas/CrmReference'
+      type: array
+    CrmPipeline:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        deal_probability:
+          type: number
+        display_order:
+          type: number
+        id:
+          type: string
+        is_active:
+          type: boolean
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        stages:
+          $ref: '#/components/schemas/property_CrmPipeline_stages'
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    CrmPipelines:
+      items:
+        $ref: '#/components/schemas/CrmPipeline'
+      type: array
+    property_CrmContact_emails:
+      description: An array of email addresses for this contact
+      items:
+        $ref: '#/components/schemas/CrmEmail'
+      type: array
+    property_CrmEvent_marketing_email_cc:
+      description: The event email's cc name & email (name <test@test.com>)
+      items:
+        type: string
+      type: array
+    property_CrmEvent_task:
+      description: The task object, when type = task
+      properties:
+        description:
+          type: string
+        due_at:
+          format: date-time
+          type: string
+        name:
+          type: string
+        priority:
+          enum:
+          - HIGH
+          - MEDIUM
+          - LOW
+          type: string
+          x-speakeasy-unknown-values: allow
+        status:
+          enum:
+          - COMPLETED
+          - NOT_STARTED
+          - WORK_IN_PROGRESS
+          - DEFERRED
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    CrmDeal:
+      description: A deal represents an opportunity with companies and/or contacts
+      properties:
+        amount:
+          type: number
+        closed_at:
+          format: date-time
+          type: string
+        closing_at:
+          format: date-time
+          type: string
+        company_ids:
+          $ref: '#/components/schemas/property_CrmDeal_company_ids'
+        contact_ids:
+          $ref: '#/components/schemas/property_CrmDeal_contact_ids'
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        id:
+          type: string
+        lost_reason:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/property_CrmDeal_metadata'
+        name:
+          type: string
+        pipeline:
+          type: string
+        pipeline_id:
+          type: string
+        pipelines:
+          $ref: '#/components/schemas/property_CrmDeal_pipelines'
+        probability:
+          type: number
+        raw:
+          additionalProperties: true
+          type: object
+        source:
+          type: string
+        stage:
+          type: string
+        stage_id:
+          type: string
+        stages:
+          $ref: '#/components/schemas/property_CrmDeal_stages'
+        tags:
+          $ref: '#/components/schemas/property_CrmDeal_tags'
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+        won_reason:
+          type: string
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

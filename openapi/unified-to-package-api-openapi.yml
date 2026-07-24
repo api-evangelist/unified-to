@@ -1,0 +1,659 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account package API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: package
+paths:
+  /assessment/{connection_id}/package:
+    get:
+      operationId: listAssessmentPackages
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentPackages'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List Assessment Packages
+      tags:
+      - package
+    post:
+      operationId: createAssessmentPackage
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssessmentPackage'
+        description: Used by assessment providers to SUBMIT packages to ATS systems
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentPackage'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an Assessment Package
+      tags:
+      - package
+  /assessment/{connection_id}/package/{id}:
+    delete:
+      operationId: removeAssessmentPackage
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Package
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Delete an Assessment Package
+      tags:
+      - package
+    get:
+      operationId: getAssessmentPackage
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Package
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentPackage'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Get an Assessment Package
+      tags:
+      - package
+    patch:
+      operationId: patchAssessmentPackage
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Package
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssessmentPackage'
+        description: Used by assessment providers to SUBMIT packages to ATS systems
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentPackage'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Assessment Package
+      tags:
+      - package
+    put:
+      operationId: updateAssessmentPackage
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Package
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssessmentPackage'
+        description: Used by assessment providers to SUBMIT packages to ATS systems
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentPackage'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Assessment Package
+      tags:
+      - package
+  /verification/{connection_id}/package:
+    get:
+      operationId: listVerificationPackages
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - type
+            - aliases
+            - tags
+            - description
+            - parameters
+            - average_processing_times
+            - has_redirect_url
+            - has_target_url
+            - needs_ip_address
+            - cost_amount
+            - currency
+            - max_score
+            - info_url
+            - valid_regions
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationPackages'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Packages
+      tags:
+      - package
+  /verification/{connection_id}/package/{id}:
+    get:
+      operationId: getVerificationPackage
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - type
+            - aliases
+            - tags
+            - description
+            - parameters
+            - average_processing_times
+            - has_redirect_url
+            - has_target_url
+            - needs_ip_address
+            - cost_amount
+            - currency
+            - max_score
+            - info_url
+            - valid_regions
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Package
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationPackage'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Package
+      tags:
+      - package
+components:
+  schemas:
+    AssessmentPackage:
+      description: Used by assessment providers to SUBMIT packages to ATS systems
+      properties:
+        aliases:
+          $ref: '#/components/schemas/property_AssessmentPackage_aliases'
+        connection_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        has_redirect_url:
+          type: boolean
+        has_target_url:
+          type: boolean
+        id:
+          type: string
+        info_url:
+          type: string
+        integration_types:
+          $ref: '#/components/schemas/property_AssessmentPackage_integration_types'
+        max_score:
+          type: number
+        name:
+          type: string
+        needs_ip_address:
+          type: boolean
+        parameters:
+          $ref: '#/components/schemas/property_AssessmentPackage_parameters'
+        raw:
+          additionalProperties: true
+          type: object
+        regions:
+          $ref: '#/components/schemas/property_AssessmentPackage_regions'
+        tags:
+          $ref: '#/components/schemas/property_AssessmentPackage_tags'
+        type:
+          enum:
+          - SKILLS_TEST
+          - BEHAVIORAL_ASSESSMENT
+          - VIDEO_INTERVIEW
+          - BACKGROUND_CHECK
+          - REFERENCE_CHECK
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        workspace_id:
+          type: string
+      required:
+      - id
+      - name
+      - type
+      type: object
+    property_VerificationParameter_valid_regions:
+      description: '{country}-{stateprovince/territory} or just {country} 2-digit ISO codes'
+      items:
+        type: string
+      type: array
+    AssessmentPackageRegion:
+      properties:
+        cost_amount:
+          type: number
+        currency:
+          type: string
+        processing_time:
+          type: number
+        regions:
+          $ref: '#/components/schemas/property_AssessmentPackageRegion_regions'
+      required:
+      - regions
+      - cost_amount
+      type: object
+    property_AssessmentParameter_options:
+      description: Options for MULTIPLE_CHOICE and MULTIPLE_SELECT
+      items:
+        type: string
+      type: array
+    property_AssessmentPackage_integration_types:
+      description: Integration types that support this package
+      items:
+        type: string
+      type: array
+    property_AssessmentParameter_valid_regions:
+      description: Regions where this parameter is valid ({country}-{state} or {country})
+      items:
+        type: string
+      type: array
+    property_VerificationPackage_parameters:
+      description: Questions that need to be answered for this verification
+      items:
+        $ref: '#/components/schemas/VerificationParameter'
+      type: array
+    property_VerificationPackage_aliases:
+      items:
+        type: string
+      type: array
+    property_AssessmentPackage_tags:
+      description: Category tags (e.g., "Assessment", "Background Check")
+      items:
+        type: string
+      type: array
+    VerificationPackages:
+      items:
+        $ref: '#/components/schemas/VerificationPackage'
+      type: array
+    property_VerificationPackage_valid_regions:
+      description: '{country}-{state/province/territory} or just {country} 2-digit ISO codes'
+      items:
+        type: string
+      type: array
+    property_VerificationTime_valid_regions:
+      description: '{country}-{stateprovince/territory} or just {country} 2-digit ISO codes'
+      items:
+        type: string
+      type: array
+    VerificationTime:
+      properties:
+        milliseconds:
+          type: number
+        valid_regions:
+          $ref: '#/components/schemas/property_VerificationTime_valid_regions'
+      type: object
+    AssessmentParameter:
+      properties:
+        file_types:
+          $ref: '#/components/schemas/property_AssessmentParameter_file_types'
+        id:
+          type: string
+        is_required:
+          type: boolean
+        name:
+          type: string
+        options:
+          $ref: '#/components/schemas/property_AssessmentParameter_options'
+        public_question:
+          type: string
+        type:
+          enum:
+          - TEXT
+          - NUMBER
+          - MULTIPLE_CHOICE
+          - MULTIPLE_SELECT
+          - DATE
+          - FILE
+          type: string
+          x-speakeasy-unknown-values: allow
+        valid_regions:
+          $ref: '#/components/schemas/property_AssessmentParameter_valid_regions'
+      required:
+      - name
+      type: object
+    property_AssessmentParameter_file_types:
+      description: Valid file MIME types for FILE type
+      items:
+        type: string
+      type: array
+    AssessmentPackages:
+      items:
+        $ref: '#/components/schemas/AssessmentPackage'
+      type: array
+    VerificationPackage:
+      properties:
+        aliases:
+          $ref: '#/components/schemas/property_VerificationPackage_aliases'
+        average_processing_times:
+          $ref: '#/components/schemas/property_VerificationPackage_average_processing_times'
+        cost_amount:
+          type: number
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        description:
+          type: string
+        has_redirect_url:
+          type: boolean
+        has_target_url:
+          type: boolean
+        id:
+          type: string
+        info_url:
+          type: string
+        max_score:
+          type: number
+        name:
+          type: string
+        needs_ip_address:
+          type: boolean
+        parameters:
+          $ref: '#/components/schemas/property_VerificationPackage_parameters'
+        raw:
+          additionalProperties: true
+          type: object
+        tags:
+          $ref: '#/components/schemas/property_VerificationPackage_tags'
+        type:
+          enum:
+          - IDENTITY_VERIFICATION
+          - SCREENING
+          - BACKGROUND_CHECK
+          - EMPLOYMENT_VERIFICATION
+          - EDUCATION_VERIFICATION
+          - CREDIT_CHECK
+          - FRAUD_PREVENTION
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        valid_regions:
+          $ref: '#/components/schemas/property_VerificationPackage_valid_regions'
+      required:
+      - id
+      - name
+      - type
+      type: object
+    property_VerificationParameter_file_types:
+      description: valid file mime types
+      items:
+        type: string
+      type: array
+    property_AssessmentPackage_regions:
+      items:
+        $ref: '#/components/schemas/AssessmentPackageRegion'
+      type: array
+    VerificationParameter:
+      properties:
+        file_types:
+          $ref: '#/components/schemas/property_VerificationParameter_file_types'
+        id:
+          type: string
+        is_required:
+          type: boolean
+        name:
+          type: string
+        options:
+          $ref: '#/components/schemas/property_VerificationParameter_options'
+        public_question:
+          type: string
+        type:
+          enum:
+          - TEXT
+          - NUMBER
+          - MULTIPLE_CHOICE
+          - MULTIPLE_SELECT
+          - DATE
+          - FILE
+          type: string
+          x-speakeasy-unknown-values: allow
+        valid_regions:
+          $ref: '#/components/schemas/property_VerificationParameter_valid_regions'
+      required:
+      - name
+      type: object
+    property_AssessmentPackageRegion_regions:
+      description: Countryregion codes where this package is available ({country}-{state} or {country})
+      items:
+        type: string
+      type: array
+    property_VerificationPackage_average_processing_times:
+      description: average processing time in minutes
+      items:
+        $ref: '#/components/schemas/VerificationTime'
+      type: array
+    property_VerificationPackage_tags:
+      description: Category (Verification, Validation, Background Check)
+      items:
+        type: string
+      type: array
+    property_AssessmentPackage_aliases:
+      description: Alternative namesidentifiers for this package
+      items:
+        type: string
+      type: array
+    property_VerificationParameter_options:
+      description: options for MULTIPLE_CHOICE and MULTIPLE_SELECT
+      items:
+        type: string
+      type: array
+    property_AssessmentPackage_parameters:
+      description: Questionsinputs needed for this assessment (aligned with verification)
+      items:
+        $ref: '#/components/schemas/AssessmentParameter'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

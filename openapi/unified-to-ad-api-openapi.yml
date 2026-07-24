@@ -1,0 +1,555 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account ad API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: ad
+paths:
+  /ads/{connection_id}/ad:
+    get:
+      operationId: listAdsAds
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The org ID to filter by (reference to AdsOrganization)
+        in: query
+        name: org_id
+        required: false
+        schema:
+          type: string
+      - description: The campaign ID to filter by
+        in: query
+        name: campaign_id
+        required: false
+        schema:
+          type: string
+      - description: The group ID to filter by (reference to AdsGroup)
+        in: query
+        name: group_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - organization_id
+            - status
+            - ad_type
+            - creative_ids
+            - creative_asset_url
+            - ad_copy
+            - headline
+            - description
+            - cta
+            - final_url
+            - display_url
+            - path1
+            - path2
+            - promoted
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsAds'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Ads
+      tags:
+      - ad
+    post:
+      operationId: createAdsAd
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - organization_id
+            - status
+            - ad_type
+            - creative_ids
+            - creative_asset_url
+            - ad_copy
+            - headline
+            - description
+            - cta
+            - final_url
+            - display_url
+            - path1
+            - path2
+            - promoted
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsAd'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsAd'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an Ad
+      tags:
+      - ad
+  /ads/{connection_id}/ad/{id}:
+    delete:
+      operationId: removeAdsAd
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Ad
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an Ad
+      tags:
+      - ad
+    get:
+      operationId: getAdsAd
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - organization_id
+            - status
+            - ad_type
+            - creative_ids
+            - creative_asset_url
+            - ad_copy
+            - headline
+            - description
+            - cta
+            - final_url
+            - display_url
+            - path1
+            - path2
+            - promoted
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Ad
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsAd'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an Ad
+      tags:
+      - ad
+    patch:
+      operationId: patchAdsAd
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - organization_id
+            - status
+            - ad_type
+            - creative_ids
+            - creative_asset_url
+            - ad_copy
+            - headline
+            - description
+            - cta
+            - final_url
+            - display_url
+            - path1
+            - path2
+            - promoted
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Ad
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsAd'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsAd'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Ad
+      tags:
+      - ad
+    put:
+      operationId: updateAdsAd
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - organization_id
+            - status
+            - ad_type
+            - creative_ids
+            - creative_asset_url
+            - ad_copy
+            - headline
+            - description
+            - cta
+            - final_url
+            - display_url
+            - path1
+            - path2
+            - promoted
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Ad
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsAd'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsAd'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Ad
+      tags:
+      - ad
+components:
+  schemas:
+    AdsAds:
+      items:
+        $ref: '#/components/schemas/AdsAd'
+      type: array
+    property_AdsAd_promoted:
+      items:
+        $ref: '#/components/schemas/AdsPromoted'
+      type: array
+    AdsAd:
+      properties:
+        ad_copy:
+          type: string
+        ad_type:
+          enum:
+          - TEXT
+          - IMAGE
+          - VIDEO
+          - RESPONSIVE
+          - SHOPPING
+          - APP
+          - CALL
+          - CAROUSEL
+          - SOCIAL
+          - DISPLAY
+          - SEARCH
+          - AUDIO
+          - YOUTUBE
+          type: string
+          x-speakeasy-unknown-values: allow
+        campaign_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        creative_asset_url:
+          type: string
+        creative_ids:
+          $ref: '#/components/schemas/property_AdsAd_creative_ids'
+        cta:
+          type: string
+        description:
+          type: string
+        display_url:
+          type: string
+        final_url:
+          type: string
+        group_id:
+          type: string
+        headline:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        path1:
+          type: string
+        path2:
+          type: string
+        promoted:
+          $ref: '#/components/schemas/property_AdsAd_promoted'
+        raw:
+          additionalProperties: true
+          type: object
+        status:
+          enum:
+          - UNSPECIFIED
+          - ACTIVE
+          - PAUSED
+          - ARCHIVED
+          - DRAFT
+          - SCHEDULED_FOR_DELETION
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AdsAd_creative_ids:
+      items:
+        type: string
+      type: array
+    AdsPromoted:
+      description: Promoted entity (e.g. page, app, product, tweet) for ads create
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        type:
+          enum:
+          - PAGE_ID
+          - APP_ID
+          - STORE_URL
+          - PIXEL_ID
+          - CUSTOM_CONVERSION_ID
+          - CATALOG_ID
+          - PRODUCT_SET_ID
+          - PRIORITIZED_SET_ID
+          - EVENT_ID
+          - OFFER_ID
+          - LEAD_FORM_ID
+          - MESSAGING_CHANNEL_ID
+          - PRODUCT_ID
+          - TWEET_ID
+          - AD_GROUP_TYPE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - id
+      - type
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

@@ -1,0 +1,502 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account form API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: form
+paths:
+  /forms/{connection_id}/form:
+    get:
+      operationId: listFormsForms
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - fields
+            - is_active
+            - published_url
+            - response_count
+            - has_multiple_submissions
+            - has_progress_bar
+            - has_shuffle_questions
+            - confirmation_message
+            - confirmation_redirect_url
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormsForms'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Forms
+      tags:
+      - form
+    post:
+      operationId: createFormsForm
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - fields
+            - is_active
+            - published_url
+            - response_count
+            - has_multiple_submissions
+            - has_progress_bar
+            - has_shuffle_questions
+            - confirmation_message
+            - confirmation_redirect_url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FormsForm'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormsForm'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Form
+      tags:
+      - form
+  /forms/{connection_id}/form/{id}:
+    delete:
+      operationId: removeFormsForm
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Form
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Form
+      tags:
+      - form
+    get:
+      operationId: getFormsForm
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - fields
+            - is_active
+            - published_url
+            - response_count
+            - has_multiple_submissions
+            - has_progress_bar
+            - has_shuffle_questions
+            - confirmation_message
+            - confirmation_redirect_url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Form
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormsForm'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Form
+      tags:
+      - form
+    patch:
+      operationId: patchFormsForm
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - fields
+            - is_active
+            - published_url
+            - response_count
+            - has_multiple_submissions
+            - has_progress_bar
+            - has_shuffle_questions
+            - confirmation_message
+            - confirmation_redirect_url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Form
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FormsForm'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormsForm'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Form
+      tags:
+      - form
+    put:
+      operationId: updateFormsForm
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - description
+            - fields
+            - is_active
+            - published_url
+            - response_count
+            - has_multiple_submissions
+            - has_progress_bar
+            - has_shuffle_questions
+            - confirmation_message
+            - confirmation_redirect_url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Form
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FormsForm'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormsForm'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Form
+      tags:
+      - form
+components:
+  schemas:
+    FormsForm:
+      properties:
+        confirmation_message:
+          type: string
+        confirmation_redirect_url:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        fields:
+          $ref: '#/components/schemas/property_FormsForm_fields'
+        has_multiple_submissions:
+          type: boolean
+        has_progress_bar:
+          type: boolean
+        has_shuffle_questions:
+          type: boolean
+        id:
+          type: string
+        is_active:
+          type: boolean
+        name:
+          type: string
+        published_url:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        response_count:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - name
+      type: object
+    property_FormField_choices:
+      description: For select/radio/checkbox fields
+      items:
+        type: string
+      type: array
+    FormsForms:
+      items:
+        $ref: '#/components/schemas/FormsForm'
+      type: array
+    FormField:
+      properties:
+        choices:
+          $ref: '#/components/schemas/property_FormField_choices'
+        created_at:
+          format: date-time
+          type: string
+        default_value:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        is_required:
+          type: boolean
+        max:
+          type: number
+        max_length:
+          type: number
+        min:
+          type: number
+        min_length:
+          type: number
+        name:
+          type: string
+        order:
+          type: number
+        pattern:
+          type: string
+        type:
+          enum:
+          - TEXT
+          - TEXTAREA
+          - NUMBER
+          - EMAIL
+          - URL
+          - DATE
+          - TIME
+          - DATETIME
+          - PHONE
+          - BOOLEAN
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - FILE_UPLOAD
+          - RATING
+          - SCALE
+          - MATRIX
+          - SECTION_HEADER
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - name
+      - type
+      type: object
+    property_FormsForm_fields:
+      items:
+        $ref: '#/components/schemas/FormField'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

@@ -1,0 +1,337 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account payslip API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: payslip
+paths:
+  /hris/{connection_id}/payslip:
+    get:
+      operationId: listHrisPayslips
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to HrisCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - payment_type
+            - paid_at
+            - start_at
+            - end_at
+            - currency
+            - gross_amount
+            - net_amount
+            - details
+            - raw
+            - deduction
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisPayslips'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Payslips
+      tags:
+      - payslip
+  /hris/{connection_id}/payslip/{id}:
+    get:
+      operationId: getHrisPayslip
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - company_id
+            - payment_type
+            - paid_at
+            - start_at
+            - end_at
+            - currency
+            - gross_amount
+            - net_amount
+            - details
+            - raw
+            - deduction
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Payslip
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisPayslip'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Payslip
+      tags:
+      - payslip
+components:
+  schemas:
+    HrisPayslip:
+      properties:
+        company_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        deduction:
+          $ref: '#/components/schemas/property_HrisPayslip_deduction'
+        details:
+          $ref: '#/components/schemas/property_HrisPayslip_details'
+        end_at:
+          format: date-time
+          type: string
+        gross_amount:
+          type: number
+        id:
+          type: string
+        net_amount:
+          type: number
+        paid_at:
+          format: date-time
+          type: string
+        payment_type:
+          enum:
+          - DIRECT
+          - CHEQUE
+          - CASH
+          type: string
+          x-speakeasy-unknown-values: allow
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      required:
+      - raw
+      type: object
+    HrisPayslipDetail:
+      properties:
+        amount:
+          type: number
+        company_amount:
+          type: number
+        description:
+          type: string
+        employee_amount:
+          type: number
+        name:
+          type: string
+        type:
+          enum:
+          - EARNING_SALARY
+          - EARNING_OVERTIME
+          - EARNING_TIP
+          - EARNING_BONUS
+          - EARNING_COMMISSION
+          - EARNING_ADJUSTMENT
+          - EARNING
+          - PRETAX_DEDUCTION
+          - PRETAX_DEDUCTION_HEALTH_INSURANCE
+          - PRETAX_DEDUCTION_RETIREMENT
+          - PRETAX_DEDUCTION_HRA
+          - TAX_FEDERAL
+          - TAX_REGION
+          - TAX_LOCAL
+          - POSTTAX_BENEFIT
+          - POSTTAX_GARNISHMENT
+          - REIMBURSEMENT
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - amount
+      type: object
+    HrisPayslips:
+      items:
+        $ref: '#/components/schemas/HrisPayslip'
+      type: array
+    property_HrisPayslip_deduction:
+      description: The ID (and optionally name) of the employee deduction (if this detail represents a deduction)
+      properties:
+        amount:
+          type: number
+        benefit_id:
+          type: string
+        company_id:
+          type: string
+        coverage_level:
+          enum:
+          - EMPLOYEE_ONLY
+          - EMPLOYEE_SPOUSE
+          - EMPLOYEE_CHILD
+          - EMPLOYEE_CHILDREN
+          - EMPLOYEE_FAMILY
+          - FAMILY
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        created_at:
+          format: date-time
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        frequency:
+          enum:
+          - ONE_TIME
+          - DAY
+          - QUARTER
+          - YEAR
+          - HOUR
+          - MONTH
+          - WEEK
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        is_active:
+          type: boolean
+        notes:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        type:
+          enum:
+          - FIXED
+          - PERCENTAGE
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_HrisPayslip_details:
+      items:
+        $ref: '#/components/schemas/HrisPayslipDetail'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

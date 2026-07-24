@@ -1,0 +1,219 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account tracking API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: tracking
+paths:
+  /shipping/{connection_id}/tracking/{id}:
+    get:
+      operationId: getShippingTracking
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - shipment_id
+            - tracking_number
+            - status
+            - events
+            - estimated_delivery
+            - actual_delivery_at
+            - status_description
+            - carrier_id
+            - carrier_status_code
+            - carrier_status_description
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Tracking
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingTracking'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Tracking
+      tags:
+      - tracking
+components:
+  schemas:
+    ShippingTrackingEvent:
+      properties:
+        carrier_status_code:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        event_code:
+          type: string
+        location_address:
+          $ref: '#/components/schemas/property_ShippingTrackingEvent_location_address'
+        location_id:
+          type: string
+        location_name:
+          type: string
+        notes:
+          type: string
+        signed_by:
+          type: string
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - IN_TRANSIT
+          - DELIVERED
+          - EXCEPTION
+          - CANCELLED
+          - LABEL_CREATED
+          - PICKED_UP
+          - OUT_FOR_DELIVERY
+          - DELIVERY_ATTEMPTED
+          - RETURNED_TO_SENDER
+          - HELD_AT_LOCATION
+          - CUSTOMS_CLEARANCE
+          - EXCEPTION_RESOLVED
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_ShippingTracking_events:
+      description: Array of tracking events
+      items:
+        $ref: '#/components/schemas/ShippingTrackingEvent'
+      type: array
+    property_ShippingTrackingEvent_location_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        company_name:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        delivery_instructions:
+          type: string
+        email:
+          type: string
+        is_residential:
+          type: boolean
+        is_validated:
+          type: boolean
+        name:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+        telephone:
+          type: string
+      type: object
+    ShippingTracking:
+      properties:
+        actual_delivery_at:
+          format: date-time
+          type: string
+        carrier_id:
+          type: string
+        carrier_status_code:
+          type: string
+        carrier_status_description:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        estimated_delivery:
+          format: date-time
+          type: string
+        events:
+          $ref: '#/components/schemas/property_ShippingTracking_events'
+        id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        shipment_id:
+          type: string
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - IN_TRANSIT
+          - DELIVERED
+          - EXCEPTION
+          - CANCELLED
+          - LABEL_CREATED
+          - PICKED_UP
+          - OUT_FOR_DELIVERY
+          - DELIVERY_ATTEMPTED
+          - RETURNED_TO_SENDER
+          - HELD_AT_LOCATION
+          - CUSTOMS_CLEARANCE
+          - EXCEPTION_RESOLVED
+          type: string
+          x-speakeasy-unknown-values: allow
+        status_description:
+          type: string
+        tracking_number:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

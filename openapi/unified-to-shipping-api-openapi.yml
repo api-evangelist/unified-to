@@ -1,0 +1,1867 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account shipping API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: shipping
+paths:
+  /shipping/{connection_id}/carrier:
+    get:
+      operationId: listShippingCarriers
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - code
+            - is_active
+            - logo_url
+            - website_url
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingCarriers'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Carriers
+      tags:
+      - shipping
+  /shipping/{connection_id}/carrier/{id}:
+    get:
+      operationId: getShippingCarrier
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - code
+            - is_active
+            - logo_url
+            - website_url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Carrier
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingCarrier'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Carrier
+      tags:
+      - shipping
+  /shipping/{connection_id}/label:
+    get:
+      operationId: listShippingLabels
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The ShippingShipment ID to filter by
+        in: query
+        name: shipment_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - shipment_id
+            - tracking_number
+            - label_url
+            - label_format
+            - status
+            - is_voided
+            - label_cost
+            - label_cost_currency
+            - rate_id
+            - service_code
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingLabels'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Labels
+      tags:
+      - shipping
+    post:
+      operationId: createShippingLabel
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - shipment_id
+            - tracking_number
+            - label_url
+            - label_format
+            - status
+            - is_voided
+            - label_cost
+            - label_cost_currency
+            - rate_id
+            - service_code
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShippingLabel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingLabel'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Label
+      tags:
+      - shipping
+  /shipping/{connection_id}/label/{id}:
+    delete:
+      operationId: removeShippingLabel
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Label
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Label
+      tags:
+      - shipping
+    get:
+      operationId: getShippingLabel
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - shipment_id
+            - tracking_number
+            - label_url
+            - label_format
+            - status
+            - is_voided
+            - label_cost
+            - label_cost_currency
+            - rate_id
+            - service_code
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Label
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingLabel'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Label
+      tags:
+      - shipping
+    patch:
+      operationId: patchShippingLabel
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - shipment_id
+            - tracking_number
+            - label_url
+            - label_format
+            - status
+            - is_voided
+            - label_cost
+            - label_cost_currency
+            - rate_id
+            - service_code
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Label
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShippingLabel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingLabel'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Label
+      tags:
+      - shipping
+    put:
+      operationId: updateShippingLabel
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - shipment_id
+            - tracking_number
+            - label_url
+            - label_format
+            - status
+            - is_voided
+            - label_cost
+            - label_cost_currency
+            - rate_id
+            - service_code
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Label
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShippingLabel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingLabel'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Label
+      tags:
+      - shipping
+  /shipping/{connection_id}/rate:
+    post:
+      operationId: createShippingRate
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - shipment_id
+            - currency
+            - from_address
+            - to_address
+            - packages
+            - ship_by_at
+            - carrier_id
+            - id
+            - rates
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShippingRate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingRate'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Rate
+      tags:
+      - shipping
+  /shipping/{connection_id}/shipment:
+    get:
+      operationId: listShippingShipments
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The AccountingOrder ID to filter by
+        in: query
+        name: order_id
+        required: false
+        schema:
+          type: string
+      - description: The ShippingCarrier ID to filter by
+        in: query
+        name: carrier_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - order_id
+            - from_address
+            - to_address
+            - packages
+            - carrier_id
+            - service_code
+            - status
+            - rate_id
+            - label_id
+            - tracking_id
+            - shipped_at
+            - rate_amount
+            - rate_currency
+            - rate_service_name
+            - rate_estimated_days
+            - rate_estimated_delivery_at
+            - is_rate_guaranteed
+            - return_address
+            - return_authorization_number
+            - warehouse_location_id
+            - warehouse_location_name
+            - customs
+            - is_international
+            - insurance
+            - special_instructions
+            - is_signature_required
+            - is_adult_signature_required
+            - reference_number
+            - is_return
+            - original_shipment_id
+            - return_reason
+            - return_type
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingShipments'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Shipments
+      tags:
+      - shipping
+    post:
+      operationId: createShippingShipment
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - order_id
+            - from_address
+            - to_address
+            - packages
+            - carrier_id
+            - service_code
+            - status
+            - rate_id
+            - label_id
+            - tracking_id
+            - shipped_at
+            - rate_amount
+            - rate_currency
+            - rate_service_name
+            - rate_estimated_days
+            - rate_estimated_delivery_at
+            - is_rate_guaranteed
+            - return_address
+            - return_authorization_number
+            - warehouse_location_id
+            - warehouse_location_name
+            - customs
+            - is_international
+            - insurance
+            - special_instructions
+            - is_signature_required
+            - is_adult_signature_required
+            - reference_number
+            - is_return
+            - original_shipment_id
+            - return_reason
+            - return_type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShippingShipment'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingShipment'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Shipment
+      tags:
+      - shipping
+  /shipping/{connection_id}/shipment/{id}:
+    delete:
+      operationId: removeShippingShipment
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Shipment
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Shipment
+      tags:
+      - shipping
+    get:
+      operationId: getShippingShipment
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - order_id
+            - from_address
+            - to_address
+            - packages
+            - carrier_id
+            - service_code
+            - status
+            - rate_id
+            - label_id
+            - tracking_id
+            - shipped_at
+            - rate_amount
+            - rate_currency
+            - rate_service_name
+            - rate_estimated_days
+            - rate_estimated_delivery_at
+            - is_rate_guaranteed
+            - return_address
+            - return_authorization_number
+            - warehouse_location_id
+            - warehouse_location_name
+            - customs
+            - is_international
+            - insurance
+            - special_instructions
+            - is_signature_required
+            - is_adult_signature_required
+            - reference_number
+            - is_return
+            - original_shipment_id
+            - return_reason
+            - return_type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Shipment
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingShipment'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Shipment
+      tags:
+      - shipping
+    patch:
+      operationId: patchShippingShipment
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - order_id
+            - from_address
+            - to_address
+            - packages
+            - carrier_id
+            - service_code
+            - status
+            - rate_id
+            - label_id
+            - tracking_id
+            - shipped_at
+            - rate_amount
+            - rate_currency
+            - rate_service_name
+            - rate_estimated_days
+            - rate_estimated_delivery_at
+            - is_rate_guaranteed
+            - return_address
+            - return_authorization_number
+            - warehouse_location_id
+            - warehouse_location_name
+            - customs
+            - is_international
+            - insurance
+            - special_instructions
+            - is_signature_required
+            - is_adult_signature_required
+            - reference_number
+            - is_return
+            - original_shipment_id
+            - return_reason
+            - return_type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Shipment
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShippingShipment'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingShipment'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Shipment
+      tags:
+      - shipping
+    put:
+      operationId: updateShippingShipment
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - order_id
+            - from_address
+            - to_address
+            - packages
+            - carrier_id
+            - service_code
+            - status
+            - rate_id
+            - label_id
+            - tracking_id
+            - shipped_at
+            - rate_amount
+            - rate_currency
+            - rate_service_name
+            - rate_estimated_days
+            - rate_estimated_delivery_at
+            - is_rate_guaranteed
+            - return_address
+            - return_authorization_number
+            - warehouse_location_id
+            - warehouse_location_name
+            - customs
+            - is_international
+            - insurance
+            - special_instructions
+            - is_signature_required
+            - is_adult_signature_required
+            - reference_number
+            - is_return
+            - original_shipment_id
+            - return_reason
+            - return_type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Shipment
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShippingShipment'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingShipment'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Shipment
+      tags:
+      - shipping
+  /shipping/{connection_id}/tracking/{id}:
+    get:
+      operationId: getShippingTracking
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - shipment_id
+            - tracking_number
+            - status
+            - events
+            - estimated_delivery
+            - actual_delivery_at
+            - status_description
+            - carrier_id
+            - carrier_status_code
+            - carrier_status_description
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Tracking
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingTracking'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Tracking
+      tags:
+      - shipping
+components:
+  schemas:
+    property_ShippingShipment_packages:
+      description: Array of packages in this shipment
+      items:
+        $ref: '#/components/schemas/ShippingPackage'
+      type: array
+    property_ShippingRateRate_surcharges:
+      description: Additional charges
+      items:
+        $ref: '#/components/schemas/ShippingRateSurcharge'
+      type: array
+    property_ShippingTrackingEvent_location_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        company_name:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        delivery_instructions:
+          type: string
+        email:
+          type: string
+        is_residential:
+          type: boolean
+        is_validated:
+          type: boolean
+        name:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+        telephone:
+          type: string
+      type: object
+    property_ShippingRate_to_address:
+      description: Destination address
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        company_name:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        delivery_instructions:
+          type: string
+        email:
+          type: string
+        is_residential:
+          type: boolean
+        is_validated:
+          type: boolean
+        name:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+        telephone:
+          type: string
+      type: object
+    property_ShippingRate_rates:
+      items:
+        $ref: '#/components/schemas/ShippingRateRate'
+      type: array
+    ShippingCustomsItem:
+      properties:
+        amount:
+          type: number
+        country_of_origin:
+          type: string
+        currency:
+          type: string
+        description:
+          type: string
+        harmonized_tariff_code:
+          type: string
+        quantity:
+          type: number
+        sku:
+          type: string
+        weight:
+          type: number
+        weight_unit:
+          enum:
+          - g
+          - kg
+          - oz
+          - lb
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_ShippingShipment_special_instructions:
+      description: Array of special instructions
+      items:
+        type: string
+      type: array
+    ShippingCarrier:
+      properties:
+        code:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        logo_url:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          format: date-time
+          type: string
+        website_url:
+          type: string
+      type: object
+    ShippingRateSurcharge:
+      properties:
+        amount:
+          type: number
+        code:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
+      type: object
+    property_ShippingShipment_insurance:
+      description: Insurance details
+      properties:
+        coverage_amount:
+          type: number
+        coverage_type:
+          enum:
+          - STANDARD
+          - PREMIUM
+          - CUSTOM
+          type: string
+          x-speakeasy-unknown-values: allow
+        currency:
+          type: string
+        insurance_cost:
+          type: number
+        insurance_cost_currency:
+          type: string
+        insurance_provider:
+          type: string
+        insurance_provider_code:
+          type: string
+        insured_value:
+          type: number
+      type: object
+    ShippingShipment:
+      properties:
+        carrier_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        customs:
+          $ref: '#/components/schemas/property_ShippingShipment_customs'
+        from_address:
+          $ref: '#/components/schemas/property_ShippingShipment_from_address'
+        id:
+          type: string
+        insurance:
+          $ref: '#/components/schemas/property_ShippingShipment_insurance'
+        is_adult_signature_required:
+          type: boolean
+        is_international:
+          type: boolean
+        is_rate_guaranteed:
+          type: boolean
+        is_return:
+          type: boolean
+        is_signature_required:
+          type: boolean
+        label_id:
+          type: string
+        order_id:
+          type: string
+        original_shipment_id:
+          type: string
+        packages:
+          $ref: '#/components/schemas/property_ShippingShipment_packages'
+        rate_amount:
+          type: number
+        rate_currency:
+          type: string
+        rate_estimated_days:
+          type: number
+        rate_estimated_delivery_at:
+          format: date-time
+          type: string
+        rate_id:
+          type: string
+        rate_service_name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        reference_number:
+          type: string
+        return_address:
+          $ref: '#/components/schemas/property_ShippingShipment_return_address'
+        return_authorization_number:
+          type: string
+        return_reason:
+          type: string
+        return_type:
+          enum:
+          - CUSTOMER
+          - VENDOR
+          - WARRANTY
+          - DEFECTIVE
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        service_code:
+          type: string
+        shipped_at:
+          format: date-time
+          type: string
+        special_instructions:
+          $ref: '#/components/schemas/property_ShippingShipment_special_instructions'
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - IN_TRANSIT
+          - DELIVERED
+          - EXCEPTION
+          - CANCELLED
+          - LABEL_CREATED
+          - PICKED_UP
+          - OUT_FOR_DELIVERY
+          - DELIVERY_ATTEMPTED
+          - RETURNED_TO_SENDER
+          - HELD_AT_LOCATION
+          - CUSTOMS_CLEARANCE
+          - EXCEPTION_RESOLVED
+          type: string
+          x-speakeasy-unknown-values: allow
+        to_address:
+          $ref: '#/components/schemas/property_ShippingShipment_to_address'
+        tracking_id:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        warehouse_location_id:
+          type: string
+        warehouse_location_name:
+          type: string
+      type: object
+    property_ShippingShipment_customs_restrictions:
+      description: Any restrictions
+      items:
+        type: string
+      type: array
+    ShippingLabels:
+      items:
+        $ref: '#/components/schemas/ShippingLabel'
+      type: array
+    property_ShippingShipment_to_address:
+      description: Destination address
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        company_name:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        delivery_instructions:
+          type: string
+        email:
+          type: string
+        is_residential:
+          type: boolean
+        is_validated:
+          type: boolean
+        name:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+        telephone:
+          type: string
+      type: object
+    property_ShippingRate_packages:
+      description: Multiple packages (alternative to package)
+      items:
+        $ref: '#/components/schemas/ShippingPackage'
+      type: array
+    ShippingTracking:
+      properties:
+        actual_delivery_at:
+          format: date-time
+          type: string
+        carrier_id:
+          type: string
+        carrier_status_code:
+          type: string
+        carrier_status_description:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        estimated_delivery:
+          format: date-time
+          type: string
+        events:
+          $ref: '#/components/schemas/property_ShippingTracking_events'
+        id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        shipment_id:
+          type: string
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - IN_TRANSIT
+          - DELIVERED
+          - EXCEPTION
+          - CANCELLED
+          - LABEL_CREATED
+          - PICKED_UP
+          - OUT_FOR_DELIVERY
+          - DELIVERY_ATTEMPTED
+          - RETURNED_TO_SENDER
+          - HELD_AT_LOCATION
+          - CUSTOMS_CLEARANCE
+          - EXCEPTION_RESOLVED
+          type: string
+          x-speakeasy-unknown-values: allow
+        status_description:
+          type: string
+        tracking_number:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_ShippingTracking_events:
+      description: Array of tracking events
+      items:
+        $ref: '#/components/schemas/ShippingTrackingEvent'
+      type: array
+    ShippingRateRate:
+      properties:
+        amount:
+          type: number
+        base_amount:
+          type: number
+        currency:
+          type: string
+        delivery_days:
+          type: number
+        delivery_terms:
+          type: string
+        description:
+          type: string
+        discount_amount:
+          type: number
+        estimated_days:
+          type: number
+        estimated_delivery_end_at:
+          format: date-time
+          type: string
+        estimated_delivery_start_at:
+          format: date-time
+          type: string
+        is_active:
+          type: boolean
+        is_guaranteed:
+          type: boolean
+        is_negotiated_rate:
+          type: boolean
+        is_trackable:
+          type: boolean
+        package_type:
+          type: string
+        rate_source:
+          type: string
+        surcharges:
+          $ref: '#/components/schemas/property_ShippingRateRate_surcharges'
+        tax_amount:
+          type: number
+        title:
+          type: string
+        transit_hours:
+          type: number
+      required:
+      - title
+      type: object
+    property_ShippingShipment_from_address:
+      description: Origin address
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        company_name:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        delivery_instructions:
+          type: string
+        email:
+          type: string
+        is_residential:
+          type: boolean
+        is_validated:
+          type: boolean
+        name:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+        telephone:
+          type: string
+      type: object
+    ShippingCarriers:
+      items:
+        $ref: '#/components/schemas/ShippingCarrier'
+      type: array
+    property_ShippingShipment_return_address:
+      description: Return address (may differ from from_address)
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        company_name:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        delivery_instructions:
+          type: string
+        email:
+          type: string
+        is_residential:
+          type: boolean
+        is_validated:
+          type: boolean
+        name:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+        telephone:
+          type: string
+      type: object
+    ShippingPackage:
+      properties:
+        currency:
+          type: string
+        description:
+          type: string
+        height:
+          type: number
+        insured_amount:
+          type: number
+        length:
+          type: number
+        size_unit:
+          enum:
+          - cm
+          - inch
+          type: string
+          x-speakeasy-unknown-values: allow
+        tracking_number:
+          type: string
+        value:
+          type: number
+        weight:
+          type: number
+        weight_unit:
+          enum:
+          - g
+          - kg
+          - oz
+          - lb
+          type: string
+          x-speakeasy-unknown-values: allow
+        width:
+          type: number
+      type: object
+    property_ShippingShipment_customs:
+      description: Customs information
+      properties:
+        amount:
+          type: number
+        contents_type:
+          enum:
+          - MERCHANDISE
+          - DOCUMENTS
+          - GIFT
+          - RETURNED_GOODS
+          - SAMPLE
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        currency:
+          type: string
+        description:
+          type: string
+        duties_paid_by:
+          enum:
+          - SENDER
+          - RECIPIENT
+          - THIRD_PARTY
+          type: string
+          x-speakeasy-unknown-values: allow
+        items:
+          $ref: '#/components/schemas/property_ShippingShipment_customs_items'
+        non_delivery_option:
+          enum:
+          - RETURN
+          - ABANDON
+          type: string
+          x-speakeasy-unknown-values: allow
+        recipient_eori:
+          type: string
+        recipient_tax_number:
+          type: string
+        restrictions:
+          $ref: '#/components/schemas/property_ShippingShipment_customs_restrictions'
+        shipper_eori:
+          type: string
+        shipper_tax_number:
+          type: string
+        taxes_paid_by:
+          enum:
+          - SENDER
+          - RECIPIENT
+          - THIRD_PARTY
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    ShippingShipments:
+      items:
+        $ref: '#/components/schemas/ShippingShipment'
+      type: array
+    ShippingTrackingEvent:
+      properties:
+        carrier_status_code:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        event_code:
+          type: string
+        location_address:
+          $ref: '#/components/schemas/property_ShippingTrackingEvent_location_address'
+        location_id:
+          type: string
+        location_name:
+          type: string
+        notes:
+          type: string
+        signed_by:
+          type: string
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - IN_TRANSIT
+          - DELIVERED
+          - EXCEPTION
+          - CANCELLED
+          - LABEL_CREATED
+          - PICKED_UP
+          - OUT_FOR_DELIVERY
+          - DELIVERY_ATTEMPTED
+          - RETURNED_TO_SENDER
+          - HELD_AT_LOCATION
+          - CUSTOMS_CLEARANCE
+          - EXCEPTION_RESOLVED
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    ShippingRate:
+      properties:
+        carrier_id:
+          type: string
+        currency:
+          type: string
+        from_address:
+          $ref: '#/components/schemas/property_ShippingRate_from_address'
+        id:
+          type: string
+        packages:
+          $ref: '#/components/schemas/property_ShippingRate_packages'
+        rates:
+          $ref: '#/components/schemas/property_ShippingRate_rates'
+        raw:
+          additionalProperties: true
+          type: object
+        ship_by_at:
+          format: date-time
+          type: string
+        shipment_id:
+          type: string
+        to_address:
+          $ref: '#/components/schemas/property_ShippingRate_to_address'
+      type: object
+    ShippingLabel:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        is_voided:
+          type: boolean
+        label_cost:
+          type: number
+        label_cost_currency:
+          type: string
+        label_format:
+          enum:
+          - PDF
+          - PNG
+          - ZPL
+          - EPL2
+          - PDF_4X6
+          - PDF_4X8
+          - PNG_4X6
+          - PNG_4X8
+          type: string
+          x-speakeasy-unknown-values: allow
+        label_url:
+          type: string
+        rate_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        service_code:
+          type: string
+        shipment_id:
+          type: string
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - IN_TRANSIT
+          - DELIVERED
+          - EXCEPTION
+          - CANCELLED
+          - LABEL_CREATED
+          - PICKED_UP
+          - OUT_FOR_DELIVERY
+          - DELIVERY_ATTEMPTED
+          - RETURNED_TO_SENDER
+          - HELD_AT_LOCATION
+          - CUSTOMS_CLEARANCE
+          - EXCEPTION_RESOLVED
+          type: string
+          x-speakeasy-unknown-values: allow
+        tracking_number:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_ShippingRate_from_address:
+      description: Origin address
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        company_name:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        delivery_instructions:
+          type: string
+        email:
+          type: string
+        is_residential:
+          type: boolean
+        is_validated:
+          type: boolean
+        name:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+        telephone:
+          type: string
+      type: object
+    property_ShippingShipment_customs_items:
+      description: Customs items
+      items:
+        $ref: '#/components/schemas/ShippingCustomsItem'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

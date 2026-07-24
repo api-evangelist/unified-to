@@ -1,0 +1,5905 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account ads API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: ads
+paths:
+  /ads/{connection_id}/ad:
+    get:
+      operationId: listAdsAds
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The org ID to filter by (reference to AdsOrganization)
+        in: query
+        name: org_id
+        required: false
+        schema:
+          type: string
+      - description: The campaign ID to filter by
+        in: query
+        name: campaign_id
+        required: false
+        schema:
+          type: string
+      - description: The group ID to filter by (reference to AdsGroup)
+        in: query
+        name: group_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - organization_id
+            - status
+            - ad_type
+            - creative_ids
+            - creative_asset_url
+            - ad_copy
+            - headline
+            - description
+            - cta
+            - final_url
+            - display_url
+            - path1
+            - path2
+            - promoted
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsAds'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Ads
+      tags:
+      - ads
+    post:
+      operationId: createAdsAd
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - organization_id
+            - status
+            - ad_type
+            - creative_ids
+            - creative_asset_url
+            - ad_copy
+            - headline
+            - description
+            - cta
+            - final_url
+            - display_url
+            - path1
+            - path2
+            - promoted
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsAd'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsAd'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an Ad
+      tags:
+      - ads
+  /ads/{connection_id}/ad/{id}:
+    delete:
+      operationId: removeAdsAd
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Ad
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an Ad
+      tags:
+      - ads
+    get:
+      operationId: getAdsAd
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - organization_id
+            - status
+            - ad_type
+            - creative_ids
+            - creative_asset_url
+            - ad_copy
+            - headline
+            - description
+            - cta
+            - final_url
+            - display_url
+            - path1
+            - path2
+            - promoted
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Ad
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsAd'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an Ad
+      tags:
+      - ads
+    patch:
+      operationId: patchAdsAd
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - organization_id
+            - status
+            - ad_type
+            - creative_ids
+            - creative_asset_url
+            - ad_copy
+            - headline
+            - description
+            - cta
+            - final_url
+            - display_url
+            - path1
+            - path2
+            - promoted
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Ad
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsAd'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsAd'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Ad
+      tags:
+      - ads
+    put:
+      operationId: updateAdsAd
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - organization_id
+            - status
+            - ad_type
+            - creative_ids
+            - creative_asset_url
+            - ad_copy
+            - headline
+            - description
+            - cta
+            - final_url
+            - display_url
+            - path1
+            - path2
+            - promoted
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Ad
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsAd'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsAd'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Ad
+      tags:
+      - ads
+  /ads/{connection_id}/campaign:
+    get:
+      operationId: listAdsCampaigns
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The org ID to filter by (reference to AdsOrganization)
+        in: query
+        name: org_id
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - organization_id
+            - status
+            - start_at
+            - end_at
+            - budget_amount
+            - budget_period
+            - total_spend_amount
+            - targeting
+            - goal
+            - planned_spend_amount
+            - frequency_cap
+            - advertising_channel_type
+            - campaign_budget_identifier
+            - currency
+            - category
+            - has_eu_political_ads
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsCampaigns'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Campaigns
+      tags:
+      - ads
+    post:
+      operationId: createAdsCampaign
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - organization_id
+            - status
+            - start_at
+            - end_at
+            - budget_amount
+            - budget_period
+            - total_spend_amount
+            - targeting
+            - goal
+            - planned_spend_amount
+            - frequency_cap
+            - advertising_channel_type
+            - campaign_budget_identifier
+            - currency
+            - category
+            - has_eu_political_ads
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsCampaign'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsCampaign'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Campaign
+      tags:
+      - ads
+  /ads/{connection_id}/campaign/{id}:
+    delete:
+      operationId: removeAdsCampaign
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Campaign
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Campaign
+      tags:
+      - ads
+    get:
+      operationId: getAdsCampaign
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - organization_id
+            - status
+            - start_at
+            - end_at
+            - budget_amount
+            - budget_period
+            - total_spend_amount
+            - targeting
+            - goal
+            - planned_spend_amount
+            - frequency_cap
+            - advertising_channel_type
+            - campaign_budget_identifier
+            - currency
+            - category
+            - has_eu_political_ads
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Campaign
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsCampaign'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Campaign
+      tags:
+      - ads
+    patch:
+      operationId: patchAdsCampaign
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - organization_id
+            - status
+            - start_at
+            - end_at
+            - budget_amount
+            - budget_period
+            - total_spend_amount
+            - targeting
+            - goal
+            - planned_spend_amount
+            - frequency_cap
+            - advertising_channel_type
+            - campaign_budget_identifier
+            - currency
+            - category
+            - has_eu_political_ads
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Campaign
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsCampaign'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsCampaign'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Campaign
+      tags:
+      - ads
+    put:
+      operationId: updateAdsCampaign
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - organization_id
+            - status
+            - start_at
+            - end_at
+            - budget_amount
+            - budget_period
+            - total_spend_amount
+            - targeting
+            - goal
+            - planned_spend_amount
+            - frequency_cap
+            - advertising_channel_type
+            - campaign_budget_identifier
+            - currency
+            - category
+            - has_eu_political_ads
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Campaign
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsCampaign'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsCampaign'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Campaign
+      tags:
+      - ads
+  /ads/{connection_id}/creative:
+    get:
+      operationId: listAdsCreatives
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The org ID to filter by (reference to AdsOrganization)
+        in: query
+        name: org_id
+        required: false
+        schema:
+          type: string
+      - description: The group ID to filter by (reference to AdsGroup)
+        in: query
+        name: group_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - item_id
+            - organization_id
+            - status
+            - creative_type
+            - hosting_source
+            - width
+            - height
+            - asset_urls
+            - link_url
+            - body
+            - title
+            - cta
+            - third_party_tag
+            - vast_tag_url
+            - external_creative_reference
+            - external_placement_reference
+            - external_ad_reference
+            - promoted
+            - path1
+            - path2
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsCreatives'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Creatives
+      tags:
+      - ads
+    post:
+      operationId: createAdsCreative
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - item_id
+            - organization_id
+            - status
+            - creative_type
+            - hosting_source
+            - width
+            - height
+            - asset_urls
+            - link_url
+            - body
+            - title
+            - cta
+            - third_party_tag
+            - vast_tag_url
+            - external_creative_reference
+            - external_placement_reference
+            - external_ad_reference
+            - promoted
+            - path1
+            - path2
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsCreative'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsCreative'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Creative
+      tags:
+      - ads
+  /ads/{connection_id}/creative/{id}:
+    delete:
+      operationId: removeAdsCreative
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Creative
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Creative
+      tags:
+      - ads
+    get:
+      operationId: getAdsCreative
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - item_id
+            - organization_id
+            - status
+            - creative_type
+            - hosting_source
+            - width
+            - height
+            - asset_urls
+            - link_url
+            - body
+            - title
+            - cta
+            - third_party_tag
+            - vast_tag_url
+            - external_creative_reference
+            - external_placement_reference
+            - external_ad_reference
+            - promoted
+            - path1
+            - path2
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Creative
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsCreative'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Creative
+      tags:
+      - ads
+    patch:
+      operationId: patchAdsCreative
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - item_id
+            - organization_id
+            - status
+            - creative_type
+            - hosting_source
+            - width
+            - height
+            - asset_urls
+            - link_url
+            - body
+            - title
+            - cta
+            - third_party_tag
+            - vast_tag_url
+            - external_creative_reference
+            - external_placement_reference
+            - external_ad_reference
+            - promoted
+            - path1
+            - path2
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Creative
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsCreative'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsCreative'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Creative
+      tags:
+      - ads
+    put:
+      operationId: updateAdsCreative
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - campaign_id
+            - group_id
+            - item_id
+            - organization_id
+            - status
+            - creative_type
+            - hosting_source
+            - width
+            - height
+            - asset_urls
+            - link_url
+            - body
+            - title
+            - cta
+            - third_party_tag
+            - vast_tag_url
+            - external_creative_reference
+            - external_placement_reference
+            - external_ad_reference
+            - promoted
+            - path1
+            - path2
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Creative
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsCreative'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsCreative'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Creative
+      tags:
+      - ads
+  /ads/{connection_id}/group:
+    get:
+      operationId: listAdsGroups
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The org ID to filter by (reference to AdsOrganization)
+        in: query
+        name: org_id
+        required: false
+        schema:
+          type: string
+      - description: The campaign ID to filter by
+        in: query
+        name: campaign_id
+        required: false
+        schema:
+          type: string
+      - description: The parent ID to filter by
+        in: query
+        name: parent_id
+        required: false
+        schema:
+          type: string
+      - description: The IO ID to filter by
+        in: query
+        name: io_id
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - parent_id
+            - campaign_id
+            - organization_id
+            - insertionorder_id
+            - status
+            - targeting
+            - bid_amount
+            - bid_strategy
+            - budget_amount
+            - budget_period
+            - budget_allocation_type
+            - start_at
+            - end_at
+            - budget_unit
+            - budget_max_amount
+            - type
+            - has_eu_political_ads
+            - pacing
+            - frequency_cap
+            - creative_ids
+            - optimization_goal
+            - billing_event
+            - currency
+            - promoted
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsGroups'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Groups
+      tags:
+      - ads
+    post:
+      operationId: createAdsGroup
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - parent_id
+            - campaign_id
+            - organization_id
+            - insertionorder_id
+            - status
+            - targeting
+            - bid_amount
+            - bid_strategy
+            - budget_amount
+            - budget_period
+            - budget_allocation_type
+            - start_at
+            - end_at
+            - budget_unit
+            - budget_max_amount
+            - type
+            - has_eu_political_ads
+            - pacing
+            - frequency_cap
+            - creative_ids
+            - optimization_goal
+            - billing_event
+            - currency
+            - promoted
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsGroup'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsGroup'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Group
+      tags:
+      - ads
+  /ads/{connection_id}/group/{id}:
+    delete:
+      operationId: removeAdsGroup
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Group
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Group
+      tags:
+      - ads
+    get:
+      operationId: getAdsGroup
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - parent_id
+            - campaign_id
+            - organization_id
+            - insertionorder_id
+            - status
+            - targeting
+            - bid_amount
+            - bid_strategy
+            - budget_amount
+            - budget_period
+            - budget_allocation_type
+            - start_at
+            - end_at
+            - budget_unit
+            - budget_max_amount
+            - type
+            - has_eu_political_ads
+            - pacing
+            - frequency_cap
+            - creative_ids
+            - optimization_goal
+            - billing_event
+            - currency
+            - promoted
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Group
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsGroup'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Group
+      tags:
+      - ads
+    patch:
+      operationId: patchAdsGroup
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - parent_id
+            - campaign_id
+            - organization_id
+            - insertionorder_id
+            - status
+            - targeting
+            - bid_amount
+            - bid_strategy
+            - budget_amount
+            - budget_period
+            - budget_allocation_type
+            - start_at
+            - end_at
+            - budget_unit
+            - budget_max_amount
+            - type
+            - has_eu_political_ads
+            - pacing
+            - frequency_cap
+            - creative_ids
+            - optimization_goal
+            - billing_event
+            - currency
+            - promoted
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Group
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsGroup'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsGroup'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Group
+      tags:
+      - ads
+    put:
+      operationId: updateAdsGroup
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - parent_id
+            - campaign_id
+            - organization_id
+            - insertionorder_id
+            - status
+            - targeting
+            - bid_amount
+            - bid_strategy
+            - budget_amount
+            - budget_period
+            - budget_allocation_type
+            - start_at
+            - end_at
+            - budget_unit
+            - budget_max_amount
+            - type
+            - has_eu_political_ads
+            - pacing
+            - frequency_cap
+            - creative_ids
+            - optimization_goal
+            - billing_event
+            - currency
+            - promoted
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Group
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsGroup'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsGroup'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Group
+      tags:
+      - ads
+  /ads/{connection_id}/insertionorder:
+    get:
+      operationId: listAdsInsertionorders
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The org ID to filter by (reference to AdsOrganization)
+        in: query
+        name: org_id
+        required: false
+        schema:
+          type: string
+      - description: The campaign ID to filter by
+        in: query
+        name: campaign_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - organization_id
+            - campaign_id
+            - status
+            - pacing
+            - frequency_cap
+            - kpi
+            - budget_unit
+            - budget_segments
+            - bid_strategy
+            - reference
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsInsertionorders'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Insertionorders
+      tags:
+      - ads
+    post:
+      operationId: createAdsInsertionorder
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - organization_id
+            - campaign_id
+            - status
+            - pacing
+            - frequency_cap
+            - kpi
+            - budget_unit
+            - budget_segments
+            - bid_strategy
+            - reference
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsInsertionorder'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsInsertionorder'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an Insertionorder
+      tags:
+      - ads
+  /ads/{connection_id}/insertionorder/{id}:
+    delete:
+      operationId: removeAdsInsertionorder
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Insertionorder
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an Insertionorder
+      tags:
+      - ads
+    get:
+      operationId: getAdsInsertionorder
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - organization_id
+            - campaign_id
+            - status
+            - pacing
+            - frequency_cap
+            - kpi
+            - budget_unit
+            - budget_segments
+            - bid_strategy
+            - reference
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Insertionorder
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsInsertionorder'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an Insertionorder
+      tags:
+      - ads
+    patch:
+      operationId: patchAdsInsertionorder
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - organization_id
+            - campaign_id
+            - status
+            - pacing
+            - frequency_cap
+            - kpi
+            - budget_unit
+            - budget_segments
+            - bid_strategy
+            - reference
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Insertionorder
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsInsertionorder'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsInsertionorder'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Insertionorder
+      tags:
+      - ads
+    put:
+      operationId: updateAdsInsertionorder
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - organization_id
+            - campaign_id
+            - status
+            - pacing
+            - frequency_cap
+            - kpi
+            - budget_unit
+            - budget_segments
+            - bid_strategy
+            - reference
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Insertionorder
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsInsertionorder'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsInsertionorder'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Insertionorder
+      tags:
+      - ads
+  /ads/{connection_id}/organization:
+    get:
+      operationId: listAdsOrganizations
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The parent ID to filter by
+        in: query
+        name: parent_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - currency
+            - timezone
+            - parent_id
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsOrganizations'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Organizations
+      tags:
+      - ads
+    post:
+      operationId: createAdsOrganization
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - currency
+            - timezone
+            - parent_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsOrganization'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsOrganization'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an Organization
+      tags:
+      - ads
+  /ads/{connection_id}/organization/{id}:
+    delete:
+      operationId: removeAdsOrganization
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Organization
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an Organization
+      tags:
+      - ads
+    get:
+      operationId: getAdsOrganization
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - currency
+            - timezone
+            - parent_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Organization
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsOrganization'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an Organization
+      tags:
+      - ads
+    patch:
+      operationId: patchAdsOrganization
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - currency
+            - timezone
+            - parent_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Organization
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsOrganization'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsOrganization'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Organization
+      tags:
+      - ads
+    put:
+      operationId: updateAdsOrganization
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - currency
+            - timezone
+            - parent_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Organization
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdsOrganization'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsOrganization'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Organization
+      tags:
+      - ads
+  /ads/{connection_id}/promoted:
+    get:
+      operationId: listAdsPromoteds
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The org ID to filter by (reference to AdsOrganization)
+        in: query
+        name: org_id
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - name
+            - type
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsPromoteds'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Promoteds
+      tags:
+      - ads
+  /ads/{connection_id}/promoted/{id}:
+    get:
+      operationId: getAdsPromoted
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - name
+            - type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Promoted
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsPromoted'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Promoted
+      tags:
+      - ads
+  /ads/{connection_id}/report:
+    get:
+      operationId: listAdsReports
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The org ID to filter by (reference to AdsOrganization)
+        in: query
+        name: org_id
+        required: false
+        schema:
+          type: string
+      - description: The campaign ID to filter by
+        in: query
+        name: campaign_id
+        required: false
+        schema:
+          type: string
+      - description: The group ID to filter by (reference to AdsGroup)
+        in: query
+        name: group_id
+        required: false
+        schema:
+          type: string
+      - description: The ad ID to filter by
+        in: query
+        name: ad_id
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - currency
+            - metrics
+            - start_at
+            - end_at
+            - organization_id
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsReports'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Reports
+      tags:
+      - ads
+  /ads/{connection_id}/target:
+    get:
+      operationId: listAdsTargets
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The org ID to filter by (reference to AdsOrganization)
+        in: query
+        name: org_id
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - name
+            - type
+            - is_active
+            - parent_id
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsTargets'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Targets
+      tags:
+      - ads
+  /ads/{connection_id}/target/{id}:
+    get:
+      operationId: getAdsTarget
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - name
+            - type
+            - is_active
+            - parent_id
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Target
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsTarget'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Target
+      tags:
+      - ads
+components:
+  schemas:
+    property_AdsReportMetrics_campaign_targeting_content_excluded_topics:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_geographic_cities:
+      items:
+        $ref: '#/components/schemas/CityTarget'
+      type: array
+    property_AdsCampaign_targeting_geographic_postal_codes:
+      items:
+        type: string
+      type: array
+    property_AdsAd_promoted:
+      items:
+        $ref: '#/components/schemas/AdsPromoted'
+      type: array
+    AdsInsertionorderBudgetSegment:
+      properties:
+        budget_amount:
+          type: number
+        description:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        start_at:
+          format: date-time
+          type: string
+      type: object
+    AdsCampaign:
+      properties:
+        advertising_channel_type:
+          enum:
+          - TEXT
+          - IMAGE
+          - VIDEO
+          - RESPONSIVE
+          - SHOPPING
+          - APP
+          - CALL
+          - CAROUSEL
+          - SOCIAL
+          - DISPLAY
+          - SEARCH
+          - AUDIO
+          - YOUTUBE
+          type: string
+          x-speakeasy-unknown-values: allow
+        budget_amount:
+          type: number
+        budget_period:
+          enum:
+          - DAILY
+          - MONTHLY
+          - TOTAL
+          - LIFETIME
+          type: string
+          x-speakeasy-unknown-values: allow
+        campaign_budget_identifier:
+          type: string
+        category:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        frequency_cap:
+          $ref: '#/components/schemas/property_AdsCampaign_frequency_cap'
+        goal:
+          enum:
+          - UNSPECIFIED
+          - BRAND_AWARENESS
+          - REACH
+          - WEBSITE_TRAFFIC
+          - LEADS
+          - SALES
+          - APP_PROMOTION
+          type: string
+          x-speakeasy-unknown-values: allow
+        has_eu_political_ads:
+          type: boolean
+        id:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        planned_spend_amount:
+          type: number
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - UNSPECIFIED
+          - ACTIVE
+          - PAUSED
+          - ARCHIVED
+          - DRAFT
+          - SCHEDULED_FOR_DELETION
+          type: string
+          x-speakeasy-unknown-values: allow
+        targeting:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting'
+        total_spend_amount:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AdsCampaign_targeting_content_video_excluded_youtube_videos:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_content_video_player_sizes:
+      items:
+        enum:
+        - SMALL
+        - LARGE
+        - HD
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsReportMetrics_group_targeting_content_excluded_keywords:
+      items:
+        $ref: '#/components/schemas/AdsKeyword'
+      type: array
+    property_AdsReportMetrics_ad:
+      properties:
+        ad_copy:
+          type: string
+        ad_type:
+          enum:
+          - TEXT
+          - IMAGE
+          - VIDEO
+          - RESPONSIVE
+          - SHOPPING
+          - APP
+          - CALL
+          - CAROUSEL
+          - SOCIAL
+          - DISPLAY
+          - SEARCH
+          - AUDIO
+          - YOUTUBE
+          type: string
+          x-speakeasy-unknown-values: allow
+        campaign_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        creative_asset_url:
+          type: string
+        creative_ids:
+          $ref: '#/components/schemas/property_AdsReportMetrics_ad_creative_ids'
+        cta:
+          type: string
+        description:
+          type: string
+        display_url:
+          type: string
+        final_url:
+          type: string
+        group_id:
+          type: string
+        headline:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        path1:
+          type: string
+        path2:
+          type: string
+        promoted:
+          $ref: '#/components/schemas/property_AdsReportMetrics_ad_promoted'
+        raw:
+          additionalProperties: true
+          type: object
+        status:
+          enum:
+          - UNSPECIFIED
+          - ACTIVE
+          - PAUSED
+          - ARCHIVED
+          - DRAFT
+          - SCHEDULED_FOR_DELETION
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    AdsReportMetrics:
+      properties:
+        ad:
+          $ref: '#/components/schemas/property_AdsReportMetrics_ad'
+        campaign:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign'
+        group:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group'
+        type:
+          enum:
+          - CLICKS
+          - IMPRESSIONS
+          - CONVERSIONS
+          - COST
+          - CTR
+          - CPC
+          - CONVERSION_VALUE
+          - CPA
+          - ROAS
+          - CPM
+          - ECPM
+          - ENGAGEMENT
+          - VIDEO_COMPLETIONS
+          - VIDEO_VIEWS
+          - LEADS
+          - ENGAGEMENTS
+          - SAVES
+          - LIKES
+          - SHARES
+          - COMMENTS
+          - FOLLOWS
+          type: string
+          x-speakeasy-unknown-values: allow
+        value:
+          type: number
+      type: object
+    property_AdsReportMetrics_group_bid_strategy:
+      description: YOUTUBE_AND_PARTNERS
+      properties:
+        custom_bidding_algorithm_id:
+          type: string
+        fixed_bid_amount:
+          type: number
+        max_average_cpm_bid_amount:
+          type: number
+        performance_goal_amount:
+          type: number
+        performance_goal_type:
+          enum:
+          - UNSPECIFIED
+          - CPA
+          - CPC
+          - VIEWABLE_CPM
+          - CUSTOM_ALGO
+          - CIVA
+          - IVO_TEN
+          - AV_VIEWED
+          - REACH
+          type: string
+          x-speakeasy-unknown-values: allow
+        raise_bid_for_deals:
+          type: boolean
+        target_roas:
+          type: number
+        type:
+          enum:
+          - FIXED_BID
+          - MAXIMIZE_SPEND
+          - PERFORMANCE_GOAL
+          - YOUTUBE_AND_PARTNERS
+          type: string
+          x-speakeasy-unknown-values: allow
+        youtube_and_partners_type:
+          enum:
+          - UNSPECIFIED
+          - MANUAL_CPV
+          - MANUAL_CPM
+          - TARGET_CPA
+          - TARGET_CPM
+          - RESERVE_CPM
+          - MAXIMIZE_LIFT
+          - MAXIMIZE_CONVERSIONS
+          - TARGET_CPV
+          - TARGET_ROAS
+          - MAXIMIZE_CONVERSION_VALUE
+          type: string
+          x-speakeasy-unknown-values: allow
+        youtube_and_partners_value:
+          type: string
+      required:
+      - type
+      type: object
+    property_AdsReportMetrics_group_targeting_optimization:
+      description: 'Optimization (Meta: targeting_automation; Google: observation vs targeting mode)'
+      properties:
+        advantage_audience:
+          type: boolean
+        advantage_placements:
+          type: boolean
+        mode:
+          enum:
+          - TARGETING
+          - OBSERVATION
+          type: string
+          x-speakeasy-unknown-values: allow
+        targeting_optimization_expansion_all:
+          type: boolean
+      type: object
+    property_AdsReportMetrics_campaign_targeting_geographic_regions:
+      items:
+        $ref: '#/components/schemas/RegionTarget'
+      type: array
+    property_AdsGroup_targeting_language_codes:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_keywords:
+      items:
+        $ref: '#/components/schemas/AdsKeyword'
+      type: array
+    property_AdsCampaign_targeting:
+      properties:
+        audience:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience'
+        brand_safety:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety'
+        content:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content'
+        demographic:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_demographic'
+        device:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_device'
+        geographic:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic'
+        language:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_language'
+        optimization:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_optimization'
+        placement:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement'
+        schedule:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_schedule'
+      type: object
+    property_AdsReportMetrics_group_targeting_device_carriers:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_geographic_location_types:
+      items:
+        enum:
+        - HOME
+        - RECENT
+        - TRAVEL
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsReportMetrics_campaign_targeting_demographic:
+      description: 'Demographic targeting (Meta: age_min, age_max, genders)'
+      properties:
+        age_max:
+          type: number
+        age_min:
+          type: number
+        female:
+          type: boolean
+        male:
+          type: boolean
+      type: object
+    property_AdsReportMetrics_campaign_targeting_device_types:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_placement_facebook_positions:
+      items:
+        type: string
+      type: array
+    AdsCampaigns:
+      items:
+        $ref: '#/components/schemas/AdsCampaign'
+      type: array
+    property_AdsReportMetrics_group_targeting_geographic_excluded_regions:
+      items:
+        $ref: '#/components/schemas/RegionTarget'
+      type: array
+    property_AdsCampaign_targeting_audience_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    AdsCreative:
+      properties:
+        asset_urls:
+          $ref: '#/components/schemas/property_AdsCreative_asset_urls'
+        body:
+          type: string
+        campaign_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        creative_type:
+          enum:
+          - UNSPECIFIED
+          - STANDARD
+          - EXPANDABLE
+          - VIDEO
+          - NATIVE
+          - AUDIO
+          - PUBLISHER_HOSTED
+          - ASSET_BASED
+          type: string
+          x-speakeasy-unknown-values: allow
+        cta:
+          type: string
+        external_ad_reference:
+          type: string
+        external_creative_reference:
+          type: string
+        external_placement_reference:
+          type: string
+        group_id:
+          type: string
+        height:
+          type: number
+        hosting_source:
+          enum:
+          - UNSPECIFIED
+          - CM
+          - THIRD_PARTY
+          - HOSTED
+          - RICH_MEDIA
+          - PUBLISHER_HOSTED
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        item_id:
+          type: string
+        link_url:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        path1:
+          type: string
+        path2:
+          type: string
+        promoted:
+          $ref: '#/components/schemas/property_AdsCreative_promoted'
+        raw:
+          additionalProperties: true
+          type: object
+        status:
+          enum:
+          - UNSPECIFIED
+          - ACTIVE
+          - PAUSED
+          - ARCHIVED
+          - DRAFT
+          - SCHEDULED_FOR_DELETION
+          type: string
+          x-speakeasy-unknown-values: allow
+        third_party_tag:
+          type: string
+        title:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        vast_tag_url:
+          type: string
+        width:
+          type: number
+      type: object
+    property_AdsGroup_targeting_placement_messenger_positions:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_content:
+      properties:
+        excluded_keywords:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_excluded_keywords'
+        excluded_topics:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_excluded_topics'
+        excluded_urls:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_excluded_urls'
+        keywords:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_keywords'
+        topics:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_topics'
+        urls:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_urls'
+        video:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video'
+      type: object
+    property_AdsGroup_targeting_geographic_cities:
+      items:
+        $ref: '#/components/schemas/CityTarget'
+      type: array
+    property_AdsInsertionorder_frequency_cap:
+      properties:
+        is_unlimited:
+          type: boolean
+        max_impressions:
+          type: number
+        max_views:
+          type: number
+        time_unit:
+          enum:
+          - UNSPECIFIED
+          - LIFETIME
+          - MONTHS
+          - WEEKS
+          - DAYS
+          - HOURS
+          - MINUTES
+          type: string
+          x-speakeasy-unknown-values: allow
+        time_unit_count:
+          type: number
+      type: object
+    property_AdsCampaign_targeting_geographic_excluded_postal_codes:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_device_user_device:
+      items:
+        type: string
+      type: array
+    property_AdsCreative_asset_urls:
+      description: Hosted asset mode (best-effort, provider-specific
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_audience:
+      properties:
+        behaviors:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_behaviors'
+        combination_spec:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_combination_spec'
+        custom_audiences:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_custom_audiences'
+        excluded_behaviors:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_excluded_behaviors'
+        excluded_custom_audiences:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_excluded_custom_audiences'
+        excluded_interests:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_excluded_interests'
+        interests:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_interests'
+        lookalike_audiences:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_lookalike_audiences'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_device_user_os:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_schedule:
+      items:
+        $ref: '#/components/schemas/AdSchedule'
+      type: array
+    property_AdsCampaign_targeting_demographic:
+      description: 'Demographic targeting (Meta: age_min, age_max, genders)'
+      properties:
+        age_max:
+          type: number
+        age_min:
+          type: number
+        female:
+          type: boolean
+        male:
+          type: boolean
+      type: object
+    AdsReports:
+      items:
+        $ref: '#/components/schemas/AdsReport'
+      type: array
+    property_AdsCampaign_targeting_optimization:
+      description: 'Optimization (Meta: targeting_automation; Google: observation vs targeting mode)'
+      properties:
+        advantage_audience:
+          type: boolean
+        advantage_placements:
+          type: boolean
+        mode:
+          enum:
+          - TARGETING
+          - OBSERVATION
+          type: string
+          x-speakeasy-unknown-values: allow
+        targeting_optimization_expansion_all:
+          type: boolean
+      type: object
+    property_AdsCampaign_targeting_geographic_excluded_countries:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic_postal_codes:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_content_urls:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_audience_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_placement_audience_network_positions:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic_location_types:
+      items:
+        enum:
+        - HOME
+        - RECENT
+        - TRAVEL
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsCampaign_targeting_content_video_excluded_youtube_channels:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_audience_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsGroup_targeting_content_video_excluded_youtube_videos:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_geographic_us_dmas:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_placement:
+      properties:
+        audience_network_positions:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement_audience_network_positions'
+        facebook_positions:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement_facebook_positions'
+        instagram_positions:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement_instagram_positions'
+        messenger_positions:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement_messenger_positions'
+        platforms:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement_platforms'
+      type: object
+    property_AdsCampaign_targeting_brand_safety_brand_safety_content_filter_levels:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_audience:
+      properties:
+        behaviors:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_behaviors'
+        combination_spec:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_combination_spec'
+        custom_audiences:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_custom_audiences'
+        excluded_behaviors:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_excluded_behaviors'
+        excluded_custom_audiences:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_excluded_custom_audiences'
+        excluded_interests:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_excluded_interests'
+        interests:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_interests'
+        lookalike_audiences:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_lookalike_audiences'
+      type: object
+    property_AdsCampaign_targeting_device_types:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_audience_combination_spec:
+      items:
+        $ref: '#/components/schemas/AudienceCombination'
+      type: array
+    property_AdsCampaign_targeting_content_excluded_topics:
+      items:
+        type: string
+      type: array
+    AdsOrganizations:
+      items:
+        $ref: '#/components/schemas/AdsOrganization'
+      type: array
+    property_AdsGroup_targeting_brand_safety_excluded_content_labels:
+      description: Google Ads ContentLabelType
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_device_user_os:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_frequency_cap:
+      properties:
+        is_unlimited:
+          type: boolean
+        max_impressions:
+          type: number
+        max_views:
+          type: number
+        time_unit:
+          enum:
+          - UNSPECIFIED
+          - LIFETIME
+          - MONTHS
+          - WEEKS
+          - DAYS
+          - HOURS
+          - MINUTES
+          type: string
+          x-speakeasy-unknown-values: allow
+        time_unit_count:
+          type: number
+      type: object
+    property_AdsReportMetrics_group_targeting_content_video_player_sizes:
+      items:
+        enum:
+        - SMALL
+        - LARGE
+        - HD
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsReportMetrics_campaign_targeting_language:
+      description: Language targeting (Meta
+      properties:
+        codes:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_language_codes'
+        locale_ids:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_language_locale_ids'
+      type: object
+    property_AdsGroup_targeting_content_video_durations:
+      items:
+        enum:
+        - SHORT
+        - MEDIUM
+        - LONG
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsReportMetrics_campaign_targeting_language_codes:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_brand_safety_block_list_ids:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_promoted:
+      items:
+        $ref: '#/components/schemas/AdsPromoted'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_optimization:
+      description: 'Optimization (Meta: targeting_automation; Google: observation vs targeting mode)'
+      properties:
+        advantage_audience:
+          type: boolean
+        advantage_placements:
+          type: boolean
+        mode:
+          enum:
+          - TARGETING
+          - OBSERVATION
+          type: string
+          x-speakeasy-unknown-values: allow
+        targeting_optimization_expansion_all:
+          type: boolean
+      type: object
+    property_AdsGroup_targeting_audience_lookalike_audiences:
+      items:
+        $ref: '#/components/schemas/LookalikeAudience'
+      type: array
+    property_AdsReport_metrics:
+      items:
+        $ref: '#/components/schemas/AdsReportMetrics'
+      type: array
+    property_AdsReportMetrics_group_targeting_placement_audience_network_positions:
+      items:
+        type: string
+      type: array
+    CityTarget:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        radius:
+          type: number
+        radius_unit:
+          enum:
+          - MILES
+          - KILOMETERS
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - id
+      type: object
+    property_AdsReportMetrics_group_targeting_geographic_excluded_countries:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_placement:
+      properties:
+        audience_network_positions:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_placement_audience_network_positions'
+        facebook_positions:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_placement_facebook_positions'
+        instagram_positions:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_placement_instagram_positions'
+        messenger_positions:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_placement_messenger_positions'
+        platforms:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_placement_platforms'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_audience_excluded_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    AdsPromoteds:
+      items:
+        $ref: '#/components/schemas/AdsPromoted'
+      type: array
+    property_AdsGroup_pacing:
+      properties:
+        daily_max_amount:
+          type: number
+        daily_max_impressions:
+          type: number
+        period:
+          enum:
+          - UNSPECIFIED
+          - DAILY
+          - FLIGHT
+          type: string
+          x-speakeasy-unknown-values: allow
+        type:
+          type: string
+      type: object
+    property_AdsReportMetrics_group_targeting_audience_lookalike_audiences:
+      items:
+        $ref: '#/components/schemas/LookalikeAudience'
+      type: array
+    property_AdsCampaign_targeting_audience_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_group_targeting_demographic:
+      description: 'Demographic targeting (Meta: age_min, age_max, genders)'
+      properties:
+        age_max:
+          type: number
+        age_min:
+          type: number
+        female:
+          type: boolean
+        male:
+          type: boolean
+      type: object
+    property_AdsReportMetrics_group_targeting_content_video_durations:
+      items:
+        enum:
+        - SHORT
+        - MEDIUM
+        - LONG
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsGroup_targeting_language:
+      description: Language targeting (Meta
+      properties:
+        codes:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_language_codes'
+        locale_ids:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_language_locale_ids'
+      type: object
+    AudienceSegment:
+      description: 'Audience targeting (Meta: custom_audiences, lookalike_audiences, flexible_spec)'
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - id
+      type: object
+    property_AdsReportMetrics_campaign_targeting_content_video_player_sizes:
+      items:
+        enum:
+        - SMALL
+        - LARGE
+        - HD
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsGroup_targeting_content_video_youtube_videos:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_content_video_positions:
+      items:
+        enum:
+        - PREROLL
+        - MIDROLL
+        - POSTROLL
+        - INSTREAM
+        - OUTSTREAM
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsGroup_targeting_audience_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsGroup_targeting_audience_custom_audiences:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_audience_lookalike_audiences:
+      items:
+        $ref: '#/components/schemas/LookalikeAudience'
+      type: array
+    property_AdsCampaign_frequency_cap:
+      properties:
+        is_unlimited:
+          type: boolean
+        max_impressions:
+          type: number
+        max_views:
+          type: number
+        time_unit:
+          enum:
+          - UNSPECIFIED
+          - LIFETIME
+          - MONTHS
+          - WEEKS
+          - DAYS
+          - HOURS
+          - MINUTES
+          type: string
+          x-speakeasy-unknown-values: allow
+        time_unit_count:
+          type: number
+      type: object
+    property_AdsGroup_targeting_geographic:
+      properties:
+        cities:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_cities'
+        countries:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_countries'
+        excluded_cities:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_excluded_cities'
+        excluded_countries:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_excluded_countries'
+        excluded_postal_codes:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_excluded_postal_codes'
+        excluded_regions:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_excluded_regions'
+        excluded_us_dmas:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_excluded_us_dmas'
+        location_types:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_location_types'
+        postal_codes:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_postal_codes'
+        presence_type:
+          enum:
+          - PRESENCE
+          - PRESENCE_OR_INTEREST
+          type: string
+          x-speakeasy-unknown-values: allow
+        regions:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_regions'
+        us_dmas:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_us_dmas'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_language_locale_ids:
+      items:
+        type: number
+      type: array
+    property_AdsCampaign_targeting_brand_safety_excluded_publisher_categories:
+      items:
+        type: string
+      type: array
+    AudienceCombination:
+      properties:
+        behaviors:
+          $ref: '#/components/schemas/property_AudienceCombination_behaviors'
+        demographics:
+          $ref: '#/components/schemas/property_AudienceCombination_demographics'
+        interests:
+          $ref: '#/components/schemas/property_AudienceCombination_interests'
+        life_events:
+          $ref: '#/components/schemas/property_AudienceCombination_life_events'
+      type: object
+    property_AdsGroup_targeting_content_video_excluded_youtube_channels:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_geographic_excluded_cities:
+      items:
+        $ref: '#/components/schemas/CityTarget'
+      type: array
+    property_AdsReportMetrics_group_targeting_brand_safety_brand_safety_content_filter_levels:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_placement_audience_network_positions:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_brand_safety_brand_safety_content_filter_levels:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_audience_combination_spec:
+      items:
+        $ref: '#/components/schemas/AudienceCombination'
+      type: array
+    property_AdsInsertionorder_bid_strategy:
+      description: YOUTUBE_AND_PARTNERS
+      properties:
+        custom_bidding_algorithm_id:
+          type: string
+        fixed_bid_amount:
+          type: number
+        max_average_cpm_bid_amount:
+          type: number
+        performance_goal_amount:
+          type: number
+        performance_goal_type:
+          enum:
+          - UNSPECIFIED
+          - CPA
+          - CPC
+          - VIEWABLE_CPM
+          - CUSTOM_ALGO
+          - CIVA
+          - IVO_TEN
+          - AV_VIEWED
+          - REACH
+          type: string
+          x-speakeasy-unknown-values: allow
+        raise_bid_for_deals:
+          type: boolean
+        target_roas:
+          type: number
+        type:
+          enum:
+          - FIXED_BID
+          - MAXIMIZE_SPEND
+          - PERFORMANCE_GOAL
+          - YOUTUBE_AND_PARTNERS
+          type: string
+          x-speakeasy-unknown-values: allow
+        youtube_and_partners_type:
+          enum:
+          - UNSPECIFIED
+          - MANUAL_CPV
+          - MANUAL_CPM
+          - TARGET_CPA
+          - TARGET_CPM
+          - RESERVE_CPM
+          - MAXIMIZE_LIFT
+          - MAXIMIZE_CONVERSIONS
+          - TARGET_CPV
+          - TARGET_ROAS
+          - MAXIMIZE_CONVERSION_VALUE
+          type: string
+          x-speakeasy-unknown-values: allow
+        youtube_and_partners_value:
+          type: string
+      required:
+      - type
+      type: object
+    property_AdsCampaign_targeting_language:
+      description: Language targeting (Meta
+      properties:
+        codes:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_language_codes'
+        locale_ids:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_language_locale_ids'
+      type: object
+    property_AdsReportMetrics_group:
+      properties:
+        bid_amount:
+          type: number
+        bid_strategy:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_bid_strategy'
+        billing_event:
+          enum:
+          - IMPRESSIONS
+          - LINK_CLICKS
+          - VIDEO_VIEWS
+          - APP_INSTALLS
+          - ENGAGEMENT
+          - PAGE_LIKES
+          - MESSAGES
+          - POST_ENGAGEMENT
+          - PURCHASE
+          - NONE
+          type: string
+          x-speakeasy-unknown-values: allow
+        budget_allocation_type:
+          enum:
+          - UNSPECIFIED
+          - AUTOMATIC
+          - FIXED
+          - UNLIMITED
+          type: string
+          x-speakeasy-unknown-values: allow
+        budget_amount:
+          type: number
+        budget_max_amount:
+          type: number
+        budget_period:
+          enum:
+          - DAILY
+          - MONTHLY
+          - TOTAL
+          - LIFETIME
+          type: string
+          x-speakeasy-unknown-values: allow
+        budget_unit:
+          enum:
+          - UNSPECIFIED
+          - CURRENCY
+          - IMPRESSIONS
+          type: string
+          x-speakeasy-unknown-values: allow
+        campaign_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        creative_ids:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_creative_ids'
+        currency:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        frequency_cap:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_frequency_cap'
+        has_eu_political_ads:
+          type: boolean
+        id:
+          type: string
+        insertionorder_id:
+          type: string
+        name:
+          type: string
+        optimization_goal:
+          enum:
+          - REACH
+          - IMPRESSIONS
+          - LINK_CLICKS
+          - LANDING_PAGE_VIEWS
+          - CONVERSIONS
+          - LEAD_GENERATION
+          - APP_INSTALLS
+          - APP_ENGAGEMENT
+          - VIDEO_VIEWS
+          - ENGAGEMENT
+          - PAGE_LIKES
+          - MESSAGES
+          type: string
+          x-speakeasy-unknown-values: allow
+        organization_id:
+          type: string
+        pacing:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_pacing'
+        parent_id:
+          type: string
+        promoted:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_promoted'
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - UNSPECIFIED
+          - ACTIVE
+          - PAUSED
+          - ARCHIVED
+          - DRAFT
+          - SCHEDULED_FOR_DELETION
+          type: string
+          x-speakeasy-unknown-values: allow
+        targeting:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting'
+        type:
+          enum:
+          - TEXT
+          - IMAGE
+          - VIDEO
+          - RESPONSIVE
+          - SHOPPING
+          - APP
+          - CALL
+          - CAROUSEL
+          - SOCIAL
+          - DISPLAY
+          - SEARCH
+          - AUDIO
+          - YOUTUBE
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    AdsOrganization:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        timezone:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AdsReportMetrics_campaign_targeting_brand_safety:
+      description: 'Brand safety (Meta: excluded_publisher_categories, etc.; Google'
+      properties:
+        block_list_ids:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_brand_safety_block_list_ids'
+        brand_safety_content_filter_levels:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_brand_safety_brand_safety_content_filter_levels'
+        excluded_content_labels:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_brand_safety_excluded_content_labels'
+        excluded_publisher_categories:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_brand_safety_excluded_publisher_categories'
+        publisher_visibility_categories:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_brand_safety_publisher_visibility_categories'
+      type: object
+    property_AdsReportMetrics_group_targeting_brand_safety_block_list_ids:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_content_keywords:
+      items:
+        $ref: '#/components/schemas/AdsKeyword'
+      type: array
+    property_AdsCampaign_targeting_audience:
+      properties:
+        behaviors:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_behaviors'
+        combination_spec:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_combination_spec'
+        custom_audiences:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_custom_audiences'
+        excluded_behaviors:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_excluded_behaviors'
+        excluded_custom_audiences:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_excluded_custom_audiences'
+        excluded_interests:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_excluded_interests'
+        interests:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_interests'
+        lookalike_audiences:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_lookalike_audiences'
+      type: object
+    property_AdsReportMetrics_group_targeting_content_video_positions:
+      items:
+        enum:
+        - PREROLL
+        - MIDROLL
+        - POSTROLL
+        - INSTREAM
+        - OUTSTREAM
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_video_positions:
+      items:
+        enum:
+        - PREROLL
+        - MIDROLL
+        - POSTROLL
+        - INSTREAM
+        - OUTSTREAM
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsReportMetrics_group_targeting_geographic_excluded_postal_codes:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_content_video_youtube_videos:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_geographic:
+      properties:
+        cities:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_cities'
+        countries:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_countries'
+        excluded_cities:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_excluded_cities'
+        excluded_countries:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_excluded_countries'
+        excluded_postal_codes:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_excluded_postal_codes'
+        excluded_regions:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_excluded_regions'
+        excluded_us_dmas:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_excluded_us_dmas'
+        location_types:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_location_types'
+        postal_codes:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_postal_codes'
+        presence_type:
+          enum:
+          - PRESENCE
+          - PRESENCE_OR_INTEREST
+          type: string
+          x-speakeasy-unknown-values: allow
+        regions:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_regions'
+        us_dmas:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_us_dmas'
+      type: object
+    property_AudienceCombination_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_group_targeting_audience_excluded_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_device:
+      properties:
+        carriers:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_device_carriers'
+        types:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_device_types'
+        user_device:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_device_user_device'
+        user_os:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_device_user_os'
+      type: object
+    property_AdsCreative_promoted:
+      items:
+        $ref: '#/components/schemas/AdsPromoted'
+      type: array
+    property_AdsInsertionorder_kpi:
+      properties:
+        algorithm_id:
+          type: string
+        amount:
+          type: number
+        percentage:
+          type: number
+        string_value:
+          type: string
+        type:
+          enum:
+          - UNSPECIFIED
+          - CPM
+          - CPC
+          - CPA
+          - CTR
+          - VIEWABILITY
+          - CPIAVC
+          - CPE
+          - CPV
+          - CLICK_CVR
+          - IMPRESSION_CVR
+          - VCPM
+          - VTR
+          - AUDIO_COMPLETION_RATE
+          - VIDEO_COMPLETION_RATE
+          - CPCL
+          - CPCV
+          - TOS10
+          - MAXIMIZE_PACING
+          - CUSTOM_IMPRESSION_VALUE_OVER_COST
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    LookalikeAudience:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        similarity:
+          type: number
+        source_audience_id:
+          type: string
+      required:
+      - id
+      type: object
+    property_AdsReportMetrics_campaign_targeting_device_user_device:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_placement_facebook_positions:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_placement_messenger_positions:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_placement_messenger_positions:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_content_video_positions:
+      items:
+        enum:
+        - PREROLL
+        - MIDROLL
+        - POSTROLL
+        - INSTREAM
+        - OUTSTREAM
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsCampaign_targeting_brand_safety_excluded_content_labels:
+      description: Google Ads ContentLabelType
+      items:
+        type: string
+      type: array
+    AdsInsertionorders:
+      items:
+        $ref: '#/components/schemas/AdsInsertionorder'
+      type: array
+    property_AdsGroup_targeting_schedule:
+      items:
+        $ref: '#/components/schemas/AdSchedule'
+      type: array
+    property_AdsReportMetrics_group_targeting_geographic_cities:
+      items:
+        $ref: '#/components/schemas/CityTarget'
+      type: array
+    property_AudienceCombination_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content:
+      properties:
+        excluded_keywords:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_excluded_keywords'
+        excluded_topics:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_excluded_topics'
+        excluded_urls:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_excluded_urls'
+        keywords:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_keywords'
+        topics:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_topics'
+        urls:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_urls'
+        video:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video'
+      type: object
+    property_AdsReportMetrics_group_targeting_geographic_us_dmas:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic:
+      properties:
+        cities:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_cities'
+        countries:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_countries'
+        excluded_cities:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_excluded_cities'
+        excluded_countries:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_excluded_countries'
+        excluded_postal_codes:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_excluded_postal_codes'
+        excluded_regions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_excluded_regions'
+        excluded_us_dmas:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_excluded_us_dmas'
+        location_types:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_location_types'
+        postal_codes:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_postal_codes'
+        presence_type:
+          enum:
+          - PRESENCE
+          - PRESENCE_OR_INTEREST
+          type: string
+          x-speakeasy-unknown-values: allow
+        regions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_regions'
+        us_dmas:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_us_dmas'
+      type: object
+    property_AdsCampaign_targeting_placement_instagram_positions:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_content_topics:
+      items:
+        type: string
+      type: array
+    RegionTarget:
+      description: states, provinces, regions
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - id
+      type: object
+    property_AdsGroup_targeting_optimization:
+      description: 'Optimization (Meta: targeting_automation; Google: observation vs targeting mode)'
+      properties:
+        advantage_audience:
+          type: boolean
+        advantage_placements:
+          type: boolean
+        mode:
+          enum:
+          - TARGETING
+          - OBSERVATION
+          type: string
+          x-speakeasy-unknown-values: allow
+        targeting_optimization_expansion_all:
+          type: boolean
+      type: object
+    property_AdsGroup_targeting_content_excluded_topics:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic_us_dmas:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_audience_lookalike_audiences:
+      items:
+        $ref: '#/components/schemas/LookalikeAudience'
+      type: array
+    property_AdsReportMetrics_group_targeting_geographic_countries:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_brand_safety:
+      description: 'Brand safety (Meta: excluded_publisher_categories, etc.; Google'
+      properties:
+        block_list_ids:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_brand_safety_block_list_ids'
+        brand_safety_content_filter_levels:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_brand_safety_brand_safety_content_filter_levels'
+        excluded_content_labels:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_brand_safety_excluded_content_labels'
+        excluded_publisher_categories:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_brand_safety_excluded_publisher_categories'
+        publisher_visibility_categories:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_brand_safety_publisher_visibility_categories'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_placement_facebook_positions:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_device:
+      properties:
+        carriers:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_device_carriers'
+        types:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_device_types'
+        user_device:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_device_user_device'
+        user_os:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_device_user_os'
+      type: object
+    AdsInsertionorder:
+      properties:
+        bid_strategy:
+          $ref: '#/components/schemas/property_AdsInsertionorder_bid_strategy'
+        budget_segments:
+          $ref: '#/components/schemas/property_AdsInsertionorder_budget_segments'
+        budget_unit:
+          enum:
+          - UNSPECIFIED
+          - CURRENCY
+          - IMPRESSIONS
+          type: string
+          x-speakeasy-unknown-values: allow
+        campaign_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        frequency_cap:
+          $ref: '#/components/schemas/property_AdsInsertionorder_frequency_cap'
+        id:
+          type: string
+        kpi:
+          $ref: '#/components/schemas/property_AdsInsertionorder_kpi'
+        name:
+          type: string
+        organization_id:
+          type: string
+        pacing:
+          $ref: '#/components/schemas/property_AdsInsertionorder_pacing'
+        raw:
+          additionalProperties: true
+          type: object
+        reference:
+          type: string
+        status:
+          enum:
+          - UNSPECIFIED
+          - ACTIVE
+          - PAUSED
+          - ARCHIVED
+          - DRAFT
+          - SCHEDULED_FOR_DELETION
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    AdsAds:
+      items:
+        $ref: '#/components/schemas/AdsAd'
+      type: array
+    property_AdsReportMetrics_campaign:
+      properties:
+        advertising_channel_type:
+          enum:
+          - TEXT
+          - IMAGE
+          - VIDEO
+          - RESPONSIVE
+          - SHOPPING
+          - APP
+          - CALL
+          - CAROUSEL
+          - SOCIAL
+          - DISPLAY
+          - SEARCH
+          - AUDIO
+          - YOUTUBE
+          type: string
+          x-speakeasy-unknown-values: allow
+        budget_amount:
+          type: number
+        budget_period:
+          enum:
+          - DAILY
+          - MONTHLY
+          - TOTAL
+          - LIFETIME
+          type: string
+          x-speakeasy-unknown-values: allow
+        campaign_budget_identifier:
+          type: string
+        category:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        frequency_cap:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_frequency_cap'
+        goal:
+          enum:
+          - UNSPECIFIED
+          - BRAND_AWARENESS
+          - REACH
+          - WEBSITE_TRAFFIC
+          - LEADS
+          - SALES
+          - APP_PROMOTION
+          type: string
+          x-speakeasy-unknown-values: allow
+        has_eu_political_ads:
+          type: boolean
+        id:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        planned_spend_amount:
+          type: number
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - UNSPECIFIED
+          - ACTIVE
+          - PAUSED
+          - ARCHIVED
+          - DRAFT
+          - SCHEDULED_FOR_DELETION
+          type: string
+          x-speakeasy-unknown-values: allow
+        targeting:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting'
+        total_spend_amount:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    AdsReport:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        metrics:
+          $ref: '#/components/schemas/property_AdsReport_metrics'
+        organization_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    AdsAd:
+      properties:
+        ad_copy:
+          type: string
+        ad_type:
+          enum:
+          - TEXT
+          - IMAGE
+          - VIDEO
+          - RESPONSIVE
+          - SHOPPING
+          - APP
+          - CALL
+          - CAROUSEL
+          - SOCIAL
+          - DISPLAY
+          - SEARCH
+          - AUDIO
+          - YOUTUBE
+          type: string
+          x-speakeasy-unknown-values: allow
+        campaign_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        creative_asset_url:
+          type: string
+        creative_ids:
+          $ref: '#/components/schemas/property_AdsAd_creative_ids'
+        cta:
+          type: string
+        description:
+          type: string
+        display_url:
+          type: string
+        final_url:
+          type: string
+        group_id:
+          type: string
+        headline:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        path1:
+          type: string
+        path2:
+          type: string
+        promoted:
+          $ref: '#/components/schemas/property_AdsAd_promoted'
+        raw:
+          additionalProperties: true
+          type: object
+        status:
+          enum:
+          - UNSPECIFIED
+          - ACTIVE
+          - PAUSED
+          - ARCHIVED
+          - DRAFT
+          - SCHEDULED_FOR_DELETION
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AdsGroup_targeting_geographic_excluded_us_dmas:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_content_topics:
+      items:
+        type: string
+      type: array
+    property_AdsAd_creative_ids:
+      items:
+        type: string
+      type: array
+    AdsPromoted:
+      description: Promoted entity (e.g. page, app, product, tweet) for ads create
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        type:
+          enum:
+          - PAGE_ID
+          - APP_ID
+          - STORE_URL
+          - PIXEL_ID
+          - CUSTOM_CONVERSION_ID
+          - CATALOG_ID
+          - PRODUCT_SET_ID
+          - PRIORITIZED_SET_ID
+          - EVENT_ID
+          - OFFER_ID
+          - LEAD_FORM_ID
+          - MESSAGING_CHANNEL_ID
+          - PRODUCT_ID
+          - TWEET_ID
+          - AD_GROUP_TYPE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - id
+      - type
+      type: object
+    property_AdsCampaign_targeting_audience_custom_audiences:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsCampaign_targeting_content_urls:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_audience_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_video_excluded_youtube_channels:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_audience_excluded_custom_audiences:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsGroup_targeting_geographic_excluded_postal_codes:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_geographic_excluded_countries:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_language_codes:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic_excluded_cities:
+      items:
+        $ref: '#/components/schemas/CityTarget'
+      type: array
+    AdSchedule:
+      properties:
+        bid_modifier:
+          type: number
+        day_of_week:
+          enum:
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          - SUNDAY
+          type: string
+          x-speakeasy-unknown-values: allow
+        end_hour:
+          type: number
+        end_minute:
+          type: number
+        start_hour:
+          type: number
+        start_minute:
+          type: number
+      required:
+      - day_of_week
+      - start_hour
+      - end_hour
+      type: object
+    property_AdsReportMetrics_group_targeting_device_types:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_content:
+      properties:
+        excluded_keywords:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_excluded_keywords'
+        excluded_topics:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_excluded_topics'
+        excluded_urls:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_excluded_urls'
+        keywords:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_keywords'
+        topics:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_topics'
+        urls:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_urls'
+        video:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video'
+      type: object
+    property_AdsGroup_targeting_geographic_location_types:
+      items:
+        enum:
+        - HOME
+        - RECENT
+        - TRAVEL
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsGroup_targeting_content_video_youtube_channels:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_audience_excluded_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    AdsTarget:
+      description: Targeting search result (for ads_target list endpoint)
+      properties:
+        id:
+          type: string
+        is_active:
+          type: boolean
+        name:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        type:
+          enum:
+          - INTEREST
+          - BEHAVIOR
+          - LOCALE
+          - COUNTRY
+          - REGION
+          - CITY
+          - ZIP
+          - US_DMA
+          - TOPIC
+          - USER_LIST
+          - AGE_RANGE
+          - GENDER
+          - CARRIER
+          - DEVICE_MODEL
+          - OS_VERSION
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - id
+      type: object
+    property_AdsGroup_targeting_brand_safety_publisher_visibility_categories:
+      items:
+        enum:
+        - limited
+        - standard
+        - expanded
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsGroup_targeting_device_user_os:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic_excluded_us_dmas:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_video_youtube_videos:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_video_youtube_channels:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_placement_audience_network_positions:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_placement_facebook_positions:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting:
+      properties:
+        audience:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience'
+        brand_safety:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_brand_safety'
+        content:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content'
+        demographic:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_demographic'
+        device:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_device'
+        geographic:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic'
+        language:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_language'
+        optimization:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_optimization'
+        placement:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_placement'
+        schedule:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_schedule'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_geographic_countries:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_content_video_excluded_youtube_videos:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic_excluded_countries:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_device_types:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_placement:
+      properties:
+        audience_network_positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_placement_audience_network_positions'
+        facebook_positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_placement_facebook_positions'
+        instagram_positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_placement_instagram_positions'
+        messenger_positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_placement_messenger_positions'
+        platforms:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_placement_platforms'
+      type: object
+    property_AdsReportMetrics_group_targeting_content_excluded_topics:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_audience_excluded_custom_audiences:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AudienceCombination_life_events:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_device_carriers:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_placement_messenger_positions:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_language_locale_ids:
+      items:
+        type: number
+      type: array
+    property_AdsReportMetrics_group_promoted:
+      items:
+        $ref: '#/components/schemas/AdsPromoted'
+      type: array
+    property_AdsReportMetrics_group_targeting_brand_safety_publisher_visibility_categories:
+      items:
+        enum:
+        - limited
+        - standard
+        - expanded
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsGroup_targeting_device:
+      properties:
+        carriers:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_device_carriers'
+        types:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_device_types'
+        user_device:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_device_user_device'
+        user_os:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_device_user_os'
+      type: object
+    property_AdsReportMetrics_group_targeting_content_video_excluded_youtube_channels:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_audience_combination_spec:
+      items:
+        $ref: '#/components/schemas/AudienceCombination'
+      type: array
+    property_AdsCampaign_targeting_brand_safety:
+      description: 'Brand safety (Meta: excluded_publisher_categories, etc.; Google'
+      properties:
+        block_list_ids:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety_block_list_ids'
+        brand_safety_content_filter_levels:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety_brand_safety_content_filter_levels'
+        excluded_content_labels:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety_excluded_content_labels'
+        excluded_publisher_categories:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety_excluded_publisher_categories'
+        publisher_visibility_categories:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety_publisher_visibility_categories'
+      type: object
+    property_AdsReportMetrics_group_targeting_content_video_youtube_channels:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_geographic_postal_codes:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_device:
+      properties:
+        carriers:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_device_carriers'
+        types:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_device_types'
+        user_device:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_device_user_device'
+        user_os:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_device_user_os'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_content_video:
+      properties:
+        durations:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_durations'
+        excluded_youtube_channels:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_excluded_youtube_channels'
+        excluded_youtube_videos:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_excluded_youtube_videos'
+        player_sizes:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_player_sizes'
+        positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_positions'
+        youtube_channels:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_youtube_channels'
+        youtube_videos:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_youtube_videos'
+      type: object
+    property_AdsInsertionorder_budget_segments:
+      items:
+        $ref: '#/components/schemas/AdsInsertionorderBudgetSegment'
+      type: array
+    property_AdsInsertionorder_pacing:
+      properties:
+        daily_max_amount:
+          type: number
+        daily_max_impressions:
+          type: number
+        period:
+          enum:
+          - UNSPECIFIED
+          - DAILY
+          - FLIGHT
+          type: string
+          x-speakeasy-unknown-values: allow
+        type:
+          type: string
+      type: object
+    AdsCreatives:
+      items:
+        $ref: '#/components/schemas/AdsCreative'
+      type: array
+    property_AdsReportMetrics_group_targeting_brand_safety_excluded_publisher_categories:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_content_keywords:
+      items:
+        $ref: '#/components/schemas/AdsKeyword'
+      type: array
+    property_AdsCampaign_targeting_geographic_excluded_cities:
+      items:
+        $ref: '#/components/schemas/CityTarget'
+      type: array
+    property_AdsReportMetrics_group_targeting_geographic_location_types:
+      items:
+        enum:
+        - HOME
+        - RECENT
+        - TRAVEL
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsGroup_targeting_device_user_device:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_language:
+      description: Language targeting (Meta
+      properties:
+        codes:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_language_codes'
+        locale_ids:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_language_locale_ids'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_brand_safety_publisher_visibility_categories:
+      items:
+        enum:
+        - limited
+        - standard
+        - expanded
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsCampaign_targeting_device_carriers:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_brand_safety_block_list_ids:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_geographic_us_dmas:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_geographic_excluded_cities:
+      items:
+        $ref: '#/components/schemas/CityTarget'
+      type: array
+    property_AdsCampaign_targeting_schedule:
+      items:
+        $ref: '#/components/schemas/AdSchedule'
+      type: array
+    property_AdsGroup_targeting_content_video:
+      properties:
+        durations:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_durations'
+        excluded_youtube_channels:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_excluded_youtube_channels'
+        excluded_youtube_videos:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_excluded_youtube_videos'
+        player_sizes:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_player_sizes'
+        positions:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_positions'
+        youtube_channels:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_youtube_channels'
+        youtube_videos:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_youtube_videos'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_audience_custom_audiences:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_group_targeting_content_keywords:
+      items:
+        $ref: '#/components/schemas/AdsKeyword'
+      type: array
+    property_AdsReportMetrics_group_targeting_placement_platforms:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_ad_creative_ids:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_audience_excluded_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_group_targeting_content_video:
+      properties:
+        durations:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_durations'
+        excluded_youtube_channels:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_excluded_youtube_channels'
+        excluded_youtube_videos:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_excluded_youtube_videos'
+        player_sizes:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_player_sizes'
+        positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_positions'
+        youtube_channels:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_youtube_channels'
+        youtube_videos:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_youtube_videos'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_content_excluded_keywords:
+      items:
+        $ref: '#/components/schemas/AdsKeyword'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_urls:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_excluded_urls:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_content_video_player_sizes:
+      items:
+        enum:
+        - SMALL
+        - LARGE
+        - HD
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsGroup_targeting_brand_safety_brand_safety_content_filter_levels:
+      items:
+        type: string
+      type: array
+    property_AudienceCombination_demographics:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsGroup_targeting_device_carriers:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic_excluded_regions:
+      items:
+        $ref: '#/components/schemas/RegionTarget'
+      type: array
+    property_AdsCampaign_targeting_brand_safety_publisher_visibility_categories:
+      items:
+        enum:
+        - limited
+        - standard
+        - expanded
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsGroup_frequency_cap:
+      properties:
+        is_unlimited:
+          type: boolean
+        max_impressions:
+          type: number
+        max_views:
+          type: number
+        time_unit:
+          enum:
+          - UNSPECIFIED
+          - LIFETIME
+          - MONTHS
+          - WEEKS
+          - DAYS
+          - HOURS
+          - MINUTES
+          type: string
+          x-speakeasy-unknown-values: allow
+        time_unit_count:
+          type: number
+      type: object
+    property_AdsGroup_targeting_content_excluded_keywords:
+      items:
+        $ref: '#/components/schemas/AdsKeyword'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_placement_instagram_positions:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_frequency_cap:
+      properties:
+        is_unlimited:
+          type: boolean
+        max_impressions:
+          type: number
+        max_views:
+          type: number
+        time_unit:
+          enum:
+          - UNSPECIFIED
+          - LIFETIME
+          - MONTHS
+          - WEEKS
+          - DAYS
+          - HOURS
+          - MINUTES
+          type: string
+          x-speakeasy-unknown-values: allow
+        time_unit_count:
+          type: number
+      type: object
+    property_AdsReportMetrics_group_targeting_device_user_device:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_content_video_durations:
+      items:
+        enum:
+        - SHORT
+        - MEDIUM
+        - LONG
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsReportMetrics_group_targeting_audience_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_group_pacing:
+      properties:
+        daily_max_amount:
+          type: number
+        daily_max_impressions:
+          type: number
+        period:
+          enum:
+          - UNSPECIFIED
+          - DAILY
+          - FLIGHT
+          type: string
+          x-speakeasy-unknown-values: allow
+        type:
+          type: string
+      type: object
+    property_AdsReportMetrics_group_targeting_content_video_youtube_videos:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_placement_platforms:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_content:
+      properties:
+        excluded_keywords:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_excluded_keywords'
+        excluded_topics:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_excluded_topics'
+        excluded_urls:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_excluded_urls'
+        keywords:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_keywords'
+        topics:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_topics'
+        urls:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_urls'
+        video:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video'
+      type: object
+    AdsGroup:
+      properties:
+        bid_amount:
+          type: number
+        bid_strategy:
+          $ref: '#/components/schemas/property_AdsGroup_bid_strategy'
+        billing_event:
+          enum:
+          - IMPRESSIONS
+          - LINK_CLICKS
+          - VIDEO_VIEWS
+          - APP_INSTALLS
+          - ENGAGEMENT
+          - PAGE_LIKES
+          - MESSAGES
+          - POST_ENGAGEMENT
+          - PURCHASE
+          - NONE
+          type: string
+          x-speakeasy-unknown-values: allow
+        budget_allocation_type:
+          enum:
+          - UNSPECIFIED
+          - AUTOMATIC
+          - FIXED
+          - UNLIMITED
+          type: string
+          x-speakeasy-unknown-values: allow
+        budget_amount:
+          type: number
+        budget_max_amount:
+          type: number
+        budget_period:
+          enum:
+          - DAILY
+          - MONTHLY
+          - TOTAL
+          - LIFETIME
+          type: string
+          x-speakeasy-unknown-values: allow
+        budget_unit:
+          enum:
+          - UNSPECIFIED
+          - CURRENCY
+          - IMPRESSIONS
+          type: string
+          x-speakeasy-unknown-values: allow
+        campaign_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        creative_ids:
+          $ref: '#/components/schemas/property_AdsGroup_creative_ids'
+        currency:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        frequency_cap:
+          $ref: '#/components/schemas/property_AdsGroup_frequency_cap'
+        has_eu_political_ads:
+          type: boolean
+        id:
+          type: string
+        insertionorder_id:
+          type: string
+        name:
+          type: string
+        optimization_goal:
+          enum:
+          - REACH
+          - IMPRESSIONS
+          - LINK_CLICKS
+          - LANDING_PAGE_VIEWS
+          - CONVERSIONS
+          - LEAD_GENERATION
+          - APP_INSTALLS
+          - APP_ENGAGEMENT
+          - VIDEO_VIEWS
+          - ENGAGEMENT
+          - PAGE_LIKES
+          - MESSAGES
+          type: string
+          x-speakeasy-unknown-values: allow
+        organization_id:
+          type: string
+        pacing:
+          $ref: '#/components/schemas/property_AdsGroup_pacing'
+        parent_id:
+          type: string
+        promoted:
+          $ref: '#/components/schemas/property_AdsGroup_promoted'
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - UNSPECIFIED
+          - ACTIVE
+          - PAUSED
+          - ARCHIVED
+          - DRAFT
+          - SCHEDULED_FOR_DELETION
+          type: string
+          x-speakeasy-unknown-values: allow
+        targeting:
+          $ref: '#/components/schemas/property_AdsGroup_targeting'
+        type:
+          enum:
+          - TEXT
+          - IMAGE
+          - VIDEO
+          - RESPONSIVE
+          - SHOPPING
+          - APP
+          - CALL
+          - CAROUSEL
+          - SOCIAL
+          - DISPLAY
+          - SEARCH
+          - AUDIO
+          - YOUTUBE
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AdsReportMetrics_group_targeting:
+      properties:
+        audience:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience'
+        brand_safety:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety'
+        content:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content'
+        demographic:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_demographic'
+        device:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_device'
+        geographic:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic'
+        language:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_language'
+        optimization:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_optimization'
+        placement:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement'
+        schedule:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_schedule'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_geographic_cities:
+      items:
+        $ref: '#/components/schemas/CityTarget'
+      type: array
+    property_AdsCampaign_targeting_geographic_regions:
+      items:
+        $ref: '#/components/schemas/RegionTarget'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_topics:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_geographic_regions:
+      items:
+        $ref: '#/components/schemas/RegionTarget'
+      type: array
+    property_AdsCampaign_targeting_content_video_youtube_channels:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_audience_excluded_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_group_targeting_audience_custom_audiences:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsCampaign_targeting_geographic_excluded_us_dmas:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_demographic:
+      description: 'Demographic targeting (Meta: age_min, age_max, genders)'
+      properties:
+        age_max:
+          type: number
+        age_min:
+          type: number
+        female:
+          type: boolean
+        male:
+          type: boolean
+      type: object
+    property_AdsGroup_targeting_placement_platforms:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_ad_promoted:
+      items:
+        $ref: '#/components/schemas/AdsPromoted'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic_excluded_postal_codes:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_geographic_countries:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_placement:
+      properties:
+        audience_network_positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement_audience_network_positions'
+        facebook_positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement_facebook_positions'
+        instagram_positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement_instagram_positions'
+        messenger_positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement_messenger_positions'
+        platforms:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement_platforms'
+      type: object
+    property_AdsReportMetrics_group_targeting_content_urls:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting:
+      properties:
+        audience:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience'
+        brand_safety:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_brand_safety'
+        content:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content'
+        demographic:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_demographic'
+        device:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_device'
+        geographic:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic'
+        language:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_language'
+        optimization:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_optimization'
+        placement:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_placement'
+        schedule:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_schedule'
+      type: object
+    property_AdsCampaign_targeting_geographic_countries:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_audience_excluded_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsCampaign_targeting_geographic_excluded_regions:
+      items:
+        $ref: '#/components/schemas/RegionTarget'
+      type: array
+    property_AdsCampaign_targeting_content_video:
+      properties:
+        durations:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_durations'
+        excluded_youtube_channels:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_excluded_youtube_channels'
+        excluded_youtube_videos:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_excluded_youtube_videos'
+        player_sizes:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_player_sizes'
+        positions:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_positions'
+        youtube_channels:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_youtube_channels'
+        youtube_videos:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_youtube_videos'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_content_video_durations:
+      items:
+        enum:
+        - SHORT
+        - MEDIUM
+        - LONG
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsCampaign_targeting_content_excluded_keywords:
+      items:
+        $ref: '#/components/schemas/AdsKeyword'
+      type: array
+    property_AdsReportMetrics_group_targeting_language_codes:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_brand_safety_excluded_publisher_categories:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_brand_safety:
+      description: 'Brand safety (Meta: excluded_publisher_categories, etc.; Google'
+      properties:
+        block_list_ids:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety_block_list_ids'
+        brand_safety_content_filter_levels:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety_brand_safety_content_filter_levels'
+        excluded_content_labels:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety_excluded_content_labels'
+        excluded_publisher_categories:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety_excluded_publisher_categories'
+        publisher_visibility_categories:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety_publisher_visibility_categories'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_audience:
+      properties:
+        behaviors:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_behaviors'
+        combination_spec:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_combination_spec'
+        custom_audiences:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_custom_audiences'
+        excluded_behaviors:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_excluded_behaviors'
+        excluded_custom_audiences:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_excluded_custom_audiences'
+        excluded_interests:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_excluded_interests'
+        interests:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_interests'
+        lookalike_audiences:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_lookalike_audiences'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_audience_excluded_custom_audiences:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_brand_safety_excluded_content_labels:
+      description: Google Ads ContentLabelType
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_audience_excluded_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_group_targeting_brand_safety_excluded_content_labels:
+      description: Google Ads ContentLabelType
+      items:
+        type: string
+      type: array
+    AdsGroups:
+      items:
+        $ref: '#/components/schemas/AdsGroup'
+      type: array
+    property_AdsCampaign_targeting_content_topics:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_device_user_os:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_content_excluded_urls:
+      items:
+        type: string
+      type: array
+    AdsKeyword:
+      description: Content targeting (keywords, topics, placements, video)
+      properties:
+        match_type:
+          enum:
+          - BROAD
+          - PHRASE
+          - EXACT
+          type: string
+          x-speakeasy-unknown-values: allow
+        text:
+          type: string
+      required:
+      - text
+      type: object
+    property_AdsGroup_bid_strategy:
+      description: YOUTUBE_AND_PARTNERS
+      properties:
+        custom_bidding_algorithm_id:
+          type: string
+        fixed_bid_amount:
+          type: number
+        max_average_cpm_bid_amount:
+          type: number
+        performance_goal_amount:
+          type: number
+        performance_goal_type:
+          enum:
+          - UNSPECIFIED
+          - CPA
+          - CPC
+          - VIEWABLE_CPM
+          - CUSTOM_ALGO
+          - CIVA
+          - IVO_TEN
+          - AV_VIEWED
+          - REACH
+          type: string
+          x-speakeasy-unknown-values: allow
+        raise_bid_for_deals:
+          type: boolean
+        target_roas:
+          type: number
+        type:
+          enum:
+          - FIXED_BID
+          - MAXIMIZE_SPEND
+          - PERFORMANCE_GOAL
+          - YOUTUBE_AND_PARTNERS
+          type: string
+          x-speakeasy-unknown-values: allow
+        youtube_and_partners_type:
+          enum:
+          - UNSPECIFIED
+          - MANUAL_CPV
+          - MANUAL_CPM
+          - TARGET_CPA
+          - TARGET_CPM
+          - RESERVE_CPM
+          - MAXIMIZE_LIFT
+          - MAXIMIZE_CONVERSIONS
+          - TARGET_CPV
+          - TARGET_ROAS
+          - MAXIMIZE_CONVERSION_VALUE
+          type: string
+          x-speakeasy-unknown-values: allow
+        youtube_and_partners_value:
+          type: string
+      required:
+      - type
+      type: object
+    property_AdsReportMetrics_group_targeting_geographic_postal_codes:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_placement_instagram_positions:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_geographic_regions:
+      items:
+        $ref: '#/components/schemas/RegionTarget'
+      type: array
+    property_AdsReportMetrics_group_targeting_geographic:
+      properties:
+        cities:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_cities'
+        countries:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_countries'
+        excluded_cities:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_excluded_cities'
+        excluded_countries:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_excluded_countries'
+        excluded_postal_codes:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_excluded_postal_codes'
+        excluded_regions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_excluded_regions'
+        excluded_us_dmas:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_excluded_us_dmas'
+        location_types:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_location_types'
+        postal_codes:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_postal_codes'
+        presence_type:
+          enum:
+          - PRESENCE
+          - PRESENCE_OR_INTEREST
+          type: string
+          x-speakeasy-unknown-values: allow
+        regions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_regions'
+        us_dmas:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_us_dmas'
+      type: object
+    property_AdsCampaign_targeting_content_excluded_urls:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_language_locale_ids:
+      items:
+        type: number
+      type: array
+    property_AdsReportMetrics_campaign_targeting_schedule:
+      items:
+        $ref: '#/components/schemas/AdSchedule'
+      type: array
+    property_AdsGroup_targeting_brand_safety_excluded_publisher_categories:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_creative_ids:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_audience_excluded_custom_audiences:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsCampaign_targeting_audience_combination_spec:
+      items:
+        $ref: '#/components/schemas/AudienceCombination'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_video_excluded_youtube_videos:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_geographic_excluded_us_dmas:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_audience_excluded_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_group_targeting_content_excluded_urls:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_creative_ids:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_brand_safety_block_list_ids:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_placement_platforms:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_language_locale_ids:
+      items:
+        type: number
+      type: array
+    property_AdsGroup_targeting_placement_instagram_positions:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_audience_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsGroup_targeting_geographic_excluded_regions:
+      items:
+        $ref: '#/components/schemas/RegionTarget'
+      type: array
+    AdsTargets:
+      items:
+        $ref: '#/components/schemas/AdsTarget'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

@@ -1,0 +1,128 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account embedding API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: embedding
+paths:
+  /genai/{connection_id}/embedding:
+    post:
+      operationId: createGenaiEmbedding
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - model_id
+            - content
+            - enconding_format
+            - type
+            - dimension
+            - max_tokens
+            - embeddings
+            - tokens_used
+            - raw
+            - id
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenaiEmbedding'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenaiEmbedding'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an Embedding
+      tags:
+      - embedding
+components:
+  schemas:
+    GenaiEmbedding:
+      properties:
+        content:
+          $ref: '#/components/schemas/property_GenaiEmbedding_content'
+        dimension:
+          type: number
+        embeddings:
+          type: string
+        enconding_format:
+          enum:
+          - FLOAT
+          - UINT8
+          - INT8
+          - BINARY
+          - UBINARY
+          - BASE64
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        max_tokens:
+          type: number
+        model_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        tokens_used:
+          type: number
+        type:
+          type: string
+      type: object
+    GenaiEmbeddingContent:
+      properties:
+        text:
+          type: string
+      required:
+      - text
+      type: object
+    property_GenaiEmbedding_content:
+      items:
+        $ref: '#/components/schemas/GenaiEmbeddingContent'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

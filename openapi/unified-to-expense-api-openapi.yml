@@ -1,0 +1,573 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account expense API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: expense
+paths:
+  /accounting/{connection_id}/expense:
+    get:
+      operationId: listAccountingExpenses
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: The contact ID to filter by (reference to AccountingContact)
+        in: query
+        name: contact_id
+        required: false
+        schema:
+          type: string
+      - description: The category ID to filter by (reference to AccountingCategory)
+        in: query
+        name: category_id
+        required: false
+        schema:
+          type: string
+      - description: The group ID to filter by (reference to HrisGroup)
+        in: query
+        name: group_id
+        required: false
+        schema:
+          type: string
+      - description: The org ID to filter by (reference to AccountingOrganization)
+        in: query
+        name: org_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - contact_id
+            - account_id
+            - name
+            - payment_method
+            - posted_at
+            - total_amount
+            - currency
+            - tax_amount
+            - reimbursed_amount
+            - reimbursed_at
+            - approved_at
+            - approver_user_id
+            - lineitems
+            - raw
+            - organization_id
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingExpenses'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all expenses
+      tags:
+      - expense
+    post:
+      operationId: createAccountingExpense
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - contact_id
+            - account_id
+            - name
+            - payment_method
+            - posted_at
+            - total_amount
+            - currency
+            - tax_amount
+            - reimbursed_amount
+            - reimbursed_at
+            - approved_at
+            - approver_user_id
+            - lineitems
+            - raw
+            - organization_id
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountingExpense'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingExpense'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an expense
+      tags:
+      - expense
+  /accounting/{connection_id}/expense/{id}:
+    delete:
+      operationId: removeAccountingExpense
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Expense
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an expense
+      tags:
+      - expense
+    get:
+      operationId: getAccountingExpense
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - contact_id
+            - account_id
+            - name
+            - payment_method
+            - posted_at
+            - total_amount
+            - currency
+            - tax_amount
+            - reimbursed_amount
+            - reimbursed_at
+            - approved_at
+            - approver_user_id
+            - lineitems
+            - raw
+            - organization_id
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Expense
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingExpense'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an expense
+      tags:
+      - expense
+    patch:
+      operationId: patchAccountingExpense
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - contact_id
+            - account_id
+            - name
+            - payment_method
+            - posted_at
+            - total_amount
+            - currency
+            - tax_amount
+            - reimbursed_amount
+            - reimbursed_at
+            - approved_at
+            - approver_user_id
+            - lineitems
+            - raw
+            - organization_id
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Expense
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountingExpense'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingExpense'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an expense
+      tags:
+      - expense
+    put:
+      operationId: updateAccountingExpense
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - user_id
+            - contact_id
+            - account_id
+            - name
+            - payment_method
+            - posted_at
+            - total_amount
+            - currency
+            - tax_amount
+            - reimbursed_amount
+            - reimbursed_at
+            - approved_at
+            - approver_user_id
+            - lineitems
+            - raw
+            - organization_id
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Expense
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountingExpense'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountingExpense'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an expense
+      tags:
+      - expense
+components:
+  schemas:
+    property_AccountingExpense_lineitems:
+      items:
+        $ref: '#/components/schemas/AccountingLineitem'
+      type: array
+    AccountingLineitem:
+      properties:
+        account_id:
+          type: string
+        category_ids:
+          $ref: '#/components/schemas/property_AccountingLineitem_category_ids'
+        created_at:
+          format: date-time
+          type: string
+        discount_amount:
+          type: number
+        id:
+          type: string
+        item_description:
+          type: string
+        item_id:
+          type: string
+        item_name:
+          type: string
+        item_sku:
+          type: string
+        item_variants:
+          $ref: '#/components/schemas/property_AccountingLineitem_item_variants'
+        locations:
+          $ref: '#/components/schemas/property_AccountingLineitem_locations'
+        notes:
+          type: string
+        refund_amount:
+          type: number
+        refunded_at:
+          format: date-time
+          type: string
+        tax_amount:
+          type: number
+        taxrate_id:
+          type: string
+        total_amount:
+          type: number
+        unit_amount:
+          type: number
+        unit_quantity:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    AccountingExpense:
+      properties:
+        account_id:
+          type: string
+        approved_at:
+          format: date-time
+          type: string
+        approver_user_id:
+          type: string
+        contact_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        id:
+          type: string
+        lineitems:
+          $ref: '#/components/schemas/property_AccountingExpense_lineitems'
+        name:
+          type: string
+        organization_id:
+          type: string
+        payment_method:
+          type: string
+        posted_at:
+          format: date-time
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        reimbursed_amount:
+          type: number
+        reimbursed_at:
+          format: date-time
+          type: string
+        tax_amount:
+          type: number
+        total_amount:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    AccountingExpenses:
+      items:
+        $ref: '#/components/schemas/AccountingExpense'
+      type: array
+    property_AccountingLineitem_item_variants:
+      items:
+        $ref: '#/components/schemas/AccountingReference'
+      type: array
+    property_AccountingLineitem_locations:
+      items:
+        $ref: '#/components/schemas/AccountingReference'
+      type: array
+    AccountingReference:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    property_AccountingLineitem_category_ids:
+      items:
+        type: string
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

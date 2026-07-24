@@ -1,0 +1,545 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account subscription API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: subscription
+paths:
+  /payment/{connection_id}/subscription:
+    get:
+      operationId: listPaymentSubscriptions
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The contact ID to filter by (reference to AccountingContact)
+        in: query
+        name: contact_id
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - description
+            - contact_id
+            - invoice_id
+            - current_period_end_at
+            - current_period_start_at
+            - canceled_at
+            - currency
+            - start_at
+            - end_at
+            - status
+            - month
+            - interval_unit
+            - day_of_month
+            - day_of_week
+            - interval
+            - lineitems
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentSubscriptions'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Subscriptions
+      tags:
+      - subscription
+    post:
+      operationId: createPaymentSubscription
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - description
+            - contact_id
+            - invoice_id
+            - current_period_end_at
+            - current_period_start_at
+            - canceled_at
+            - currency
+            - start_at
+            - end_at
+            - status
+            - month
+            - interval_unit
+            - day_of_month
+            - day_of_week
+            - interval
+            - lineitems
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentSubscription'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentSubscription'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Subscription
+      tags:
+      - subscription
+  /payment/{connection_id}/subscription/{id}:
+    delete:
+      operationId: removePaymentSubscription
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Subscription
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Subscription
+      tags:
+      - subscription
+    get:
+      operationId: getPaymentSubscription
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - description
+            - contact_id
+            - invoice_id
+            - current_period_end_at
+            - current_period_start_at
+            - canceled_at
+            - currency
+            - start_at
+            - end_at
+            - status
+            - month
+            - interval_unit
+            - day_of_month
+            - day_of_week
+            - interval
+            - lineitems
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Subscription
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentSubscription'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Subscription
+      tags:
+      - subscription
+    patch:
+      operationId: patchPaymentSubscription
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - description
+            - contact_id
+            - invoice_id
+            - current_period_end_at
+            - current_period_start_at
+            - canceled_at
+            - currency
+            - start_at
+            - end_at
+            - status
+            - month
+            - interval_unit
+            - day_of_month
+            - day_of_week
+            - interval
+            - lineitems
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Subscription
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentSubscription'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentSubscription'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Subscription
+      tags:
+      - subscription
+    put:
+      operationId: updatePaymentSubscription
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - description
+            - contact_id
+            - invoice_id
+            - current_period_end_at
+            - current_period_start_at
+            - canceled_at
+            - currency
+            - start_at
+            - end_at
+            - status
+            - month
+            - interval_unit
+            - day_of_month
+            - day_of_week
+            - interval
+            - lineitems
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Subscription
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentSubscription'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentSubscription'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Subscription
+      tags:
+      - subscription
+components:
+  schemas:
+    property_PaymentSubscription_lineitems:
+      items:
+        $ref: '#/components/schemas/PaymentLineitem'
+      type: array
+    PaymentSubscription:
+      properties:
+        canceled_at:
+          format: date-time
+          type: string
+        contact_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        current_period_end_at:
+          format: date-time
+          type: string
+        current_period_start_at:
+          format: date-time
+          type: string
+        day_of_month:
+          type: number
+        day_of_week:
+          type: number
+        description:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        interval:
+          type: number
+        interval_unit:
+          enum:
+          - YEAR
+          - MONTH
+          - WEEK
+          - DAY
+          type: string
+          x-speakeasy-unknown-values: allow
+        invoice_id:
+          type: string
+        lineitems:
+          $ref: '#/components/schemas/property_PaymentSubscription_lineitems'
+        month:
+          type: number
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - CANCELED
+          - PAUSED
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    PaymentLineitem:
+      properties:
+        account_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        discount_amount:
+          type: number
+        id:
+          type: string
+        item_description:
+          type: string
+        item_id:
+          type: string
+        item_name:
+          type: string
+        item_sku:
+          type: string
+        notes:
+          type: string
+        refund_amount:
+          type: number
+        refunded_at:
+          format: date-time
+          type: string
+        tax_amount:
+          type: number
+        taxrate_id:
+          type: string
+        total_amount:
+          type: number
+        unit_amount:
+          type: number
+        unit_quantity:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    PaymentSubscriptions:
+      items:
+        $ref: '#/components/schemas/PaymentSubscription'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

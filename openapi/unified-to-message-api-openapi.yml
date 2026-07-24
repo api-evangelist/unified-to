@@ -1,0 +1,662 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account message API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: message
+paths:
+  /messaging/{connection_id}/message:
+    get:
+      operationId: listMessagingMessages
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The parent ID to filter by
+        in: query
+        name: parent_id
+        required: false
+        schema:
+          type: string
+      - description: The channel ID to filter by. You can also use these aliases; INBOX, SENT or DRAFT (reference to MessagingChannel)
+        in: query
+        name: channel_id
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: Whether to flatten grouped or recurring items into individual entries.
+        in: query
+        name: expand
+        required: false
+        schema:
+          type: boolean
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by
+        in: query
+        name: user_mentioned_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - channel_id
+            - channel_ids
+            - channels
+            - parent_id
+            - root_message_id
+            - message_thread_identifier
+            - author_member
+            - destination_members
+            - hidden_members
+            - mentioned_members
+            - reactions
+            - subject
+            - message
+            - message_html
+            - message_markdown
+            - attachments
+            - web_url
+            - reference
+            - has_children
+            - is_unread
+            - buttons
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagingMessages'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Messages
+      tags:
+      - message
+    post:
+      operationId: createMessagingMessage
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - channel_id
+            - channel_ids
+            - channels
+            - parent_id
+            - root_message_id
+            - message_thread_identifier
+            - author_member
+            - destination_members
+            - hidden_members
+            - mentioned_members
+            - reactions
+            - subject
+            - message
+            - message_html
+            - message_markdown
+            - attachments
+            - web_url
+            - reference
+            - has_children
+            - is_unread
+            - buttons
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessagingMessage'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagingMessage'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Message
+      tags:
+      - message
+  /messaging/{connection_id}/message/{id}:
+    delete:
+      operationId: removeMessagingMessage
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Message
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Message
+      tags:
+      - message
+    get:
+      operationId: getMessagingMessage
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - channel_id
+            - channel_ids
+            - channels
+            - parent_id
+            - root_message_id
+            - message_thread_identifier
+            - author_member
+            - destination_members
+            - hidden_members
+            - mentioned_members
+            - reactions
+            - subject
+            - message
+            - message_html
+            - message_markdown
+            - attachments
+            - web_url
+            - reference
+            - has_children
+            - is_unread
+            - buttons
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Message
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagingMessage'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Message
+      tags:
+      - message
+    patch:
+      operationId: patchMessagingMessage
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - channel_id
+            - channel_ids
+            - channels
+            - parent_id
+            - root_message_id
+            - message_thread_identifier
+            - author_member
+            - destination_members
+            - hidden_members
+            - mentioned_members
+            - reactions
+            - subject
+            - message
+            - message_html
+            - message_markdown
+            - attachments
+            - web_url
+            - reference
+            - has_children
+            - is_unread
+            - buttons
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Message
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessagingMessage'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagingMessage'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Message
+      tags:
+      - message
+    put:
+      operationId: updateMessagingMessage
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - channel_id
+            - channel_ids
+            - channels
+            - parent_id
+            - root_message_id
+            - message_thread_identifier
+            - author_member
+            - destination_members
+            - hidden_members
+            - mentioned_members
+            - reactions
+            - subject
+            - message
+            - message_html
+            - message_markdown
+            - attachments
+            - web_url
+            - reference
+            - has_children
+            - is_unread
+            - buttons
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Message
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessagingMessage'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessagingMessage'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Message
+      tags:
+      - message
+components:
+  schemas:
+    MessagingReaction:
+      properties:
+        member:
+          $ref: '#/components/schemas/property_MessagingReaction_member'
+        reaction:
+          type: string
+      required:
+      - reaction
+      - member
+      type: object
+    MessagingMessages:
+      items:
+        $ref: '#/components/schemas/MessagingMessage'
+      type: array
+    property_MessagingMessage_channel_ids:
+      description: '@deprecated; use channels instead'
+      items:
+        type: string
+      type: array
+    property_MessagingMessage_mentioned_members:
+      description: for email systems, this field represents the CC value
+      items:
+        $ref: '#/components/schemas/MessagingMember'
+      type: array
+    MessagingButton:
+      properties:
+        icon:
+          type: string
+        id:
+          type: string
+        text:
+          type: string
+      required:
+      - id
+      type: object
+    property_MessagingMessage_attachments:
+      items:
+        $ref: '#/components/schemas/MessagingAttachment'
+      type: array
+    property_MessagingMessage_reactions:
+      items:
+        $ref: '#/components/schemas/MessagingReaction'
+      type: array
+    property_MessagingMessage_destination_members:
+      description: for email systems, this field represents the To value
+      items:
+        $ref: '#/components/schemas/MessagingMember'
+      type: array
+    property_MessagingMessage_channels:
+      description: Represents the names of all channels to which the message is sent. Identifies the channels where the message is posted.
+      items:
+        $ref: '#/components/schemas/MessagingReference'
+      type: array
+    MessagingReference:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    MessagingMessage:
+      properties:
+        attachments:
+          $ref: '#/components/schemas/property_MessagingMessage_attachments'
+        author_member:
+          $ref: '#/components/schemas/property_MessagingMessage_author_member'
+        buttons:
+          $ref: '#/components/schemas/property_MessagingMessage_buttons'
+        channel_id:
+          type: string
+        channel_ids:
+          $ref: '#/components/schemas/property_MessagingMessage_channel_ids'
+        channels:
+          $ref: '#/components/schemas/property_MessagingMessage_channels'
+        created_at:
+          format: date-time
+          type: string
+        destination_members:
+          $ref: '#/components/schemas/property_MessagingMessage_destination_members'
+        has_children:
+          type: boolean
+        hidden_members:
+          $ref: '#/components/schemas/property_MessagingMessage_hidden_members'
+        id:
+          type: string
+        is_unread:
+          type: boolean
+        mentioned_members:
+          $ref: '#/components/schemas/property_MessagingMessage_mentioned_members'
+        message:
+          type: string
+        message_html:
+          type: string
+        message_markdown:
+          type: string
+        message_thread_identifier:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        reactions:
+          $ref: '#/components/schemas/property_MessagingMessage_reactions'
+        reference:
+          type: string
+        root_message_id:
+          type: string
+        subject:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        web_url:
+          type: string
+      type: object
+    MessagingAttachment:
+      properties:
+        content_identifier:
+          type: string
+        content_type:
+          type: string
+        download_url:
+          type: string
+        filename:
+          type: string
+        message_id:
+          type: string
+        size:
+          type: number
+      type: object
+    MessagingMember:
+      properties:
+        email:
+          type: string
+        image_url:
+          type: string
+        name:
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_MessagingMessage_buttons:
+      items:
+        $ref: '#/components/schemas/MessagingButton'
+      type: array
+    property_MessagingReaction_member:
+      properties:
+        email:
+          type: string
+        image_url:
+          type: string
+        name:
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_MessagingMessage_hidden_members:
+      description: for email systems, this field represents the BCC value
+      items:
+        $ref: '#/components/schemas/MessagingMember'
+      type: array
+    property_MessagingMessage_author_member:
+      description: for email systems, this field represents the From value
+      properties:
+        email:
+          type: string
+        image_url:
+          type: string
+        name:
+          type: string
+        user_id:
+          type: string
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

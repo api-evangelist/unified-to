@@ -1,0 +1,285 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account rate API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: rate
+paths:
+  /shipping/{connection_id}/rate:
+    post:
+      operationId: createShippingRate
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - shipment_id
+            - currency
+            - from_address
+            - to_address
+            - packages
+            - ship_by_at
+            - carrier_id
+            - id
+            - rates
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShippingRate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingRate'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Rate
+      tags:
+      - rate
+components:
+  schemas:
+    ShippingRateSurcharge:
+      properties:
+        amount:
+          type: number
+        code:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
+      type: object
+    ShippingPackage:
+      properties:
+        currency:
+          type: string
+        description:
+          type: string
+        height:
+          type: number
+        insured_amount:
+          type: number
+        length:
+          type: number
+        size_unit:
+          enum:
+          - cm
+          - inch
+          type: string
+          x-speakeasy-unknown-values: allow
+        tracking_number:
+          type: string
+        value:
+          type: number
+        weight:
+          type: number
+        weight_unit:
+          enum:
+          - g
+          - kg
+          - oz
+          - lb
+          type: string
+          x-speakeasy-unknown-values: allow
+        width:
+          type: number
+      type: object
+    ShippingRate:
+      properties:
+        carrier_id:
+          type: string
+        currency:
+          type: string
+        from_address:
+          $ref: '#/components/schemas/property_ShippingRate_from_address'
+        id:
+          type: string
+        packages:
+          $ref: '#/components/schemas/property_ShippingRate_packages'
+        rates:
+          $ref: '#/components/schemas/property_ShippingRate_rates'
+        raw:
+          additionalProperties: true
+          type: object
+        ship_by_at:
+          format: date-time
+          type: string
+        shipment_id:
+          type: string
+        to_address:
+          $ref: '#/components/schemas/property_ShippingRate_to_address'
+      type: object
+    property_ShippingRateRate_surcharges:
+      description: Additional charges
+      items:
+        $ref: '#/components/schemas/ShippingRateSurcharge'
+      type: array
+    property_ShippingRate_to_address:
+      description: Destination address
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        company_name:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        delivery_instructions:
+          type: string
+        email:
+          type: string
+        is_residential:
+          type: boolean
+        is_validated:
+          type: boolean
+        name:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+        telephone:
+          type: string
+      type: object
+    property_ShippingRate_packages:
+      description: Multiple packages (alternative to package)
+      items:
+        $ref: '#/components/schemas/ShippingPackage'
+      type: array
+    property_ShippingRate_rates:
+      items:
+        $ref: '#/components/schemas/ShippingRateRate'
+      type: array
+    property_ShippingRate_from_address:
+      description: Origin address
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        company_name:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        delivery_instructions:
+          type: string
+        email:
+          type: string
+        is_residential:
+          type: boolean
+        is_validated:
+          type: boolean
+        name:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+        telephone:
+          type: string
+      type: object
+    ShippingRateRate:
+      properties:
+        amount:
+          type: number
+        base_amount:
+          type: number
+        currency:
+          type: string
+        delivery_days:
+          type: number
+        delivery_terms:
+          type: string
+        description:
+          type: string
+        discount_amount:
+          type: number
+        estimated_days:
+          type: number
+        estimated_delivery_end_at:
+          format: date-time
+          type: string
+        estimated_delivery_start_at:
+          format: date-time
+          type: string
+        is_active:
+          type: boolean
+        is_guaranteed:
+          type: boolean
+        is_negotiated_rate:
+          type: boolean
+        is_trackable:
+          type: boolean
+        package_type:
+          type: string
+        rate_source:
+          type: string
+        surcharges:
+          $ref: '#/components/schemas/property_ShippingRateRate_surcharges'
+        tax_amount:
+          type: number
+        title:
+          type: string
+        transit_hours:
+          type: number
+      required:
+      - title
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

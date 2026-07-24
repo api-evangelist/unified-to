@@ -1,0 +1,144 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account issue API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: issue
+paths:
+  /unified/issue:
+    get:
+      operationId: listUnifiedIssues
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Issues'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List Support Issues
+      tags:
+      - issue
+  /unified/issue/{id}:
+    get:
+      operationId: getUnifiedIssue
+      parameters:
+      - description: ID of the Issue
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Issue'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve Support Issue
+      tags:
+      - issue
+components:
+  schemas:
+    Issue:
+      properties:
+        created_at:
+          type: string
+        id:
+          type: string
+        importance:
+          type: number
+        resolution_time:
+          type: number
+        size:
+          type: number
+        status:
+          enum:
+          - COMPLETED
+          - NEW
+          - ROADMAP
+          - IN_PROGRESS
+          - ON_HOLD
+          - VALIDATING
+          - REJECTED
+          type: string
+          x-speakeasy-unknown-values: allow
+        ticket_ref:
+          type: string
+        title:
+          type: string
+        type:
+          $ref: '#/components/schemas/property_Issue_type'
+        updated_at:
+          type: string
+        url:
+          type: string
+        workspace_id:
+          type: string
+      required:
+      - title
+      - status
+      - workspace_id
+      - ticket_ref
+      type: object
+    property_Issue_type:
+      items:
+        type: string
+      type: array
+    Issues:
+      items:
+        $ref: '#/components/schemas/Issue'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

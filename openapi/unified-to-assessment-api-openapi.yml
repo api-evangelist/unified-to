@@ -1,0 +1,776 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account assessment API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: assessment
+paths:
+  /assessment/{connection_id}/order/{id}:
+    patch:
+      operationId: patchAssessmentOrder
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - workspace_id
+            - connection_id
+            - webhook_id
+            - package_id
+            - parameters
+            - target_url
+            - status
+            - reference
+            - application_id
+            - job_id
+            - company_id
+            - candidate_id
+            - employee_id
+            - profile_name
+            - profile_first_name
+            - profile_last_name
+            - profile_resume_url
+            - profile_ip_address
+            - profile_date_of_birth
+            - profile_addresses
+            - profile_gender
+            - profile_emails
+            - profile_telephones
+            - profile_national_identifier
+            - profile_social_media_urls
+            - response_completed_at
+            - response_expires_at
+            - response_issued_at
+            - response_status
+            - response_score
+            - response_max_score
+            - response_url
+            - response_redirect_url
+            - response_download_urls
+            - response_details
+            - response_source
+            - response_attributes
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Order
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssessmentOrder'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentOrder'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Order
+      tags:
+      - assessment
+    put:
+      operationId: updateAssessmentOrder
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - workspace_id
+            - connection_id
+            - webhook_id
+            - package_id
+            - parameters
+            - target_url
+            - status
+            - reference
+            - application_id
+            - job_id
+            - company_id
+            - candidate_id
+            - employee_id
+            - profile_name
+            - profile_first_name
+            - profile_last_name
+            - profile_resume_url
+            - profile_ip_address
+            - profile_date_of_birth
+            - profile_addresses
+            - profile_gender
+            - profile_emails
+            - profile_telephones
+            - profile_national_identifier
+            - profile_social_media_urls
+            - response_completed_at
+            - response_expires_at
+            - response_issued_at
+            - response_status
+            - response_score
+            - response_max_score
+            - response_url
+            - response_redirect_url
+            - response_download_urls
+            - response_details
+            - response_source
+            - response_attributes
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Order
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssessmentOrder'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentOrder'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Order
+      tags:
+      - assessment
+  /assessment/{connection_id}/package:
+    get:
+      operationId: listAssessmentPackages
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentPackages'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List Assessment Packages
+      tags:
+      - assessment
+    post:
+      operationId: createAssessmentPackage
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssessmentPackage'
+        description: Used by assessment providers to SUBMIT packages to ATS systems
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentPackage'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an Assessment Package
+      tags:
+      - assessment
+  /assessment/{connection_id}/package/{id}:
+    delete:
+      operationId: removeAssessmentPackage
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Package
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Delete an Assessment Package
+      tags:
+      - assessment
+    get:
+      operationId: getAssessmentPackage
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Package
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentPackage'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Get an Assessment Package
+      tags:
+      - assessment
+    patch:
+      operationId: patchAssessmentPackage
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Package
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssessmentPackage'
+        description: Used by assessment providers to SUBMIT packages to ATS systems
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentPackage'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Assessment Package
+      tags:
+      - assessment
+    put:
+      operationId: updateAssessmentPackage
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Package
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssessmentPackage'
+        description: Used by assessment providers to SUBMIT packages to ATS systems
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentPackage'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Assessment Package
+      tags:
+      - assessment
+components:
+  schemas:
+    property_AssessmentOrder_response_details:
+      items:
+        $ref: '#/components/schemas/AssessmentResponseDetail'
+      type: array
+    property_AssessmentOrder_profile_telephones:
+      items:
+        type: string
+      type: array
+    property_AssessmentOrder_response_attributes:
+      description: Additional result attributes
+      items:
+        $ref: '#/components/schemas/AssessmentAttribute'
+      type: array
+    property_AssessmentOrder_profile_emails:
+      items:
+        type: string
+      type: array
+    AssessmentAddress:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    AssessmentResponseDetail:
+      properties:
+        download_url:
+          type: string
+        is_failed_reason:
+          type: boolean
+        is_private:
+          type: boolean
+        parameter_id:
+          type: string
+        text:
+          type: string
+        title:
+          type: string
+      type: object
+    AssessmentPackage:
+      description: Used by assessment providers to SUBMIT packages to ATS systems
+      properties:
+        aliases:
+          $ref: '#/components/schemas/property_AssessmentPackage_aliases'
+        connection_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        has_redirect_url:
+          type: boolean
+        has_target_url:
+          type: boolean
+        id:
+          type: string
+        info_url:
+          type: string
+        integration_types:
+          $ref: '#/components/schemas/property_AssessmentPackage_integration_types'
+        max_score:
+          type: number
+        name:
+          type: string
+        needs_ip_address:
+          type: boolean
+        parameters:
+          $ref: '#/components/schemas/property_AssessmentPackage_parameters'
+        raw:
+          additionalProperties: true
+          type: object
+        regions:
+          $ref: '#/components/schemas/property_AssessmentPackage_regions'
+        tags:
+          $ref: '#/components/schemas/property_AssessmentPackage_tags'
+        type:
+          enum:
+          - SKILLS_TEST
+          - BEHAVIORAL_ASSESSMENT
+          - VIDEO_INTERVIEW
+          - BACKGROUND_CHECK
+          - REFERENCE_CHECK
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        workspace_id:
+          type: string
+      required:
+      - id
+      - name
+      - type
+      type: object
+    property_AssessmentOrder_response_download_urls:
+      description: Report download URLs
+      items:
+        type: string
+      type: array
+    property_AssessmentParameterInput_inputs:
+      items:
+        type: string
+      type: array
+    AssessmentPackageRegion:
+      properties:
+        cost_amount:
+          type: number
+        currency:
+          type: string
+        processing_time:
+          type: number
+        regions:
+          $ref: '#/components/schemas/property_AssessmentPackageRegion_regions'
+      required:
+      - regions
+      - cost_amount
+      type: object
+    property_AssessmentParameter_options:
+      description: Options for MULTIPLE_CHOICE and MULTIPLE_SELECT
+      items:
+        type: string
+      type: array
+    property_AssessmentPackage_integration_types:
+      description: Integration types that support this package
+      items:
+        type: string
+      type: array
+    property_AssessmentParameter_valid_regions:
+      description: Regions where this parameter is valid ({country}-{state} or {country})
+      items:
+        type: string
+      type: array
+    AssessmentOrder:
+      properties:
+        application_id:
+          type: string
+        candidate_id:
+          type: string
+        company_id:
+          type: string
+        connection_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        employee_id:
+          type: string
+        id:
+          type: string
+        job_id:
+          type: string
+        package_id:
+          type: string
+        parameters:
+          $ref: '#/components/schemas/property_AssessmentOrder_parameters'
+        profile_addresses:
+          $ref: '#/components/schemas/property_AssessmentOrder_profile_addresses'
+        profile_date_of_birth:
+          type: string
+        profile_emails:
+          $ref: '#/components/schemas/property_AssessmentOrder_profile_emails'
+        profile_first_name:
+          type: string
+        profile_gender:
+          enum:
+          - MALE
+          - FEMALE
+          - INTERSEX
+          - TRANS
+          - NON_BINARY
+          type: string
+          x-speakeasy-unknown-values: allow
+        profile_ip_address:
+          type: string
+        profile_last_name:
+          type: string
+        profile_name:
+          type: string
+        profile_national_identifier:
+          type: string
+        profile_resume_url:
+          type: string
+        profile_social_media_urls:
+          $ref: '#/components/schemas/property_AssessmentOrder_profile_social_media_urls'
+        profile_telephones:
+          $ref: '#/components/schemas/property_AssessmentOrder_profile_telephones'
+        raw:
+          additionalProperties: true
+          type: object
+        reference:
+          type: string
+        response_attributes:
+          $ref: '#/components/schemas/property_AssessmentOrder_response_attributes'
+        response_completed_at:
+          format: date-time
+          type: string
+        response_details:
+          $ref: '#/components/schemas/property_AssessmentOrder_response_details'
+        response_download_urls:
+          $ref: '#/components/schemas/property_AssessmentOrder_response_download_urls'
+        response_expires_at:
+          format: date-time
+          type: string
+        response_issued_at:
+          format: date-time
+          type: string
+        response_max_score:
+          type: number
+        response_redirect_url:
+          type: string
+        response_score:
+          type: number
+        response_source:
+          type: string
+        response_status:
+          enum:
+          - OPEN
+          - IN_PROGRESS
+          - COMPLETED
+          - FAILED
+          - REJECTED
+          type: string
+          x-speakeasy-unknown-values: allow
+        response_url:
+          type: string
+        status:
+          enum:
+          - OPEN
+          - IN_PROGRESS
+          - COMPLETED
+          - FAILED
+          - REJECTED
+          type: string
+          x-speakeasy-unknown-values: allow
+        target_url:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        webhook_id:
+          type: string
+        workspace_id:
+          type: string
+      required:
+      - workspace_id
+      - connection_id
+      type: object
+    property_AssessmentOrder_profile_addresses:
+      items:
+        $ref: '#/components/schemas/AssessmentAddress'
+      type: array
+    AssessmentParameterInput:
+      properties:
+        inputs:
+          $ref: '#/components/schemas/property_AssessmentParameterInput_inputs'
+        name:
+          type: string
+        parameter_id:
+          type: string
+      type: object
+    property_AssessmentPackage_tags:
+      description: Category tags (e.g., "Assessment", "Background Check")
+      items:
+        type: string
+      type: array
+    AssessmentAttribute:
+      properties:
+        label:
+          type: string
+        reference:
+          type: string
+        score_max:
+          type: number
+        score_value:
+          type: number
+        status:
+          enum:
+          - OPEN
+          - IN_PROGRESS
+          - COMPLETED
+          - FAILED
+          - REJECTED
+          type: string
+          x-speakeasy-unknown-values: allow
+        type:
+          enum:
+          - TEXT
+          - NUMBER
+          - SUB_RESULT
+          type: string
+          x-speakeasy-unknown-values: allow
+        value:
+          type: string
+      required:
+      - type
+      - label
+      type: object
+    AssessmentParameter:
+      properties:
+        file_types:
+          $ref: '#/components/schemas/property_AssessmentParameter_file_types'
+        id:
+          type: string
+        is_required:
+          type: boolean
+        name:
+          type: string
+        options:
+          $ref: '#/components/schemas/property_AssessmentParameter_options'
+        public_question:
+          type: string
+        type:
+          enum:
+          - TEXT
+          - NUMBER
+          - MULTIPLE_CHOICE
+          - MULTIPLE_SELECT
+          - DATE
+          - FILE
+          type: string
+          x-speakeasy-unknown-values: allow
+        valid_regions:
+          $ref: '#/components/schemas/property_AssessmentParameter_valid_regions'
+      required:
+      - name
+      type: object
+    property_AssessmentParameter_file_types:
+      description: Valid file MIME types for FILE type
+      items:
+        type: string
+      type: array
+    AssessmentPackages:
+      items:
+        $ref: '#/components/schemas/AssessmentPackage'
+      type: array
+    property_AssessmentPackage_regions:
+      items:
+        $ref: '#/components/schemas/AssessmentPackageRegion'
+      type: array
+    property_AssessmentPackageRegion_regions:
+      description: Countryregion codes where this package is available ({country}-{state} or {country})
+      items:
+        type: string
+      type: array
+    property_AssessmentOrder_parameters:
+      description: Filled-in answers to the package's parameter questions
+      items:
+        $ref: '#/components/schemas/AssessmentParameterInput'
+      type: array
+    property_AssessmentOrder_profile_social_media_urls:
+      items:
+        type: string
+      type: array
+    property_AssessmentPackage_aliases:
+      description: Alternative namesidentifiers for this package
+      items:
+        type: string
+      type: array
+    property_AssessmentPackage_parameters:
+      description: Questionsinputs needed for this assessment (aligned with verification)
+      items:
+        $ref: '#/components/schemas/AssessmentParameter'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

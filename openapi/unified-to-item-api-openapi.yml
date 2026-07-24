@@ -1,0 +1,822 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account item API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: item
+paths:
+  /commerce/{connection_id}/item:
+    get:
+      operationId: listCommerceItems
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The collection ID to filter by (reference to CommerceCollection)
+        in: query
+        name: collection_id
+        required: false
+        schema:
+          type: string
+      - description: The org ID to filter by (reference to AccountingOrganization)
+        in: query
+        name: org_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - public_name
+            - slug
+            - description
+            - global_code
+            - public_description
+            - is_active
+            - is_taxable
+            - vendor_name
+            - type
+            - is_visible
+            - is_featured
+            - weight
+            - weight_unit
+            - requires_shipping
+            - prices
+            - inventory_id
+            - total_stock
+            - variants
+            - tags
+            - media
+            - collection_ids
+            - account_id
+            - metadata
+            - collections
+            - taxrate_id
+            - location_id
+            - duration
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceItems'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all items
+      tags:
+      - item
+    post:
+      operationId: createCommerceItem
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - public_name
+            - slug
+            - description
+            - global_code
+            - public_description
+            - is_active
+            - is_taxable
+            - vendor_name
+            - type
+            - is_visible
+            - is_featured
+            - weight
+            - weight_unit
+            - requires_shipping
+            - prices
+            - inventory_id
+            - total_stock
+            - variants
+            - tags
+            - media
+            - collection_ids
+            - account_id
+            - metadata
+            - collections
+            - taxrate_id
+            - location_id
+            - duration
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommerceItem'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceItem'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an item
+      tags:
+      - item
+  /commerce/{connection_id}/item/{id}:
+    delete:
+      operationId: removeCommerceItem
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Item
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an item
+      tags:
+      - item
+    get:
+      operationId: getCommerceItem
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - public_name
+            - slug
+            - description
+            - global_code
+            - public_description
+            - is_active
+            - is_taxable
+            - vendor_name
+            - type
+            - is_visible
+            - is_featured
+            - weight
+            - weight_unit
+            - requires_shipping
+            - prices
+            - inventory_id
+            - total_stock
+            - variants
+            - tags
+            - media
+            - collection_ids
+            - account_id
+            - metadata
+            - collections
+            - taxrate_id
+            - location_id
+            - duration
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Item
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceItem'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an item
+      tags:
+      - item
+    patch:
+      operationId: patchCommerceItem
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - public_name
+            - slug
+            - description
+            - global_code
+            - public_description
+            - is_active
+            - is_taxable
+            - vendor_name
+            - type
+            - is_visible
+            - is_featured
+            - weight
+            - weight_unit
+            - requires_shipping
+            - prices
+            - inventory_id
+            - total_stock
+            - variants
+            - tags
+            - media
+            - collection_ids
+            - account_id
+            - metadata
+            - collections
+            - taxrate_id
+            - location_id
+            - duration
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Item
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommerceItem'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceItem'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an item
+      tags:
+      - item
+    put:
+      operationId: updateCommerceItem
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - public_name
+            - slug
+            - description
+            - global_code
+            - public_description
+            - is_active
+            - is_taxable
+            - vendor_name
+            - type
+            - is_visible
+            - is_featured
+            - weight
+            - weight_unit
+            - requires_shipping
+            - prices
+            - inventory_id
+            - total_stock
+            - variants
+            - tags
+            - media
+            - collection_ids
+            - account_id
+            - metadata
+            - collections
+            - taxrate_id
+            - location_id
+            - duration
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Item
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommerceItem'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceItem'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an item
+      tags:
+      - item
+components:
+  schemas:
+    CommerceItems:
+      items:
+        $ref: '#/components/schemas/CommerceItem'
+      type: array
+    CommerceMetadata:
+      properties:
+        description:
+          type: string
+        extra_data:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        format:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - MEASUREMENT
+          - PRICE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        is_required:
+          type: boolean
+        namespace:
+          type: string
+        slug:
+          type: string
+        value:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+      type: object
+    property_CommerceItemvariant_items:
+      description: references CommerceItem
+      items:
+        $ref: '#/components/schemas/CommerceReference'
+      type: array
+    property_CommerceItemMedia_metadata:
+      items:
+        $ref: '#/components/schemas/CommerceMetadata'
+      type: array
+    property_CommerceItem_prices:
+      items:
+        $ref: '#/components/schemas/CommerceItemPrice'
+      type: array
+    CommerceItemOption:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        position:
+          type: number
+        values:
+          $ref: '#/components/schemas/property_CommerceItemOption_values'
+      required:
+      - name
+      - values
+      type: object
+    property_CommerceItem_tags:
+      items:
+        type: string
+      type: array
+    CommerceItemPrice:
+      properties:
+        compare_at_price:
+          type: number
+        currency:
+          type: string
+        price:
+          type: number
+      required:
+      - price
+      type: object
+    property_CommerceItemvariant_prices:
+      items:
+        $ref: '#/components/schemas/CommerceItemPrice'
+      type: array
+    property_CommerceItemvariant_options:
+      items:
+        $ref: '#/components/schemas/CommerceItemOption'
+      type: array
+    CommerceItemMedia:
+      properties:
+        alt:
+          type: string
+        height:
+          type: number
+        id:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/property_CommerceItemMedia_metadata'
+        position:
+          type: number
+        type:
+          enum:
+          - image
+          - video
+          type: string
+          x-speakeasy-unknown-values: allow
+        url:
+          type: string
+        width:
+          type: number
+      required:
+      - url
+      type: object
+    CommerceReference:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+      type: object
+    property_CommerceItemvariant_media:
+      items:
+        $ref: '#/components/schemas/CommerceItemMedia'
+      type: array
+    property_CommerceItem_collections:
+      description: points to Collection with id, name, and type fields
+      items:
+        $ref: '#/components/schemas/CommerceReference'
+      type: array
+    property_CommerceItem_metadata:
+      items:
+        $ref: '#/components/schemas/CommerceMetadata'
+      type: array
+    property_CommerceItemvariant_metadata:
+      items:
+        $ref: '#/components/schemas/CommerceMetadata'
+      type: array
+    property_CommerceItemvariant_tags:
+      items:
+        type: string
+      type: array
+    property_CommerceItem_variants:
+      description: first variant is the default variant
+      items:
+        $ref: '#/components/schemas/CommerceItemvariant'
+      type: array
+    property_CommerceItem_media:
+      items:
+        $ref: '#/components/schemas/CommerceItemMedia'
+      type: array
+    property_CommerceItemOption_values:
+      items:
+        type: string
+      type: array
+    CommerceItem:
+      properties:
+        account_id:
+          type: string
+        collection_ids:
+          $ref: '#/components/schemas/property_CommerceItem_collection_ids'
+        collections:
+          $ref: '#/components/schemas/property_CommerceItem_collections'
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        duration:
+          type: number
+        global_code:
+          type: string
+        id:
+          type: string
+        inventory_id:
+          type: string
+        is_active:
+          type: boolean
+        is_featured:
+          type: boolean
+        is_taxable:
+          type: boolean
+        is_visible:
+          type: boolean
+        location_id:
+          type: string
+        media:
+          $ref: '#/components/schemas/property_CommerceItem_media'
+        metadata:
+          $ref: '#/components/schemas/property_CommerceItem_metadata'
+        name:
+          type: string
+        prices:
+          $ref: '#/components/schemas/property_CommerceItem_prices'
+        public_description:
+          type: string
+        public_name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        requires_shipping:
+          type: boolean
+        slug:
+          type: string
+        tags:
+          $ref: '#/components/schemas/property_CommerceItem_tags'
+        taxrate_id:
+          type: string
+        total_stock:
+          type: number
+        type:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        variants:
+          $ref: '#/components/schemas/property_CommerceItem_variants'
+        vendor_name:
+          type: string
+        weight:
+          type: number
+        weight_unit:
+          enum:
+          - g
+          - kg
+          - oz
+          - lb
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    CommerceItemvariant:
+      properties:
+        available_at:
+          format: date-time
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        height:
+          type: number
+        id:
+          type: string
+        inventory_id:
+          type: string
+        is_active:
+          type: boolean
+        is_featured:
+          type: boolean
+        is_visible:
+          type: boolean
+        items:
+          $ref: '#/components/schemas/property_CommerceItemvariant_items'
+        length:
+          type: number
+        media:
+          $ref: '#/components/schemas/property_CommerceItemvariant_media'
+        metadata:
+          $ref: '#/components/schemas/property_CommerceItemvariant_metadata'
+        name:
+          type: string
+        options:
+          $ref: '#/components/schemas/property_CommerceItemvariant_options'
+        prices:
+          $ref: '#/components/schemas/property_CommerceItemvariant_prices'
+        public_description:
+          type: string
+        public_name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        requires_shipping:
+          type: boolean
+        size_unit:
+          enum:
+          - cm
+          - inch
+          type: string
+          x-speakeasy-unknown-values: allow
+        sku:
+          type: string
+        tags:
+          $ref: '#/components/schemas/property_CommerceItemvariant_tags'
+        total_stock:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+        weight:
+          type: number
+        weight_unit:
+          enum:
+          - g
+          - kg
+          - oz
+          - lb
+          type: string
+          x-speakeasy-unknown-values: allow
+        width:
+          type: number
+      type: object
+    property_CommerceItem_collection_ids:
+      description: ' @deprecated; use collections instead'
+      items:
+        type: string
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

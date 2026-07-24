@@ -1,0 +1,894 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account verification API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: verification
+paths:
+  /verification/{connection_id}/package:
+    get:
+      operationId: listVerificationPackages
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - type
+            - aliases
+            - tags
+            - description
+            - parameters
+            - average_processing_times
+            - has_redirect_url
+            - has_target_url
+            - needs_ip_address
+            - cost_amount
+            - currency
+            - max_score
+            - info_url
+            - valid_regions
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationPackages'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Packages
+      tags:
+      - verification
+  /verification/{connection_id}/package/{id}:
+    get:
+      operationId: getVerificationPackage
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - type
+            - aliases
+            - tags
+            - description
+            - parameters
+            - average_processing_times
+            - has_redirect_url
+            - has_target_url
+            - needs_ip_address
+            - cost_amount
+            - currency
+            - max_score
+            - info_url
+            - valid_regions
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Package
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationPackage'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Package
+      tags:
+      - verification
+  /verification/{connection_id}/request:
+    get:
+      operationId: listVerificationRequests
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The package ID to filter by
+        in: query
+        name: package_id
+        required: false
+        schema:
+          type: string
+      - description: The candidate ID to filter by
+        in: query
+        name: candidate_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - package_id
+            - parameters
+            - target_url
+            - candidate_id
+            - profile_ip_address
+            - profile_name
+            - profile_date_of_birth
+            - profile_addresses
+            - profile_gender
+            - profile_emails
+            - profile_telephones
+            - profile_national_identifier
+            - response_completed_at
+            - response_expires_at
+            - response_issued_at
+            - response_status
+            - response_score
+            - response_redirect_url
+            - response_download_urls
+            - response_details
+            - response_source
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationRequests'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Requests
+      tags:
+      - verification
+    post:
+      operationId: createVerificationRequest
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - package_id
+            - parameters
+            - target_url
+            - candidate_id
+            - profile_ip_address
+            - profile_name
+            - profile_date_of_birth
+            - profile_addresses
+            - profile_gender
+            - profile_emails
+            - profile_telephones
+            - profile_national_identifier
+            - response_completed_at
+            - response_expires_at
+            - response_issued_at
+            - response_status
+            - response_score
+            - response_redirect_url
+            - response_download_urls
+            - response_details
+            - response_source
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerificationRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationRequest'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Request
+      tags:
+      - verification
+  /verification/{connection_id}/request/{id}:
+    delete:
+      operationId: removeVerificationRequest
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Request
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Request
+      tags:
+      - verification
+    get:
+      operationId: getVerificationRequest
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - package_id
+            - parameters
+            - target_url
+            - candidate_id
+            - profile_ip_address
+            - profile_name
+            - profile_date_of_birth
+            - profile_addresses
+            - profile_gender
+            - profile_emails
+            - profile_telephones
+            - profile_national_identifier
+            - response_completed_at
+            - response_expires_at
+            - response_issued_at
+            - response_status
+            - response_score
+            - response_redirect_url
+            - response_download_urls
+            - response_details
+            - response_source
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Request
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationRequest'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Request
+      tags:
+      - verification
+    patch:
+      operationId: patchVerificationRequest
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - package_id
+            - parameters
+            - target_url
+            - candidate_id
+            - profile_ip_address
+            - profile_name
+            - profile_date_of_birth
+            - profile_addresses
+            - profile_gender
+            - profile_emails
+            - profile_telephones
+            - profile_national_identifier
+            - response_completed_at
+            - response_expires_at
+            - response_issued_at
+            - response_status
+            - response_score
+            - response_redirect_url
+            - response_download_urls
+            - response_details
+            - response_source
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Request
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerificationRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationRequest'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Request
+      tags:
+      - verification
+    put:
+      operationId: updateVerificationRequest
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - package_id
+            - parameters
+            - target_url
+            - candidate_id
+            - profile_ip_address
+            - profile_name
+            - profile_date_of_birth
+            - profile_addresses
+            - profile_gender
+            - profile_emails
+            - profile_telephones
+            - profile_national_identifier
+            - response_completed_at
+            - response_expires_at
+            - response_issued_at
+            - response_status
+            - response_score
+            - response_redirect_url
+            - response_download_urls
+            - response_details
+            - response_source
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Request
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerificationRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationRequest'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Request
+      tags:
+      - verification
+components:
+  schemas:
+    property_VerificationRequest_profile_emails:
+      items:
+        type: string
+      type: array
+    property_VerificationParameter_valid_regions:
+      description: '{country}-{stateprovince/territory} or just {country} 2-digit ISO codes'
+      items:
+        type: string
+      type: array
+    VerificationAddress:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_VerificationPackage_parameters:
+      description: Questions that need to be answered for this verification
+      items:
+        $ref: '#/components/schemas/VerificationParameter'
+      type: array
+    property_VerificationPackage_aliases:
+      items:
+        type: string
+      type: array
+    property_VerificationParameterInput_inputs:
+      items:
+        type: string
+      type: array
+    property_VerificationRequest_response_download_urls:
+      description: report download
+      items:
+        type: string
+      type: array
+    VerificationPackages:
+      items:
+        $ref: '#/components/schemas/VerificationPackage'
+      type: array
+    property_VerificationPackage_valid_regions:
+      description: '{country}-{state/province/territory} or just {country} 2-digit ISO codes'
+      items:
+        type: string
+      type: array
+    VerificationResponseDetail:
+      properties:
+        download_url:
+          type: string
+        is_failed_reason:
+          type: boolean
+        is_private:
+          type: boolean
+        parameter_id:
+          type: string
+        text:
+          type: string
+        title:
+          type: string
+      type: object
+    property_VerificationRequest_profile_addresses:
+      items:
+        $ref: '#/components/schemas/VerificationAddress'
+      type: array
+    property_VerificationTime_valid_regions:
+      description: '{country}-{stateprovince/territory} or just {country} 2-digit ISO codes'
+      items:
+        type: string
+      type: array
+    property_VerificationRequest_parameters:
+      items:
+        $ref: '#/components/schemas/VerificationParameterInput'
+      type: array
+    VerificationParameterInput:
+      properties:
+        id:
+          type: string
+        inputs:
+          $ref: '#/components/schemas/property_VerificationParameterInput_inputs'
+        name:
+          type: string
+      type: object
+    VerificationTime:
+      properties:
+        milliseconds:
+          type: number
+        valid_regions:
+          $ref: '#/components/schemas/property_VerificationTime_valid_regions'
+      type: object
+    property_VerificationRequest_response_details:
+      items:
+        $ref: '#/components/schemas/VerificationResponseDetail'
+      type: array
+    VerificationPackage:
+      properties:
+        aliases:
+          $ref: '#/components/schemas/property_VerificationPackage_aliases'
+        average_processing_times:
+          $ref: '#/components/schemas/property_VerificationPackage_average_processing_times'
+        cost_amount:
+          type: number
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        description:
+          type: string
+        has_redirect_url:
+          type: boolean
+        has_target_url:
+          type: boolean
+        id:
+          type: string
+        info_url:
+          type: string
+        max_score:
+          type: number
+        name:
+          type: string
+        needs_ip_address:
+          type: boolean
+        parameters:
+          $ref: '#/components/schemas/property_VerificationPackage_parameters'
+        raw:
+          additionalProperties: true
+          type: object
+        tags:
+          $ref: '#/components/schemas/property_VerificationPackage_tags'
+        type:
+          enum:
+          - IDENTITY_VERIFICATION
+          - SCREENING
+          - BACKGROUND_CHECK
+          - EMPLOYMENT_VERIFICATION
+          - EDUCATION_VERIFICATION
+          - CREDIT_CHECK
+          - FRAUD_PREVENTION
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        valid_regions:
+          $ref: '#/components/schemas/property_VerificationPackage_valid_regions'
+      required:
+      - id
+      - name
+      - type
+      type: object
+    property_VerificationParameter_file_types:
+      description: valid file mime types
+      items:
+        type: string
+      type: array
+    property_VerificationRequest_profile_telephones:
+      items:
+        type: string
+      type: array
+    VerificationParameter:
+      properties:
+        file_types:
+          $ref: '#/components/schemas/property_VerificationParameter_file_types'
+        id:
+          type: string
+        is_required:
+          type: boolean
+        name:
+          type: string
+        options:
+          $ref: '#/components/schemas/property_VerificationParameter_options'
+        public_question:
+          type: string
+        type:
+          enum:
+          - TEXT
+          - NUMBER
+          - MULTIPLE_CHOICE
+          - MULTIPLE_SELECT
+          - DATE
+          - FILE
+          type: string
+          x-speakeasy-unknown-values: allow
+        valid_regions:
+          $ref: '#/components/schemas/property_VerificationParameter_valid_regions'
+      required:
+      - name
+      type: object
+    VerificationRequests:
+      items:
+        $ref: '#/components/schemas/VerificationRequest'
+      type: array
+    property_VerificationPackage_average_processing_times:
+      description: average processing time in minutes
+      items:
+        $ref: '#/components/schemas/VerificationTime'
+      type: array
+    property_VerificationPackage_tags:
+      description: Category (Verification, Validation, Background Check)
+      items:
+        type: string
+      type: array
+    VerificationRequest:
+      properties:
+        candidate_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        package_id:
+          type: string
+        parameters:
+          $ref: '#/components/schemas/property_VerificationRequest_parameters'
+        profile_addresses:
+          $ref: '#/components/schemas/property_VerificationRequest_profile_addresses'
+        profile_date_of_birth:
+          type: string
+        profile_emails:
+          $ref: '#/components/schemas/property_VerificationRequest_profile_emails'
+        profile_gender:
+          enum:
+          - MALE
+          - FEMALE
+          - INTERSEX
+          - TRANS
+          - NON_BINARY
+          type: string
+          x-speakeasy-unknown-values: allow
+        profile_ip_address:
+          type: string
+        profile_name:
+          type: string
+        profile_national_identifier:
+          type: string
+        profile_telephones:
+          $ref: '#/components/schemas/property_VerificationRequest_profile_telephones'
+        raw:
+          additionalProperties: true
+          type: object
+        response_completed_at:
+          format: date-time
+          type: string
+        response_details:
+          $ref: '#/components/schemas/property_VerificationRequest_response_details'
+        response_download_urls:
+          $ref: '#/components/schemas/property_VerificationRequest_response_download_urls'
+        response_expires_at:
+          format: date-time
+          type: string
+        response_issued_at:
+          format: date-time
+          type: string
+        response_redirect_url:
+          type: string
+        response_score:
+          type: number
+        response_source:
+          type: string
+        response_status:
+          enum:
+          - COMPLETED
+          - FAILED
+          - PASSED
+          - PENDING
+          type: string
+          x-speakeasy-unknown-values: allow
+        target_url:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_VerificationParameter_options:
+      description: options for MULTIPLE_CHOICE and MULTIPLE_SELECT
+      items:
+        type: string
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

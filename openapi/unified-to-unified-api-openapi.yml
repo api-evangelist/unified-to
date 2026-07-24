@@ -1,0 +1,3079 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: .to account unified API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: unified
+paths:
+  /unified/apicall:
+    get:
+      operationId: listUnifiedApicalls
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Filter the results to only those integrations for your user referenced by this value
+        in: query
+        name: external_xref
+        required: false
+        schema:
+          type: string
+      - description: Filter the results to just this integration
+        in: query
+        name: integration_type
+        required: false
+        schema:
+          type: string
+      - description: Filter the results for API Calls with errors
+        in: query
+        name: error
+        required: false
+        schema:
+          type: boolean
+      - description: Filter the results to just this integration
+        in: query
+        name: connection_id
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: env
+        required: false
+        schema:
+          type: string
+      - description: Filter the results to just this webhook
+        in: query
+        name: webhook_id
+        required: false
+        schema:
+          type: string
+      - description: Filter the results to just this type
+        in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      - description: Filter the results for only billable API Calls
+        in: query
+        name: is_billable
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiCalls'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Returns Api Calls
+      tags:
+      - unified
+  /unified/apicall/{id}:
+    get:
+      operationId: getUnifiedApicall
+      parameters:
+      - description: ID of the Apicall
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiCall'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve Specific Api Call by Its Id
+      tags:
+      - unified
+  /unified/connection:
+    get:
+      operationId: listUnifiedConnections
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Filter the results to only those integrations for your user referenced by this value
+        in: query
+        name: external_xref
+        required: false
+        schema:
+          type: string
+      - description: Filter the results on these categories
+        in: query
+        name: categories
+        required: false
+        schema:
+          items:
+            enum:
+            - passthrough
+            - hris
+            - ats
+            - auth
+            - crm
+            - enrich
+            - martech
+            - ticketing
+            - uc
+            - accounting
+            - storage
+            - commerce
+            - payment
+            - genai
+            - messaging
+            - kms
+            - task
+            - scim
+            - lms
+            - repo
+            - metadata
+            - calendar
+            - verification
+            - ads
+            - forms
+            - shipping
+            - assessment
+            - signing
+            type: string
+          type: array
+      - in: query
+        name: env
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connections'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Connections
+      tags:
+      - unified
+    post:
+      description: Used only to import existing customer credentials; use "Authorize new connection" instead
+      operationId: createUnifiedConnection
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Connection'
+        description: A connection represents a specific authentication of an integration.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create Connection
+      tags:
+      - unified
+  /unified/connection/{id}:
+    delete:
+      operationId: removeUnifiedConnection
+      parameters:
+      - description: ID of the Connection
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove Connection
+      tags:
+      - unified
+    get:
+      operationId: getUnifiedConnection
+      parameters:
+      - description: ID of the Connection
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve Connection
+      tags:
+      - unified
+    patch:
+      operationId: patchUnifiedConnection
+      parameters:
+      - description: ID of the Connection
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Connection'
+        description: A connection represents a specific authentication of an integration.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update Connection
+      tags:
+      - unified
+    put:
+      operationId: updateUnifiedConnection
+      parameters:
+      - description: ID of the Connection
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Connection'
+        description: A connection represents a specific authentication of an integration.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connection'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update Connection
+      tags:
+      - unified
+  /unified/environment:
+    get:
+      operationId: listUnifiedEnvironments
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environments'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Returns All Environments
+      tags:
+      - unified
+    post:
+      operationId: createUnifiedEnvironment
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Environments'
+        description: A list of environments in the workspace.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environments'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create New Environments
+      tags:
+      - unified
+  /unified/environment/{env}:
+    delete:
+      operationId: removeUnifiedEnvironment
+      parameters:
+      - in: path
+        name: env
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environments'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Remove an Environment
+      tags:
+      - unified
+  /unified/integration:
+    get:
+      operationId: listUnifiedIntegrations
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - description: Filter the results on these categories
+        in: query
+        name: categories
+        required: false
+        schema:
+          items:
+            enum:
+            - passthrough
+            - hris
+            - ats
+            - auth
+            - crm
+            - enrich
+            - martech
+            - ticketing
+            - uc
+            - accounting
+            - storage
+            - commerce
+            - payment
+            - genai
+            - messaging
+            - kms
+            - task
+            - scim
+            - lms
+            - repo
+            - metadata
+            - calendar
+            - verification
+            - ads
+            - forms
+            - shipping
+            - assessment
+            - signing
+            type: string
+          type: array
+      - in: query
+        name: summary
+        required: false
+        schema:
+          type: boolean
+      - description: Filter the results for only the workspace's active integrations
+        in: query
+        name: active
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: env
+        required: false
+        schema:
+          type: string
+      - description: Filter the results for only this integration type
+        in: query
+        name: type
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integrations'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Returns All Integrations
+      tags:
+      - unified
+  /unified/integration/auth/{workspace_id}/{integration_type}:
+    get:
+      description: Returns an authorization URL for the specified integration.  Once a successful authorization occurs, a new connection is created.
+      operationId: getUnifiedIntegrationAuth
+      parameters:
+      - description: The URL where you want the user to be redirect to after a successful authorization.  The connection ID will be appended with (id=<connectionId>) to this URL, as will the state that was provided.
+        in: query
+        name: success_redirect
+        required: false
+        schema:
+          type: string
+      - description: The URL where you want the user to be redirect to after an unsuccessful authentication. An "error" variable will be appended.
+        in: query
+        name: failure_redirect
+        required: false
+        schema:
+          type: string
+      - description: Extra state to send back to your success URL
+        in: query
+        name: state
+        required: false
+        schema:
+          type: string
+      - description: Your user identifier to associate with the new Integration
+        in: query
+        name: external_xref
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: scopes
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+      - in: query
+        name: redirect
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: env
+        required: false
+        schema:
+          type: string
+      - description: 'Language: en, fr, es, it, pt, zh, hi'
+        in: query
+        name: lang
+        required: false
+        schema:
+          type: string
+      - description: Optional tenant domain or subdomain for integrations that require it to build the authorize, token, or API URL. Depending on the integration, this may be a bare subdomain or a full domain/URL.
+        in: query
+        name: subdomain
+        required: false
+        schema:
+          type: string
+      - description: The ID of the workspace
+        in: path
+        name: workspace_id
+        required: true
+        schema:
+          type: string
+      - description: Type of the supported integration
+        in: path
+        name: integration_type
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Successful
+      summary: Authorize New Connection
+      tags:
+      - unified
+  /unified/integration/workspace/{workspace_id}:
+    get:
+      description: No authentication required as this is to be used by front-end interface
+      operationId: listUnifiedIntegrationWorkspaces
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - description: Filter the results on these categories
+        in: query
+        name: categories
+        required: false
+        schema:
+          items:
+            enum:
+            - passthrough
+            - hris
+            - ats
+            - auth
+            - crm
+            - enrich
+            - martech
+            - ticketing
+            - uc
+            - accounting
+            - storage
+            - commerce
+            - payment
+            - genai
+            - messaging
+            - kms
+            - task
+            - scim
+            - lms
+            - repo
+            - metadata
+            - calendar
+            - verification
+            - ads
+            - forms
+            - shipping
+            - assessment
+            - signing
+            type: string
+          type: array
+      - in: query
+        name: summary
+        required: false
+        schema:
+          type: boolean
+      - description: Filter the results for only the workspace's active integrations
+        in: query
+        name: active
+        required: false
+        schema:
+          type: boolean
+      - in: query
+        name: env
+        required: false
+        schema:
+          type: string
+      - description: The ID of the workspace
+        in: path
+        name: workspace_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integrations'
+          description: Successful
+      summary: Returns All Activated Integrations in a Workspace
+      tags:
+      - unified
+  /unified/issue:
+    get:
+      operationId: listUnifiedIssues
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Issues'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List Support Issues
+      tags:
+      - unified
+  /unified/issue/{id}:
+    get:
+      operationId: getUnifiedIssue
+      parameters:
+      - description: ID of the Issue
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Issue'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve Support Issue
+      tags:
+      - unified
+  /unified/webhook:
+    get:
+      operationId: listUnifiedWebhooks
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Filter the results for webhooks for only this object
+        in: query
+        name: object
+        required: false
+        schema:
+          type: string
+      - description: Filter the results to just this integration
+        in: query
+        name: integration_type
+        required: false
+        schema:
+          type: string
+      - description: Filter the results to just this integration
+        in: query
+        name: connection_id
+        required: false
+        schema:
+          type: string
+      - description: Return only results whose created date is equal or less to this value
+        in: query
+        name: created_lte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: env
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhooks'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Returns All Registered Webhooks
+      tags:
+      - unified
+    post:
+      description: The data payload received by your server is described at https://docs.unified.to/unified/overview. The `interval` field can be set as low as 1 minute for paid accounts, and 60 minutes for free accounts.
+      operationId: createUnifiedWebhook
+      parameters:
+      - description: When set, all of the existing data will sent back to your server.
+        in: query
+        name: include_all
+        required: false
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+        description: A webhook is used to POST new/updated information to your server.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create Webhook Subscription
+      tags:
+      - unified
+  /unified/webhook/{id}:
+    delete:
+      operationId: removeUnifiedWebhook
+      parameters:
+      - description: ID of the Webhook
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove Webhook Subscription
+      tags:
+      - unified
+    get:
+      operationId: getUnifiedWebhook
+      parameters:
+      - description: ID of the Webhook
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve Webhook by Its Id
+      tags:
+      - unified
+    patch:
+      operationId: patchUnifiedWebhook
+      parameters:
+      - description: ID of the Webhook
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+        description: A webhook is used to POST new/updated information to your server.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update Webhook Subscription
+      tags:
+      - unified
+    put:
+      operationId: updateUnifiedWebhook
+      parameters:
+      - description: ID of the Webhook
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+        description: A webhook is used to POST new/updated information to your server.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update Webhook Subscription
+      tags:
+      - unified
+  /unified/webhook/{id}/trigger:
+    patch:
+      operationId: patchUnifiedWebhookTrigger
+      parameters:
+      - description: ID of the Webhook
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Trigger Webhook
+      tags:
+      - unified
+    put:
+      operationId: updateUnifiedWebhookTrigger
+      parameters:
+      - description: ID of the Webhook
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Trigger Webhook
+      tags:
+      - unified
+components:
+  schemas:
+    property_IntegrationSupport_slow_fields:
+      items:
+        type: string
+      type: array
+    Webhook:
+      description: A webhook is used to POST new/updated information to your server.
+      properties:
+        checked_at:
+          format: date-time
+          type: string
+        connection_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        db_name_prefix:
+          type: string
+        db_schema:
+          type: string
+        db_type:
+          enum:
+          - mongodb
+          - mysql
+          - postgres
+          - mssql
+          - mariadb
+          - supabase
+          type: string
+          x-speakeasy-unknown-values: allow
+        db_url:
+          type: string
+        environment:
+          default: Production
+          type: string
+        event:
+          enum:
+          - updated
+          - created
+          - deleted
+          type: string
+          x-speakeasy-unknown-values: allow
+        fields:
+          type: string
+        filters:
+          $ref: '#/components/schemas/property_Webhook_filters'
+        hook_url:
+          type: string
+        id:
+          type: string
+        integration_type:
+          type: string
+        interval:
+          type: number
+        is_beta:
+          type: boolean
+        is_healthy:
+          type: boolean
+        is_paused:
+          type: boolean
+        object_type:
+          enum:
+          - accounting_account
+          - accounting_transaction
+          - accounting_journal
+          - accounting_contact
+          - accounting_invoice
+          - accounting_bill
+          - accounting_creditmemo
+          - accounting_taxrate
+          - accounting_organization
+          - accounting_order
+          - accounting_salesorder
+          - accounting_purchaseorder
+          - accounting_report
+          - accounting_balancesheet
+          - accounting_profitloss
+          - accounting_trialbalance
+          - accounting_category
+          - accounting_expense
+          - accounting_cashflow
+          - payment_payment
+          - payment_link
+          - payment_payout
+          - payment_refund
+          - payment_subscription
+          - commerce_item
+          - commerce_collection
+          - commerce_inventory
+          - commerce_location
+          - commerce_review
+          - commerce_saleschannel
+          - commerce_itemvariant
+          - commerce_reservation
+          - commerce_availability
+          - verification_package
+          - verification_request
+          - assessment_package
+          - assessment_order
+          - ats_activity
+          - ats_application
+          - ats_applicationstatus
+          - ats_candidate
+          - ats_document
+          - ats_interview
+          - ats_job
+          - ats_scorecard
+          - ats_company
+          - crm_company
+          - crm_contact
+          - crm_deal
+          - crm_event
+          - crm_lead
+          - crm_pipeline
+          - hris_employee
+          - hris_group
+          - hris_payslip
+          - hris_timeoff
+          - hris_company
+          - hris_location
+          - hris_device
+          - hris_timeshift
+          - hris_deduction
+          - hris_benefit
+          - hris_bankaccount
+          - martech_list
+          - martech_member
+          - martech_campaign
+          - martech_report
+          - passthrough
+          - ticketing_note
+          - ticketing_ticket
+          - ticketing_customer
+          - ticketing_category
+          - uc_contact
+          - uc_call
+          - uc_comment
+          - uc_recording
+          - enrich_person
+          - enrich_company
+          - storage_file
+          - genai_model
+          - genai_prompt
+          - genai_embedding
+          - messaging_message
+          - messaging_channel
+          - messaging_event
+          - kms_space
+          - kms_page
+          - kms_comment
+          - task_project
+          - task_task
+          - task_comment
+          - task_change
+          - scim_users
+          - scim_groups
+          - lms_course
+          - lms_class
+          - lms_student
+          - lms_instructor
+          - lms_content
+          - lms_collection
+          - lms_activity
+          - repo_organization
+          - repo_repository
+          - repo_branch
+          - repo_commit
+          - repo_pullrequest
+          - metadata_metadata
+          - calendar_calendar
+          - calendar_event
+          - calendar_busy
+          - calendar_link
+          - calendar_recording
+          - calendar_webinar
+          - ads_organization
+          - ads_ad
+          - ads_campaign
+          - ads_report
+          - ads_group
+          - ads_creative
+          - ads_insertionorder
+          - ads_target
+          - ads_promoted
+          - forms_form
+          - forms_submission
+          - shipping_carrier
+          - shipping_rate
+          - shipping_shipment
+          - shipping_label
+          - shipping_tracking
+          - signing_document
+          - signing_signatory
+          - signing_template
+          type: string
+          x-speakeasy-unknown-values: allow
+        page_max_limit:
+          type: number
+        runs:
+          $ref: '#/components/schemas/property_Webhook_runs'
+        updated_at:
+          format: date-time
+          type: string
+        webhook_type:
+          enum:
+          - virtual
+          - native
+          type: string
+          x-speakeasy-unknown-values: allow
+        workspace_id:
+          type: string
+      required:
+      - connection_id
+      - object_type
+      - event
+      type: object
+    property_IntegrationSupport_webhook_events:
+      properties:
+        created:
+          $ref: '#/components/schemas/property_IntegrationSupport_webhook_events_created'
+        deleted:
+          $ref: '#/components/schemas/property_IntegrationSupport_webhook_events_deleted'
+        updated:
+          $ref: '#/components/schemas/property_IntegrationSupport_webhook_events_updated'
+      type: object
+    property_IntegrationSupport_webhook_events_deleted:
+      items:
+        enum:
+        - virtual
+        - native
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_IntegrationSupport_inbound_fields:
+      additionalProperties:
+        type: string
+      type: object
+    property_IntegrationSupport_methods:
+      additionalProperties:
+        type: boolean
+      type: object
+    property_IntegrationSupport_raw_objects:
+      description: objects that we map from in the integration
+      items:
+        type: string
+      type: array
+    property_IntegrationSupport_webhook_events_created:
+      items:
+        enum:
+        - virtual
+        - native
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_IntegrationSupport_outbound_fields:
+      additionalProperties:
+        type: string
+      type: object
+    Webhooks:
+      items:
+        $ref: '#/components/schemas/Webhook'
+      type: array
+    property_Issue_type:
+      items:
+        type: string
+      type: array
+    property_Connection_permissions:
+      items:
+        enum:
+        - accounting_account_read
+        - accounting_account_write
+        - accounting_transaction_read
+        - accounting_transaction_write
+        - accounting_journal_read
+        - accounting_journal_write
+        - accounting_invoice_read
+        - accounting_invoice_write
+        - accounting_bill_read
+        - accounting_bill_write
+        - accounting_creditmemo_read
+        - accounting_creditmemo_write
+        - accounting_contact_read
+        - accounting_contact_write
+        - accounting_expense_read
+        - accounting_expense_write
+        - accounting_taxrate_read
+        - accounting_taxrate_write
+        - accounting_organization_read
+        - accounting_order_read
+        - accounting_order_write
+        - accounting_purchaseorder_read
+        - accounting_purchaseorder_write
+        - accounting_salesorder_read
+        - accounting_salesorder_write
+        - accounting_report_read
+        - accounting_report_write
+        - accounting_trialbalance_read
+        - accounting_trialbalance_write
+        - accounting_profitloss_read
+        - accounting_profitloss_write
+        - accounting_balancesheet_read
+        - accounting_balancesheet_write
+        - accounting_category_read
+        - accounting_category_write
+        - payment_payment_read
+        - payment_payment_write
+        - accounting_cashflow_read
+        - accounting_cashflow_write
+        - payment_payout_read
+        - payment_refund_read
+        - payment_link_read
+        - payment_link_write
+        - payment_subscription_read
+        - payment_subscription_write
+        - commerce_item_read
+        - commerce_item_write
+        - commerce_collection_read
+        - commerce_collection_write
+        - commerce_inventory_read
+        - commerce_inventory_write
+        - commerce_location_read
+        - commerce_location_write
+        - commerce_review_read
+        - commerce_review_write
+        - commerce_saleschannel_read
+        - commerce_saleschannel_write
+        - commerce_itemvariant_read
+        - commerce_itemvariant_write
+        - commerce_reservation_read
+        - commerce_reservation_write
+        - commerce_availability_read
+        - commerce_availability_write
+        - verification_package_read
+        - verification_request_read
+        - verification_request_write
+        - assessment_package_read
+        - assessment_package_write
+        - assessment_order_write
+        - ats_activity_read
+        - ats_activity_write
+        - ats_application_read
+        - ats_application_write
+        - ats_applicationstatus_read
+        - ats_candidate_read
+        - ats_candidate_write
+        - ats_interview_read
+        - ats_interview_write
+        - ats_job_read
+        - ats_job_write
+        - ats_company_read
+        - ats_company_write
+        - ats_document_read
+        - ats_document_write
+        - ats_scorecard_read
+        - ats_scorecard_write
+        - crm_company_read
+        - crm_company_write
+        - crm_contact_read
+        - crm_contact_write
+        - crm_deal_read
+        - crm_deal_write
+        - crm_event_read
+        - crm_event_write
+        - crm_lead_read
+        - crm_lead_write
+        - crm_pipeline_read
+        - crm_pipeline_write
+        - martech_list_read
+        - martech_list_write
+        - martech_member_read
+        - martech_member_write
+        - martech_campaign_read
+        - martech_campaign_write
+        - martech_report_read
+        - martech_report_write
+        - ticketing_customer_read
+        - ticketing_customer_write
+        - ticketing_ticket_read
+        - ticketing_ticket_write
+        - ticketing_note_read
+        - ticketing_note_write
+        - ticketing_category_read
+        - ticketing_category_write
+        - hris_employee_read
+        - hris_employee_write
+        - hris_group_read
+        - hris_group_write
+        - hris_payslip_read
+        - hris_payslip_write
+        - hris_timeoff_read
+        - hris_timeoff_write
+        - hris_timeshift_read
+        - hris_timeshift_write
+        - hris_company_read
+        - hris_company_write
+        - hris_location_read
+        - hris_location_write
+        - hris_device_read
+        - hris_device_write
+        - hris_deduction_read
+        - hris_deduction_write
+        - hris_benefit_read
+        - hris_benefit_write
+        - hris_bankaccount_read
+        - hris_bankaccount_write
+        - uc_call_read
+        - uc_contact_read
+        - uc_contact_write
+        - uc_comment_read
+        - uc_comment_write
+        - uc_recording_read
+        - storage_file_read
+        - storage_file_write
+        - webhook
+        - genai_model_read
+        - genai_prompt_read
+        - genai_prompt_write
+        - genai_embedding_read
+        - genai_embedding_write
+        - messaging_message_read
+        - messaging_message_write
+        - messaging_channel_read
+        - messaging_event_read
+        - messaging_event_write
+        - kms_space_read
+        - kms_space_write
+        - kms_page_read
+        - kms_page_write
+        - kms_comment_read
+        - kms_comment_write
+        - task_project_read
+        - task_project_write
+        - task_task_read
+        - task_task_write
+        - task_change_read
+        - task_comment_read
+        - task_comment_write
+        - scim_users_read
+        - scim_users_write
+        - scim_groups_read
+        - scim_groups_write
+        - lms_course_read
+        - lms_course_write
+        - lms_class_read
+        - lms_class_write
+        - lms_student_read
+        - lms_student_write
+        - lms_instructor_read
+        - lms_instructor_write
+        - lms_content_read
+        - lms_content_write
+        - lms_collection_read
+        - lms_collection_write
+        - lms_activity_read
+        - lms_activity_write
+        - repo_organization_read
+        - repo_organization_write
+        - repo_repository_read
+        - repo_repository_write
+        - repo_branch_read
+        - repo_branch_write
+        - repo_commit_read
+        - repo_commit_write
+        - repo_pullrequest_read
+        - repo_pullrequest_write
+        - metadata_metadata_read
+        - metadata_metadata_write
+        - calendar_calendar_read
+        - calendar_calendar_write
+        - calendar_event_read
+        - calendar_event_write
+        - calendar_busy_read
+        - calendar_link_read
+        - calendar_link_write
+        - calendar_recording_read
+        - calendar_recording_write
+        - calendar_webinar_read
+        - calendar_webinar_write
+        - enrich_person_read
+        - enrich_company_read
+        - ads_ad_read
+        - ads_ad_write
+        - ads_campaign_read
+        - ads_campaign_write
+        - ads_group_read
+        - ads_group_write
+        - ads_report_read
+        - ads_organization_read
+        - ads_organization_write
+        - ads_creative_read
+        - ads_creative_write
+        - ads_insertionorder_read
+        - ads_insertionorder_write
+        - ads_target_read
+        - ads_promoted_read
+        - forms_form_read
+        - forms_form_write
+        - forms_submission_read
+        - forms_submission_write
+        - shipping_shipment_read
+        - shipping_shipment_write
+        - shipping_label_read
+        - shipping_label_write
+        - shipping_tracking_read
+        - shipping_rate_read
+        - shipping_carrier_read
+        - signing_document_read
+        - signing_document_write
+        - signing_signatory_read
+        - signing_signatory_write
+        - signing_template_read
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    Environments:
+      description: A list of environments in the workspace.
+      items:
+        type: string
+      type: array
+    Issue:
+      properties:
+        created_at:
+          type: string
+        id:
+          type: string
+        importance:
+          type: number
+        resolution_time:
+          type: number
+        size:
+          type: number
+        status:
+          enum:
+          - COMPLETED
+          - NEW
+          - ROADMAP
+          - IN_PROGRESS
+          - ON_HOLD
+          - VALIDATING
+          - REJECTED
+          type: string
+          x-speakeasy-unknown-values: allow
+        ticket_ref:
+          type: string
+        title:
+          type: string
+        type:
+          $ref: '#/components/schemas/property_Issue_type'
+        updated_at:
+          type: string
+        url:
+          type: string
+        workspace_id:
+          type: string
+      required:
+      - title
+      - status
+      - workspace_id
+      - ticket_ref
+      type: object
+    property_Connection_auth:
+      description: An authentication object that represents a specific authorized user's connection to an integration.
+      properties:
+        access_token:
+          type: string
+        api_url:
+          type: string
+        app_id:
+          type: string
+        audience:
+          type: string
+        authorize_url:
+          type: string
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        consumer_key:
+          type: string
+        consumer_secret:
+          type: string
+        dev_api_key:
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_Connection_auth_emails'
+        expires_in:
+          type: number
+        expiry_date:
+          format: date-time
+          type: string
+        key:
+          type: string
+        meta:
+          additionalProperties: true
+          type: object
+        name:
+          type: string
+        other_auth_info:
+          $ref: '#/components/schemas/property_Connection_auth_other_auth_info'
+        pem:
+          type: string
+        refresh_token:
+          type: string
+        refresh_token_expires_date:
+          format: date-time
+          type: string
+        refresh_token_expires_in:
+          type: number
+        refresh_url:
+          type: string
+        state:
+          type: string
+        token:
+          type: string
+        token_url:
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_Integration_token_instructions:
+      description: instructions for the user on how to find the token/key
+      items:
+        type: string
+      type: array
+    IntegrationSupport:
+      properties:
+        from_webhook:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        inbound_fields:
+          $ref: '#/components/schemas/property_IntegrationSupport_inbound_fields'
+        list_account_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_ad_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_application_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_benefit_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_bill_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_branch_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_calendar_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_call_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_campaign_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_candidate_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_carrier_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_category_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_channel_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_class_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_collection_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_company_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_contact_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_content_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_course_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_customer_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_deal_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_document_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_end_lt:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_event_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_expand:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_form_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_fulltext:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_group_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_instructor_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_interview_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_invoice_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_io_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_item_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_item_variant_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_job_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_label_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_lead_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_limit:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_link_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_list_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_location_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_member_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_offset:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_order:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_order_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_org_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_package_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_page_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_parent_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_payment_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_payslip_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_pipeline_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_project_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_query:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_raw_fields:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_reference:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_repo_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_root_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_saleschannel_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_shipment_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_size:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_sort_by_created_at:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_sort_by_name:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_sort_by_updated_at:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_space_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_start_gte:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_status:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_student_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_task_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_teacher_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_template_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_ticket_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_type:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_updated_gte:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_user_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        list_user_mentioned_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        methods:
+          $ref: '#/components/schemas/property_IntegrationSupport_methods'
+        native_webhook_calendar_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_carrier_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_channel_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_company_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_course_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_event_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_form_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_io_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_label_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_list_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_member_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_order_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_parent_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_project_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_shipment_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_student_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_task_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_template_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        native_webhook_type:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        outbound_fields:
+          $ref: '#/components/schemas/property_IntegrationSupport_outbound_fields'
+        raw_objects:
+          $ref: '#/components/schemas/property_IntegrationSupport_raw_objects'
+        search_domain:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        search_email:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        search_linkedinurl:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        search_name:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        search_twitter:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        slow_fields:
+          $ref: '#/components/schemas/property_IntegrationSupport_slow_fields'
+        virtual_webhook_ad_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_application_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_benefit_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_bill_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_branch_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_calendar_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_call_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_campaign_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_candidate_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_carrier_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_channel_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_collection_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_company_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_contact_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_course_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_customer_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_deal_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_end_lt:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_event_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_expand:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_fields:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_form_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_group_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_invoice_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_io_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_item_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_item_variant_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_job_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_label_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_lead_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_limit:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_link_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_list_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_location_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_member_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_order_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_org_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_page_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_parent_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_payment_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_pipeline_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_project_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_reference:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_repo_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_saleschannel_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_shipment_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_space_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_start_gte:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_status:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_student_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_task_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_template_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_ticket_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_type:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_updated_gte:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_user_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        virtual_webhook_user_mentioned_id:
+          enum:
+          - supported-required
+          - supported
+          - not-supported
+          type: string
+          x-speakeasy-unknown-values: allow
+        webhook_events:
+          $ref: '#/components/schemas/property_IntegrationSupport_webhook_events'
+      type: object
+    Integration:
+      description: Informational object for supported integrations.
+      properties:
+        active_healthy_connections:
+          type: number
+        api:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        api_docs_url:
+          type: string
+        beta:
+          type: boolean
+        categories:
+          $ref: '#/components/schemas/property_Integration_categories'
+        color:
+          type: string
+        created_at:
+          type: string
+        description:
+          type: string
+        fa_icon:
+          type: string
+        featured:
+          type: boolean
+        in_progress:
+          type: boolean
+        is_active:
+          type: boolean
+        is_hidden:
+          type: boolean
+        logo_url:
+          type: string
+        name:
+          type: string
+        partnership:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        popularity:
+          type: number
+        rate_limit_description:
+          type: string
+        saml:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        sandbox:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        support:
+          $ref: '#/components/schemas/property_Integration_support'
+        tested_at:
+          format: date-time
+          type: string
+        text_color:
+          type: string
+        token_instructions:
+          $ref: '#/components/schemas/property_Integration_token_instructions'
+        token_names:
+          $ref: '#/components/schemas/property_Integration_token_names'
+        type:
+          type: string
+        updated_at:
+          type: string
+        web_url:
+          type: string
+      required:
+      - type
+      - name
+      - categories
+      type: object
+    property_Connection_auth_emails:
+      items:
+        type: string
+      type: array
+    Connections:
+      items:
+        $ref: '#/components/schemas/Connection'
+      type: array
+    property_Webhook_runs:
+      description: An array of the most revent virtual webhook runs
+      items:
+        type: string
+      type: array
+    property_IntegrationSupport_webhook_events_updated:
+      items:
+        enum:
+        - virtual
+        - native
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    Integrations:
+      items:
+        $ref: '#/components/schemas/Integration'
+      type: array
+    property_Connection_auth_other_auth_info:
+      description: When integration.auth_type = "other", this field contains the authentication credentials in the same order as token_names
+      items:
+        type: string
+      type: array
+    Issues:
+      items:
+        $ref: '#/components/schemas/Issue'
+      type: array
+    ApiCalls:
+      items:
+        $ref: '#/components/schemas/ApiCall'
+      type: array
+    property_Integration_support:
+      additionalProperties:
+        $ref: '#/components/schemas/IntegrationSupport'
+      type: object
+    property_Webhook_filters:
+      additionalProperties:
+        type: string
+      type: object
+    property_Integration_token_names:
+      description: if auth_types = 'token'
+      items:
+        type: string
+      type: array
+    property_Integration_categories:
+      description: The categories of support solutions that this integration has
+      items:
+        enum:
+        - passthrough
+        - hris
+        - ats
+        - auth
+        - crm
+        - enrich
+        - martech
+        - ticketing
+        - uc
+        - accounting
+        - storage
+        - commerce
+        - payment
+        - genai
+        - messaging
+        - kms
+        - task
+        - scim
+        - lms
+        - repo
+        - metadata
+        - calendar
+        - verification
+        - ads
+        - forms
+        - shipping
+        - assessment
+        - signing
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_Connection_categories:
+      description: The Integration categories that this connection supports
+      items:
+        enum:
+        - passthrough
+        - hris
+        - ats
+        - auth
+        - crm
+        - enrich
+        - martech
+        - ticketing
+        - uc
+        - accounting
+        - storage
+        - commerce
+        - payment
+        - genai
+        - messaging
+        - kms
+        - task
+        - scim
+        - lms
+        - repo
+        - metadata
+        - calendar
+        - verification
+        - ads
+        - forms
+        - shipping
+        - assessment
+        - signing
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    Connection:
+      description: A connection represents a specific authentication of an integration.
+      properties:
+        auth:
+          $ref: '#/components/schemas/property_Connection_auth'
+        auth_aws_arn:
+          type: string
+        auth_azure_keyvault_id:
+          type: string
+        auth_gcp_secret_name:
+          type: string
+        auth_hashi_vault_path:
+          type: string
+        categories:
+          $ref: '#/components/schemas/property_Connection_categories'
+        created_at:
+          format: date-time
+          type: string
+        environment:
+          default: Production
+          type: string
+        external_xref:
+          type: string
+        id:
+          type: string
+        integration_name:
+          type: string
+        integration_type:
+          type: string
+        is_paused:
+          type: boolean
+        last_healthy_at:
+          format: date-time
+          type: string
+        last_unhealthy_at:
+          format: date-time
+          type: string
+        permissions:
+          $ref: '#/components/schemas/property_Connection_permissions'
+        updated_at:
+          format: date-time
+          type: string
+        workspace_id:
+          type: string
+      required:
+      - integration_type
+      - permissions
+      - categories
+      type: object
+    ApiCall:
+      properties:
+        connection_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        endapi_response_time:
+          type: number
+        environment:
+          default: Production
+          type: string
+        error:
+          type: string
+        external_xref:
+          type: string
+        id:
+          type: string
+        integration_type:
+          type: string
+        ip_address:
+          type: string
+        is_billable:
+          type: boolean
+        method:
+          type: string
+        name:
+          type: string
+        path:
+          type: string
+        size:
+          type: number
+        status:
+          type: string
+        type:
+          enum:
+          - login
+          - webhook
+          - inbound
+          - mcp
+          type: string
+          x-speakeasy-unknown-values: allow
+        unified_response_time:
+          type: number
+        user_agent:
+          type: string
+        webhook_id:
+          type: string
+        workspace_id:
+          type: string
+      required:
+      - integration_type
+      - name
+      - path
+      - status
+      - type
+      - method
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

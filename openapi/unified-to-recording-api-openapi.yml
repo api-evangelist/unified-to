@@ -1,0 +1,796 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account recording API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: recording
+paths:
+  /calendar/{connection_id}/recording:
+    get:
+      operationId: listCalendarRecordings
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The event ID to filter by (reference to CalendarEvent)
+        in: query
+        name: event_id
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - start_at
+            - end_at
+            - expires_at
+            - event_id
+            - web_url
+            - media
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarRecordings'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Recordings
+      tags:
+      - recording
+  /calendar/{connection_id}/recording/{id}:
+    get:
+      operationId: getCalendarRecording
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - start_at
+            - end_at
+            - expires_at
+            - event_id
+            - web_url
+            - media
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Recording
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarRecording'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Recording
+      tags:
+      - recording
+  /uc/{connection_id}/recording:
+    get:
+      operationId: listUcRecordings
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: The call ID to filter by
+        in: query
+        name: call_id
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: The contact ID to filter by (reference to UcContact)
+        in: query
+        name: contact_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - start_at
+            - end_at
+            - expires_at
+            - call_id
+            - web_url
+            - contact_id
+            - contact_name
+            - contact_phone
+            - user_id
+            - media
+            - user_name
+            - user_phone
+            - type
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcRecordings'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Recordings
+      tags:
+      - recording
+    post:
+      operationId: createUcRecording
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - start_at
+            - end_at
+            - expires_at
+            - call_id
+            - web_url
+            - contact_id
+            - contact_name
+            - contact_phone
+            - user_id
+            - media
+            - user_name
+            - user_phone
+            - type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UcRecording'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcRecording'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Recording
+      tags:
+      - recording
+  /uc/{connection_id}/recording/{id}:
+    delete:
+      operationId: removeUcRecording
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Recording
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Recording
+      tags:
+      - recording
+    get:
+      operationId: getUcRecording
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - start_at
+            - end_at
+            - expires_at
+            - call_id
+            - web_url
+            - contact_id
+            - contact_name
+            - contact_phone
+            - user_id
+            - media
+            - user_name
+            - user_phone
+            - type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Recording
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcRecording'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Recording
+      tags:
+      - recording
+    patch:
+      operationId: patchUcRecording
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - start_at
+            - end_at
+            - expires_at
+            - call_id
+            - web_url
+            - contact_id
+            - contact_name
+            - contact_phone
+            - user_id
+            - media
+            - user_name
+            - user_phone
+            - type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Recording
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UcRecording'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcRecording'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Recording
+      tags:
+      - recording
+    put:
+      operationId: updateUcRecording
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - start_at
+            - end_at
+            - expires_at
+            - call_id
+            - web_url
+            - contact_id
+            - contact_name
+            - contact_phone
+            - user_id
+            - media
+            - user_name
+            - user_phone
+            - type
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Recording
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UcRecording'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UcRecording'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Recording
+      tags:
+      - recording
+components:
+  schemas:
+    UcRecording:
+      properties:
+        call_id:
+          type: string
+        contact_id:
+          type: string
+        contact_name:
+          type: string
+        contact_phone:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        expires_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        media:
+          $ref: '#/components/schemas/property_UcRecording_media'
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        type:
+          enum:
+          - INBOUND
+          - OUTBOUND
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+        user_name:
+          type: string
+        user_phone:
+          type: string
+        web_url:
+          type: string
+      type: object
+    UcRecordingMedia:
+      properties:
+        end_at:
+          format: date-time
+          type: string
+        language:
+          type: string
+        recording_download_url:
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        transcript_download_url:
+          type: string
+        transcripts:
+          $ref: '#/components/schemas/property_UcRecordingMedia_transcripts'
+      type: object
+    CalendarRecordings:
+      items:
+        $ref: '#/components/schemas/CalendarRecording'
+      type: array
+    property_UcRecordingMedia_transcripts:
+      items:
+        $ref: '#/components/schemas/UcRecordingTranscript'
+      type: array
+    CalendarRecordingMedia:
+      properties:
+        attendees:
+          $ref: '#/components/schemas/property_CalendarRecordingMedia_attendees'
+        end_at:
+          format: date-time
+          type: string
+        language:
+          type: string
+        recording_download_url:
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        transcript_download_url:
+          type: string
+        transcripts:
+          $ref: '#/components/schemas/property_CalendarRecordingMedia_transcripts'
+      type: object
+    property_CalendarRecordingTranscript_attendee:
+      properties:
+        email:
+          type: string
+        is_cohost:
+          type: boolean
+        name:
+          type: string
+        required:
+          type: boolean
+        status:
+          enum:
+          - ACCEPTED
+          - REJECTED
+          - TENTATIVE
+          type: string
+          x-speakeasy-unknown-values: allow
+        user_id:
+          type: string
+      type: object
+    CalendarRecordingTranscript:
+      properties:
+        attendee:
+          $ref: '#/components/schemas/property_CalendarRecordingTranscript_attendee'
+        end_at:
+          format: date-time
+          type: string
+        language:
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        text:
+          type: string
+      required:
+      - text
+      type: object
+    property_CalendarRecordingMedia_transcripts:
+      items:
+        $ref: '#/components/schemas/CalendarRecordingTranscript'
+      type: array
+    CalendarRecording:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        event_id:
+          type: string
+        expires_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        media:
+          $ref: '#/components/schemas/property_CalendarRecording_media'
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        web_url:
+          type: string
+      type: object
+    property_CalendarRecording_media:
+      items:
+        $ref: '#/components/schemas/CalendarRecordingMedia'
+      type: array
+    property_CalendarRecordingMedia_attendees:
+      items:
+        $ref: '#/components/schemas/CalendarAttendee'
+      type: array
+    property_UcRecording_media:
+      items:
+        $ref: '#/components/schemas/UcRecordingMedia'
+      type: array
+    UcRecordingTranscript:
+      properties:
+        contact_id:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        text:
+          type: string
+        user_id:
+          type: string
+      required:
+      - text
+      type: object
+    CalendarAttendee:
+      properties:
+        email:
+          type: string
+        is_cohost:
+          type: boolean
+        name:
+          type: string
+        required:
+          type: boolean
+        status:
+          enum:
+          - ACCEPTED
+          - REJECTED
+          - TENTATIVE
+          type: string
+          x-speakeasy-unknown-values: allow
+        user_id:
+          type: string
+      type: object
+    UcRecordings:
+      items:
+        $ref: '#/components/schemas/UcRecording'
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

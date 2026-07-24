@@ -1,0 +1,551 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account content API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: content
+paths:
+  /lms/{connection_id}/content:
+    get:
+      operationId: listLmsContents
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The course ID to filter by (reference to Course)
+        in: query
+        name: course_id
+        required: false
+        schema:
+          type: string
+      - description: The collection ID to filter by (reference to CommerceCollection)
+        in: query
+        name: collection_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - external_reference
+            - course_ids
+            - name
+            - description
+            - languages
+            - media
+            - is_active
+            - duration_minutes
+            - categories
+            - skills
+            - sort_order
+            - provider_name
+            - short_description
+            - localizations
+            - instructor_ids
+            - collection_ids
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LmsContents'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Contents
+      tags:
+      - content
+    post:
+      operationId: createLmsContent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - external_reference
+            - course_ids
+            - name
+            - description
+            - languages
+            - media
+            - is_active
+            - duration_minutes
+            - categories
+            - skills
+            - sort_order
+            - provider_name
+            - short_description
+            - localizations
+            - instructor_ids
+            - collection_ids
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LmsContent'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LmsContent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Content
+      tags:
+      - content
+  /lms/{connection_id}/content/{id}:
+    delete:
+      operationId: removeLmsContent
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Content
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Content
+      tags:
+      - content
+    get:
+      operationId: getLmsContent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - external_reference
+            - course_ids
+            - name
+            - description
+            - languages
+            - media
+            - is_active
+            - duration_minutes
+            - categories
+            - skills
+            - sort_order
+            - provider_name
+            - short_description
+            - localizations
+            - instructor_ids
+            - collection_ids
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Content
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LmsContent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Content
+      tags:
+      - content
+    patch:
+      operationId: patchLmsContent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - external_reference
+            - course_ids
+            - name
+            - description
+            - languages
+            - media
+            - is_active
+            - duration_minutes
+            - categories
+            - skills
+            - sort_order
+            - provider_name
+            - short_description
+            - localizations
+            - instructor_ids
+            - collection_ids
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Content
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LmsContent'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LmsContent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Content
+      tags:
+      - content
+    put:
+      operationId: updateLmsContent
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - external_reference
+            - course_ids
+            - name
+            - description
+            - languages
+            - media
+            - is_active
+            - duration_minutes
+            - categories
+            - skills
+            - sort_order
+            - provider_name
+            - short_description
+            - localizations
+            - instructor_ids
+            - collection_ids
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Content
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LmsContent'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LmsContent'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Content
+      tags:
+      - content
+components:
+  schemas:
+    property_LmsContent_instructor_ids:
+      items:
+        type: string
+      type: array
+    property_LmsMedia_languages:
+      description: ISO 2-digit language codes
+      items:
+        type: string
+      type: array
+    property_LmsContent_collection_ids:
+      items:
+        type: string
+      type: array
+    LmsContents:
+      items:
+        $ref: '#/components/schemas/LmsContent'
+      type: array
+    property_LmsContent_skills:
+      items:
+        type: string
+      type: array
+    property_LmsContent_categories:
+      items:
+        type: string
+      type: array
+    property_LmsContent_media:
+      items:
+        $ref: '#/components/schemas/LmsMedia'
+      type: array
+    property_LmsContent_course_ids:
+      items:
+        type: string
+      type: array
+    LmsContentLocalization:
+      properties:
+        description:
+          type: string
+        language:
+          type: string
+        name:
+          type: string
+      type: object
+    LmsContent:
+      properties:
+        categories:
+          $ref: '#/components/schemas/property_LmsContent_categories'
+        collection_ids:
+          $ref: '#/components/schemas/property_LmsContent_collection_ids'
+        course_ids:
+          $ref: '#/components/schemas/property_LmsContent_course_ids'
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        duration_minutes:
+          type: number
+        external_reference:
+          type: string
+        id:
+          type: string
+        instructor_ids:
+          $ref: '#/components/schemas/property_LmsContent_instructor_ids'
+        is_active:
+          type: boolean
+        languages:
+          $ref: '#/components/schemas/property_LmsContent_languages'
+        localizations:
+          $ref: '#/components/schemas/property_LmsContent_localizations'
+        media:
+          $ref: '#/components/schemas/property_LmsContent_media'
+        name:
+          type: string
+        provider_name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        short_description:
+          type: string
+        skills:
+          $ref: '#/components/schemas/property_LmsContent_skills'
+        sort_order:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    LmsMedia:
+      properties:
+        content:
+          type: string
+        description:
+          type: string
+        languages:
+          $ref: '#/components/schemas/property_LmsMedia_languages'
+        name:
+          type: string
+        thumbnail_url:
+          type: string
+        type:
+          enum:
+          - IMAGE
+          - HEADSHOT
+          - VIDEO
+          - WEB
+          - DOCUMENT
+          - TEXT
+          - HTML
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        url:
+          type: string
+      type: object
+    property_LmsContent_localizations:
+      items:
+        $ref: '#/components/schemas/LmsContentLocalization'
+      type: array
+    property_LmsContent_languages:
+      items:
+        type: string
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

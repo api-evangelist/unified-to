@@ -1,0 +1,775 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account webinar API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: webinar
+paths:
+  /calendar/{connection_id}/webinar:
+    get:
+      operationId: listCalendarWebinars
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: start_gte
+        required: false
+        schema:
+          type: string
+      - description: The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: end_lt
+        required: false
+        schema:
+          type: string
+      - description: The user/employee ID to filter by (reference to HrisEmployee)
+        in: query
+        name: user_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - calendar_id
+            - subject
+            - start_at
+            - end_at
+            - timezone
+            - notes
+            - status
+            - organizer
+            - join_url
+            - web_url
+            - panelists
+            - registrants
+            - panelist_password
+            - registrant_password
+            - conference
+            - recurrence
+            - capacity
+            - is_webcast
+            - is_enabled
+            - is_auto_approve
+            - require_first_name
+            - require_last_name
+            - require_email
+            - require_company
+            - require_job_title
+            - require_address
+            - require_phone
+            - has_qa
+            - has_polls
+            - has_recording
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarWebinars'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Webinars
+      tags:
+      - webinar
+    post:
+      operationId: createCalendarWebinar
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - calendar_id
+            - subject
+            - start_at
+            - end_at
+            - timezone
+            - notes
+            - status
+            - organizer
+            - join_url
+            - web_url
+            - panelists
+            - registrants
+            - panelist_password
+            - registrant_password
+            - conference
+            - recurrence
+            - capacity
+            - is_webcast
+            - is_enabled
+            - is_auto_approve
+            - require_first_name
+            - require_last_name
+            - require_email
+            - require_company
+            - require_job_title
+            - require_address
+            - require_phone
+            - has_qa
+            - has_polls
+            - has_recording
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalendarWebinar'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarWebinar'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a Webinar
+      tags:
+      - webinar
+  /calendar/{connection_id}/webinar/{id}:
+    delete:
+      operationId: removeCalendarWebinar
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Webinar
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a Webinar
+      tags:
+      - webinar
+    get:
+      operationId: getCalendarWebinar
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - calendar_id
+            - subject
+            - start_at
+            - end_at
+            - timezone
+            - notes
+            - status
+            - organizer
+            - join_url
+            - web_url
+            - panelists
+            - registrants
+            - panelist_password
+            - registrant_password
+            - conference
+            - recurrence
+            - capacity
+            - is_webcast
+            - is_enabled
+            - is_auto_approve
+            - require_first_name
+            - require_last_name
+            - require_email
+            - require_company
+            - require_job_title
+            - require_address
+            - require_phone
+            - has_qa
+            - has_polls
+            - has_recording
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Webinar
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarWebinar'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a Webinar
+      tags:
+      - webinar
+    patch:
+      operationId: patchCalendarWebinar
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - calendar_id
+            - subject
+            - start_at
+            - end_at
+            - timezone
+            - notes
+            - status
+            - organizer
+            - join_url
+            - web_url
+            - panelists
+            - registrants
+            - panelist_password
+            - registrant_password
+            - conference
+            - recurrence
+            - capacity
+            - is_webcast
+            - is_enabled
+            - is_auto_approve
+            - require_first_name
+            - require_last_name
+            - require_email
+            - require_company
+            - require_job_title
+            - require_address
+            - require_phone
+            - has_qa
+            - has_polls
+            - has_recording
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Webinar
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalendarWebinar'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarWebinar'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Webinar
+      tags:
+      - webinar
+    put:
+      operationId: updateCalendarWebinar
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - calendar_id
+            - subject
+            - start_at
+            - end_at
+            - timezone
+            - notes
+            - status
+            - organizer
+            - join_url
+            - web_url
+            - panelists
+            - registrants
+            - panelist_password
+            - registrant_password
+            - conference
+            - recurrence
+            - capacity
+            - is_webcast
+            - is_enabled
+            - is_auto_approve
+            - require_first_name
+            - require_last_name
+            - require_email
+            - require_company
+            - require_job_title
+            - require_address
+            - require_phone
+            - has_qa
+            - has_polls
+            - has_recording
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Webinar
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalendarWebinar'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CalendarWebinar'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a Webinar
+      tags:
+      - webinar
+components:
+  schemas:
+    property_CalendarWebinar_organizer:
+      properties:
+        email:
+          type: string
+        is_cohost:
+          type: boolean
+        name:
+          type: string
+        required:
+          type: boolean
+        status:
+          enum:
+          - ACCEPTED
+          - REJECTED
+          - TENTATIVE
+          type: string
+          x-speakeasy-unknown-values: allow
+        user_id:
+          type: string
+      type: object
+    property_CalendarEventRecurrence_included_dates:
+      description: dates to include in the recurrence, defaults to undefined (no inclusions)
+      items:
+        type: string
+      type: array
+    CalendarEventRecurrence:
+      properties:
+        count:
+          type: number
+        end_at:
+          format: date-time
+          type: string
+        excluded_dates:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_excluded_dates'
+        frequency:
+          enum:
+          - DAILY
+          - WEEKLY
+          - MONTHLY
+          - YEARLY
+          type: string
+          x-speakeasy-unknown-values: allow
+        included_dates:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_included_dates'
+        interval:
+          type: number
+        on_days:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_days'
+        on_month_days:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_month_days'
+        on_months:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_months'
+        on_weeks:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_weeks'
+        on_year_days:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_year_days'
+        timezone:
+          type: string
+        week_start:
+          enum:
+          - SU
+          - MO
+          - TU
+          - WE
+          - TH
+          - FR
+          - SA
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_CalendarEventRecurrence_excluded_dates:
+      description: dates to exclude from the recurrence, defaults to undefined (no exclusions)
+      items:
+        type: string
+      type: array
+    property_CalendarEventRecurrence_on_days:
+      description: days of the week to repeat on, defaults to undefined (every day), only used if frequency is WEEKLY
+      items:
+        enum:
+        - SU
+        - MO
+        - TU
+        - WE
+        - TH
+        - FR
+        - SA
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_CalendarWebinar_conference:
+      items:
+        $ref: '#/components/schemas/CalendarConference'
+      type: array
+    property_CalendarEventRecurrence_on_month_days:
+      description: days of the month to repeat on, defaults to undefined (every day), only used if frequency is MONTHLY
+      items:
+        type: number
+      type: array
+    CalendarWebinar:
+      properties:
+        calendar_id:
+          type: string
+        capacity:
+          type: number
+        conference:
+          $ref: '#/components/schemas/property_CalendarWebinar_conference'
+        created_at:
+          format: date-time
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        has_polls:
+          type: boolean
+        has_qa:
+          type: boolean
+        has_recording:
+          type: boolean
+        id:
+          type: string
+        is_auto_approve:
+          type: boolean
+        is_enabled:
+          type: boolean
+        is_webcast:
+          type: boolean
+        join_url:
+          type: string
+        notes:
+          type: string
+        organizer:
+          $ref: '#/components/schemas/property_CalendarWebinar_organizer'
+        panelist_password:
+          type: string
+        panelists:
+          $ref: '#/components/schemas/property_CalendarWebinar_panelists'
+        raw:
+          additionalProperties: true
+          type: object
+        recurrence:
+          $ref: '#/components/schemas/property_CalendarWebinar_recurrence'
+        registrant_password:
+          type: string
+        registrants:
+          $ref: '#/components/schemas/property_CalendarWebinar_registrants'
+        require_address:
+          type: boolean
+        require_company:
+          type: boolean
+        require_email:
+          type: boolean
+        require_first_name:
+          type: boolean
+        require_job_title:
+          type: boolean
+        require_last_name:
+          type: boolean
+        require_phone:
+          type: boolean
+        start_at:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - CANCELED
+          - CONFIRMED
+          - TENTATIVE
+          type: string
+          x-speakeasy-unknown-values: allow
+        subject:
+          type: string
+        timezone:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        web_url:
+          type: string
+      type: object
+    CalendarWebinars:
+      items:
+        $ref: '#/components/schemas/CalendarWebinar'
+      type: array
+    property_CalendarWebinar_recurrence:
+      items:
+        $ref: '#/components/schemas/CalendarEventRecurrence'
+      type: array
+    property_CalendarEventRecurrence_on_months:
+      description: months of the year to repeat on, defaults to undefined (every month), only used if frequency is YEARLY, January is 1
+      items:
+        type: number
+      type: array
+    CalendarConference:
+      properties:
+        conference_identifier:
+          type: string
+        country_code:
+          type: string
+        host_access_code:
+          type: string
+        label:
+          type: string
+        notes:
+          type: string
+        participant_access_code:
+          type: string
+        region_code:
+          type: string
+        telephone:
+          type: string
+        url:
+          type: string
+      type: object
+    property_CalendarWebinar_registrants:
+      items:
+        $ref: '#/components/schemas/CalendarWebinarRegistrant'
+      type: array
+    CalendarWebinarPanelist:
+      properties:
+        email:
+          type: string
+        is_required:
+          type: boolean
+        join_password:
+          type: string
+        join_url:
+          type: string
+        name:
+          type: string
+        status:
+          enum:
+          - ACCEPTED
+          - REJECTED
+          - TENTATIVE
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_CalendarWebinar_panelists:
+      items:
+        $ref: '#/components/schemas/CalendarWebinarPanelist'
+      type: array
+    property_CalendarEventRecurrence_on_weeks:
+      description: week ordinals for BYDAY (e.g., -1 for last, -2 for second-to-last, 1 for first, 2 for second), only used with on_days. 0 is used for days without week ordinals.
+      items:
+        type: number
+      type: array
+    CalendarWebinarRegistrant:
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+        registered_at:
+          format: date-time
+          type: string
+        registration_reference:
+          type: string
+        registration_status:
+          enum:
+          - PENDING
+          - APPROVED
+          - REJECTED
+          - CANCELLED
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_CalendarEventRecurrence_on_year_days:
+      description: days of the year to repeat on, defaults to undefined (every day), only used if frequency is YEARLY
+      items:
+        type: number
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

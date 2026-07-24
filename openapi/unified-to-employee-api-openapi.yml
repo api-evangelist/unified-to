@@ -1,0 +1,1002 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account employee API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: employee
+paths:
+  /hris/{connection_id}/employee:
+    get:
+      operationId: listHrisEmployees
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The company ID to filter by (reference to HrisCompany)
+        in: query
+        name: company_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - title
+            - manager_id
+            - employment_status
+            - gender
+            - telephones
+            - date_of_birth
+            - employee_number
+            - hired_at
+            - terminated_at
+            - termination_reason
+            - marital_status
+            - employment_type
+            - address
+            - language_locale
+            - currency
+            - timezone
+            - image_url
+            - company_id
+            - pronouns
+            - employee_roles
+            - compensation
+            - salutation
+            - bio
+            - ssn_sin
+            - groups
+            - locations
+            - metadata
+            - storage_quota_allocated
+            - storage_quota_used
+            - storage_quota_available
+            - relationships
+            - has_mfa
+            - timeoff_days_total
+            - timeoff_days_used
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisEmployees'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List All Employees
+      tags:
+      - employee
+    post:
+      operationId: createHrisEmployee
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - title
+            - manager_id
+            - employment_status
+            - gender
+            - telephones
+            - date_of_birth
+            - employee_number
+            - hired_at
+            - terminated_at
+            - termination_reason
+            - marital_status
+            - employment_type
+            - address
+            - language_locale
+            - currency
+            - timezone
+            - image_url
+            - company_id
+            - pronouns
+            - employee_roles
+            - compensation
+            - salutation
+            - bio
+            - ssn_sin
+            - groups
+            - locations
+            - metadata
+            - storage_quota_allocated
+            - storage_quota_used
+            - storage_quota_available
+            - relationships
+            - has_mfa
+            - timeoff_days_total
+            - timeoff_days_used
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisEmployee'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisEmployee'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create an Employee
+      tags:
+      - employee
+  /hris/{connection_id}/employee/{id}:
+    delete:
+      operationId: removeHrisEmployee
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Employee
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove an Employee
+      tags:
+      - employee
+    get:
+      operationId: getHrisEmployee
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - title
+            - manager_id
+            - employment_status
+            - gender
+            - telephones
+            - date_of_birth
+            - employee_number
+            - hired_at
+            - terminated_at
+            - termination_reason
+            - marital_status
+            - employment_type
+            - address
+            - language_locale
+            - currency
+            - timezone
+            - image_url
+            - company_id
+            - pronouns
+            - employee_roles
+            - compensation
+            - salutation
+            - bio
+            - ssn_sin
+            - groups
+            - locations
+            - metadata
+            - storage_quota_allocated
+            - storage_quota_used
+            - storage_quota_available
+            - relationships
+            - has_mfa
+            - timeoff_days_total
+            - timeoff_days_used
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Employee
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisEmployee'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve an Employee
+      tags:
+      - employee
+    patch:
+      operationId: patchHrisEmployee
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - title
+            - manager_id
+            - employment_status
+            - gender
+            - telephones
+            - date_of_birth
+            - employee_number
+            - hired_at
+            - terminated_at
+            - termination_reason
+            - marital_status
+            - employment_type
+            - address
+            - language_locale
+            - currency
+            - timezone
+            - image_url
+            - company_id
+            - pronouns
+            - employee_roles
+            - compensation
+            - salutation
+            - bio
+            - ssn_sin
+            - groups
+            - locations
+            - metadata
+            - storage_quota_allocated
+            - storage_quota_used
+            - storage_quota_available
+            - relationships
+            - has_mfa
+            - timeoff_days_total
+            - timeoff_days_used
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Employee
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisEmployee'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisEmployee'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Employee
+      tags:
+      - employee
+    put:
+      operationId: updateHrisEmployee
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - emails
+            - title
+            - manager_id
+            - employment_status
+            - gender
+            - telephones
+            - date_of_birth
+            - employee_number
+            - hired_at
+            - terminated_at
+            - termination_reason
+            - marital_status
+            - employment_type
+            - address
+            - language_locale
+            - currency
+            - timezone
+            - image_url
+            - company_id
+            - pronouns
+            - employee_roles
+            - compensation
+            - salutation
+            - bio
+            - ssn_sin
+            - groups
+            - locations
+            - metadata
+            - storage_quota_allocated
+            - storage_quota_used
+            - storage_quota_available
+            - relationships
+            - has_mfa
+            - timeoff_days_total
+            - timeoff_days_used
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Employee
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HrisEmployee'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisEmployee'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update an Employee
+      tags:
+      - employee
+components:
+  schemas:
+    HrisGroup:
+      properties:
+        company_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        manager_ids:
+          $ref: '#/components/schemas/property_HrisGroup_manager_ids'
+        name:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        type:
+          enum:
+          - TEAM
+          - GROUP
+          - DEPARTMENT
+          - DIVISION
+          - BUSINESS_UNIT
+          - BRANCH
+          - SUB_DEPARTMENT
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_ids:
+          $ref: '#/components/schemas/property_HrisGroup_user_ids'
+      type: object
+    HrisTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    property_HrisEmployee_groups:
+      description: Which groups/teams/units that this employee/user belongs to.  May not have all of the Group fields present, but should have id, name, or email.
+      items:
+        $ref: '#/components/schemas/HrisGroup'
+      type: array
+    HrisEmployee:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_HrisEmployee_address'
+        bio:
+          type: string
+        company_id:
+          type: string
+        compensation:
+          $ref: '#/components/schemas/property_HrisEmployee_compensation'
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        date_of_birth:
+          format: date-time
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_HrisEmployee_emails'
+        employee_number:
+          type: string
+        employee_roles:
+          $ref: '#/components/schemas/property_HrisEmployee_employee_roles'
+        employment_status:
+          enum:
+          - ACTIVE
+          - INACTIVE
+          type: string
+          x-speakeasy-unknown-values: allow
+        employment_type:
+          enum:
+          - FULL_TIME
+          - PART_TIME
+          - CONTRACTOR
+          - INTERN
+          - CONSULTANT
+          - VOLUNTEER
+          - CASUAL
+          - SEASONAL
+          - FREELANCE
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        first_name:
+          type: string
+        gender:
+          enum:
+          - MALE
+          - FEMALE
+          - INTERSEX
+          - TRANS
+          - NON_BINARY
+          type: string
+          x-speakeasy-unknown-values: allow
+        groups:
+          $ref: '#/components/schemas/property_HrisEmployee_groups'
+        has_mfa:
+          type: boolean
+        hired_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        image_url:
+          type: string
+        language_locale:
+          type: string
+        last_name:
+          type: string
+        locations:
+          $ref: '#/components/schemas/property_HrisEmployee_locations'
+        manager_id:
+          type: string
+        marital_status:
+          enum:
+          - MARRIED
+          - SINGLE
+          type: string
+          x-speakeasy-unknown-values: allow
+        metadata:
+          $ref: '#/components/schemas/property_HrisEmployee_metadata'
+        name:
+          type: string
+        pronouns:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        relationships:
+          $ref: '#/components/schemas/property_HrisEmployee_relationships'
+        salutation:
+          type: string
+        ssn_sin:
+          type: string
+        storage_quota_allocated:
+          type: number
+        storage_quota_available:
+          type: number
+        storage_quota_used:
+          type: number
+        telephones:
+          $ref: '#/components/schemas/property_HrisEmployee_telephones'
+        terminated_at:
+          format: date-time
+          type: string
+        termination_reason:
+          type: string
+        timeoff_days_total:
+          type: number
+        timeoff_days_used:
+          type: number
+        timezone:
+          type: string
+        title:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_HrisLocation_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    HrisMetadata:
+      properties:
+        extra_data:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        format:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - MEASUREMENT
+          - PRICE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        namespace:
+          type: string
+        slug:
+          type: string
+        value:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+      type: object
+    property_HrisLocation_telephones:
+      items:
+        $ref: '#/components/schemas/HrisTelephone'
+      type: array
+    property_HrisEmployee_emails:
+      items:
+        $ref: '#/components/schemas/HrisEmail'
+      type: array
+    HrisEmployees:
+      items:
+        $ref: '#/components/schemas/HrisEmployee'
+      type: array
+    property_HrisEmployee_locations:
+      items:
+        $ref: '#/components/schemas/HrisLocation'
+      type: array
+    property_HrisEmployee_telephones:
+      items:
+        $ref: '#/components/schemas/HrisTelephone'
+      type: array
+    property_HrisEmployee_metadata:
+      items:
+        $ref: '#/components/schemas/HrisMetadata'
+      type: array
+    property_HrisEmployeerelationship_emails:
+      items:
+        $ref: '#/components/schemas/HrisEmail'
+      type: array
+    property_HrisEmployee_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_HrisEmployee_relationships:
+      description: the employee's personal relationships (eg. emergency contacts, spouse, dependants, ...)
+      items:
+        $ref: '#/components/schemas/HrisEmployeerelationship'
+      type: array
+    property_HrisEmployee_compensation:
+      items:
+        $ref: '#/components/schemas/HrisCompensation'
+      type: array
+    property_HrisEmployeerelationship_telephones:
+      items:
+        $ref: '#/components/schemas/HrisTelephone'
+      type: array
+    HrisCompensation:
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+        frequency:
+          enum:
+          - ONE_TIME
+          - DAY
+          - QUARTER
+          - YEAR
+          - HOUR
+          - MONTH
+          - WEEK
+          type: string
+          x-speakeasy-unknown-values: allow
+        group_id:
+          type: string
+        notes:
+          type: string
+        type:
+          enum:
+          - SALARY
+          - BONUS
+          - STOCK_OPTIONS
+          - EQUITY
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    HrisEmail:
+      properties:
+        email:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - email
+      type: object
+    property_HrisEmployee_employee_roles:
+      items:
+        enum:
+        - ADMIN
+        - MANAGER
+        - RECRUITER
+        - SALESREP
+        - INTERVIEWER
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    HrisLocation:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_HrisLocation_address'
+        company_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        description:
+          type: string
+        external_identifier:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        is_hq:
+          type: boolean
+        language_locale:
+          type: string
+        name:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        telephones:
+          $ref: '#/components/schemas/property_HrisLocation_telephones'
+        timezone:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    HrisEmployeerelationship:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_HrisEmployeerelationship_address'
+        emails:
+          $ref: '#/components/schemas/property_HrisEmployeerelationship_emails'
+        end_at:
+          format: date-time
+          type: string
+        first_name:
+          type: string
+        is_beneficiary:
+          type: boolean
+        is_dependent:
+          type: boolean
+        last_name:
+          type: string
+        name:
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        telephones:
+          $ref: '#/components/schemas/property_HrisEmployeerelationship_telephones'
+        type:
+          enum:
+          - EMERGENCY
+          - SPOUSE
+          - CHILD
+          - PARENT
+          - SIBLING
+          - FRIEND
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_HrisEmployeerelationship_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_HrisGroup_user_ids:
+      items:
+        type: string
+      type: array
+    property_HrisGroup_manager_ids:
+      items:
+        type: string
+      type: array
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to

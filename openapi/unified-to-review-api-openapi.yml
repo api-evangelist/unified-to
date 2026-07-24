@@ -1,0 +1,675 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@unified.to
+    url: https://unified.to/contact
+  description: One API to Rule Them All
+  termsOfService: https://unified.to/tos
+  title: Unified.to account review API
+  version: '1.0'
+servers:
+- description: North American data region
+  url: https://api.unified.to
+- description: European data region
+  url: https://api-eu.unified.to
+- description: Australian data region
+  url: https://api-au.unified.to
+security:
+- jwt: []
+tags:
+- name: review
+paths:
+  /commerce/{connection_id}/review:
+    get:
+      operationId: listCommerceReviews
+      parameters:
+      - in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+      - in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+      - description: Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)
+        in: query
+        name: updated_gte
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: order
+        required: false
+        schema:
+          type: string
+      - description: Query string to search. eg. email address or name
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - description: The item ID to filter by (reference to CommerceItem)
+        in: query
+        name: item_id
+        required: false
+        schema:
+          type: string
+      - description: The location ID to filter by (reference to CommerceLocation)
+        in: query
+        name: location_id
+        required: false
+        schema:
+          type: string
+      - description: The contact ID to filter by (reference to AccountingContact)
+        in: query
+        name: contact_id
+        required: false
+        schema:
+          type: string
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - item_id
+            - item_variant_id
+            - location_id
+            - rating
+            - title
+            - content
+            - author_name
+            - author_email
+            - author_avatar_url
+            - author_location
+            - verified_purchase
+            - helpful_votes
+            - unhelpful_votes
+            - media
+            - status
+            - is_verified
+            - is_featured
+            - is_public
+            - comments
+            - metadata
+            - url
+            - raw
+            type: string
+          type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceReviews'
+          description: Successful
+      security:
+      - jwt: []
+      summary: List all reviews
+      tags:
+      - review
+    post:
+      operationId: createCommerceReview
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - item_id
+            - item_variant_id
+            - location_id
+            - rating
+            - title
+            - content
+            - author_name
+            - author_email
+            - author_avatar_url
+            - author_location
+            - verified_purchase
+            - helpful_votes
+            - unhelpful_votes
+            - media
+            - status
+            - is_verified
+            - is_featured
+            - is_public
+            - comments
+            - metadata
+            - url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommerceReview'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceReview'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Create a review
+      tags:
+      - review
+  /commerce/{connection_id}/review/{id}:
+    delete:
+      operationId: removeCommerceReview
+      parameters:
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Review
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful
+        default:
+          content: {}
+          description: Successful
+          headers:
+            Content-Type:
+              required: false
+              schema:
+                type: string
+      security:
+      - jwt: []
+      summary: Remove a review
+      tags:
+      - review
+    get:
+      operationId: getCommerceReview
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - item_id
+            - item_variant_id
+            - location_id
+            - rating
+            - title
+            - content
+            - author_name
+            - author_email
+            - author_avatar_url
+            - author_location
+            - verified_purchase
+            - helpful_votes
+            - unhelpful_votes
+            - media
+            - status
+            - is_verified
+            - is_featured
+            - is_public
+            - comments
+            - metadata
+            - url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Review
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceReview'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Retrieve a review
+      tags:
+      - review
+    patch:
+      operationId: patchCommerceReview
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - item_id
+            - item_variant_id
+            - location_id
+            - rating
+            - title
+            - content
+            - author_name
+            - author_email
+            - author_avatar_url
+            - author_location
+            - verified_purchase
+            - helpful_votes
+            - unhelpful_votes
+            - media
+            - status
+            - is_verified
+            - is_featured
+            - is_public
+            - comments
+            - metadata
+            - url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Review
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommerceReview'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceReview'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a review
+      tags:
+      - review
+    put:
+      operationId: updateCommerceReview
+      parameters:
+      - description: Fields to return
+        in: query
+        name: fields
+        required: false
+        schema:
+          items:
+            enum:
+            - id
+            - created_at
+            - updated_at
+            - item_id
+            - item_variant_id
+            - location_id
+            - rating
+            - title
+            - content
+            - author_name
+            - author_email
+            - author_avatar_url
+            - author_location
+            - verified_purchase
+            - helpful_votes
+            - unhelpful_votes
+            - media
+            - status
+            - is_verified
+            - is_featured
+            - is_public
+            - comments
+            - metadata
+            - url
+            - raw
+            type: string
+          type: array
+        type: array
+      - description: 'Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar'
+        in: query
+        name: raw
+        required: false
+        schema:
+          type: string
+      - description: ID of the connection
+        in: path
+        name: connection_id
+        required: true
+        schema:
+          type: string
+      - description: ID of the Review
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommerceReview'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommerceReview'
+          description: Successful
+      security:
+      - jwt: []
+      summary: Update a review
+      tags:
+      - review
+components:
+  schemas:
+    property_CommerceReview_media:
+      description: Photosvideos attached to the review
+      items:
+        $ref: '#/components/schemas/CommerceItemMedia'
+      type: array
+    property_CommerceReviewComment_metadata:
+      items:
+        $ref: '#/components/schemas/CommerceMetadata'
+      type: array
+    CommerceReviewComment:
+      properties:
+        author_avatar_url:
+          type: string
+        author_email:
+          type: string
+        author_location:
+          type: string
+        author_name:
+          type: string
+        content:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        helpful_votes:
+          type: number
+        id:
+          type: string
+        is_public:
+          type: boolean
+        is_verified:
+          type: boolean
+        metadata:
+          $ref: '#/components/schemas/property_CommerceReviewComment_metadata'
+        raw:
+          additionalProperties: true
+          type: object
+        status:
+          enum:
+          - PENDING
+          - APPROVED
+          - REJECTED
+          - SPAM
+          type: string
+          x-speakeasy-unknown-values: allow
+        unhelpful_votes:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - content
+      type: object
+    CommerceMetadata:
+      properties:
+        description:
+          type: string
+        extra_data:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        format:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - MEASUREMENT
+          - PRICE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        is_required:
+          type: boolean
+        namespace:
+          type: string
+        slug:
+          type: string
+        value:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+      type: object
+    CommerceReviews:
+      items:
+        $ref: '#/components/schemas/CommerceReview'
+      type: array
+    property_CommerceItemMedia_metadata:
+      items:
+        $ref: '#/components/schemas/CommerceMetadata'
+      type: array
+    property_CommerceReview_comments:
+      items:
+        $ref: '#/components/schemas/CommerceReviewComment'
+      type: array
+    CommerceItemMedia:
+      properties:
+        alt:
+          type: string
+        height:
+          type: number
+        id:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/property_CommerceItemMedia_metadata'
+        position:
+          type: number
+        type:
+          enum:
+          - image
+          - video
+          type: string
+          x-speakeasy-unknown-values: allow
+        url:
+          type: string
+        width:
+          type: number
+      required:
+      - url
+      type: object
+    property_CommerceReview_metadata:
+      items:
+        $ref: '#/components/schemas/CommerceMetadata'
+      type: array
+    CommerceReview:
+      properties:
+        author_avatar_url:
+          type: string
+        author_email:
+          type: string
+        author_location:
+          type: string
+        author_name:
+          type: string
+        comments:
+          $ref: '#/components/schemas/property_CommerceReview_comments'
+        content:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        helpful_votes:
+          type: number
+        id:
+          type: string
+        is_featured:
+          type: boolean
+        is_public:
+          type: boolean
+        is_verified:
+          type: boolean
+        item_id:
+          type: string
+        item_variant_id:
+          type: string
+        location_id:
+          type: string
+        media:
+          $ref: '#/components/schemas/property_CommerceReview_media'
+        metadata:
+          $ref: '#/components/schemas/property_CommerceReview_metadata'
+        rating:
+          type: number
+        raw:
+          additionalProperties: true
+          type: object
+        status:
+          enum:
+          - PENDING
+          - APPROVED
+          - REJECTED
+          - SPAM
+          type: string
+          x-speakeasy-unknown-values: allow
+        title:
+          type: string
+        unhelpful_votes:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+        url:
+          type: string
+        verified_purchase:
+          type: boolean
+      required:
+      - item_id
+      type: object
+  securitySchemes:
+    jwt:
+      in: header
+      name: authorization
+      type: apiKey
+externalDocs:
+  description: API Documentation
+  url: https://docs.unified.to
