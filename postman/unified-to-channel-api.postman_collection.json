@@ -1,0 +1,433 @@
+{
+  "info": {
+    "_postman_id": "056aa018-b7ce-4af6-b2f7-3eaa54a2be0f",
+    "name": "Unified.to account channel API",
+    "description": "One API to Rule Them All\n\nContact Support:\n Email: hello@unified.to",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:23:02.000Z",
+    "updatedAt": "2026-07-28T03:23:02.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-056aa018-b7ce-4af6-b2f7-3eaa54a2be0f"
+  },
+  "item": [
+    {
+      "name": "messaging",
+      "item": [
+        {
+          "name": "{connection_id}",
+          "item": [
+            {
+              "name": "channel",
+              "item": [
+                {
+                  "name": "{id}",
+                  "item": [
+                    {
+                      "name": "Retrieve a Channel",
+                      "id": "70ef4eaf-3576-4d25-be41-1096a686cd77",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "authorization",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/messaging/:connection_id/channel/:id?fields=web_url&fields=parent_id&raw=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "messaging",
+                            ":connection_id",
+                            "channel",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Fields to return",
+                              "key": "fields",
+                              "value": "web_url"
+                            },
+                            {
+                              "description": "Fields to return",
+                              "key": "fields",
+                              "value": "parent_id"
+                            },
+                            {
+                              "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar",
+                              "key": "raw",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "547d6f96-0749-48ba-945c-513306d59d2b",
+                              "key": "connection_id",
+                              "value": "<string>",
+                              "description": "(Required) ID of the connection"
+                            },
+                            {
+                              "id": "fb39e2bb-2e46-4f83-afab-77fc3640abcc",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) ID of the Channel"
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "e7a80ac2-4b84-485e-ba00-a2bd4ccbcd16",
+                          "name": "Successful",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/messaging/:connection_id/channel/:id?fields=parent_id&raw=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "messaging",
+                                ":connection_id",
+                                "channel",
+                                ":id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Fields to return",
+                                  "key": "fields",
+                                  "value": "parent_id"
+                                },
+                                {
+                                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar",
+                                  "key": "raw",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "connection_id"
+                                },
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"name\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"description\": \"<string>\",\n  \"has_subchannels\": \"<boolean>\",\n  \"id\": \"<string>\",\n  \"is_active\": \"<boolean>\",\n  \"is_private\": \"<boolean>\",\n  \"members\": [\n    {\n      \"email\": \"<string>\",\n      \"image_url\": \"<string>\",\n      \"name\": \"<string>\",\n      \"user_id\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"image_url\": \"<string>\",\n      \"name\": \"<string>\",\n      \"user_id\": \"<string>\"\n    }\n  ],\n  \"parent_id\": \"<string>\",\n  \"raw\": {\n    \"nisifc_\": 82284195\n  },\n  \"updated_at\": \"<dateTime>\",\n  \"web_url\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:23:03.000Z",
+                          "updatedAt": "2026-07-28T03:23:03.000Z",
+                          "uid": "35240-e7a80ac2-4b84-485e-ba00-a2bd4ccbcd16"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:23:03.000Z",
+                      "updatedAt": "2026-07-28T03:23:03.000Z",
+                      "uid": "35240-70ef4eaf-3576-4d25-be41-1096a686cd77"
+                    }
+                  ],
+                  "id": "2cea2f88-8e39-4bf1-941d-46af76086ad2",
+                  "createdAt": "2026-07-28T03:23:03.000Z",
+                  "updatedAt": "2026-07-28T03:23:03.000Z",
+                  "uid": "35240-2cea2f88-8e39-4bf1-941d-46af76086ad2"
+                },
+                {
+                  "name": "List All Channels",
+                  "id": "81713f74-6cc5-4379-ba3a-502aaeacce73",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "authorization",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/messaging/:connection_id/channel?limit=<number>&offset=<number>&updated_gte=<string>&sort=<string>&order=<string>&query=<string>&parent_id=<string>&type=<string>&fields=web_url&fields=parent_id&raw=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "messaging",
+                        ":connection_id",
+                        "channel"
+                      ],
+                      "query": [
+                        {
+                          "key": "limit",
+                          "value": "<number>"
+                        },
+                        {
+                          "key": "offset",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)",
+                          "key": "updated_gte",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "sort",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "order",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Query string to search. eg. email address or name",
+                          "key": "query",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The parent ID to filter by",
+                          "key": "parent_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "type",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Fields to return",
+                          "key": "fields",
+                          "value": "web_url"
+                        },
+                        {
+                          "description": "Fields to return",
+                          "key": "fields",
+                          "value": "parent_id"
+                        },
+                        {
+                          "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar",
+                          "key": "raw",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "3b426c05-3dd3-4cc9-b834-f7442e3b5c13",
+                          "key": "connection_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of the connection"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "54431674-12ee-4ef4-bc6e-00883e7769eb",
+                      "name": "Successful",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/messaging/:connection_id/channel?limit=<number>&offset=<number>&updated_gte=<string>&sort=<string>&order=<string>&query=<string>&parent_id=<string>&type=<string>&fields=parent_id&raw=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "messaging",
+                            ":connection_id",
+                            "channel"
+                          ],
+                          "query": [
+                            {
+                              "key": "limit",
+                              "value": "<number>"
+                            },
+                            {
+                              "key": "offset",
+                              "value": "<number>"
+                            },
+                            {
+                              "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)",
+                              "key": "updated_gte",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "sort",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "order",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Query string to search. eg. email address or name",
+                              "key": "query",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The parent ID to filter by",
+                              "key": "parent_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "type",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Fields to return",
+                              "key": "fields",
+                              "value": "parent_id"
+                            },
+                            {
+                              "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar",
+                              "key": "raw",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "connection_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"name\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"description\": \"<string>\",\n    \"has_subchannels\": \"<boolean>\",\n    \"id\": \"<string>\",\n    \"is_active\": \"<boolean>\",\n    \"is_private\": \"<boolean>\",\n    \"members\": [\n      {\n        \"email\": \"<string>\",\n        \"image_url\": \"<string>\",\n        \"name\": \"<string>\",\n        \"user_id\": \"<string>\"\n      },\n      {\n        \"email\": \"<string>\",\n        \"image_url\": \"<string>\",\n        \"name\": \"<string>\",\n        \"user_id\": \"<string>\"\n      }\n    ],\n    \"parent_id\": \"<string>\",\n    \"raw\": {\n      \"nulla_f6d\": \"eiusmod cupidatat ad\",\n      \"incididunt4\": false\n    },\n    \"updated_at\": \"<dateTime>\",\n    \"web_url\": \"<string>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"description\": \"<string>\",\n    \"has_subchannels\": \"<boolean>\",\n    \"id\": \"<string>\",\n    \"is_active\": \"<boolean>\",\n    \"is_private\": \"<boolean>\",\n    \"members\": [\n      {\n        \"email\": \"<string>\",\n        \"image_url\": \"<string>\",\n        \"name\": \"<string>\",\n        \"user_id\": \"<string>\"\n      },\n      {\n        \"email\": \"<string>\",\n        \"image_url\": \"<string>\",\n        \"name\": \"<string>\",\n        \"user_id\": \"<string>\"\n      }\n    ],\n    \"parent_id\": \"<string>\",\n    \"raw\": {\n      \"aliquipfc\": \"Lorem ea ut dolore\",\n      \"in211\": true,\n      \"ad_6\": false,\n      \"officia3_c\": true\n    },\n    \"updated_at\": \"<dateTime>\",\n    \"web_url\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-07-28T03:23:03.000Z",
+                      "updatedAt": "2026-07-28T03:23:03.000Z",
+                      "uid": "35240-54431674-12ee-4ef4-bc6e-00883e7769eb"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:23:03.000Z",
+                  "updatedAt": "2026-07-28T03:23:03.000Z",
+                  "uid": "35240-81713f74-6cc5-4379-ba3a-502aaeacce73"
+                }
+              ],
+              "id": "9f519236-e9e7-4e78-916d-e517c0b3854e",
+              "createdAt": "2026-07-28T03:23:03.000Z",
+              "updatedAt": "2026-07-28T03:23:03.000Z",
+              "uid": "35240-9f519236-e9e7-4e78-916d-e517c0b3854e"
+            }
+          ],
+          "id": "7dada5bc-37a9-4ae3-aaa9-9fd06507df75",
+          "createdAt": "2026-07-28T03:23:03.000Z",
+          "updatedAt": "2026-07-28T03:23:03.000Z",
+          "uid": "35240-7dada5bc-37a9-4ae3-aaa9-9fd06507df75"
+        }
+      ],
+      "id": "3e238049-a6ba-4b26-a9f3-e25b05068f4e",
+      "createdAt": "2026-07-28T03:23:03.000Z",
+      "updatedAt": "2026-07-28T03:23:03.000Z",
+      "uid": "35240-3e238049-a6ba-4b26-a9f3-e25b05068f4e"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.unified.to"
+    }
+  ]
+}

@@ -1,0 +1,455 @@
+{
+  "info": {
+    "_postman_id": "b1de2d1e-bd52-4b5c-9a05-9d180a9f4b98",
+    "name": "Unified.to account balancesheet API",
+    "description": "One API to Rule Them All\n\nContact Support:\n Email: hello@unified.to",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:22:48.000Z",
+    "updatedAt": "2026-07-28T03:22:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b1de2d1e-bd52-4b5c-9a05-9d180a9f4b98"
+  },
+  "item": [
+    {
+      "name": "accounting",
+      "item": [
+        {
+          "name": "{connection_id}",
+          "item": [
+            {
+              "name": "balancesheet",
+              "item": [
+                {
+                  "name": "{id}",
+                  "item": [
+                    {
+                      "name": "Retrieve a balancesheet",
+                      "id": "eebea2b8-a5cf-4bf2-8dad-c7c44bee55ca",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "authorization",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounting/:connection_id/balancesheet/:id?fields=start_at&fields=updated_at&raw=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounting",
+                            ":connection_id",
+                            "balancesheet",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "Fields to return",
+                              "key": "fields",
+                              "value": "start_at"
+                            },
+                            {
+                              "description": "Fields to return",
+                              "key": "fields",
+                              "value": "updated_at"
+                            },
+                            {
+                              "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar",
+                              "key": "raw",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "65caed4c-81e1-4094-a55a-47f6ad1cc3b8",
+                              "key": "connection_id",
+                              "value": "<string>",
+                              "description": "(Required) ID of the connection"
+                            },
+                            {
+                              "id": "54c903af-30ed-485f-b961-5cff7b29c63b",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) ID of the Balancesheet"
+                            }
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "id": "022b9c83-a2f1-4f69-9a1b-a05038553d90",
+                          "name": "Successful",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/accounting/:connection_id/balancesheet/:id?fields=updated_at&raw=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "accounting",
+                                ":connection_id",
+                                "balancesheet",
+                                ":id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Fields to return",
+                                  "key": "fields",
+                                  "value": "updated_at"
+                                },
+                                {
+                                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar",
+                                  "key": "raw",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "connection_id"
+                                },
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"assets\": [\n    {\n      \"account_id\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"name\": \"<string>\",\n      \"sub_items\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n        }\n      ]\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"name\": \"<string>\",\n      \"sub_items\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n        }\n      ]\n    }\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"end_at\": \"<dateTime>\",\n  \"equity\": [\n    {\n      \"account_id\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"name\": \"<string>\",\n      \"sub_items\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n        }\n      ]\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"name\": \"<string>\",\n      \"sub_items\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n        }\n      ]\n    }\n  ],\n  \"id\": \"<string>\",\n  \"liabilities\": [\n    {\n      \"account_id\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"name\": \"<string>\",\n      \"sub_items\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n        }\n      ]\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"name\": \"<string>\",\n      \"sub_items\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n        }\n      ]\n    }\n  ],\n  \"name\": \"<string>\",\n  \"net_assets_amount\": \"<number>\",\n  \"raw\": {\n    \"eiusmodf0\": 76069966.93316174,\n    \"amet23\": 56261540.10275775,\n    \"magna_c6b\": \"sunt elit in nisi in\"\n  },\n  \"start_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-07-28T03:22:49.000Z",
+                          "updatedAt": "2026-07-28T03:22:49.000Z",
+                          "uid": "35240-022b9c83-a2f1-4f69-9a1b-a05038553d90"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:22:49.000Z",
+                      "updatedAt": "2026-07-28T03:22:49.000Z",
+                      "uid": "35240-eebea2b8-a5cf-4bf2-8dad-c7c44bee55ca"
+                    }
+                  ],
+                  "id": "25e713a5-68da-4a5a-ac37-75d5b6cbad0c",
+                  "createdAt": "2026-07-28T03:22:49.000Z",
+                  "updatedAt": "2026-07-28T03:22:49.000Z",
+                  "uid": "35240-25e713a5-68da-4a5a-ac37-75d5b6cbad0c"
+                },
+                {
+                  "name": "List all balancesheets",
+                  "id": "f662df8f-78f6-467d-a63e-d97190a418aa",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "authorization",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounting/:connection_id/balancesheet?limit=<number>&offset=<number>&updated_gte=<string>&sort=<string>&order=<string>&query=<string>&start_gte=<string>&end_lt=<string>&category_id=<string>&contact_id=<string>&fields=start_at&fields=updated_at&raw=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounting",
+                        ":connection_id",
+                        "balancesheet"
+                      ],
+                      "query": [
+                        {
+                          "key": "limit",
+                          "value": "<number>"
+                        },
+                        {
+                          "key": "offset",
+                          "value": "<number>"
+                        },
+                        {
+                          "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)",
+                          "key": "updated_gte",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "sort",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "order",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Query string to search. eg. email address or name",
+                          "key": "query",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)",
+                          "key": "start_gte",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)",
+                          "key": "end_lt",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The category ID to filter by (reference to AccountingCategory)",
+                          "key": "category_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The contact ID to filter by (reference to AccountingContact)",
+                          "key": "contact_id",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Fields to return",
+                          "key": "fields",
+                          "value": "start_at"
+                        },
+                        {
+                          "description": "Fields to return",
+                          "key": "fields",
+                          "value": "updated_at"
+                        },
+                        {
+                          "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar",
+                          "key": "raw",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "e0da3f7c-d1b6-43aa-a770-ce9c4d974c12",
+                          "key": "connection_id",
+                          "value": "<string>",
+                          "description": "(Required) ID of the connection"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "99fea5c2-b5db-411d-9fbe-c4fc7d38af54",
+                      "name": "Successful",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounting/:connection_id/balancesheet?limit=<number>&offset=<number>&updated_gte=<string>&sort=<string>&order=<string>&query=<string>&start_gte=<string>&end_lt=<string>&category_id=<string>&contact_id=<string>&fields=updated_at&raw=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounting",
+                            ":connection_id",
+                            "balancesheet"
+                          ],
+                          "query": [
+                            {
+                              "key": "limit",
+                              "value": "<number>"
+                            },
+                            {
+                              "key": "offset",
+                              "value": "<number>"
+                            },
+                            {
+                              "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)",
+                              "key": "updated_gte",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "sort",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "order",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Query string to search. eg. email address or name",
+                              "key": "query",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)",
+                              "key": "start_gte",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)",
+                              "key": "end_lt",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The category ID to filter by (reference to AccountingCategory)",
+                              "key": "category_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "The contact ID to filter by (reference to AccountingContact)",
+                              "key": "contact_id",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Fields to return",
+                              "key": "fields",
+                              "value": "updated_at"
+                            },
+                            {
+                              "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar",
+                              "key": "raw",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "connection_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"assets\": [\n      {\n        \"account_id\": \"<string>\",\n        \"amount\": \"<number>\",\n        \"name\": \"<string>\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      },\n      {\n        \"account_id\": \"<string>\",\n        \"amount\": \"<number>\",\n        \"name\": \"<string>\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      }\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"currency\": \"<string>\",\n    \"end_at\": \"<dateTime>\",\n    \"equity\": [\n      {\n        \"account_id\": \"<string>\",\n        \"amount\": \"<number>\",\n        \"name\": \"<string>\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      },\n      {\n        \"account_id\": \"<string>\",\n        \"amount\": \"<number>\",\n        \"name\": \"<string>\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      }\n    ],\n    \"id\": \"<string>\",\n    \"liabilities\": [\n      {\n        \"account_id\": \"<string>\",\n        \"amount\": \"<number>\",\n        \"name\": \"<string>\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      },\n      {\n        \"account_id\": \"<string>\",\n        \"amount\": \"<number>\",\n        \"name\": \"<string>\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      }\n    ],\n    \"name\": \"<string>\",\n    \"net_assets_amount\": \"<number>\",\n    \"raw\": {\n      \"Lorem_e71\": -63280589\n    },\n    \"start_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  },\n  {\n    \"assets\": [\n      {\n        \"account_id\": \"<string>\",\n        \"amount\": \"<number>\",\n        \"name\": \"<string>\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      },\n      {\n        \"account_id\": \"<string>\",\n        \"amount\": \"<number>\",\n        \"name\": \"<string>\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      }\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"currency\": \"<string>\",\n    \"end_at\": \"<dateTime>\",\n    \"equity\": [\n      {\n        \"account_id\": \"<string>\",\n        \"amount\": \"<number>\",\n        \"name\": \"<string>\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      },\n      {\n        \"account_id\": \"<string>\",\n        \"amount\": \"<number>\",\n        \"name\": \"<string>\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      }\n    ],\n    \"id\": \"<string>\",\n    \"liabilities\": [\n      {\n        \"account_id\": \"<string>\",\n        \"amount\": \"<number>\",\n        \"name\": \"<string>\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      },\n      {\n        \"account_id\": \"<string>\",\n        \"amount\": \"<number>\",\n        \"name\": \"<string>\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      }\n    ],\n    \"name\": \"<string>\",\n    \"net_assets_amount\": \"<number>\",\n    \"raw\": {\n      \"occaecat_3a\": -62581793.38676264\n    },\n    \"start_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n]",
+                      "createdAt": "2026-07-28T03:22:49.000Z",
+                      "updatedAt": "2026-07-28T03:22:49.000Z",
+                      "uid": "35240-99fea5c2-b5db-411d-9fbe-c4fc7d38af54"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:22:49.000Z",
+                  "updatedAt": "2026-07-28T03:22:49.000Z",
+                  "uid": "35240-f662df8f-78f6-467d-a63e-d97190a418aa"
+                }
+              ],
+              "id": "2ec4a672-7b44-4475-8716-cb167c4c4db7",
+              "createdAt": "2026-07-28T03:22:49.000Z",
+              "updatedAt": "2026-07-28T03:22:49.000Z",
+              "uid": "35240-2ec4a672-7b44-4475-8716-cb167c4c4db7"
+            }
+          ],
+          "id": "acdfa70d-677e-42b2-bc6d-68fa2b3c78e1",
+          "createdAt": "2026-07-28T03:22:49.000Z",
+          "updatedAt": "2026-07-28T03:22:49.000Z",
+          "uid": "35240-acdfa70d-677e-42b2-bc6d-68fa2b3c78e1"
+        }
+      ],
+      "id": "7ec7e7fb-586b-4dcb-b9bc-d8710d126c91",
+      "createdAt": "2026-07-28T03:22:49.000Z",
+      "updatedAt": "2026-07-28T03:22:49.000Z",
+      "uid": "35240-7ec7e7fb-586b-4dcb-b9bc-d8710d126c91"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.unified.to"
+    }
+  ]
+}
