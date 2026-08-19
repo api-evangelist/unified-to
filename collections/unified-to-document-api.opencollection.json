@@ -1,0 +1,618 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Unified.to account document API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "authorization",
+      "value": "{{authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "document",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/ats/:connection_id/document",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "updated_gte",
+                "value": "",
+                "type": "query",
+                "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Query string to search. eg. email address or name"
+              },
+              {
+                "name": "application_id",
+                "value": "",
+                "type": "query",
+                "description": "The application ID to filter by"
+              },
+              {
+                "name": "candidate_id",
+                "value": "",
+                "type": "query",
+                "description": "The candidate ID to filter by"
+              },
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "query",
+                "description": "The job ID to filter by"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The type to filter by"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all documents"
+        },
+        {
+          "info": {
+            "name": "Create a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.unified.to/ats/:connection_id/document",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a document"
+        },
+        {
+          "info": {
+            "name": "Retrieve a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/ats/:connection_id/document/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Document"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a document"
+        },
+        {
+          "info": {
+            "name": "Update a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.unified.to/ats/:connection_id/document/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Document"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a document"
+        },
+        {
+          "info": {
+            "name": "Update a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.unified.to/ats/:connection_id/document/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Document"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a document"
+        },
+        {
+          "info": {
+            "name": "Remove a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.unified.to/ats/:connection_id/document/:id",
+            "params": [
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Document"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Remove a document"
+        },
+        {
+          "info": {
+            "name": "List All Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/signing/:connection_id/document",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "updated_gte",
+                "value": "",
+                "type": "query",
+                "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Query string to search. eg. email address or name"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "The status to filter by"
+              },
+              {
+                "name": "template_id",
+                "value": "",
+                "type": "query",
+                "description": "The signing template ID to filter by"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List All Documents"
+        },
+        {
+          "info": {
+            "name": "Create a Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.unified.to/signing/:connection_id/document",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a Document"
+        },
+        {
+          "info": {
+            "name": "Retrieve a Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/signing/:connection_id/document/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Document"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a Document"
+        },
+        {
+          "info": {
+            "name": "Update a Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.unified.to/signing/:connection_id/document/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Document"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a Document"
+        },
+        {
+          "info": {
+            "name": "Update a Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.unified.to/signing/:connection_id/document/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Document"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a Document"
+        },
+        {
+          "info": {
+            "name": "Remove a Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.unified.to/signing/:connection_id/document/:id",
+            "params": [
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Document"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Remove a Document"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

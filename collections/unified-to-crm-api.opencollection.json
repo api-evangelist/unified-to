@@ -1,0 +1,1807 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Unified.to account crm API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "authorization",
+      "value": "{{authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "crm",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all companies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/crm/:connection_id/company",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "updated_gte",
+                "value": "",
+                "type": "query",
+                "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Query string to search. eg. email address or name"
+              },
+              {
+                "name": "deal_id",
+                "value": "",
+                "type": "query",
+                "description": "The deal ID to filter by (reference to CrmDeal)"
+              },
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "query",
+                "description": "The contact ID to filter by (reference to CrmContact)"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "The user/employee ID to filter by (reference to HrisEmployee)"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all companies"
+        },
+        {
+          "info": {
+            "name": "Create a company",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.unified.to/crm/:connection_id/company",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a company"
+        },
+        {
+          "info": {
+            "name": "Retrieve a company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/crm/:connection_id/company/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Company"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a company"
+        },
+        {
+          "info": {
+            "name": "Update a company",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.unified.to/crm/:connection_id/company/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Company"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a company"
+        },
+        {
+          "info": {
+            "name": "Update a company",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.unified.to/crm/:connection_id/company/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Company"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a company"
+        },
+        {
+          "info": {
+            "name": "Remove a company",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.unified.to/crm/:connection_id/company/:id",
+            "params": [
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Company"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Remove a company"
+        },
+        {
+          "info": {
+            "name": "List all contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/crm/:connection_id/contact",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "updated_gte",
+                "value": "",
+                "type": "query",
+                "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Query string to search. eg. email address or name"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "The company ID to filter by (reference to CrmCompany)"
+              },
+              {
+                "name": "deal_id",
+                "value": "",
+                "type": "query",
+                "description": "The deal ID to filter by (reference to CrmDeal)"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "The user/employee ID to filter by (reference to HrisEmployee)"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all contacts"
+        },
+        {
+          "info": {
+            "name": "Create a contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.unified.to/crm/:connection_id/contact",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a contact"
+        },
+        {
+          "info": {
+            "name": "Retrieve a contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/crm/:connection_id/contact/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contact"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a contact"
+        },
+        {
+          "info": {
+            "name": "Update a contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.unified.to/crm/:connection_id/contact/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contact"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a contact"
+        },
+        {
+          "info": {
+            "name": "Update a contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.unified.to/crm/:connection_id/contact/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contact"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a contact"
+        },
+        {
+          "info": {
+            "name": "Remove a contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.unified.to/crm/:connection_id/contact/:id",
+            "params": [
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Contact"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Remove a contact"
+        },
+        {
+          "info": {
+            "name": "List all deals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/crm/:connection_id/deal",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "updated_gte",
+                "value": "",
+                "type": "query",
+                "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Query string to search. eg. email address or name"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "The company ID to filter by (reference to CrmCompany)"
+              },
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "query",
+                "description": "The contact ID to filter by (reference to CrmContact)"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "The user/employee ID to filter by (reference to HrisEmployee)"
+              },
+              {
+                "name": "pipeline_id",
+                "value": "",
+                "type": "query",
+                "description": "The pipeline ID to filter by"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all deals"
+        },
+        {
+          "info": {
+            "name": "Create a deal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.unified.to/crm/:connection_id/deal",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a deal"
+        },
+        {
+          "info": {
+            "name": "Retrieve a deal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/crm/:connection_id/deal/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Deal"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a deal"
+        },
+        {
+          "info": {
+            "name": "Update a deal",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.unified.to/crm/:connection_id/deal/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Deal"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a deal"
+        },
+        {
+          "info": {
+            "name": "Update a deal",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.unified.to/crm/:connection_id/deal/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Deal"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a deal"
+        },
+        {
+          "info": {
+            "name": "Remove a deal",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.unified.to/crm/:connection_id/deal/:id",
+            "params": [
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Deal"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Remove a deal"
+        },
+        {
+          "info": {
+            "name": "List all events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/crm/:connection_id/event",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "updated_gte",
+                "value": "",
+                "type": "query",
+                "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Query string to search. eg. email address or name"
+              },
+              {
+                "name": "deal_id",
+                "value": "",
+                "type": "query",
+                "description": "The deal ID to filter by (reference to CrmDeal)"
+              },
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "query",
+                "description": "The contact ID to filter by (reference to CrmContact)"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "The company ID to filter by (reference to CrmCompany)"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "The user/employee ID to filter by (reference to HrisEmployee)"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "lead_id",
+                "value": "",
+                "type": "query",
+                "description": "The CRM lead ID to filter by (reference to CrmLead)"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all events"
+        },
+        {
+          "info": {
+            "name": "Create an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.unified.to/crm/:connection_id/event",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create an event"
+        },
+        {
+          "info": {
+            "name": "Retrieve an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/crm/:connection_id/event/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Event"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve an event"
+        },
+        {
+          "info": {
+            "name": "Update an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.unified.to/crm/:connection_id/event/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Event"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update an event"
+        },
+        {
+          "info": {
+            "name": "Update an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.unified.to/crm/:connection_id/event/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Event"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update an event"
+        },
+        {
+          "info": {
+            "name": "Remove an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.unified.to/crm/:connection_id/event/:id",
+            "params": [
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Event"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Remove an event"
+        },
+        {
+          "info": {
+            "name": "List all leads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/crm/:connection_id/lead",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "updated_gte",
+                "value": "",
+                "type": "query",
+                "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Query string to search. eg. email address or name"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "The company ID to filter by (reference to CrmCompany)"
+              },
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "query",
+                "description": "The contact ID to filter by (reference to CrmContact)"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "The user/employee ID to filter by (reference to HrisEmployee)"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all leads"
+        },
+        {
+          "info": {
+            "name": "Create a lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.unified.to/crm/:connection_id/lead",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a lead"
+        },
+        {
+          "info": {
+            "name": "Retrieve a lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/crm/:connection_id/lead/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Lead"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a lead"
+        },
+        {
+          "info": {
+            "name": "Update a lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.unified.to/crm/:connection_id/lead/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Lead"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a lead"
+        },
+        {
+          "info": {
+            "name": "Update a lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.unified.to/crm/:connection_id/lead/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Lead"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a lead"
+        },
+        {
+          "info": {
+            "name": "Remove a lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.unified.to/crm/:connection_id/lead/:id",
+            "params": [
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Lead"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Remove a lead"
+        },
+        {
+          "info": {
+            "name": "List all pipelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/crm/:connection_id/pipeline",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "updated_gte",
+                "value": "",
+                "type": "query",
+                "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Query string to search. eg. email address or name"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all pipelines"
+        },
+        {
+          "info": {
+            "name": "Create a pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.unified.to/crm/:connection_id/pipeline",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a pipeline"
+        },
+        {
+          "info": {
+            "name": "Retrieve a pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/crm/:connection_id/pipeline/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Pipeline"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a pipeline"
+        },
+        {
+          "info": {
+            "name": "Update a pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.unified.to/crm/:connection_id/pipeline/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Pipeline"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a pipeline"
+        },
+        {
+          "info": {
+            "name": "Update a pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.unified.to/crm/:connection_id/pipeline/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Pipeline"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a pipeline"
+        },
+        {
+          "info": {
+            "name": "Remove a pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.unified.to/crm/:connection_id/pipeline/:id",
+            "params": [
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Pipeline"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Remove a pipeline"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

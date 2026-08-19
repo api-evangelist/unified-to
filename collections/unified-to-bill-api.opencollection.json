@@ -1,0 +1,316 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Unified.to account bill API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "authorization",
+      "value": "{{authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "bill",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all bills",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/accounting/:connection_id/bill",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "updated_gte",
+                "value": "",
+                "type": "query",
+                "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Query string to search. eg. email address or name"
+              },
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "query",
+                "description": "The contact ID to filter by (reference to AccountingContact)"
+              },
+              {
+                "name": "org_id",
+                "value": "",
+                "type": "query",
+                "description": "The org ID to filter by (reference to AccountingOrganization)"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all bills"
+        },
+        {
+          "info": {
+            "name": "Create a bill",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.unified.to/accounting/:connection_id/bill",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a bill"
+        },
+        {
+          "info": {
+            "name": "Retrieve a bill",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/accounting/:connection_id/bill/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Bill"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a bill"
+        },
+        {
+          "info": {
+            "name": "Update a bill",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.unified.to/accounting/:connection_id/bill/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Bill"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a bill"
+        },
+        {
+          "info": {
+            "name": "Update a bill",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.unified.to/accounting/:connection_id/bill/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Bill"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a bill"
+        },
+        {
+          "info": {
+            "name": "Remove a bill",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.unified.to/accounting/:connection_id/bill/:id",
+            "params": [
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Bill"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Remove a bill"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

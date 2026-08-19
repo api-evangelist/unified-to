@@ -1,0 +1,1125 @@
+{
+  "item": [
+    {
+      "id": "e9cdeef1-bee1-4bfb-b191-0ba6f8f40cc6",
+      "name": "shipment",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "24fbb940-9f00-42f2-8b6c-3f92d500d6c6",
+          "name": "List All Shipments",
+          "request": {
+            "name": "List All Shipments",
+            "description": {},
+            "url": {
+              "path": [
+                "shipping",
+                ":connection_id",
+                "shipment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_gte",
+                  "value": "<string>",
+                  "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Query string to search. eg. email address or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_id",
+                  "value": "<string>",
+                  "description": "The AccountingOrder ID to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "carrier_id",
+                  "value": "<string>",
+                  "description": "The ShippingCarrier ID to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "289b5cb1-4c76-4c0c-919e-cba475a3eed2",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipping",
+                    ":connection_id",
+                    "shipment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updated_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "carrier_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"carrier_id\": \"string\",\n    \"created_at\": \"1954-09-06T17:14:15.473Z\",\n    \"customs\": {\n      \"amount\": 2170.1595478997738,\n      \"contents_type\": \"OTHER\",\n      \"currency\": \"string\",\n      \"description\": \"string\",\n      \"duties_paid_by\": \"SENDER\",\n      \"items\": [\n        {\n          \"amount\": 7373.351972764615,\n          \"country_of_origin\": \"string\",\n          \"currency\": \"string\",\n          \"description\": \"string\",\n          \"harmonized_tariff_code\": \"string\",\n          \"quantity\": 7475.312401766902,\n          \"sku\": \"string\",\n          \"weight\": 8503.775993064597,\n          \"weight_unit\": \"kg\"\n        },\n        {\n          \"amount\": 5254.963712860075,\n          \"country_of_origin\": \"string\",\n          \"currency\": \"string\",\n          \"description\": \"string\",\n          \"harmonized_tariff_code\": \"string\",\n          \"quantity\": 1810.8826773406183,\n          \"sku\": \"string\",\n          \"weight\": 5931.849745294964,\n          \"weight_unit\": \"oz\"\n        }\n      ],\n      \"non_delivery_option\": \"RETURN\",\n      \"recipient_eori\": \"string\",\n      \"recipient_tax_number\": \"string\",\n      \"restrictions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"shipper_eori\": \"string\",\n      \"shipper_tax_number\": \"string\",\n      \"taxes_paid_by\": \"SENDER\"\n    },\n    \"from_address\": {\n      \"address1\": \"string\",\n      \"address2\": \"string\",\n      \"city\": \"string\",\n      \"company_name\": \"string\",\n      \"country\": \"string\",\n      \"country_code\": \"string\",\n      \"delivery_instructions\": \"string\",\n      \"email\": \"string\",\n      \"is_residential\": false,\n      \"is_validated\": false,\n      \"name\": \"string\",\n      \"postal_code\": \"string\",\n      \"region\": \"string\",\n      \"region_code\": \"string\",\n      \"telephone\": \"string\"\n    },\n    \"id\": \"string\",\n    \"insurance\": {\n      \"coverage_amount\": 4913.40527022306,\n      \"coverage_type\": \"PREMIUM\",\n      \"currency\": \"string\",\n      \"insurance_cost\": 1131.9218962913546,\n      \"insurance_cost_currency\": \"string\",\n      \"insurance_provider\": \"string\",\n      \"insurance_provider_code\": \"string\",\n      \"insured_value\": 1282.622546898119\n    },\n    \"is_adult_signature_required\": false,\n    \"is_international\": false,\n    \"is_rate_guaranteed\": false,\n    \"is_return\": false,\n    \"is_signature_required\": false,\n    \"label_id\": \"string\",\n    \"order_id\": \"string\",\n    \"original_shipment_id\": \"string\",\n    \"packages\": [\n      {\n        \"currency\": \"string\",\n        \"description\": \"string\",\n        \"height\": 7295.683770351969,\n        \"insured_amount\": 6222.709193299976,\n        \"length\": 3707.089323030749,\n        \"size_unit\": \"cm\",\n        \"tracking_number\": \"string\",\n        \"value\": 1227.7322840974614,\n        \"weight\": 4789.813959404851,\n        \"weight_unit\": \"kg\",\n        \"width\": 4689.309065291106\n      },\n      {\n        \"currency\": \"string\",\n        \"description\": \"string\",\n        \"height\": 4824.486274976004,\n        \"insured_amount\": 4939.035846421833,\n        \"length\": 8805.350592500634,\n        \"size_unit\": \"cm\",\n        \"tracking_number\": \"string\",\n        \"value\": 6933.5973676515005,\n        \"weight\": 7105.106078990389,\n        \"weight_unit\": \"kg\",\n        \"width\": 867.666522035363\n      }\n    ],\n    \"rate_amount\": 7505.77031344732,\n    \"rate_currency\": \"string\",\n    \"rate_estimated_days\": 5333.4349521654685,\n    \"rate_estimated_delivery_at\": \"1973-09-02T13:04:29.073Z\",\n    \"rate_id\": \"string\",\n    \"rate_service_name\": \"string\",\n    \"raw\": {\n      \"key_0\": 125.93732625862275,\n      \"key_1\": 9312,\n      \"key_2\": \"string\"\n    },\n    \"reference_number\": \"string\",\n    \"return_address\": {\n      \"address1\": \"string\",\n      \"address2\": \"string\",\n      \"city\": \"string\",\n      \"company_name\": \"string\",\n      \"country\": \"string\",\n      \"country_code\": \"string\",\n      \"delivery_instructions\": \"string\",\n      \"email\": \"string\",\n      \"is_residential\": false,\n      \"is_validated\": true,\n      \"name\": \"string\",\n      \"postal_code\": \"string\",\n      \"region\": \"string\",\n      \"region_code\": \"string\",\n      \"telephone\": \"string\"\n    },\n    \"return_authorization_number\": \"string\",\n    \"return_reason\": \"string\",\n    \"return_type\": \"VENDOR\",\n    \"service_code\": \"string\",\n    \"shipped_at\": \"1964-09-10T13:37:44.845Z\",\n    \"special_instructions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"status\": \"IN_TRANSIT\",\n    \"to_address\": {\n      \"address1\": \"string\",\n      \"address2\": \"string\",\n      \"city\": \"string\",\n      \"company_name\": \"string\",\n      \"country\": \"string\",\n      \"country_code\": \"string\",\n      \"delivery_instructions\": \"string\",\n      \"email\": \"string\",\n      \"is_residential\": false,\n      \"is_validated\": false,\n      \"name\": \"string\",\n      \"postal_code\": \"string\",\n      \"region\": \"string\",\n      \"region_code\": \"string\",\n      \"telephone\": \"string\"\n    },\n    \"tracking_id\": \"string\",\n    \"updated_at\": \"1961-01-28T13:59:08.288Z\",\n    \"warehouse_location_id\": \"string\",\n    \"warehouse_location_name\": \"string\"\n  },\n  {\n    \"carrier_id\": \"string\",\n    \"created_at\": \"1988-05-27T11:56:29.634Z\",\n    \"customs\": {\n      \"amount\": 6467.042859149137,\n      \"contents_type\": \"OTHER\",\n      \"currency\": \"string\",\n      \"description\": \"string\",\n      \"duties_paid_by\": \"RECIPIENT\",\n      \"items\": [\n        {\n          \"amount\": 6943.3882681435,\n          \"country_of_origin\": \"string\",\n          \"currency\": \"string\",\n          \"description\": \"string\",\n          \"harmonized_tariff_code\": \"string\",\n          \"quantity\": 2219.115456850379,\n          \"sku\": \"string\",\n          \"weight\": 2512.086857935627,\n          \"weight_unit\": \"g\"\n        },\n        {\n          \"amount\": 7373.570589550526,\n          \"country_of_origin\": \"string\",\n          \"currency\": \"string\",\n          \"description\": \"string\",\n          \"harmonized_tariff_code\": \"string\",\n          \"quantity\": 818.2196067533953,\n          \"sku\": \"string\",\n          \"weight\": 2250.14492901789,\n          \"weight_unit\": \"oz\"\n        }\n      ],\n      \"non_delivery_option\": \"ABANDON\",\n      \"recipient_eori\": \"string\",\n      \"recipient_tax_number\": \"string\",\n      \"restrictions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"shipper_eori\": \"string\",\n      \"shipper_tax_number\": \"string\",\n      \"taxes_paid_by\": \"RECIPIENT\"\n    },\n    \"from_address\": {\n      \"address1\": \"string\",\n      \"address2\": \"string\",\n      \"city\": \"string\",\n      \"company_name\": \"string\",\n      \"country\": \"string\",\n      \"country_code\": \"string\",\n      \"delivery_instructions\": \"string\",\n      \"email\": \"string\",\n      \"is_residential\": true,\n      \"is_validated\": true,\n      \"name\": \"string\",\n      \"postal_code\": \"string\",\n      \"region\": \"string\",\n      \"region_code\": \"string\",\n      \"telephone\": \"string\"\n    },\n    \"id\": \"string\",\n    \"insurance\": {\n      \"coverage_amount\": 4093.333852699328,\n      \"coverage_type\": \"CUSTOM\",\n      \"currency\": \"string\",\n      \"insurance_cost\": 7356.4252683675195,\n      \"insurance_cost_currency\": \"string\",\n      \"insurance_provider\": \"string\",\n      \"insurance_provider_code\": \"string\",\n      \"insured_value\": 4815.679167714653\n    },\n    \"is_adult_signature_required\": true,\n    \"is_international\": true,\n    \"is_rate_guaranteed\": true,\n    \"is_return\": true,\n    \"is_signature_required\": false,\n    \"label_id\": \"string\",\n    \"order_id\": \"string\",\n    \"original_shipment_id\": \"string\",\n    \"packages\": [\n      {\n        \"currency\": \"string\",\n        \"description\": \"string\",\n        \"height\": 6386.5447988122905,\n        \"insured_amount\": 6721.701613029732,\n        \"length\": 7742.00656781943,\n        \"size_unit\": \"cm\",\n        \"tracking_number\": \"string\",\n        \"value\": 2335.5907962373867,\n        \"weight\": 8467.275054633057,\n        \"weight_unit\": \"g\",\n        \"width\": 6977.412562955633\n      },\n      {\n        \"currency\": \"string\",\n        \"description\": \"string\",\n        \"height\": 1708.08677323683,\n        \"insured_amount\": 5525.66710354316,\n        \"length\": 7964.65020125712,\n        \"size_unit\": \"cm\",\n        \"tracking_number\": \"string\",\n        \"value\": 8181.809169053295,\n        \"weight\": 5516.297298695859,\n        \"weight_unit\": \"kg\",\n        \"width\": 5761.91396419559\n      }\n    ],\n    \"rate_amount\": 8188.611220831522,\n    \"rate_currency\": \"string\",\n    \"rate_estimated_days\": 1061.490805221762,\n    \"rate_estimated_delivery_at\": \"1983-03-18T18:47:45.438Z\",\n    \"rate_id\": \"string\",\n    \"rate_service_name\": \"string\",\n    \"raw\": {\n      \"key_0\": 3508\n    },\n    \"reference_number\": \"string\",\n    \"return_address\": {\n      \"address1\": \"string\",\n      \"address2\": \"string\",\n      \"city\": \"string\",\n      \"company_name\": \"string\",\n      \"country\": \"string\",\n      \"country_code\": \"string\",\n      \"delivery_instructions\": \"string\",\n      \"email\": \"string\",\n      \"is_residential\": false,\n      \"is_validated\": false,\n      \"name\": \"string\",\n      \"postal_code\": \"string\",\n      \"region\": \"string\",\n      \"region_code\": \"string\",\n      \"telephone\": \"string\"\n    },\n    \"return_authorization_number\": \"string\",\n    \"return_reason\": \"string\",\n    \"return_type\": \"CUSTOMER\",\n    \"service_code\": \"string\",\n    \"shipped_at\": \"2022-07-25T20:34:08.897Z\",\n    \"special_instructions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"status\": \"CANCELLED\",\n    \"to_address\": {\n      \"address1\": \"string\",\n      \"address2\": \"string\",\n      \"city\": \"string\",\n      \"company_name\": \"string\",\n      \"country\": \"string\",\n      \"country_code\": \"string\",\n      \"delivery_instructions\": \"string\",\n      \"email\": \"string\",\n      \"is_residential\": true,\n      \"is_validated\": false,\n      \"name\": \"string\",\n      \"postal_code\": \"string\",\n      \"region\": \"string\",\n      \"region_code\": \"string\",\n      \"telephone\": \"string\"\n    },\n    \"tracking_id\": \"string\",\n    \"updated_at\": \"1970-01-22T17:15:19.314Z\",\n    \"warehouse_location_id\": \"string\",\n    \"warehouse_location_name\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b0cdb5bd-fdbb-4900-9ba3-8430b2c7370f",
+          "name": "Create a Shipment",
+          "request": {
+            "name": "Create a Shipment",
+            "description": {},
+            "url": {
+              "path": [
+                "shipping",
+                ":connection_id",
+                "shipment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"carrier_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"customs\": {\n    \"amount\": \"<number>\",\n    \"contents_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"description\": \"<string>\",\n    \"duties_paid_by\": \"<string>\",\n    \"items\": [\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      }\n    ],\n    \"non_delivery_option\": \"<string>\",\n    \"recipient_eori\": \"<string>\",\n    \"recipient_tax_number\": \"<string>\",\n    \"restrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"shipper_eori\": \"<string>\",\n    \"shipper_tax_number\": \"<string>\",\n    \"taxes_paid_by\": \"<string>\"\n  },\n  \"from_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"id\": \"<string>\",\n  \"insurance\": {\n    \"coverage_amount\": \"<number>\",\n    \"coverage_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"insurance_cost\": \"<number>\",\n    \"insurance_cost_currency\": \"<string>\",\n    \"insurance_provider\": \"<string>\",\n    \"insurance_provider_code\": \"<string>\",\n    \"insured_value\": \"<number>\"\n  },\n  \"is_adult_signature_required\": \"<boolean>\",\n  \"is_international\": \"<boolean>\",\n  \"is_rate_guaranteed\": \"<boolean>\",\n  \"is_return\": \"<boolean>\",\n  \"is_signature_required\": \"<boolean>\",\n  \"label_id\": \"<string>\",\n  \"order_id\": \"<string>\",\n  \"original_shipment_id\": \"<string>\",\n  \"packages\": [\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    },\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    }\n  ],\n  \"rate_amount\": \"<number>\",\n  \"rate_currency\": \"<string>\",\n  \"rate_estimated_days\": \"<number>\",\n  \"rate_estimated_delivery_at\": \"<dateTime>\",\n  \"rate_id\": \"<string>\",\n  \"rate_service_name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 1088\n  },\n  \"reference_number\": \"<string>\",\n  \"return_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"return_authorization_number\": \"<string>\",\n  \"return_reason\": \"<string>\",\n  \"return_type\": \"<string>\",\n  \"service_code\": \"<string>\",\n  \"shipped_at\": \"<dateTime>\",\n  \"special_instructions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\",\n  \"to_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"tracking_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"warehouse_location_id\": \"<string>\",\n  \"warehouse_location_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3a69116f-d805-4977-a03f-c1bc58bd6a84",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipping",
+                    ":connection_id",
+                    "shipment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"carrier_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"customs\": {\n    \"amount\": \"<number>\",\n    \"contents_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"description\": \"<string>\",\n    \"duties_paid_by\": \"<string>\",\n    \"items\": [\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      }\n    ],\n    \"non_delivery_option\": \"<string>\",\n    \"recipient_eori\": \"<string>\",\n    \"recipient_tax_number\": \"<string>\",\n    \"restrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"shipper_eori\": \"<string>\",\n    \"shipper_tax_number\": \"<string>\",\n    \"taxes_paid_by\": \"<string>\"\n  },\n  \"from_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"id\": \"<string>\",\n  \"insurance\": {\n    \"coverage_amount\": \"<number>\",\n    \"coverage_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"insurance_cost\": \"<number>\",\n    \"insurance_cost_currency\": \"<string>\",\n    \"insurance_provider\": \"<string>\",\n    \"insurance_provider_code\": \"<string>\",\n    \"insured_value\": \"<number>\"\n  },\n  \"is_adult_signature_required\": \"<boolean>\",\n  \"is_international\": \"<boolean>\",\n  \"is_rate_guaranteed\": \"<boolean>\",\n  \"is_return\": \"<boolean>\",\n  \"is_signature_required\": \"<boolean>\",\n  \"label_id\": \"<string>\",\n  \"order_id\": \"<string>\",\n  \"original_shipment_id\": \"<string>\",\n  \"packages\": [\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    },\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    }\n  ],\n  \"rate_amount\": \"<number>\",\n  \"rate_currency\": \"<string>\",\n  \"rate_estimated_days\": \"<number>\",\n  \"rate_estimated_delivery_at\": \"<dateTime>\",\n  \"rate_id\": \"<string>\",\n  \"rate_service_name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 2004\n  },\n  \"reference_number\": \"<string>\",\n  \"return_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"return_authorization_number\": \"<string>\",\n  \"return_reason\": \"<string>\",\n  \"return_type\": \"<string>\",\n  \"service_code\": \"<string>\",\n  \"shipped_at\": \"<dateTime>\",\n  \"special_instructions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\",\n  \"to_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"tracking_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"warehouse_location_id\": \"<string>\",\n  \"warehouse_location_name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"carrier_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"customs\": {\n    \"amount\": \"<number>\",\n    \"contents_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"description\": \"<string>\",\n    \"duties_paid_by\": \"<string>\",\n    \"items\": [\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      }\n    ],\n    \"non_delivery_option\": \"<string>\",\n    \"recipient_eori\": \"<string>\",\n    \"recipient_tax_number\": \"<string>\",\n    \"restrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"shipper_eori\": \"<string>\",\n    \"shipper_tax_number\": \"<string>\",\n    \"taxes_paid_by\": \"<string>\"\n  },\n  \"from_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"id\": \"<string>\",\n  \"insurance\": {\n    \"coverage_amount\": \"<number>\",\n    \"coverage_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"insurance_cost\": \"<number>\",\n    \"insurance_cost_currency\": \"<string>\",\n    \"insurance_provider\": \"<string>\",\n    \"insurance_provider_code\": \"<string>\",\n    \"insured_value\": \"<number>\"\n  },\n  \"is_adult_signature_required\": \"<boolean>\",\n  \"is_international\": \"<boolean>\",\n  \"is_rate_guaranteed\": \"<boolean>\",\n  \"is_return\": \"<boolean>\",\n  \"is_signature_required\": \"<boolean>\",\n  \"label_id\": \"<string>\",\n  \"order_id\": \"<string>\",\n  \"original_shipment_id\": \"<string>\",\n  \"packages\": [\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    },\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    }\n  ],\n  \"rate_amount\": \"<number>\",\n  \"rate_currency\": \"<string>\",\n  \"rate_estimated_days\": \"<number>\",\n  \"rate_estimated_delivery_at\": \"<dateTime>\",\n  \"rate_id\": \"<string>\",\n  \"rate_service_name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 2004\n  },\n  \"reference_number\": \"<string>\",\n  \"return_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"return_authorization_number\": \"<string>\",\n  \"return_reason\": \"<string>\",\n  \"return_type\": \"<string>\",\n  \"service_code\": \"<string>\",\n  \"shipped_at\": \"<dateTime>\",\n  \"special_instructions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\",\n  \"to_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"tracking_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"warehouse_location_id\": \"<string>\",\n  \"warehouse_location_name\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "633a0ef4-52d0-40c6-b9c2-3cb6c756afec",
+          "name": "Remove a Shipment",
+          "request": {
+            "name": "Remove a Shipment",
+            "description": {},
+            "url": {
+              "path": [
+                "shipping",
+                ":connection_id",
+                "shipment",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Shipment"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2fed0646-5582-4c15-9752-698e3edd0f12",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipping",
+                    ":connection_id",
+                    "shipment",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Shipment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "58faaa80-bbc7-4f71-8303-b854fadb8ad4",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipping",
+                    ":connection_id",
+                    "shipment",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Shipment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf1099ae-26cb-4c12-97a2-c2a821caa337",
+          "name": "Retrieve a Shipment",
+          "request": {
+            "name": "Retrieve a Shipment",
+            "description": {},
+            "url": {
+              "path": [
+                "shipping",
+                ":connection_id",
+                "shipment",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Shipment"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8cd2230e-df0f-42da-9433-641d4c41dc6f",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipping",
+                    ":connection_id",
+                    "shipment",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Shipment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"carrier_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"customs\": {\n    \"amount\": \"<number>\",\n    \"contents_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"description\": \"<string>\",\n    \"duties_paid_by\": \"<string>\",\n    \"items\": [\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      }\n    ],\n    \"non_delivery_option\": \"<string>\",\n    \"recipient_eori\": \"<string>\",\n    \"recipient_tax_number\": \"<string>\",\n    \"restrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"shipper_eori\": \"<string>\",\n    \"shipper_tax_number\": \"<string>\",\n    \"taxes_paid_by\": \"<string>\"\n  },\n  \"from_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"id\": \"<string>\",\n  \"insurance\": {\n    \"coverage_amount\": \"<number>\",\n    \"coverage_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"insurance_cost\": \"<number>\",\n    \"insurance_cost_currency\": \"<string>\",\n    \"insurance_provider\": \"<string>\",\n    \"insurance_provider_code\": \"<string>\",\n    \"insured_value\": \"<number>\"\n  },\n  \"is_adult_signature_required\": \"<boolean>\",\n  \"is_international\": \"<boolean>\",\n  \"is_rate_guaranteed\": \"<boolean>\",\n  \"is_return\": \"<boolean>\",\n  \"is_signature_required\": \"<boolean>\",\n  \"label_id\": \"<string>\",\n  \"order_id\": \"<string>\",\n  \"original_shipment_id\": \"<string>\",\n  \"packages\": [\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    },\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    }\n  ],\n  \"rate_amount\": \"<number>\",\n  \"rate_currency\": \"<string>\",\n  \"rate_estimated_days\": \"<number>\",\n  \"rate_estimated_delivery_at\": \"<dateTime>\",\n  \"rate_id\": \"<string>\",\n  \"rate_service_name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 2004\n  },\n  \"reference_number\": \"<string>\",\n  \"return_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"return_authorization_number\": \"<string>\",\n  \"return_reason\": \"<string>\",\n  \"return_type\": \"<string>\",\n  \"service_code\": \"<string>\",\n  \"shipped_at\": \"<dateTime>\",\n  \"special_instructions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\",\n  \"to_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"tracking_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"warehouse_location_id\": \"<string>\",\n  \"warehouse_location_name\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8253e16c-2cf5-42b6-b5ac-0b8e854a930e",
+          "name": "Update a Shipment",
+          "request": {
+            "name": "Update a Shipment",
+            "description": {},
+            "url": {
+              "path": [
+                "shipping",
+                ":connection_id",
+                "shipment",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Shipment"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"carrier_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"customs\": {\n    \"amount\": \"<number>\",\n    \"contents_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"description\": \"<string>\",\n    \"duties_paid_by\": \"<string>\",\n    \"items\": [\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      }\n    ],\n    \"non_delivery_option\": \"<string>\",\n    \"recipient_eori\": \"<string>\",\n    \"recipient_tax_number\": \"<string>\",\n    \"restrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"shipper_eori\": \"<string>\",\n    \"shipper_tax_number\": \"<string>\",\n    \"taxes_paid_by\": \"<string>\"\n  },\n  \"from_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"id\": \"<string>\",\n  \"insurance\": {\n    \"coverage_amount\": \"<number>\",\n    \"coverage_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"insurance_cost\": \"<number>\",\n    \"insurance_cost_currency\": \"<string>\",\n    \"insurance_provider\": \"<string>\",\n    \"insurance_provider_code\": \"<string>\",\n    \"insured_value\": \"<number>\"\n  },\n  \"is_adult_signature_required\": \"<boolean>\",\n  \"is_international\": \"<boolean>\",\n  \"is_rate_guaranteed\": \"<boolean>\",\n  \"is_return\": \"<boolean>\",\n  \"is_signature_required\": \"<boolean>\",\n  \"label_id\": \"<string>\",\n  \"order_id\": \"<string>\",\n  \"original_shipment_id\": \"<string>\",\n  \"packages\": [\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    },\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    }\n  ],\n  \"rate_amount\": \"<number>\",\n  \"rate_currency\": \"<string>\",\n  \"rate_estimated_days\": \"<number>\",\n  \"rate_estimated_delivery_at\": \"<dateTime>\",\n  \"rate_id\": \"<string>\",\n  \"rate_service_name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 1088\n  },\n  \"reference_number\": \"<string>\",\n  \"return_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"return_authorization_number\": \"<string>\",\n  \"return_reason\": \"<string>\",\n  \"return_type\": \"<string>\",\n  \"service_code\": \"<string>\",\n  \"shipped_at\": \"<dateTime>\",\n  \"special_instructions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\",\n  \"to_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"tracking_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"warehouse_location_id\": \"<string>\",\n  \"warehouse_location_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2d168244-ce97-4c84-b9ab-be43e5432b59",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipping",
+                    ":connection_id",
+                    "shipment",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Shipment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"carrier_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"customs\": {\n    \"amount\": \"<number>\",\n    \"contents_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"description\": \"<string>\",\n    \"duties_paid_by\": \"<string>\",\n    \"items\": [\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      }\n    ],\n    \"non_delivery_option\": \"<string>\",\n    \"recipient_eori\": \"<string>\",\n    \"recipient_tax_number\": \"<string>\",\n    \"restrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"shipper_eori\": \"<string>\",\n    \"shipper_tax_number\": \"<string>\",\n    \"taxes_paid_by\": \"<string>\"\n  },\n  \"from_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"id\": \"<string>\",\n  \"insurance\": {\n    \"coverage_amount\": \"<number>\",\n    \"coverage_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"insurance_cost\": \"<number>\",\n    \"insurance_cost_currency\": \"<string>\",\n    \"insurance_provider\": \"<string>\",\n    \"insurance_provider_code\": \"<string>\",\n    \"insured_value\": \"<number>\"\n  },\n  \"is_adult_signature_required\": \"<boolean>\",\n  \"is_international\": \"<boolean>\",\n  \"is_rate_guaranteed\": \"<boolean>\",\n  \"is_return\": \"<boolean>\",\n  \"is_signature_required\": \"<boolean>\",\n  \"label_id\": \"<string>\",\n  \"order_id\": \"<string>\",\n  \"original_shipment_id\": \"<string>\",\n  \"packages\": [\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    },\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    }\n  ],\n  \"rate_amount\": \"<number>\",\n  \"rate_currency\": \"<string>\",\n  \"rate_estimated_days\": \"<number>\",\n  \"rate_estimated_delivery_at\": \"<dateTime>\",\n  \"rate_id\": \"<string>\",\n  \"rate_service_name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 2004\n  },\n  \"reference_number\": \"<string>\",\n  \"return_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"return_authorization_number\": \"<string>\",\n  \"return_reason\": \"<string>\",\n  \"return_type\": \"<string>\",\n  \"service_code\": \"<string>\",\n  \"shipped_at\": \"<dateTime>\",\n  \"special_instructions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\",\n  \"to_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"tracking_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"warehouse_location_id\": \"<string>\",\n  \"warehouse_location_name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"carrier_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"customs\": {\n    \"amount\": \"<number>\",\n    \"contents_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"description\": \"<string>\",\n    \"duties_paid_by\": \"<string>\",\n    \"items\": [\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      }\n    ],\n    \"non_delivery_option\": \"<string>\",\n    \"recipient_eori\": \"<string>\",\n    \"recipient_tax_number\": \"<string>\",\n    \"restrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"shipper_eori\": \"<string>\",\n    \"shipper_tax_number\": \"<string>\",\n    \"taxes_paid_by\": \"<string>\"\n  },\n  \"from_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"id\": \"<string>\",\n  \"insurance\": {\n    \"coverage_amount\": \"<number>\",\n    \"coverage_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"insurance_cost\": \"<number>\",\n    \"insurance_cost_currency\": \"<string>\",\n    \"insurance_provider\": \"<string>\",\n    \"insurance_provider_code\": \"<string>\",\n    \"insured_value\": \"<number>\"\n  },\n  \"is_adult_signature_required\": \"<boolean>\",\n  \"is_international\": \"<boolean>\",\n  \"is_rate_guaranteed\": \"<boolean>\",\n  \"is_return\": \"<boolean>\",\n  \"is_signature_required\": \"<boolean>\",\n  \"label_id\": \"<string>\",\n  \"order_id\": \"<string>\",\n  \"original_shipment_id\": \"<string>\",\n  \"packages\": [\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    },\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    }\n  ],\n  \"rate_amount\": \"<number>\",\n  \"rate_currency\": \"<string>\",\n  \"rate_estimated_days\": \"<number>\",\n  \"rate_estimated_delivery_at\": \"<dateTime>\",\n  \"rate_id\": \"<string>\",\n  \"rate_service_name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 2004\n  },\n  \"reference_number\": \"<string>\",\n  \"return_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"return_authorization_number\": \"<string>\",\n  \"return_reason\": \"<string>\",\n  \"return_type\": \"<string>\",\n  \"service_code\": \"<string>\",\n  \"shipped_at\": \"<dateTime>\",\n  \"special_instructions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\",\n  \"to_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"tracking_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"warehouse_location_id\": \"<string>\",\n  \"warehouse_location_name\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df207a5e-e5f9-4421-ba8d-9769ad06bc95",
+          "name": "Update a Shipment",
+          "request": {
+            "name": "Update a Shipment",
+            "description": {},
+            "url": {
+              "path": [
+                "shipping",
+                ":connection_id",
+                "shipment",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Shipment"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"carrier_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"customs\": {\n    \"amount\": \"<number>\",\n    \"contents_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"description\": \"<string>\",\n    \"duties_paid_by\": \"<string>\",\n    \"items\": [\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      }\n    ],\n    \"non_delivery_option\": \"<string>\",\n    \"recipient_eori\": \"<string>\",\n    \"recipient_tax_number\": \"<string>\",\n    \"restrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"shipper_eori\": \"<string>\",\n    \"shipper_tax_number\": \"<string>\",\n    \"taxes_paid_by\": \"<string>\"\n  },\n  \"from_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"id\": \"<string>\",\n  \"insurance\": {\n    \"coverage_amount\": \"<number>\",\n    \"coverage_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"insurance_cost\": \"<number>\",\n    \"insurance_cost_currency\": \"<string>\",\n    \"insurance_provider\": \"<string>\",\n    \"insurance_provider_code\": \"<string>\",\n    \"insured_value\": \"<number>\"\n  },\n  \"is_adult_signature_required\": \"<boolean>\",\n  \"is_international\": \"<boolean>\",\n  \"is_rate_guaranteed\": \"<boolean>\",\n  \"is_return\": \"<boolean>\",\n  \"is_signature_required\": \"<boolean>\",\n  \"label_id\": \"<string>\",\n  \"order_id\": \"<string>\",\n  \"original_shipment_id\": \"<string>\",\n  \"packages\": [\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    },\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    }\n  ],\n  \"rate_amount\": \"<number>\",\n  \"rate_currency\": \"<string>\",\n  \"rate_estimated_days\": \"<number>\",\n  \"rate_estimated_delivery_at\": \"<dateTime>\",\n  \"rate_id\": \"<string>\",\n  \"rate_service_name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 1088\n  },\n  \"reference_number\": \"<string>\",\n  \"return_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"return_authorization_number\": \"<string>\",\n  \"return_reason\": \"<string>\",\n  \"return_type\": \"<string>\",\n  \"service_code\": \"<string>\",\n  \"shipped_at\": \"<dateTime>\",\n  \"special_instructions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\",\n  \"to_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"tracking_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"warehouse_location_id\": \"<string>\",\n  \"warehouse_location_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d7624e85-8465-4332-be96-4110a66f9370",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipping",
+                    ":connection_id",
+                    "shipment",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Shipment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"carrier_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"customs\": {\n    \"amount\": \"<number>\",\n    \"contents_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"description\": \"<string>\",\n    \"duties_paid_by\": \"<string>\",\n    \"items\": [\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      }\n    ],\n    \"non_delivery_option\": \"<string>\",\n    \"recipient_eori\": \"<string>\",\n    \"recipient_tax_number\": \"<string>\",\n    \"restrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"shipper_eori\": \"<string>\",\n    \"shipper_tax_number\": \"<string>\",\n    \"taxes_paid_by\": \"<string>\"\n  },\n  \"from_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"id\": \"<string>\",\n  \"insurance\": {\n    \"coverage_amount\": \"<number>\",\n    \"coverage_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"insurance_cost\": \"<number>\",\n    \"insurance_cost_currency\": \"<string>\",\n    \"insurance_provider\": \"<string>\",\n    \"insurance_provider_code\": \"<string>\",\n    \"insured_value\": \"<number>\"\n  },\n  \"is_adult_signature_required\": \"<boolean>\",\n  \"is_international\": \"<boolean>\",\n  \"is_rate_guaranteed\": \"<boolean>\",\n  \"is_return\": \"<boolean>\",\n  \"is_signature_required\": \"<boolean>\",\n  \"label_id\": \"<string>\",\n  \"order_id\": \"<string>\",\n  \"original_shipment_id\": \"<string>\",\n  \"packages\": [\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    },\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    }\n  ],\n  \"rate_amount\": \"<number>\",\n  \"rate_currency\": \"<string>\",\n  \"rate_estimated_days\": \"<number>\",\n  \"rate_estimated_delivery_at\": \"<dateTime>\",\n  \"rate_id\": \"<string>\",\n  \"rate_service_name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 2004\n  },\n  \"reference_number\": \"<string>\",\n  \"return_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"return_authorization_number\": \"<string>\",\n  \"return_reason\": \"<string>\",\n  \"return_type\": \"<string>\",\n  \"service_code\": \"<string>\",\n  \"shipped_at\": \"<dateTime>\",\n  \"special_instructions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\",\n  \"to_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"tracking_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"warehouse_location_id\": \"<string>\",\n  \"warehouse_location_name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"carrier_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"customs\": {\n    \"amount\": \"<number>\",\n    \"contents_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"description\": \"<string>\",\n    \"duties_paid_by\": \"<string>\",\n    \"items\": [\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      },\n      {\n        \"amount\": \"<number>\",\n        \"country_of_origin\": \"<string>\",\n        \"currency\": \"<string>\",\n        \"description\": \"<string>\",\n        \"harmonized_tariff_code\": \"<string>\",\n        \"quantity\": \"<number>\",\n        \"sku\": \"<string>\",\n        \"weight\": \"<number>\",\n        \"weight_unit\": \"<string>\"\n      }\n    ],\n    \"non_delivery_option\": \"<string>\",\n    \"recipient_eori\": \"<string>\",\n    \"recipient_tax_number\": \"<string>\",\n    \"restrictions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"shipper_eori\": \"<string>\",\n    \"shipper_tax_number\": \"<string>\",\n    \"taxes_paid_by\": \"<string>\"\n  },\n  \"from_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"id\": \"<string>\",\n  \"insurance\": {\n    \"coverage_amount\": \"<number>\",\n    \"coverage_type\": \"<string>\",\n    \"currency\": \"<string>\",\n    \"insurance_cost\": \"<number>\",\n    \"insurance_cost_currency\": \"<string>\",\n    \"insurance_provider\": \"<string>\",\n    \"insurance_provider_code\": \"<string>\",\n    \"insured_value\": \"<number>\"\n  },\n  \"is_adult_signature_required\": \"<boolean>\",\n  \"is_international\": \"<boolean>\",\n  \"is_rate_guaranteed\": \"<boolean>\",\n  \"is_return\": \"<boolean>\",\n  \"is_signature_required\": \"<boolean>\",\n  \"label_id\": \"<string>\",\n  \"order_id\": \"<string>\",\n  \"original_shipment_id\": \"<string>\",\n  \"packages\": [\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    },\n    {\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"height\": \"<number>\",\n      \"insured_amount\": \"<number>\",\n      \"length\": \"<number>\",\n      \"size_unit\": \"<string>\",\n      \"tracking_number\": \"<string>\",\n      \"value\": \"<number>\",\n      \"weight\": \"<number>\",\n      \"weight_unit\": \"<string>\",\n      \"width\": \"<number>\"\n    }\n  ],\n  \"rate_amount\": \"<number>\",\n  \"rate_currency\": \"<string>\",\n  \"rate_estimated_days\": \"<number>\",\n  \"rate_estimated_delivery_at\": \"<dateTime>\",\n  \"rate_id\": \"<string>\",\n  \"rate_service_name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 2004\n  },\n  \"reference_number\": \"<string>\",\n  \"return_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"return_authorization_number\": \"<string>\",\n  \"return_reason\": \"<string>\",\n  \"return_type\": \"<string>\",\n  \"service_code\": \"<string>\",\n  \"shipped_at\": \"<dateTime>\",\n  \"special_instructions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"status\": \"<string>\",\n  \"to_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"delivery_instructions\": \"<string>\",\n    \"email\": \"<string>\",\n    \"is_residential\": \"<boolean>\",\n    \"is_validated\": \"<boolean>\",\n    \"name\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\",\n    \"telephone\": \"<string>\"\n  },\n  \"tracking_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"warehouse_location_id\": \"<string>\",\n  \"warehouse_location_name\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.unified.to",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3b465305-ee41-4a3b-a16e-381f886f18ea",
+    "name": "Unified.to account shipment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "One API to Rule Them All\n\nContact Support:\n Email: hello@unified.to",
+      "type": "text/plain"
+    }
+  }
+}

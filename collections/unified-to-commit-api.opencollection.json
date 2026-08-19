@@ -1,0 +1,316 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Unified.to account commit API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "authorization",
+      "value": "{{authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "commit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Commits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/repo/:connection_id/commit",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "updated_gte",
+                "value": "",
+                "type": "query",
+                "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Query string to search. eg. email address or name"
+              },
+              {
+                "name": "repo_id",
+                "value": "",
+                "type": "query",
+                "description": "The repo ID to filter by (reference to RepoRepository)"
+              },
+              {
+                "name": "branch_id",
+                "value": "",
+                "type": "query",
+                "description": "The repo branch ID to filter by (reference to RepoBranch)"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List All Commits"
+        },
+        {
+          "info": {
+            "name": "Create a Commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.unified.to/repo/:connection_id/commit",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a Commit"
+        },
+        {
+          "info": {
+            "name": "Retrieve a Commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/repo/:connection_id/commit/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Commit"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a Commit"
+        },
+        {
+          "info": {
+            "name": "Update a Commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.unified.to/repo/:connection_id/commit/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Commit"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a Commit"
+        },
+        {
+          "info": {
+            "name": "Update a Commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.unified.to/repo/:connection_id/commit/:id",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to return"
+              },
+              {
+                "name": "raw",
+                "value": "",
+                "type": "query",
+                "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Commit"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a Commit"
+        },
+        {
+          "info": {
+            "name": "Remove a Commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.unified.to/repo/:connection_id/commit/:id",
+            "params": [
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Commit"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Remove a Commit"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

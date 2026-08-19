@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Unified.to account login API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "authorization",
+      "value": "{{authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "login",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Sign in a User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/unified/integration/login/:workspace_id/:integration_type",
+            "params": [
+              {
+                "name": "success_redirect",
+                "value": "",
+                "type": "query",
+                "description": "The URL where you want the user to be redirect to after a successful authentication/sign-in.  A \"jwt\" parameter will be appended to the URL which will contain a name and email of the user who just signed-in."
+              },
+              {
+                "name": "failure_redirect",
+                "value": "",
+                "type": "query",
+                "description": "The URL where you want the user to be redirect to after an unsuccessful authentication. An \"error\" variable will be appended."
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Extra state to send back to your success URL"
+              },
+              {
+                "name": "redirect",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the workspace"
+              },
+              {
+                "name": "integration_type",
+                "value": "",
+                "type": "path",
+                "description": "Type of the supported integration"
+              }
+            ]
+          },
+          "docs": "Returns an authentication URL for the specified integration.  Once a successful authentication occurs, the name and email are returned inside a jwt parameter, which is a JSON web token that is base-64 encoded."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

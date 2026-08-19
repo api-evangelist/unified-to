@@ -1,0 +1,1125 @@
+{
+  "item": [
+    {
+      "id": "34fbed89-c625-4efa-9733-e48463e34835",
+      "name": "journal",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d8855a51-354e-4822-b9f4-0c14351d1134",
+          "name": "List all journals",
+          "request": {
+            "name": "List all journals",
+            "description": {},
+            "url": {
+              "path": [
+                "accounting",
+                ":connection_id",
+                "journal"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_gte",
+                  "value": "<string>",
+                  "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Query string to search. eg. email address or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "org_id",
+                  "value": "<string>",
+                  "description": "The org ID to filter by (reference to AccountingOrganization)"
+                },
+                {
+                  "disabled": false,
+                  "key": "account_id",
+                  "value": "<string>",
+                  "description": "The account ID to filter by (reference to AccountingAccount)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "aecc6179-608e-421e-b5ec-52479d159b80",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    ":connection_id",
+                    "journal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updated_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "org_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"created_at\": \"1998-03-09T22:55:58.733Z\",\n    \"currency\": \"string\",\n    \"description\": \"string\",\n    \"id\": \"string\",\n    \"lineitems\": [\n      {\n        \"account_id\": \"string\",\n        \"category_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contact_id\": \"string\",\n        \"credit_amount\": 8065.712657469948,\n        \"debit_amount\": 7831.3644935634775,\n        \"description\": \"string\",\n        \"group_id\": \"string\",\n        \"id\": \"string\",\n        \"invoice_id\": \"string\",\n        \"organization_id\": \"string\",\n        \"payment_id\": \"string\",\n        \"project_id\": \"string\",\n        \"tax_amount\": 2681.7998572944434,\n        \"total_amount\": 1566.9291217334146\n      },\n      {\n        \"account_id\": \"string\",\n        \"category_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contact_id\": \"string\",\n        \"credit_amount\": 8882.170755326195,\n        \"debit_amount\": 9436.863814280421,\n        \"description\": \"string\",\n        \"group_id\": \"string\",\n        \"id\": \"string\",\n        \"invoice_id\": \"string\",\n        \"organization_id\": \"string\",\n        \"payment_id\": \"string\",\n        \"project_id\": \"string\",\n        \"tax_amount\": 4539.8243295807,\n        \"total_amount\": 282.2810079148941\n      }\n    ],\n    \"organization_id\": \"string\",\n    \"posted_at\": \"2003-01-27T01:45:07.294Z\",\n    \"raw\": {\n      \"key_0\": \"string\"\n    },\n    \"reference\": \"string\",\n    \"source\": \"string\",\n    \"tax_amount\": 8151.796942047609,\n    \"taxrate_id\": \"string\",\n    \"updated_at\": \"1959-08-30T21:16:48.768Z\"\n  },\n  {\n    \"created_at\": \"2014-12-10T16:24:52.320Z\",\n    \"currency\": \"string\",\n    \"description\": \"string\",\n    \"id\": \"string\",\n    \"lineitems\": [\n      {\n        \"account_id\": \"string\",\n        \"category_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contact_id\": \"string\",\n        \"credit_amount\": 2559.9606475390224,\n        \"debit_amount\": 9811.647637792546,\n        \"description\": \"string\",\n        \"group_id\": \"string\",\n        \"id\": \"string\",\n        \"invoice_id\": \"string\",\n        \"organization_id\": \"string\",\n        \"payment_id\": \"string\",\n        \"project_id\": \"string\",\n        \"tax_amount\": 5006.912953762048,\n        \"total_amount\": 7007.017376759851\n      },\n      {\n        \"account_id\": \"string\",\n        \"category_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"contact_id\": \"string\",\n        \"credit_amount\": 1396.3315609536053,\n        \"debit_amount\": 6814.458972870919,\n        \"description\": \"string\",\n        \"group_id\": \"string\",\n        \"id\": \"string\",\n        \"invoice_id\": \"string\",\n        \"organization_id\": \"string\",\n        \"payment_id\": \"string\",\n        \"project_id\": \"string\",\n        \"tax_amount\": 7355.043183091145,\n        \"total_amount\": 423.45329335184533\n      }\n    ],\n    \"organization_id\": \"string\",\n    \"posted_at\": \"2018-11-23T03:52:23.561Z\",\n    \"raw\": {\n      \"key_0\": \"string\",\n      \"key_1\": true,\n      \"key_2\": \"string\"\n    },\n    \"reference\": \"string\",\n    \"source\": \"string\",\n    \"tax_amount\": 9755.227372927966,\n    \"taxrate_id\": \"string\",\n    \"updated_at\": \"1985-10-14T11:50:59.775Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a655b76-7eb6-43f2-8fec-d6c1163fa8c4",
+          "name": "Create a journal",
+          "request": {
+            "name": "Create a journal",
+            "description": {},
+            "url": {
+              "path": [
+                "accounting",
+                ":connection_id",
+                "journal"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 8199.548337207176\n  },\n  \"reference\": \"<string>\",\n  \"source\": \"<string>\",\n  \"tax_amount\": \"<number>\",\n  \"taxrate_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0178a4e2-1326-42e3-a113-b98c308fe019",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    ":connection_id",
+                    "journal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 2647,\n    \"key_1\": 3245\n  },\n  \"reference\": \"<string>\",\n  \"source\": \"<string>\",\n  \"tax_amount\": \"<number>\",\n  \"taxrate_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 2647,\n    \"key_1\": 3245\n  },\n  \"reference\": \"<string>\",\n  \"source\": \"<string>\",\n  \"tax_amount\": \"<number>\",\n  \"taxrate_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b4f1f138-7025-493b-9c6b-c7bb888204e7",
+          "name": "Remove a journal",
+          "request": {
+            "name": "Remove a journal",
+            "description": {},
+            "url": {
+              "path": [
+                "accounting",
+                ":connection_id",
+                "journal",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Journal"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "20c46e43-13da-4785-8480-3981122ea2c0",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    ":connection_id",
+                    "journal",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Journal"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8d0a79d1-50c9-4872-b240-555834281193",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    ":connection_id",
+                    "journal",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Journal"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1dc198b-e9d0-49b9-8e4d-b9cc4447bb02",
+          "name": "Retrieve a journal",
+          "request": {
+            "name": "Retrieve a journal",
+            "description": {},
+            "url": {
+              "path": [
+                "accounting",
+                ":connection_id",
+                "journal",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Journal"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d6004d70-bf49-42b3-8c4a-98479298c3b2",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    ":connection_id",
+                    "journal",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Journal"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 2647,\n    \"key_1\": 3245\n  },\n  \"reference\": \"<string>\",\n  \"source\": \"<string>\",\n  \"tax_amount\": \"<number>\",\n  \"taxrate_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "432ddb5b-1450-4303-8f6d-82b84b21f76d",
+          "name": "Update a journal",
+          "request": {
+            "name": "Update a journal",
+            "description": {},
+            "url": {
+              "path": [
+                "accounting",
+                ":connection_id",
+                "journal",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Journal"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 8199.548337207176\n  },\n  \"reference\": \"<string>\",\n  \"source\": \"<string>\",\n  \"tax_amount\": \"<number>\",\n  \"taxrate_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "80d94af0-286a-4fa5-bbdd-a8b4d7da8051",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    ":connection_id",
+                    "journal",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Journal"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 2647,\n    \"key_1\": 3245\n  },\n  \"reference\": \"<string>\",\n  \"source\": \"<string>\",\n  \"tax_amount\": \"<number>\",\n  \"taxrate_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 2647,\n    \"key_1\": 3245\n  },\n  \"reference\": \"<string>\",\n  \"source\": \"<string>\",\n  \"tax_amount\": \"<number>\",\n  \"taxrate_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d000f3f5-9541-47e7-939b-b364b2c8e899",
+          "name": "Update a journal",
+          "request": {
+            "name": "Update a journal",
+            "description": {},
+            "url": {
+              "path": [
+                "accounting",
+                ":connection_id",
+                "journal",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Journal"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 8199.548337207176\n  },\n  \"reference\": \"<string>\",\n  \"source\": \"<string>\",\n  \"tax_amount\": \"<number>\",\n  \"taxrate_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5bc20831-6449-4ec2-9516-c5d1ac32544e",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    ":connection_id",
+                    "journal",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Journal"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 2647,\n    \"key_1\": 3245\n  },\n  \"reference\": \"<string>\",\n  \"source\": \"<string>\",\n  \"tax_amount\": \"<number>\",\n  \"taxrate_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"description\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"contact_id\": \"<string>\",\n      \"credit_amount\": \"<number>\",\n      \"debit_amount\": \"<number>\",\n      \"description\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"invoice_id\": \"<string>\",\n      \"organization_id\": \"<string>\",\n      \"payment_id\": \"<string>\",\n      \"project_id\": \"<string>\",\n      \"tax_amount\": \"<number>\",\n      \"total_amount\": \"<number>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 2647,\n    \"key_1\": 3245\n  },\n  \"reference\": \"<string>\",\n  \"source\": \"<string>\",\n  \"tax_amount\": \"<number>\",\n  \"taxrate_id\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.unified.to",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "778c5b14-3476-479e-8fe7-b029ffe98964",
+    "name": "Unified.to account journal API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "One API to Rule Them All\n\nContact Support:\n Email: hello@unified.to",
+      "type": "text/plain"
+    }
+  }
+}

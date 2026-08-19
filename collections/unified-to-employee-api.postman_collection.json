@@ -1,0 +1,1115 @@
+{
+  "item": [
+    {
+      "id": "5c143e34-7a66-4fda-9ec1-e2202c7bbbba",
+      "name": "employee",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7b960194-b2a3-458a-abd1-7bf5dcbc35a1",
+          "name": "List All Employees",
+          "request": {
+            "name": "List All Employees",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "employee"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_gte",
+                  "value": "<string>",
+                  "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Query string to search. eg. email address or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "The company ID to filter by (reference to HrisCompany)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e1ccaa43-4433-4d2e-ade8-8b04ddd99a4c",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "employee"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updated_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"address\": {\n      \"address1\": \"string\",\n      \"address2\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"string\",\n      \"country_code\": \"string\",\n      \"postal_code\": \"string\",\n      \"region\": \"string\",\n      \"region_code\": \"string\"\n    },\n    \"bio\": \"string\",\n    \"company_id\": \"string\",\n    \"compensation\": [\n      {\n        \"amount\": 8392.175790043091,\n        \"currency\": \"string\",\n        \"frequency\": \"QUARTER\",\n        \"group_id\": \"string\",\n        \"notes\": \"string\",\n        \"type\": \"EQUITY\"\n      },\n      {\n        \"amount\": 7581.484606203328,\n        \"currency\": \"string\",\n        \"frequency\": \"WEEK\",\n        \"group_id\": \"string\",\n        \"notes\": \"string\",\n        \"type\": \"OTHER\"\n      }\n    ],\n    \"created_at\": \"1947-01-30T04:33:58.464Z\",\n    \"currency\": \"string\",\n    \"date_of_birth\": \"2024-12-13T13:37:40.526Z\",\n    \"emails\": [\n      {\n        \"email\": \"string\",\n        \"type\": \"HOME\"\n      },\n      {\n        \"email\": \"string\",\n        \"type\": \"WORK\"\n      }\n    ],\n    \"employee_number\": \"string\",\n    \"employee_roles\": [\n      \"ADMIN\",\n      \"MANAGER\"\n    ],\n    \"employment_status\": \"INACTIVE\",\n    \"employment_type\": \"VOLUNTEER\",\n    \"first_name\": \"string\",\n    \"gender\": \"MALE\",\n    \"groups\": [\n      {\n        \"company_id\": \"string\",\n        \"created_at\": \"2005-01-24T20:14:37.929Z\",\n        \"description\": \"string\",\n        \"id\": \"string\",\n        \"is_active\": true,\n        \"manager_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"name\": \"string\",\n        \"parent_id\": \"string\",\n        \"raw\": {\n          \"key_0\": true,\n          \"key_1\": 7367.563564261721,\n          \"key_2\": 3053\n        },\n        \"type\": \"GROUP\",\n        \"updated_at\": \"1978-09-18T20:35:04.193Z\",\n        \"user_ids\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"company_id\": \"string\",\n        \"created_at\": \"1988-11-25T06:04:50.995Z\",\n        \"description\": \"string\",\n        \"id\": \"string\",\n        \"is_active\": true,\n        \"manager_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"name\": \"string\",\n        \"parent_id\": \"string\",\n        \"raw\": {\n          \"key_0\": \"string\",\n          \"key_1\": 5234.8553275561035\n        },\n        \"type\": \"DIVISION\",\n        \"updated_at\": \"1963-03-21T21:31:27.620Z\",\n        \"user_ids\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"has_mfa\": false,\n    \"hired_at\": \"2023-05-07T13:44:05.387Z\",\n    \"id\": \"string\",\n    \"image_url\": \"string\",\n    \"language_locale\": \"string\",\n    \"last_name\": \"string\",\n    \"locations\": [\n      {\n        \"address\": {\n          \"address1\": \"string\",\n          \"address2\": \"string\",\n          \"city\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"postal_code\": \"string\",\n          \"region\": \"string\",\n          \"region_code\": \"string\"\n        },\n        \"company_id\": \"string\",\n        \"created_at\": \"1960-04-21T04:25:56.598Z\",\n        \"currency\": \"string\",\n        \"description\": \"string\",\n        \"external_identifier\": \"string\",\n        \"id\": \"string\",\n        \"is_active\": false,\n        \"is_hq\": false,\n        \"language_locale\": \"string\",\n        \"name\": \"string\",\n        \"parent_id\": \"string\",\n        \"raw\": {\n          \"key_0\": \"string\"\n        },\n        \"telephones\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"timezone\": \"string\",\n        \"updated_at\": \"2015-12-22T13:55:45.256Z\"\n      },\n      {\n        \"address\": {\n          \"address1\": \"string\",\n          \"address2\": \"string\",\n          \"city\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"postal_code\": \"string\",\n          \"region\": \"string\",\n          \"region_code\": \"string\"\n        },\n        \"company_id\": \"string\",\n        \"created_at\": \"2021-06-12T03:57:00.542Z\",\n        \"currency\": \"string\",\n        \"description\": \"string\",\n        \"external_identifier\": \"string\",\n        \"id\": \"string\",\n        \"is_active\": false,\n        \"is_hq\": true,\n        \"language_locale\": \"string\",\n        \"name\": \"string\",\n        \"parent_id\": \"string\",\n        \"raw\": {\n          \"key_0\": 263.3931733461559,\n          \"key_1\": 2469.818142921885\n        },\n        \"telephones\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"timezone\": \"string\",\n        \"updated_at\": \"1960-01-13T18:25:20.000Z\"\n      }\n    ],\n    \"manager_id\": \"string\",\n    \"marital_status\": \"MARRIED\",\n    \"metadata\": [\n      {\n        \"extra_data\": {},\n        \"format\": \"BOOLEAN\",\n        \"id\": \"string\",\n        \"namespace\": \"string\",\n        \"slug\": \"string\",\n        \"value\": {}\n      },\n      {\n        \"extra_data\": {},\n        \"format\": \"TEXTAREA\",\n        \"id\": \"string\",\n        \"namespace\": \"string\",\n        \"slug\": \"string\",\n        \"value\": {}\n      }\n    ],\n    \"name\": \"string\",\n    \"pronouns\": \"string\",\n    \"raw\": {\n      \"key_0\": 5325.457450073142\n    },\n    \"relationships\": [\n      {\n        \"address\": {\n          \"address1\": \"string\",\n          \"address2\": \"string\",\n          \"city\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"postal_code\": \"string\",\n          \"region\": \"string\",\n          \"region_code\": \"string\"\n        },\n        \"emails\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"end_at\": \"1998-01-15T19:42:55.047Z\",\n        \"first_name\": \"string\",\n        \"is_beneficiary\": false,\n        \"is_dependent\": true,\n        \"last_name\": \"string\",\n        \"name\": \"string\",\n        \"start_at\": \"1963-08-03T18:36:28.123Z\",\n        \"telephones\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"type\": \"CHILD\"\n      },\n      {\n        \"address\": {\n          \"address1\": \"string\",\n          \"address2\": \"string\",\n          \"city\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"postal_code\": \"string\",\n          \"region\": \"string\",\n          \"region_code\": \"string\"\n        },\n        \"emails\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"end_at\": \"1972-10-08T22:28:39.740Z\",\n        \"first_name\": \"string\",\n        \"is_beneficiary\": true,\n        \"is_dependent\": true,\n        \"last_name\": \"string\",\n        \"name\": \"string\",\n        \"start_at\": \"1958-02-10T17:42:37.604Z\",\n        \"telephones\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"type\": \"EMERGENCY\"\n      }\n    ],\n    \"salutation\": \"string\",\n    \"ssn_sin\": \"string\",\n    \"storage_quota_allocated\": 3655.6544472742057,\n    \"storage_quota_available\": 8180.373778623298,\n    \"storage_quota_used\": 2213.567453653321,\n    \"telephones\": [\n      {\n        \"telephone\": \"string\",\n        \"type\": \"FAX\"\n      },\n      {\n        \"telephone\": \"string\",\n        \"type\": \"WORK\"\n      }\n    ],\n    \"terminated_at\": \"1989-11-24T05:32:47.325Z\",\n    \"termination_reason\": \"string\",\n    \"timeoff_days_total\": 4098.285803074705,\n    \"timeoff_days_used\": 3044.9155033758125,\n    \"timezone\": \"string\",\n    \"title\": \"string\",\n    \"updated_at\": \"1969-07-30T09:23:02.027Z\"\n  },\n  {\n    \"address\": {\n      \"address1\": \"string\",\n      \"address2\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"string\",\n      \"country_code\": \"string\",\n      \"postal_code\": \"string\",\n      \"region\": \"string\",\n      \"region_code\": \"string\"\n    },\n    \"bio\": \"string\",\n    \"company_id\": \"string\",\n    \"compensation\": [\n      {\n        \"amount\": 871.0968341152925,\n        \"currency\": \"string\",\n        \"frequency\": \"DAY\",\n        \"group_id\": \"string\",\n        \"notes\": \"string\",\n        \"type\": \"OTHER\"\n      },\n      {\n        \"amount\": 351.7132473412843,\n        \"currency\": \"string\",\n        \"frequency\": \"QUARTER\",\n        \"group_id\": \"string\",\n        \"notes\": \"string\",\n        \"type\": \"OTHER\"\n      }\n    ],\n    \"created_at\": \"2016-02-05T06:42:30.118Z\",\n    \"currency\": \"string\",\n    \"date_of_birth\": \"1999-05-07T06:40:46.079Z\",\n    \"emails\": [\n      {\n        \"email\": \"string\",\n        \"type\": \"HOME\"\n      },\n      {\n        \"email\": \"string\",\n        \"type\": \"HOME\"\n      }\n    ],\n    \"employee_number\": \"string\",\n    \"employee_roles\": [\n      \"ADMIN\",\n      \"ADMIN\"\n    ],\n    \"employment_status\": \"ACTIVE\",\n    \"employment_type\": \"FULL_TIME\",\n    \"first_name\": \"string\",\n    \"gender\": \"INTERSEX\",\n    \"groups\": [\n      {\n        \"company_id\": \"string\",\n        \"created_at\": \"1982-02-08T14:41:36.630Z\",\n        \"description\": \"string\",\n        \"id\": \"string\",\n        \"is_active\": true,\n        \"manager_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"name\": \"string\",\n        \"parent_id\": \"string\",\n        \"raw\": {\n          \"key_0\": 630,\n          \"key_1\": false\n        },\n        \"type\": \"BRANCH\",\n        \"updated_at\": \"1963-10-31T00:27:44.363Z\",\n        \"user_ids\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"company_id\": \"string\",\n        \"created_at\": \"1947-02-12T04:02:06.955Z\",\n        \"description\": \"string\",\n        \"id\": \"string\",\n        \"is_active\": true,\n        \"manager_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"name\": \"string\",\n        \"parent_id\": \"string\",\n        \"raw\": {\n          \"key_0\": 6518,\n          \"key_1\": 1524\n        },\n        \"type\": \"GROUP\",\n        \"updated_at\": \"2022-10-04T10:13:03.359Z\",\n        \"user_ids\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"has_mfa\": true,\n    \"hired_at\": \"1958-12-21T09:58:15.228Z\",\n    \"id\": \"string\",\n    \"image_url\": \"string\",\n    \"language_locale\": \"string\",\n    \"last_name\": \"string\",\n    \"locations\": [\n      {\n        \"address\": {\n          \"address1\": \"string\",\n          \"address2\": \"string\",\n          \"city\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"postal_code\": \"string\",\n          \"region\": \"string\",\n          \"region_code\": \"string\"\n        },\n        \"company_id\": \"string\",\n        \"created_at\": \"1963-02-17T00:56:00.760Z\",\n        \"currency\": \"string\",\n        \"description\": \"string\",\n        \"external_identifier\": \"string\",\n        \"id\": \"string\",\n        \"is_active\": false,\n        \"is_hq\": true,\n        \"language_locale\": \"string\",\n        \"name\": \"string\",\n        \"parent_id\": \"string\",\n        \"raw\": {\n          \"key_0\": \"string\"\n        },\n        \"telephones\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"timezone\": \"string\",\n        \"updated_at\": \"1955-08-02T06:20:32.482Z\"\n      },\n      {\n        \"address\": {\n          \"address1\": \"string\",\n          \"address2\": \"string\",\n          \"city\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"postal_code\": \"string\",\n          \"region\": \"string\",\n          \"region_code\": \"string\"\n        },\n        \"company_id\": \"string\",\n        \"created_at\": \"1995-01-27T01:31:05.481Z\",\n        \"currency\": \"string\",\n        \"description\": \"string\",\n        \"external_identifier\": \"string\",\n        \"id\": \"string\",\n        \"is_active\": true,\n        \"is_hq\": true,\n        \"language_locale\": \"string\",\n        \"name\": \"string\",\n        \"parent_id\": \"string\",\n        \"raw\": {\n          \"key_0\": true,\n          \"key_1\": 3331\n        },\n        \"telephones\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"timezone\": \"string\",\n        \"updated_at\": \"2009-12-13T18:43:45.343Z\"\n      }\n    ],\n    \"manager_id\": \"string\",\n    \"marital_status\": \"SINGLE\",\n    \"metadata\": [\n      {\n        \"extra_data\": {},\n        \"format\": \"FILE\",\n        \"id\": \"string\",\n        \"namespace\": \"string\",\n        \"slug\": \"string\",\n        \"value\": {}\n      },\n      {\n        \"extra_data\": {},\n        \"format\": \"NUMBER\",\n        \"id\": \"string\",\n        \"namespace\": \"string\",\n        \"slug\": \"string\",\n        \"value\": {}\n      }\n    ],\n    \"name\": \"string\",\n    \"pronouns\": \"string\",\n    \"raw\": {\n      \"key_0\": 4673,\n      \"key_1\": true\n    },\n    \"relationships\": [\n      {\n        \"address\": {\n          \"address1\": \"string\",\n          \"address2\": \"string\",\n          \"city\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"postal_code\": \"string\",\n          \"region\": \"string\",\n          \"region_code\": \"string\"\n        },\n        \"emails\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"end_at\": \"1947-06-25T22:37:01.930Z\",\n        \"first_name\": \"string\",\n        \"is_beneficiary\": false,\n        \"is_dependent\": false,\n        \"last_name\": \"string\",\n        \"name\": \"string\",\n        \"start_at\": \"2019-11-16T10:36:28.983Z\",\n        \"telephones\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"type\": \"OTHER\"\n      },\n      {\n        \"address\": {\n          \"address1\": \"string\",\n          \"address2\": \"string\",\n          \"city\": \"string\",\n          \"country\": \"string\",\n          \"country_code\": \"string\",\n          \"postal_code\": \"string\",\n          \"region\": \"string\",\n          \"region_code\": \"string\"\n        },\n        \"emails\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"end_at\": \"2006-09-30T17:40:39.370Z\",\n        \"first_name\": \"string\",\n        \"is_beneficiary\": false,\n        \"is_dependent\": true,\n        \"last_name\": \"string\",\n        \"name\": \"string\",\n        \"start_at\": \"1967-09-19T10:38:38.159Z\",\n        \"telephones\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"type\": \"EMERGENCY\"\n      }\n    ],\n    \"salutation\": \"string\",\n    \"ssn_sin\": \"string\",\n    \"storage_quota_allocated\": 7068.039598859753,\n    \"storage_quota_available\": 39.91226313109664,\n    \"storage_quota_used\": 243.1005062608793,\n    \"telephones\": [\n      {\n        \"telephone\": \"string\",\n        \"type\": \"MOBILE\"\n      },\n      {\n        \"telephone\": \"string\",\n        \"type\": \"OTHER\"\n      }\n    ],\n    \"terminated_at\": \"1949-02-25T16:19:01.843Z\",\n    \"termination_reason\": \"string\",\n    \"timeoff_days_total\": 5334.420020593387,\n    \"timeoff_days_used\": 1765.5484297659318,\n    \"timezone\": \"string\",\n    \"title\": \"string\",\n    \"updated_at\": \"1994-09-07T13:52:43.177Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0c1a6aa-2cc6-4021-9b06-4ea025825377",
+          "name": "Create an Employee",
+          "request": {
+            "name": "Create an Employee",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "employee"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"bio\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"compensation\": [\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"date_of_birth\": \"<dateTime>\",\n  \"emails\": [\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"employee_number\": \"<string>\",\n  \"employee_roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"employment_status\": \"<string>\",\n  \"employment_type\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"groups\": [\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 9616,\n        \"key_1\": 7371.412898432374,\n        \"key_2\": 3650\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\",\n        \"key_1\": 2406.6789301267754\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"has_mfa\": \"<boolean>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"image_url\": \"<string>\",\n  \"language_locale\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"locations\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 857,\n        \"key_1\": 6674.82546993786\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false,\n        \"key_1\": \"string\"\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"manager_id\": \"<string>\",\n  \"marital_status\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"pronouns\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": true,\n    \"key_2\": 4491,\n    \"key_3\": false,\n    \"key_4\": true\n  },\n  \"relationships\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    }\n  ],\n  \"salutation\": \"<string>\",\n  \"ssn_sin\": \"<string>\",\n  \"storage_quota_allocated\": \"<number>\",\n  \"storage_quota_available\": \"<number>\",\n  \"storage_quota_used\": \"<number>\",\n  \"telephones\": [\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"terminated_at\": \"<dateTime>\",\n  \"termination_reason\": \"<string>\",\n  \"timeoff_days_total\": \"<number>\",\n  \"timeoff_days_used\": \"<number>\",\n  \"timezone\": \"<string>\",\n  \"title\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a1880d69-f9fe-48e5-b3e2-326ec5a9e3af",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "employee"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"bio\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"compensation\": [\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"date_of_birth\": \"<dateTime>\",\n  \"emails\": [\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"employee_number\": \"<string>\",\n  \"employee_roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"employment_status\": \"<string>\",\n  \"employment_type\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"groups\": [\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 2491.9270907816526,\n        \"key_1\": false,\n        \"key_2\": \"string\",\n        \"key_3\": 4857,\n        \"key_4\": 950.9858161292295\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 2390\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"has_mfa\": \"<boolean>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"image_url\": \"<string>\",\n  \"language_locale\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"locations\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\"\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"manager_id\": \"<string>\",\n  \"marital_status\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"pronouns\": \"<string>\",\n  \"raw\": {\n    \"key_0\": true,\n    \"key_1\": 5176.314845536215,\n    \"key_2\": true\n  },\n  \"relationships\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    }\n  ],\n  \"salutation\": \"<string>\",\n  \"ssn_sin\": \"<string>\",\n  \"storage_quota_allocated\": \"<number>\",\n  \"storage_quota_available\": \"<number>\",\n  \"storage_quota_used\": \"<number>\",\n  \"telephones\": [\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"terminated_at\": \"<dateTime>\",\n  \"termination_reason\": \"<string>\",\n  \"timeoff_days_total\": \"<number>\",\n  \"timeoff_days_used\": \"<number>\",\n  \"timezone\": \"<string>\",\n  \"title\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"bio\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"compensation\": [\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"date_of_birth\": \"<dateTime>\",\n  \"emails\": [\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"employee_number\": \"<string>\",\n  \"employee_roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"employment_status\": \"<string>\",\n  \"employment_type\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"groups\": [\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 2491.9270907816526,\n        \"key_1\": false,\n        \"key_2\": \"string\",\n        \"key_3\": 4857,\n        \"key_4\": 950.9858161292295\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 2390\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"has_mfa\": \"<boolean>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"image_url\": \"<string>\",\n  \"language_locale\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"locations\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\"\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"manager_id\": \"<string>\",\n  \"marital_status\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"pronouns\": \"<string>\",\n  \"raw\": {\n    \"key_0\": true,\n    \"key_1\": 5176.314845536215,\n    \"key_2\": true\n  },\n  \"relationships\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    }\n  ],\n  \"salutation\": \"<string>\",\n  \"ssn_sin\": \"<string>\",\n  \"storage_quota_allocated\": \"<number>\",\n  \"storage_quota_available\": \"<number>\",\n  \"storage_quota_used\": \"<number>\",\n  \"telephones\": [\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"terminated_at\": \"<dateTime>\",\n  \"termination_reason\": \"<string>\",\n  \"timeoff_days_total\": \"<number>\",\n  \"timeoff_days_used\": \"<number>\",\n  \"timezone\": \"<string>\",\n  \"title\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fefaf6d6-52ef-4262-90af-ee7175abea00",
+          "name": "Remove an Employee",
+          "request": {
+            "name": "Remove an Employee",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "employee",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Employee"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "93e5b4bf-ca91-46f3-a694-6eacd6951e0f",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "employee",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Employee"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cbccbd39-c5cb-4206-a552-e017f0fbd81b",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "employee",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Employee"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d72b379c-1083-41d7-85e9-9cb313c50fa0",
+          "name": "Retrieve an Employee",
+          "request": {
+            "name": "Retrieve an Employee",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "employee",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Employee"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "abcb5c0a-0a45-488e-be8f-0a229f4fcc40",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "employee",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Employee"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"bio\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"compensation\": [\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"date_of_birth\": \"<dateTime>\",\n  \"emails\": [\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"employee_number\": \"<string>\",\n  \"employee_roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"employment_status\": \"<string>\",\n  \"employment_type\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"groups\": [\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 2491.9270907816526,\n        \"key_1\": false,\n        \"key_2\": \"string\",\n        \"key_3\": 4857,\n        \"key_4\": 950.9858161292295\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 2390\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"has_mfa\": \"<boolean>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"image_url\": \"<string>\",\n  \"language_locale\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"locations\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\"\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"manager_id\": \"<string>\",\n  \"marital_status\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"pronouns\": \"<string>\",\n  \"raw\": {\n    \"key_0\": true,\n    \"key_1\": 5176.314845536215,\n    \"key_2\": true\n  },\n  \"relationships\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    }\n  ],\n  \"salutation\": \"<string>\",\n  \"ssn_sin\": \"<string>\",\n  \"storage_quota_allocated\": \"<number>\",\n  \"storage_quota_available\": \"<number>\",\n  \"storage_quota_used\": \"<number>\",\n  \"telephones\": [\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"terminated_at\": \"<dateTime>\",\n  \"termination_reason\": \"<string>\",\n  \"timeoff_days_total\": \"<number>\",\n  \"timeoff_days_used\": \"<number>\",\n  \"timezone\": \"<string>\",\n  \"title\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ecac1559-6b5a-4d42-8501-d861d7a65f38",
+          "name": "Update an Employee",
+          "request": {
+            "name": "Update an Employee",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "employee",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Employee"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"bio\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"compensation\": [\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"date_of_birth\": \"<dateTime>\",\n  \"emails\": [\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"employee_number\": \"<string>\",\n  \"employee_roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"employment_status\": \"<string>\",\n  \"employment_type\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"groups\": [\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 9616,\n        \"key_1\": 7371.412898432374,\n        \"key_2\": 3650\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\",\n        \"key_1\": 2406.6789301267754\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"has_mfa\": \"<boolean>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"image_url\": \"<string>\",\n  \"language_locale\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"locations\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 857,\n        \"key_1\": 6674.82546993786\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false,\n        \"key_1\": \"string\"\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"manager_id\": \"<string>\",\n  \"marital_status\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"pronouns\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": true,\n    \"key_2\": 4491,\n    \"key_3\": false,\n    \"key_4\": true\n  },\n  \"relationships\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    }\n  ],\n  \"salutation\": \"<string>\",\n  \"ssn_sin\": \"<string>\",\n  \"storage_quota_allocated\": \"<number>\",\n  \"storage_quota_available\": \"<number>\",\n  \"storage_quota_used\": \"<number>\",\n  \"telephones\": [\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"terminated_at\": \"<dateTime>\",\n  \"termination_reason\": \"<string>\",\n  \"timeoff_days_total\": \"<number>\",\n  \"timeoff_days_used\": \"<number>\",\n  \"timezone\": \"<string>\",\n  \"title\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b370bcb6-cdc5-4c61-84e1-578bd87bb8c7",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "employee",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Employee"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"bio\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"compensation\": [\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"date_of_birth\": \"<dateTime>\",\n  \"emails\": [\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"employee_number\": \"<string>\",\n  \"employee_roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"employment_status\": \"<string>\",\n  \"employment_type\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"groups\": [\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 2491.9270907816526,\n        \"key_1\": false,\n        \"key_2\": \"string\",\n        \"key_3\": 4857,\n        \"key_4\": 950.9858161292295\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 2390\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"has_mfa\": \"<boolean>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"image_url\": \"<string>\",\n  \"language_locale\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"locations\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\"\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"manager_id\": \"<string>\",\n  \"marital_status\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"pronouns\": \"<string>\",\n  \"raw\": {\n    \"key_0\": true,\n    \"key_1\": 5176.314845536215,\n    \"key_2\": true\n  },\n  \"relationships\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    }\n  ],\n  \"salutation\": \"<string>\",\n  \"ssn_sin\": \"<string>\",\n  \"storage_quota_allocated\": \"<number>\",\n  \"storage_quota_available\": \"<number>\",\n  \"storage_quota_used\": \"<number>\",\n  \"telephones\": [\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"terminated_at\": \"<dateTime>\",\n  \"termination_reason\": \"<string>\",\n  \"timeoff_days_total\": \"<number>\",\n  \"timeoff_days_used\": \"<number>\",\n  \"timezone\": \"<string>\",\n  \"title\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"bio\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"compensation\": [\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"date_of_birth\": \"<dateTime>\",\n  \"emails\": [\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"employee_number\": \"<string>\",\n  \"employee_roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"employment_status\": \"<string>\",\n  \"employment_type\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"groups\": [\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 2491.9270907816526,\n        \"key_1\": false,\n        \"key_2\": \"string\",\n        \"key_3\": 4857,\n        \"key_4\": 950.9858161292295\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 2390\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"has_mfa\": \"<boolean>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"image_url\": \"<string>\",\n  \"language_locale\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"locations\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\"\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"manager_id\": \"<string>\",\n  \"marital_status\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"pronouns\": \"<string>\",\n  \"raw\": {\n    \"key_0\": true,\n    \"key_1\": 5176.314845536215,\n    \"key_2\": true\n  },\n  \"relationships\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    }\n  ],\n  \"salutation\": \"<string>\",\n  \"ssn_sin\": \"<string>\",\n  \"storage_quota_allocated\": \"<number>\",\n  \"storage_quota_available\": \"<number>\",\n  \"storage_quota_used\": \"<number>\",\n  \"telephones\": [\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"terminated_at\": \"<dateTime>\",\n  \"termination_reason\": \"<string>\",\n  \"timeoff_days_total\": \"<number>\",\n  \"timeoff_days_used\": \"<number>\",\n  \"timezone\": \"<string>\",\n  \"title\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92877781-2af3-42c6-8903-f3eff6129b04",
+          "name": "Update an Employee",
+          "request": {
+            "name": "Update an Employee",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "employee",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Employee"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"bio\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"compensation\": [\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"date_of_birth\": \"<dateTime>\",\n  \"emails\": [\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"employee_number\": \"<string>\",\n  \"employee_roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"employment_status\": \"<string>\",\n  \"employment_type\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"groups\": [\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 9616,\n        \"key_1\": 7371.412898432374,\n        \"key_2\": 3650\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\",\n        \"key_1\": 2406.6789301267754\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"has_mfa\": \"<boolean>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"image_url\": \"<string>\",\n  \"language_locale\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"locations\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 857,\n        \"key_1\": 6674.82546993786\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false,\n        \"key_1\": \"string\"\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"manager_id\": \"<string>\",\n  \"marital_status\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"pronouns\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": true,\n    \"key_2\": 4491,\n    \"key_3\": false,\n    \"key_4\": true\n  },\n  \"relationships\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    }\n  ],\n  \"salutation\": \"<string>\",\n  \"ssn_sin\": \"<string>\",\n  \"storage_quota_allocated\": \"<number>\",\n  \"storage_quota_available\": \"<number>\",\n  \"storage_quota_used\": \"<number>\",\n  \"telephones\": [\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"terminated_at\": \"<dateTime>\",\n  \"termination_reason\": \"<string>\",\n  \"timeoff_days_total\": \"<number>\",\n  \"timeoff_days_used\": \"<number>\",\n  \"timezone\": \"<string>\",\n  \"title\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c090ef0e-1e6a-4177-98e7-51de41322bf6",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "employee",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Employee"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"bio\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"compensation\": [\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"date_of_birth\": \"<dateTime>\",\n  \"emails\": [\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"employee_number\": \"<string>\",\n  \"employee_roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"employment_status\": \"<string>\",\n  \"employment_type\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"groups\": [\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 2491.9270907816526,\n        \"key_1\": false,\n        \"key_2\": \"string\",\n        \"key_3\": 4857,\n        \"key_4\": 950.9858161292295\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 2390\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"has_mfa\": \"<boolean>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"image_url\": \"<string>\",\n  \"language_locale\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"locations\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\"\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"manager_id\": \"<string>\",\n  \"marital_status\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"pronouns\": \"<string>\",\n  \"raw\": {\n    \"key_0\": true,\n    \"key_1\": 5176.314845536215,\n    \"key_2\": true\n  },\n  \"relationships\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    }\n  ],\n  \"salutation\": \"<string>\",\n  \"ssn_sin\": \"<string>\",\n  \"storage_quota_allocated\": \"<number>\",\n  \"storage_quota_available\": \"<number>\",\n  \"storage_quota_used\": \"<number>\",\n  \"telephones\": [\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"terminated_at\": \"<dateTime>\",\n  \"termination_reason\": \"<string>\",\n  \"timeoff_days_total\": \"<number>\",\n  \"timeoff_days_used\": \"<number>\",\n  \"timezone\": \"<string>\",\n  \"title\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"bio\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"compensation\": [\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"amount\": \"<number>\",\n      \"currency\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"group_id\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"date_of_birth\": \"<dateTime>\",\n  \"emails\": [\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"email\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"employee_number\": \"<string>\",\n  \"employee_roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"employment_status\": \"<string>\",\n  \"employment_type\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"gender\": \"<string>\",\n  \"groups\": [\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 2491.9270907816526,\n        \"key_1\": false,\n        \"key_2\": \"string\",\n        \"key_3\": 4857,\n        \"key_4\": 950.9858161292295\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"description\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"manager_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 2390\n      },\n      \"type\": \"<string>\",\n      \"updated_at\": \"<dateTime>\",\n      \"user_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"has_mfa\": \"<boolean>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"image_url\": \"<string>\",\n  \"language_locale\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"locations\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\"\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"company_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"currency\": \"<string>\",\n      \"description\": \"<string>\",\n      \"external_identifier\": \"<string>\",\n      \"id\": \"<string>\",\n      \"is_active\": \"<boolean>\",\n      \"is_hq\": \"<boolean>\",\n      \"language_locale\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false\n      },\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"timezone\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"manager_id\": \"<string>\",\n  \"marital_status\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"pronouns\": \"<string>\",\n  \"raw\": {\n    \"key_0\": true,\n    \"key_1\": 5176.314845536215,\n    \"key_2\": true\n  },\n  \"relationships\": [\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    },\n    {\n      \"address\": {\n        \"address1\": \"<string>\",\n        \"address2\": \"<string>\",\n        \"city\": \"<string>\",\n        \"country\": \"<string>\",\n        \"country_code\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"region\": \"<string>\",\n        \"region_code\": \"<string>\"\n      },\n      \"emails\": [\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"email\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"end_at\": \"<dateTime>\",\n      \"first_name\": \"<string>\",\n      \"is_beneficiary\": \"<boolean>\",\n      \"is_dependent\": \"<boolean>\",\n      \"last_name\": \"<string>\",\n      \"name\": \"<string>\",\n      \"start_at\": \"<dateTime>\",\n      \"telephones\": [\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"telephone\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"type\": \"<string>\"\n    }\n  ],\n  \"salutation\": \"<string>\",\n  \"ssn_sin\": \"<string>\",\n  \"storage_quota_allocated\": \"<number>\",\n  \"storage_quota_available\": \"<number>\",\n  \"storage_quota_used\": \"<number>\",\n  \"telephones\": [\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"telephone\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"terminated_at\": \"<dateTime>\",\n  \"termination_reason\": \"<string>\",\n  \"timeoff_days_total\": \"<number>\",\n  \"timeoff_days_used\": \"<number>\",\n  \"timezone\": \"<string>\",\n  \"title\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.unified.to",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0ada8544-def1-4f01-bf07-c286cb40dd83",
+    "name": "Unified.to account employee API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "One API to Rule Them All\n\nContact Support:\n Email: hello@unified.to",
+      "type": "text/plain"
+    }
+  }
+}

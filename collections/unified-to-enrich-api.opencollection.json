@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Unified.to account enrich API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "authorization",
+      "value": "{{authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "enrich",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Enrichment Information for a Company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/enrich/:connection_id/company",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "The domain of the company to search"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "The name of the company to search"
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve Enrichment Information for a Company"
+        },
+        {
+          "info": {
+            "name": "Retrieve Enrichment Information for a Person",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.unified.to/enrich/:connection_id/person",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "The email of the person to search"
+              },
+              {
+                "name": "twitter",
+                "value": "",
+                "type": "query",
+                "description": "The twitter handle of the person to search"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "The name of the person to search"
+              },
+              {
+                "name": "linkedin_url",
+                "value": "",
+                "type": "query",
+                "description": "The LinkedIn URL of the person to search"
+              },
+              {
+                "name": "company_name",
+                "value": "",
+                "type": "query",
+                "description": "The name of the company the person is associated with.  Not valid by itself."
+              },
+              {
+                "name": "connection_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the connection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "authorization",
+              "value": "{{authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve Enrichment Information for a Person"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

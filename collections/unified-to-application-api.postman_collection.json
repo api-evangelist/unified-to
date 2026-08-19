@@ -1,0 +1,1135 @@
+{
+  "item": [
+    {
+      "id": "59356c12-0841-4764-95ba-9f3da5c70def",
+      "name": "application",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "73767834-93cd-4a0a-905e-c8656e4ba6c9",
+          "name": "List all applications",
+          "request": {
+            "name": "List all applications",
+            "description": {},
+            "url": {
+              "path": [
+                "ats",
+                ":connection_id",
+                "application"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_gte",
+                  "value": "<string>",
+                  "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Query string to search. eg. email address or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "job_id",
+                  "value": "<string>",
+                  "description": "The job ID to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "candidate_id",
+                  "value": "<string>",
+                  "description": "The candidate ID to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "The company ID to filter by (reference to AtsCompany)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a65dcc91-c2a1-4708-8f4b-1007aaa9c80a",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ats",
+                    ":connection_id",
+                    "application"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updated_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "job_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "candidate_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"answers\": [\n      {\n        \"question_id\": \"string\",\n        \"answers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"question\": \"string\"\n      },\n      {\n        \"question_id\": \"string\",\n        \"answers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"question\": \"string\"\n      }\n    ],\n    \"applied_at\": \"1949-07-19T06:14:14.880Z\",\n    \"candidate_id\": \"string\",\n    \"created_at\": \"1947-10-13T13:57:25.842Z\",\n    \"hired_at\": \"1949-10-23T07:58:14.984Z\",\n    \"id\": \"string\",\n    \"job_id\": \"string\",\n    \"metadata\": [\n      {\n        \"extra_data\": {},\n        \"format\": \"PRICE\",\n        \"id\": \"string\",\n        \"namespace\": \"string\",\n        \"slug\": \"string\",\n        \"value\": {}\n      },\n      {\n        \"extra_data\": {},\n        \"format\": \"BOOLEAN\",\n        \"id\": \"string\",\n        \"namespace\": \"string\",\n        \"slug\": \"string\",\n        \"value\": {}\n      }\n    ],\n    \"offers\": [\n      {\n        \"accepted_at\": \"2011-05-31T15:56:26.018Z\",\n        \"compensation\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"created_at\": \"2022-03-16T20:47:12.660Z\",\n        \"creator_user_id\": \"string\",\n        \"employee_user_id\": \"string\",\n        \"id\": \"string\",\n        \"raw\": {\n          \"key_0\": 3779.485553776896\n        },\n        \"rejected_at\": \"1976-11-18T05:57:19.963Z\",\n        \"sent_at\": \"2018-08-23T09:37:06.668Z\",\n        \"start_at\": \"1970-03-28T17:13:56.683Z\",\n        \"status\": \"SENT\",\n        \"updated_at\": \"1962-08-03T16:11:52.272Z\"\n      },\n      {\n        \"accepted_at\": \"2011-10-01T19:15:55.722Z\",\n        \"compensation\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"created_at\": \"1958-07-09T22:12:43.006Z\",\n        \"creator_user_id\": \"string\",\n        \"employee_user_id\": \"string\",\n        \"id\": \"string\",\n        \"raw\": {\n          \"key_0\": false\n        },\n        \"rejected_at\": \"1958-05-27T10:38:40.870Z\",\n        \"sent_at\": \"2021-08-20T12:51:06.566Z\",\n        \"start_at\": \"1981-07-05T15:48:06.039Z\",\n        \"status\": \"SENT\",\n        \"updated_at\": \"1983-08-25T03:43:06.342Z\"\n      }\n    ],\n    \"original_status\": \"string\",\n    \"raw\": {\n      \"key_0\": true,\n      \"key_1\": \"string\"\n    },\n    \"rejected_at\": \"2015-07-07T00:24:00.512Z\",\n    \"rejected_reason\": \"string\",\n    \"source\": \"string\",\n    \"status\": \"SCREENING\",\n    \"updated_at\": \"2006-09-26T18:14:49.298Z\",\n    \"user_id\": \"string\"\n  },\n  {\n    \"answers\": [\n      {\n        \"question_id\": \"string\",\n        \"answers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"question\": \"string\"\n      },\n      {\n        \"question_id\": \"string\",\n        \"answers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"question\": \"string\"\n      }\n    ],\n    \"applied_at\": \"2007-12-05T01:20:51.535Z\",\n    \"candidate_id\": \"string\",\n    \"created_at\": \"2007-08-08T14:55:43.019Z\",\n    \"hired_at\": \"1997-10-28T20:25:06.096Z\",\n    \"id\": \"string\",\n    \"job_id\": \"string\",\n    \"metadata\": [\n      {\n        \"extra_data\": {},\n        \"format\": \"URL\",\n        \"id\": \"string\",\n        \"namespace\": \"string\",\n        \"slug\": \"string\",\n        \"value\": {}\n      },\n      {\n        \"extra_data\": {},\n        \"format\": \"BOOLEAN\",\n        \"id\": \"string\",\n        \"namespace\": \"string\",\n        \"slug\": \"string\",\n        \"value\": {}\n      }\n    ],\n    \"offers\": [\n      {\n        \"accepted_at\": \"1966-09-22T05:56:49.096Z\",\n        \"compensation\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"created_at\": \"1949-02-18T10:59:56.083Z\",\n        \"creator_user_id\": \"string\",\n        \"employee_user_id\": \"string\",\n        \"id\": \"string\",\n        \"raw\": {\n          \"key_0\": 2923.0094382807483\n        },\n        \"rejected_at\": \"1999-10-03T23:09:35.980Z\",\n        \"sent_at\": \"2010-02-15T12:04:47.928Z\",\n        \"start_at\": \"1996-09-09T18:11:46.050Z\",\n        \"status\": \"ACCEPTED\",\n        \"updated_at\": \"1946-10-26T10:37:45.709Z\"\n      },\n      {\n        \"accepted_at\": \"2002-08-28T21:55:24.072Z\",\n        \"compensation\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"created_at\": \"1989-03-30T19:26:09.873Z\",\n        \"creator_user_id\": \"string\",\n        \"employee_user_id\": \"string\",\n        \"id\": \"string\",\n        \"raw\": {\n          \"key_0\": \"string\"\n        },\n        \"rejected_at\": \"1997-05-06T23:31:52.137Z\",\n        \"sent_at\": \"1985-03-01T05:34:15.807Z\",\n        \"start_at\": \"1963-08-18T13:56:31.304Z\",\n        \"status\": \"CREATED\",\n        \"updated_at\": \"1964-11-26T22:42:36.928Z\"\n      }\n    ],\n    \"original_status\": \"string\",\n    \"raw\": {\n      \"key_0\": true,\n      \"key_1\": 9653\n    },\n    \"rejected_at\": \"2014-08-29T06:02:36.811Z\",\n    \"rejected_reason\": \"string\",\n    \"source\": \"string\",\n    \"status\": \"FIRST_INTERVIEW\",\n    \"updated_at\": \"1988-07-10T20:02:39.699Z\",\n    \"user_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "351ee1e0-37a1-4dd4-a645-0c0cea3d61cc",
+          "name": "Create an application",
+          "request": {
+            "name": "Create an application",
+            "description": {},
+            "url": {
+              "path": [
+                "ats",
+                ":connection_id",
+                "application"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"answers\": [\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    },\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    }\n  ],\n  \"applied_at\": \"<dateTime>\",\n  \"candidate_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"job_id\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"offers\": [\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 783,\n        \"key_1\": \"string\",\n        \"key_2\": 4662\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": true\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"original_status\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 7819,\n    \"key_1\": true,\n    \"key_2\": true\n  },\n  \"rejected_at\": \"<dateTime>\",\n  \"rejected_reason\": \"<string>\",\n  \"source\": \"<string>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2534d1c5-52ff-426f-8db6-55c6f00ccd3d",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ats",
+                    ":connection_id",
+                    "application"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"answers\": [\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    },\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    }\n  ],\n  \"applied_at\": \"<dateTime>\",\n  \"candidate_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"job_id\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"offers\": [\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false,\n        \"key_1\": false,\n        \"key_2\": true\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\",\n        \"key_1\": 7007.2867894906885,\n        \"key_2\": \"string\"\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"original_status\": \"<string>\",\n  \"raw\": {\n    \"key_0\": false,\n    \"key_1\": true,\n    \"key_2\": \"string\",\n    \"key_3\": 8985.339632401901\n  },\n  \"rejected_at\": \"<dateTime>\",\n  \"rejected_reason\": \"<string>\",\n  \"source\": \"<string>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"answers\": [\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    },\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    }\n  ],\n  \"applied_at\": \"<dateTime>\",\n  \"candidate_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"job_id\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"offers\": [\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false,\n        \"key_1\": false,\n        \"key_2\": true\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\",\n        \"key_1\": 7007.2867894906885,\n        \"key_2\": \"string\"\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"original_status\": \"<string>\",\n  \"raw\": {\n    \"key_0\": false,\n    \"key_1\": true,\n    \"key_2\": \"string\",\n    \"key_3\": 8985.339632401901\n  },\n  \"rejected_at\": \"<dateTime>\",\n  \"rejected_reason\": \"<string>\",\n  \"source\": \"<string>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9dd8802d-0d30-4dc7-b3fd-a7b6886d9ee7",
+          "name": "Remove an application",
+          "request": {
+            "name": "Remove an application",
+            "description": {},
+            "url": {
+              "path": [
+                "ats",
+                ":connection_id",
+                "application",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Application"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f7a50bd7-2841-4a62-bd0d-dd415ac1f262",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ats",
+                    ":connection_id",
+                    "application",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c7ecc840-09e3-42de-9e30-617a6c58e626",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ats",
+                    ":connection_id",
+                    "application",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87a70f65-38bc-48e4-bb7e-928ef1b7c2bd",
+          "name": "Retrieve an application",
+          "request": {
+            "name": "Retrieve an application",
+            "description": {},
+            "url": {
+              "path": [
+                "ats",
+                ":connection_id",
+                "application",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Application"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "602821da-7f60-4b0e-bf45-142cbd5b3d07",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ats",
+                    ":connection_id",
+                    "application",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"answers\": [\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    },\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    }\n  ],\n  \"applied_at\": \"<dateTime>\",\n  \"candidate_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"job_id\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"offers\": [\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false,\n        \"key_1\": false,\n        \"key_2\": true\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\",\n        \"key_1\": 7007.2867894906885,\n        \"key_2\": \"string\"\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"original_status\": \"<string>\",\n  \"raw\": {\n    \"key_0\": false,\n    \"key_1\": true,\n    \"key_2\": \"string\",\n    \"key_3\": 8985.339632401901\n  },\n  \"rejected_at\": \"<dateTime>\",\n  \"rejected_reason\": \"<string>\",\n  \"source\": \"<string>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ef56b3ba-3fb2-4edb-93ee-98d796c06a46",
+          "name": "Update an application",
+          "request": {
+            "name": "Update an application",
+            "description": {},
+            "url": {
+              "path": [
+                "ats",
+                ":connection_id",
+                "application",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Application"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"answers\": [\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    },\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    }\n  ],\n  \"applied_at\": \"<dateTime>\",\n  \"candidate_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"job_id\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"offers\": [\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 783,\n        \"key_1\": \"string\",\n        \"key_2\": 4662\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": true\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"original_status\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 7819,\n    \"key_1\": true,\n    \"key_2\": true\n  },\n  \"rejected_at\": \"<dateTime>\",\n  \"rejected_reason\": \"<string>\",\n  \"source\": \"<string>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b61c1037-dbfc-4a54-aee7-9e691b5cdc48",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ats",
+                    ":connection_id",
+                    "application",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"answers\": [\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    },\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    }\n  ],\n  \"applied_at\": \"<dateTime>\",\n  \"candidate_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"job_id\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"offers\": [\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false,\n        \"key_1\": false,\n        \"key_2\": true\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\",\n        \"key_1\": 7007.2867894906885,\n        \"key_2\": \"string\"\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"original_status\": \"<string>\",\n  \"raw\": {\n    \"key_0\": false,\n    \"key_1\": true,\n    \"key_2\": \"string\",\n    \"key_3\": 8985.339632401901\n  },\n  \"rejected_at\": \"<dateTime>\",\n  \"rejected_reason\": \"<string>\",\n  \"source\": \"<string>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"answers\": [\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    },\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    }\n  ],\n  \"applied_at\": \"<dateTime>\",\n  \"candidate_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"job_id\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"offers\": [\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false,\n        \"key_1\": false,\n        \"key_2\": true\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\",\n        \"key_1\": 7007.2867894906885,\n        \"key_2\": \"string\"\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"original_status\": \"<string>\",\n  \"raw\": {\n    \"key_0\": false,\n    \"key_1\": true,\n    \"key_2\": \"string\",\n    \"key_3\": 8985.339632401901\n  },\n  \"rejected_at\": \"<dateTime>\",\n  \"rejected_reason\": \"<string>\",\n  \"source\": \"<string>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "284746af-4dc3-44ac-8514-e15da28f059d",
+          "name": "Update an application",
+          "request": {
+            "name": "Update an application",
+            "description": {},
+            "url": {
+              "path": [
+                "ats",
+                ":connection_id",
+                "application",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Application"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"answers\": [\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    },\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    }\n  ],\n  \"applied_at\": \"<dateTime>\",\n  \"candidate_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"job_id\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"offers\": [\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": 783,\n        \"key_1\": \"string\",\n        \"key_2\": 4662\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": true\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"original_status\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 7819,\n    \"key_1\": true,\n    \"key_2\": true\n  },\n  \"rejected_at\": \"<dateTime>\",\n  \"rejected_reason\": \"<string>\",\n  \"source\": \"<string>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e112af73-5250-4cdd-bf08-bdded2474cbf",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ats",
+                    ":connection_id",
+                    "application",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"answers\": [\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    },\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    }\n  ],\n  \"applied_at\": \"<dateTime>\",\n  \"candidate_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"job_id\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"offers\": [\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false,\n        \"key_1\": false,\n        \"key_2\": true\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\",\n        \"key_1\": 7007.2867894906885,\n        \"key_2\": \"string\"\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"original_status\": \"<string>\",\n  \"raw\": {\n    \"key_0\": false,\n    \"key_1\": true,\n    \"key_2\": \"string\",\n    \"key_3\": 8985.339632401901\n  },\n  \"rejected_at\": \"<dateTime>\",\n  \"rejected_reason\": \"<string>\",\n  \"source\": \"<string>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"answers\": [\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    },\n    {\n      \"question_id\": \"<string>\",\n      \"answers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"question\": \"<string>\"\n    }\n  ],\n  \"applied_at\": \"<dateTime>\",\n  \"candidate_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"hired_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"job_id\": \"<string>\",\n  \"metadata\": [\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    },\n    {\n      \"extra_data\": \"<object>\",\n      \"format\": \"<string>\",\n      \"id\": \"<string>\",\n      \"namespace\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"value\": \"<object>\"\n    }\n  ],\n  \"offers\": [\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": false,\n        \"key_1\": false,\n        \"key_2\": true\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"accepted_at\": \"<dateTime>\",\n      \"compensation\": [\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        },\n        {\n          \"currency\": \"<string>\",\n          \"frequency\": \"<string>\",\n          \"max\": \"<number>\",\n          \"min\": \"<number>\",\n          \"type\": \"<string>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"creator_user_id\": \"<string>\",\n      \"employee_user_id\": \"<string>\",\n      \"id\": \"<string>\",\n      \"raw\": {\n        \"key_0\": \"string\",\n        \"key_1\": 7007.2867894906885,\n        \"key_2\": \"string\"\n      },\n      \"rejected_at\": \"<dateTime>\",\n      \"sent_at\": \"<dateTime>\",\n      \"start_at\": \"<dateTime>\",\n      \"status\": \"<string>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"original_status\": \"<string>\",\n  \"raw\": {\n    \"key_0\": false,\n    \"key_1\": true,\n    \"key_2\": \"string\",\n    \"key_3\": 8985.339632401901\n  },\n  \"rejected_at\": \"<dateTime>\",\n  \"rejected_reason\": \"<string>\",\n  \"source\": \"<string>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.unified.to",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0f9c8035-3b11-4033-a5db-f93009c483b5",
+    "name": "Unified.to account application API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "One API to Rule Them All\n\nContact Support:\n Email: hello@unified.to",
+      "type": "text/plain"
+    }
+  }
+}

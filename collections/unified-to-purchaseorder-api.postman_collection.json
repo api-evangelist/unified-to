@@ -1,0 +1,1125 @@
+{
+  "item": [
+    {
+      "id": "ea061161-0037-428e-80b4-5caa7ff7014e",
+      "name": "purchaseorder",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2334281b-4daa-43ca-9284-f0d68d5dff95",
+          "name": "List all purchaseorders",
+          "request": {
+            "name": "List all purchaseorders",
+            "description": {},
+            "url": {
+              "path": [
+                "accounting",
+                ":connection_id",
+                "purchaseorder"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_gte",
+                  "value": "<string>",
+                  "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Query string to search. eg. email address or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "contact_id",
+                  "value": "<string>",
+                  "description": "The contact ID to filter by (reference to AccountingContact)"
+                },
+                {
+                  "disabled": false,
+                  "key": "org_id",
+                  "value": "<string>",
+                  "description": "The org ID to filter by (reference to AccountingOrganization)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f5d254a5-fe1b-4c7d-8261-e8a5cda92737",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    ":connection_id",
+                    "purchaseorder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updated_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contact_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "org_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"account_id\": \"string\",\n    \"billing_address\": {\n      \"address1\": \"string\",\n      \"address2\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"string\",\n      \"country_code\": \"string\",\n      \"postal_code\": \"string\",\n      \"region\": \"string\",\n      \"region_code\": \"string\"\n    },\n    \"contact_id\": \"string\",\n    \"created_at\": \"1962-06-14T11:41:48.666Z\",\n    \"currency\": \"string\",\n    \"id\": \"string\",\n    \"lineitems\": [\n      {\n        \"account_id\": \"string\",\n        \"category_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"created_at\": \"1977-06-17T15:28:12.186Z\",\n        \"discount_amount\": 1690.6651332599065,\n        \"id\": \"string\",\n        \"item_description\": \"string\",\n        \"item_id\": \"string\",\n        \"item_name\": \"string\",\n        \"item_sku\": \"string\",\n        \"item_variants\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"locations\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"notes\": \"string\",\n        \"refund_amount\": 5136.665503569202,\n        \"refunded_at\": \"1995-04-03T01:05:32.037Z\",\n        \"tax_amount\": 2234.9466992809885,\n        \"taxrate_id\": \"string\",\n        \"total_amount\": 4494.61987035755,\n        \"unit_amount\": 6141.129254482002,\n        \"unit_quantity\": 1478.9080007392397,\n        \"updated_at\": \"1961-03-27T07:21:42.808Z\"\n      },\n      {\n        \"account_id\": \"string\",\n        \"category_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"created_at\": \"1951-05-11T02:28:18.876Z\",\n        \"discount_amount\": 1197.0385443819598,\n        \"id\": \"string\",\n        \"item_description\": \"string\",\n        \"item_id\": \"string\",\n        \"item_name\": \"string\",\n        \"item_sku\": \"string\",\n        \"item_variants\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"locations\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"notes\": \"string\",\n        \"refund_amount\": 4515.970713859038,\n        \"refunded_at\": \"1989-07-01T04:21:51.066Z\",\n        \"tax_amount\": 9673.672615355134,\n        \"taxrate_id\": \"string\",\n        \"total_amount\": 9905.79867880402,\n        \"unit_amount\": 7177.200951515745,\n        \"unit_quantity\": 6704.185799190362,\n        \"updated_at\": \"1962-11-03T00:51:20.307Z\"\n      }\n    ],\n    \"organization_id\": \"string\",\n    \"posted_at\": \"2024-07-16T13:23:33.805Z\",\n    \"raw\": {\n      \"key_0\": 4720\n    },\n    \"shipping_address\": {\n      \"address1\": \"string\",\n      \"address2\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"string\",\n      \"country_code\": \"string\",\n      \"postal_code\": \"string\",\n      \"region\": \"string\",\n      \"region_code\": \"string\"\n    },\n    \"status\": \"PAID\",\n    \"total_amount\": 2147.6672498162598,\n    \"updated_at\": \"1955-11-11T01:41:34.601Z\"\n  },\n  {\n    \"account_id\": \"string\",\n    \"billing_address\": {\n      \"address1\": \"string\",\n      \"address2\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"string\",\n      \"country_code\": \"string\",\n      \"postal_code\": \"string\",\n      \"region\": \"string\",\n      \"region_code\": \"string\"\n    },\n    \"contact_id\": \"string\",\n    \"created_at\": \"2017-03-04T19:14:29.863Z\",\n    \"currency\": \"string\",\n    \"id\": \"string\",\n    \"lineitems\": [\n      {\n        \"account_id\": \"string\",\n        \"category_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"created_at\": \"2008-07-13T07:13:38.945Z\",\n        \"discount_amount\": 9810.675271659571,\n        \"id\": \"string\",\n        \"item_description\": \"string\",\n        \"item_id\": \"string\",\n        \"item_name\": \"string\",\n        \"item_sku\": \"string\",\n        \"item_variants\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"locations\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"notes\": \"string\",\n        \"refund_amount\": 7795.596153153266,\n        \"refunded_at\": \"1977-11-30T17:17:40.038Z\",\n        \"tax_amount\": 9708.30483267398,\n        \"taxrate_id\": \"string\",\n        \"total_amount\": 335.7494358670399,\n        \"unit_amount\": 506.6772233036487,\n        \"unit_quantity\": 803.7721972652057,\n        \"updated_at\": \"1963-06-02T04:23:30.568Z\"\n      },\n      {\n        \"account_id\": \"string\",\n        \"category_ids\": [\n          \"string\",\n          \"string\"\n        ],\n        \"created_at\": \"2016-06-17T05:59:35.106Z\",\n        \"discount_amount\": 9396.164071327838,\n        \"id\": \"string\",\n        \"item_description\": \"string\",\n        \"item_id\": \"string\",\n        \"item_name\": \"string\",\n        \"item_sku\": \"string\",\n        \"item_variants\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"locations\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"notes\": \"string\",\n        \"refund_amount\": 3174.437742752635,\n        \"refunded_at\": \"1973-05-24T16:44:28.916Z\",\n        \"tax_amount\": 4644.967417260156,\n        \"taxrate_id\": \"string\",\n        \"total_amount\": 4047.781088283123,\n        \"unit_amount\": 1176.3634231343522,\n        \"unit_quantity\": 1899.1444712577443,\n        \"updated_at\": \"1998-11-23T02:37:41.083Z\"\n      }\n    ],\n    \"organization_id\": \"string\",\n    \"posted_at\": \"1954-10-29T14:18:50.678Z\",\n    \"raw\": {\n      \"key_0\": \"string\",\n      \"key_1\": 1200.6534374809785\n    },\n    \"shipping_address\": {\n      \"address1\": \"string\",\n      \"address2\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"string\",\n      \"country_code\": \"string\",\n      \"postal_code\": \"string\",\n      \"region\": \"string\",\n      \"region_code\": \"string\"\n    },\n    \"status\": \"PARTIALLY_REFUNDED\",\n    \"total_amount\": 1239.4221117038096,\n    \"updated_at\": \"2001-12-24T12:02:59.936Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c3661e7-e4cf-4446-93c2-35c383d4b746",
+          "name": "Create a purchaseorder",
+          "request": {
+            "name": "Create a purchaseorder",
+            "description": {},
+            "url": {
+              "path": [
+                "accounting",
+                ":connection_id",
+                "purchaseorder"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<string>\",\n  \"billing_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 7408\n  },\n  \"shipping_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3c912c6d-c23b-42bb-bb83-ecd06a4b1b96",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    ":connection_id",
+                    "purchaseorder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<string>\",\n  \"billing_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 7733\n  },\n  \"shipping_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"<string>\",\n  \"billing_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 7733\n  },\n  \"shipping_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fcc0122d-cb91-40ee-8b4a-bbee474e08df",
+          "name": "Remove a purchaseorder",
+          "request": {
+            "name": "Remove a purchaseorder",
+            "description": {},
+            "url": {
+              "path": [
+                "accounting",
+                ":connection_id",
+                "purchaseorder",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Purchaseorder"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c6948968-844a-4dae-a408-ce2b415576d2",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    ":connection_id",
+                    "purchaseorder",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Purchaseorder"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8f939702-6cf6-410e-b544-c3cbc00fe564",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    ":connection_id",
+                    "purchaseorder",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Purchaseorder"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84d7b136-02d9-4559-8d14-17e4c576ccd5",
+          "name": "Retrieve a purchaseorder",
+          "request": {
+            "name": "Retrieve a purchaseorder",
+            "description": {},
+            "url": {
+              "path": [
+                "accounting",
+                ":connection_id",
+                "purchaseorder",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Purchaseorder"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8114bb9f-ad24-4ab5-85da-91c607b84260",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    ":connection_id",
+                    "purchaseorder",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Purchaseorder"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"<string>\",\n  \"billing_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 7733\n  },\n  \"shipping_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd3cc6d8-691a-49e3-945f-01fd08e081ca",
+          "name": "Update a purchaseorder",
+          "request": {
+            "name": "Update a purchaseorder",
+            "description": {},
+            "url": {
+              "path": [
+                "accounting",
+                ":connection_id",
+                "purchaseorder",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Purchaseorder"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<string>\",\n  \"billing_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 7408\n  },\n  \"shipping_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1923e467-8e30-46f5-b3d5-d2bf2c78faa8",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    ":connection_id",
+                    "purchaseorder",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Purchaseorder"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<string>\",\n  \"billing_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 7733\n  },\n  \"shipping_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"<string>\",\n  \"billing_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 7733\n  },\n  \"shipping_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07fe266f-dd87-48f3-a1ed-af3304f2720e",
+          "name": "Update a purchaseorder",
+          "request": {
+            "name": "Update a purchaseorder",
+            "description": {},
+            "url": {
+              "path": [
+                "accounting",
+                ":connection_id",
+                "purchaseorder",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Purchaseorder"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<string>\",\n  \"billing_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 7408\n  },\n  \"shipping_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d7cfda0f-429f-4381-926d-2db7d959d965",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    ":connection_id",
+                    "purchaseorder",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Purchaseorder"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<string>\",\n  \"billing_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 7733\n  },\n  \"shipping_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"<string>\",\n  \"billing_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"category_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"item_variants\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"locations\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"organization_id\": \"<string>\",\n  \"posted_at\": \"<dateTime>\",\n  \"raw\": {\n    \"key_0\": 7733\n  },\n  \"shipping_address\": {\n    \"address1\": \"<string>\",\n    \"address2\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"country_code\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"region_code\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.unified.to",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7b308836-ecd1-4280-a084-8043bc7a1a19",
+    "name": "Unified.to account purchaseorder API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "One API to Rule Them All\n\nContact Support:\n Email: hello@unified.to",
+      "type": "text/plain"
+    }
+  }
+}

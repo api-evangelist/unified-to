@@ -1,0 +1,1115 @@
+{
+  "item": [
+    {
+      "id": "53ad8202-e5d9-4b18-a8d5-54153f2fae4e",
+      "name": "device",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "31ca3b48-f8db-4f9a-bde3-6f8b408fa5bc",
+          "name": "List All Devices",
+          "request": {
+            "name": "List All Devices",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "device"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_gte",
+                  "value": "<string>",
+                  "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Query string to search. eg. email address or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "user_id",
+                  "value": "<string>",
+                  "description": "The user/employee ID to filter by (reference to HrisEmployee)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b0c2d042-9925-4d8e-bfd5-84e343abf624",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "device"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updated_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"admin_user_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"asset_tag\": \"string\",\n    \"created_at\": \"2021-03-25T16:24:49.667Z\",\n    \"has_antivirus\": true,\n    \"has_firewall\": false,\n    \"has_hd_encrypted\": true,\n    \"has_password_manager\": false,\n    \"has_screenlock\": true,\n    \"id\": \"string\",\n    \"is_missing\": false,\n    \"location_id\": \"string\",\n    \"manufacturer\": \"string\",\n    \"model\": \"string\",\n    \"os\": \"string\",\n    \"os_version\": \"string\",\n    \"raw\": {\n      \"key_0\": 5879,\n      \"key_1\": 353.67468650241875,\n      \"key_2\": \"string\",\n      \"key_3\": 4605\n    },\n    \"updated_at\": \"1963-10-22T20:54:38.729Z\",\n    \"user_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"version\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"admin_user_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"asset_tag\": \"string\",\n    \"created_at\": \"1961-04-20T20:50:36.108Z\",\n    \"has_antivirus\": false,\n    \"has_firewall\": false,\n    \"has_hd_encrypted\": true,\n    \"has_password_manager\": true,\n    \"has_screenlock\": true,\n    \"id\": \"string\",\n    \"is_missing\": true,\n    \"location_id\": \"string\",\n    \"manufacturer\": \"string\",\n    \"model\": \"string\",\n    \"os\": \"string\",\n    \"os_version\": \"string\",\n    \"raw\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"updated_at\": \"1995-11-05T23:07:55.441Z\",\n    \"user_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"version\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "523e5ace-3142-498e-afbe-421cadc2b00a",
+          "name": "Create a Device",
+          "request": {
+            "name": "Create a Device",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "device"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"admin_user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"asset_tag\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"has_antivirus\": \"<boolean>\",\n  \"has_firewall\": \"<boolean>\",\n  \"has_hd_encrypted\": \"<boolean>\",\n  \"has_password_manager\": \"<boolean>\",\n  \"has_screenlock\": \"<boolean>\",\n  \"id\": \"<string>\",\n  \"is_missing\": \"<boolean>\",\n  \"location_id\": \"<string>\",\n  \"manufacturer\": \"<string>\",\n  \"model\": \"<string>\",\n  \"os\": \"<string>\",\n  \"os_version\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"updated_at\": \"<dateTime>\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"version\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0a414160-1666-463e-aef2-3bdc28879aba",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "device"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"admin_user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"asset_tag\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"has_antivirus\": \"<boolean>\",\n  \"has_firewall\": \"<boolean>\",\n  \"has_hd_encrypted\": \"<boolean>\",\n  \"has_password_manager\": \"<boolean>\",\n  \"has_screenlock\": \"<boolean>\",\n  \"id\": \"<string>\",\n  \"is_missing\": \"<boolean>\",\n  \"location_id\": \"<string>\",\n  \"manufacturer\": \"<string>\",\n  \"model\": \"<string>\",\n  \"os\": \"<string>\",\n  \"os_version\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 2898.7581638005745,\n    \"key_1\": true\n  },\n  \"updated_at\": \"<dateTime>\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"version\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"admin_user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"asset_tag\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"has_antivirus\": \"<boolean>\",\n  \"has_firewall\": \"<boolean>\",\n  \"has_hd_encrypted\": \"<boolean>\",\n  \"has_password_manager\": \"<boolean>\",\n  \"has_screenlock\": \"<boolean>\",\n  \"id\": \"<string>\",\n  \"is_missing\": \"<boolean>\",\n  \"location_id\": \"<string>\",\n  \"manufacturer\": \"<string>\",\n  \"model\": \"<string>\",\n  \"os\": \"<string>\",\n  \"os_version\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 2898.7581638005745,\n    \"key_1\": true\n  },\n  \"updated_at\": \"<dateTime>\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"version\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2dfc047b-f57c-422e-bfc4-06077b4ccf5f",
+          "name": "Remove a Device",
+          "request": {
+            "name": "Remove a Device",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "device",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Device"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "128117be-6b8b-4bee-a286-90a27632b60a",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "device",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Device"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e15e7874-3fa7-40ff-aec6-2bd8a1e10821",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "device",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Device"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee907daa-1335-46ad-aa57-826231e9363f",
+          "name": "Retrieve a Device",
+          "request": {
+            "name": "Retrieve a Device",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "device",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Device"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c4f18064-b1bc-4392-9283-b5baff2f24f5",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "device",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Device"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"admin_user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"asset_tag\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"has_antivirus\": \"<boolean>\",\n  \"has_firewall\": \"<boolean>\",\n  \"has_hd_encrypted\": \"<boolean>\",\n  \"has_password_manager\": \"<boolean>\",\n  \"has_screenlock\": \"<boolean>\",\n  \"id\": \"<string>\",\n  \"is_missing\": \"<boolean>\",\n  \"location_id\": \"<string>\",\n  \"manufacturer\": \"<string>\",\n  \"model\": \"<string>\",\n  \"os\": \"<string>\",\n  \"os_version\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 2898.7581638005745,\n    \"key_1\": true\n  },\n  \"updated_at\": \"<dateTime>\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"version\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dbb82f51-1aeb-4d37-969f-ddc70aae02fd",
+          "name": "Update a Device",
+          "request": {
+            "name": "Update a Device",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "device",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Device"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"admin_user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"asset_tag\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"has_antivirus\": \"<boolean>\",\n  \"has_firewall\": \"<boolean>\",\n  \"has_hd_encrypted\": \"<boolean>\",\n  \"has_password_manager\": \"<boolean>\",\n  \"has_screenlock\": \"<boolean>\",\n  \"id\": \"<string>\",\n  \"is_missing\": \"<boolean>\",\n  \"location_id\": \"<string>\",\n  \"manufacturer\": \"<string>\",\n  \"model\": \"<string>\",\n  \"os\": \"<string>\",\n  \"os_version\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"updated_at\": \"<dateTime>\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"version\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "38cf8fbd-deee-4f39-8c57-667c966d5f11",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "device",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Device"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"admin_user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"asset_tag\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"has_antivirus\": \"<boolean>\",\n  \"has_firewall\": \"<boolean>\",\n  \"has_hd_encrypted\": \"<boolean>\",\n  \"has_password_manager\": \"<boolean>\",\n  \"has_screenlock\": \"<boolean>\",\n  \"id\": \"<string>\",\n  \"is_missing\": \"<boolean>\",\n  \"location_id\": \"<string>\",\n  \"manufacturer\": \"<string>\",\n  \"model\": \"<string>\",\n  \"os\": \"<string>\",\n  \"os_version\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 2898.7581638005745,\n    \"key_1\": true\n  },\n  \"updated_at\": \"<dateTime>\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"version\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"admin_user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"asset_tag\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"has_antivirus\": \"<boolean>\",\n  \"has_firewall\": \"<boolean>\",\n  \"has_hd_encrypted\": \"<boolean>\",\n  \"has_password_manager\": \"<boolean>\",\n  \"has_screenlock\": \"<boolean>\",\n  \"id\": \"<string>\",\n  \"is_missing\": \"<boolean>\",\n  \"location_id\": \"<string>\",\n  \"manufacturer\": \"<string>\",\n  \"model\": \"<string>\",\n  \"os\": \"<string>\",\n  \"os_version\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 2898.7581638005745,\n    \"key_1\": true\n  },\n  \"updated_at\": \"<dateTime>\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"version\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91b04c5f-bb32-4a5f-a2d5-30a4dd14a130",
+          "name": "Update a Device",
+          "request": {
+            "name": "Update a Device",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "device",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Device"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"admin_user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"asset_tag\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"has_antivirus\": \"<boolean>\",\n  \"has_firewall\": \"<boolean>\",\n  \"has_hd_encrypted\": \"<boolean>\",\n  \"has_password_manager\": \"<boolean>\",\n  \"has_screenlock\": \"<boolean>\",\n  \"id\": \"<string>\",\n  \"is_missing\": \"<boolean>\",\n  \"location_id\": \"<string>\",\n  \"manufacturer\": \"<string>\",\n  \"model\": \"<string>\",\n  \"os\": \"<string>\",\n  \"os_version\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"updated_at\": \"<dateTime>\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"version\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bf523333-1806-4644-a9af-cbf8e0ce6913",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "device",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Device"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"admin_user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"asset_tag\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"has_antivirus\": \"<boolean>\",\n  \"has_firewall\": \"<boolean>\",\n  \"has_hd_encrypted\": \"<boolean>\",\n  \"has_password_manager\": \"<boolean>\",\n  \"has_screenlock\": \"<boolean>\",\n  \"id\": \"<string>\",\n  \"is_missing\": \"<boolean>\",\n  \"location_id\": \"<string>\",\n  \"manufacturer\": \"<string>\",\n  \"model\": \"<string>\",\n  \"os\": \"<string>\",\n  \"os_version\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 2898.7581638005745,\n    \"key_1\": true\n  },\n  \"updated_at\": \"<dateTime>\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"version\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"admin_user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"asset_tag\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"has_antivirus\": \"<boolean>\",\n  \"has_firewall\": \"<boolean>\",\n  \"has_hd_encrypted\": \"<boolean>\",\n  \"has_password_manager\": \"<boolean>\",\n  \"has_screenlock\": \"<boolean>\",\n  \"id\": \"<string>\",\n  \"is_missing\": \"<boolean>\",\n  \"location_id\": \"<string>\",\n  \"manufacturer\": \"<string>\",\n  \"model\": \"<string>\",\n  \"os\": \"<string>\",\n  \"os_version\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 2898.7581638005745,\n    \"key_1\": true\n  },\n  \"updated_at\": \"<dateTime>\",\n  \"user_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"version\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.unified.to",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a54ebab5-94d7-4fbf-95f6-10791e6589b2",
+    "name": "Unified.to account device API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "One API to Rule Them All\n\nContact Support:\n Email: hello@unified.to",
+      "type": "text/plain"
+    }
+  }
+}

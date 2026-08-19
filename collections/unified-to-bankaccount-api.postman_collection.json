@@ -1,0 +1,1125 @@
+{
+  "item": [
+    {
+      "id": "3c4a8246-e517-43c6-b860-c8be2ba5b035",
+      "name": "bankaccount",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8e21c47e-197d-4cae-a1f3-58552e692c4e",
+          "name": "List All Bankaccounts",
+          "request": {
+            "name": "List All Bankaccounts",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "bankaccount"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_gte",
+                  "value": "<string>",
+                  "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Query string to search. eg. email address or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "user_id",
+                  "value": "<string>",
+                  "description": "The user/employee ID to filter by (reference to HrisEmployee)"
+                },
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "The company ID to filter by (reference to HrisCompany)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0a5d0067-6a73-47f6-a2aa-6a7fdf343e0f",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "bankaccount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updated_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"account_number\": \"string\",\n    \"account_number_last4\": \"string\",\n    \"account_type\": \"SAVINGS\",\n    \"bank_name\": \"string\",\n    \"company_id\": \"string\",\n    \"created_at\": \"1991-09-28T14:34:10.594Z\",\n    \"id\": \"string\",\n    \"is_primary\": false,\n    \"name\": \"string\",\n    \"raw\": {\n      \"key_0\": 3289,\n      \"key_1\": \"string\"\n    },\n    \"routing_number\": \"string\",\n    \"updated_at\": \"1949-12-18T17:11:53.538Z\",\n    \"user_id\": \"string\"\n  },\n  {\n    \"account_number\": \"string\",\n    \"account_number_last4\": \"string\",\n    \"account_type\": \"CHECKING\",\n    \"bank_name\": \"string\",\n    \"company_id\": \"string\",\n    \"created_at\": \"1998-01-04T07:28:48.678Z\",\n    \"id\": \"string\",\n    \"is_primary\": true,\n    \"name\": \"string\",\n    \"raw\": {\n      \"key_0\": \"string\",\n      \"key_1\": 7317\n    },\n    \"routing_number\": \"string\",\n    \"updated_at\": \"2015-02-19T02:29:18.944Z\",\n    \"user_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ecfd9382-c255-48c8-86f7-27ca3beaa478",
+          "name": "Create a Bankaccount",
+          "request": {
+            "name": "Create a Bankaccount",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "bankaccount"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_number\": \"<string>\",\n  \"account_number_last4\": \"<string>\",\n  \"account_type\": \"<string>\",\n  \"bank_name\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"is_primary\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 7563\n  },\n  \"routing_number\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f55e2d10-c5e6-4961-808b-9b9cef62924c",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "bankaccount"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_number\": \"<string>\",\n  \"account_number_last4\": \"<string>\",\n  \"account_type\": \"<string>\",\n  \"bank_name\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"is_primary\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 3969,\n    \"key_2\": true,\n    \"key_3\": false\n  },\n  \"routing_number\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_number\": \"<string>\",\n  \"account_number_last4\": \"<string>\",\n  \"account_type\": \"<string>\",\n  \"bank_name\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"is_primary\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 3969,\n    \"key_2\": true,\n    \"key_3\": false\n  },\n  \"routing_number\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ced696f-689b-4721-b946-ca3a93a0f25a",
+          "name": "Remove a Bankaccount",
+          "request": {
+            "name": "Remove a Bankaccount",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "bankaccount",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Bankaccount"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9b2c1f4d-c6ae-40a0-ad58-ec3031b85be1",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "bankaccount",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Bankaccount"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "42edbf1f-595c-425d-a81f-65627c6d25c4",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "bankaccount",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Bankaccount"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a6cb29b-daac-4ea6-9dc8-96c7a247cb26",
+          "name": "Retrieve a Bankaccount",
+          "request": {
+            "name": "Retrieve a Bankaccount",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "bankaccount",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Bankaccount"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5ecbe1ff-ee13-4789-aa9f-c077086f35d1",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "bankaccount",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Bankaccount"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_number\": \"<string>\",\n  \"account_number_last4\": \"<string>\",\n  \"account_type\": \"<string>\",\n  \"bank_name\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"is_primary\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 3969,\n    \"key_2\": true,\n    \"key_3\": false\n  },\n  \"routing_number\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c598ce0d-1494-499d-ab64-142c670ae3ac",
+          "name": "Update a Bankaccount",
+          "request": {
+            "name": "Update a Bankaccount",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "bankaccount",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Bankaccount"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_number\": \"<string>\",\n  \"account_number_last4\": \"<string>\",\n  \"account_type\": \"<string>\",\n  \"bank_name\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"is_primary\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 7563\n  },\n  \"routing_number\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9631e474-d13f-45dc-9c3c-62c96c42365a",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "bankaccount",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Bankaccount"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_number\": \"<string>\",\n  \"account_number_last4\": \"<string>\",\n  \"account_type\": \"<string>\",\n  \"bank_name\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"is_primary\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 3969,\n    \"key_2\": true,\n    \"key_3\": false\n  },\n  \"routing_number\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_number\": \"<string>\",\n  \"account_number_last4\": \"<string>\",\n  \"account_type\": \"<string>\",\n  \"bank_name\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"is_primary\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 3969,\n    \"key_2\": true,\n    \"key_3\": false\n  },\n  \"routing_number\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3bb3fb33-ebdf-4978-9a54-d752e64e7203",
+          "name": "Update a Bankaccount",
+          "request": {
+            "name": "Update a Bankaccount",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "bankaccount",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Bankaccount"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_number\": \"<string>\",\n  \"account_number_last4\": \"<string>\",\n  \"account_type\": \"<string>\",\n  \"bank_name\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"is_primary\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 7563\n  },\n  \"routing_number\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "82bcaa78-205c-4cbe-a01a-544b1655f681",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "bankaccount",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Bankaccount"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_number\": \"<string>\",\n  \"account_number_last4\": \"<string>\",\n  \"account_type\": \"<string>\",\n  \"bank_name\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"is_primary\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 3969,\n    \"key_2\": true,\n    \"key_3\": false\n  },\n  \"routing_number\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_number\": \"<string>\",\n  \"account_number_last4\": \"<string>\",\n  \"account_type\": \"<string>\",\n  \"bank_name\": \"<string>\",\n  \"company_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"is_primary\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 3969,\n    \"key_2\": true,\n    \"key_3\": false\n  },\n  \"routing_number\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.unified.to",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6aec0f1e-e81b-43ae-abd1-25e10bdbe710",
+    "name": "Unified.to account bankaccount API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "One API to Rule Them All\n\nContact Support:\n Email: hello@unified.to",
+      "type": "text/plain"
+    }
+  }
+}

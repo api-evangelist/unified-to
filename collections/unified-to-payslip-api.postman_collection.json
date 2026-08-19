@@ -1,0 +1,427 @@
+{
+  "item": [
+    {
+      "id": "3321b33f-d807-4f2e-9722-ae9167e0049b",
+      "name": "payslip",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "60dacd4d-6b33-4e38-8a6b-3463540af340",
+          "name": "List All Payslips",
+          "request": {
+            "name": "List All Payslips",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "payslip"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_gte",
+                  "value": "<string>",
+                  "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Query string to search. eg. email address or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "user_id",
+                  "value": "<string>",
+                  "description": "The user/employee ID to filter by (reference to HrisEmployee)"
+                },
+                {
+                  "disabled": false,
+                  "key": "company_id",
+                  "value": "<string>",
+                  "description": "The company ID to filter by (reference to HrisCompany)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "164c2081-028b-4359-8e23-6d1f64957ee0",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "payslip"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updated_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "company_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"raw\": {\n      \"key_0\": 5108.209094879189\n    },\n    \"company_id\": \"string\",\n    \"created_at\": \"1984-10-10T06:09:34.890Z\",\n    \"currency\": \"string\",\n    \"deduction\": {\n      \"amount\": 9155.631746637075,\n      \"benefit_id\": \"string\",\n      \"company_id\": \"string\",\n      \"coverage_level\": \"EMPLOYEE_ONLY\",\n      \"created_at\": \"1990-03-21T23:47:00.691Z\",\n      \"end_at\": \"2022-01-16T00:51:19.061Z\",\n      \"frequency\": \"WEEK\",\n      \"id\": \"string\",\n      \"is_active\": false,\n      \"notes\": \"string\",\n      \"raw\": {\n        \"key_0\": 9961.40434364569\n      },\n      \"start_at\": \"2024-07-01T11:58:16.684Z\",\n      \"type\": \"PERCENTAGE\",\n      \"updated_at\": \"2020-10-28T22:57:38.824Z\",\n      \"user_id\": \"string\"\n    },\n    \"details\": [\n      {\n        \"amount\": 1083.8520486481996,\n        \"company_amount\": 9990.708114920952,\n        \"description\": \"string\",\n        \"employee_amount\": 9288.170378062121,\n        \"name\": \"string\",\n        \"type\": \"REIMBURSEMENT\"\n      },\n      {\n        \"amount\": 6260.270245983106,\n        \"company_amount\": 4745.485524455493,\n        \"description\": \"string\",\n        \"employee_amount\": 5548.992255684373,\n        \"name\": \"string\",\n        \"type\": \"TAX_REGION\"\n      }\n    ],\n    \"end_at\": \"1982-12-26T22:23:17.596Z\",\n    \"gross_amount\": 5280.440721967489,\n    \"id\": \"string\",\n    \"net_amount\": 7144.559116518378,\n    \"paid_at\": \"2005-03-18T09:29:03.757Z\",\n    \"payment_type\": \"DIRECT\",\n    \"start_at\": \"1967-01-31T10:35:37.789Z\",\n    \"updated_at\": \"1991-12-13T18:37:37.772Z\",\n    \"user_id\": \"string\"\n  },\n  {\n    \"raw\": {\n      \"key_0\": \"string\",\n      \"key_1\": 8057\n    },\n    \"company_id\": \"string\",\n    \"created_at\": \"2011-06-20T08:39:41.299Z\",\n    \"currency\": \"string\",\n    \"deduction\": {\n      \"amount\": 1716.2029112262933,\n      \"benefit_id\": \"string\",\n      \"company_id\": \"string\",\n      \"coverage_level\": \"EMPLOYEE_FAMILY\",\n      \"created_at\": \"2003-08-26T22:03:08.147Z\",\n      \"end_at\": \"2016-06-09T19:35:40.934Z\",\n      \"frequency\": \"QUARTER\",\n      \"id\": \"string\",\n      \"is_active\": false,\n      \"notes\": \"string\",\n      \"raw\": {\n        \"key_0\": true,\n        \"key_1\": 7073,\n        \"key_2\": \"string\"\n      },\n      \"start_at\": \"2020-03-06T16:31:51.560Z\",\n      \"type\": \"PERCENTAGE\",\n      \"updated_at\": \"1984-08-07T11:17:15.849Z\",\n      \"user_id\": \"string\"\n    },\n    \"details\": [\n      {\n        \"amount\": 6211.064834640293,\n        \"company_amount\": 8735.835725446643,\n        \"description\": \"string\",\n        \"employee_amount\": 7592.4063867192135,\n        \"name\": \"string\",\n        \"type\": \"PRETAX_DEDUCTION_HEALTH_INSURANCE\"\n      },\n      {\n        \"amount\": 8090.928121057772,\n        \"company_amount\": 6052.935426673706,\n        \"description\": \"string\",\n        \"employee_amount\": 6984.445286493044,\n        \"name\": \"string\",\n        \"type\": \"EARNING_ADJUSTMENT\"\n      }\n    ],\n    \"end_at\": \"2002-08-02T23:40:26.893Z\",\n    \"gross_amount\": 8817.464396812045,\n    \"id\": \"string\",\n    \"net_amount\": 7863.247600044814,\n    \"paid_at\": \"1946-09-27T23:44:21.597Z\",\n    \"payment_type\": \"CASH\",\n    \"start_at\": \"2026-05-26T05:05:04.849Z\",\n    \"updated_at\": \"2024-06-01T02:56:52.415Z\",\n    \"user_id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "710e1a24-d1a5-4204-a1ec-f228e323c7ab",
+          "name": "Retrieve a Payslip",
+          "request": {
+            "name": "Retrieve a Payslip",
+            "description": {},
+            "url": {
+              "path": [
+                "hris",
+                ":connection_id",
+                "payslip",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Payslip"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "322db68b-7366-4e7b-bf86-fcf10e929cec",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    ":connection_id",
+                    "payslip",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Payslip"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"raw\": {\n    \"key_0\": 2819\n  },\n  \"company_id\": \"string\",\n  \"created_at\": \"2011-09-29T02:07:07.948Z\",\n  \"currency\": \"string\",\n  \"deduction\": {\n    \"amount\": 1258.2182567889822,\n    \"benefit_id\": \"string\",\n    \"company_id\": \"string\",\n    \"coverage_level\": \"FAMILY\",\n    \"created_at\": \"1961-04-05T08:00:22.071Z\",\n    \"end_at\": \"1953-12-21T01:58:43.862Z\",\n    \"frequency\": \"DAY\",\n    \"id\": \"string\",\n    \"is_active\": false,\n    \"notes\": \"string\",\n    \"raw\": {\n      \"key_0\": \"string\",\n      \"key_1\": 1539.6887933264024\n    },\n    \"start_at\": \"1983-12-14T12:15:48.848Z\",\n    \"type\": \"PERCENTAGE\",\n    \"updated_at\": \"1948-02-06T21:25:02.428Z\",\n    \"user_id\": \"string\"\n  },\n  \"details\": [\n    {\n      \"amount\": 6632.333621361297,\n      \"company_amount\": 402.30792242509364,\n      \"description\": \"string\",\n      \"employee_amount\": 2203.502950923006,\n      \"name\": \"string\",\n      \"type\": \"PRETAX_DEDUCTION_HRA\"\n    },\n    {\n      \"amount\": 1558.2930396901252,\n      \"company_amount\": 9326.901115878667,\n      \"description\": \"string\",\n      \"employee_amount\": 6284.031010164764,\n      \"name\": \"string\",\n      \"type\": \"PRETAX_DEDUCTION_HEALTH_INSURANCE\"\n    }\n  ],\n  \"end_at\": \"1967-11-15T09:22:07.182Z\",\n  \"gross_amount\": 9062.327064380557,\n  \"id\": \"string\",\n  \"net_amount\": 5892.367099998533,\n  \"paid_at\": \"2008-09-13T10:27:21.877Z\",\n  \"payment_type\": \"DIRECT\",\n  \"start_at\": \"2013-07-14T00:29:17.613Z\",\n  \"updated_at\": \"2007-07-26T01:50:40.182Z\",\n  \"user_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.unified.to",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b10c8078-473d-4c1e-8529-2ed54a22e6f8",
+    "name": "Unified.to account payslip API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "One API to Rule Them All\n\nContact Support:\n Email: hello@unified.to",
+      "type": "text/plain"
+    }
+  }
+}

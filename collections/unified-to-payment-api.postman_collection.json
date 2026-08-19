@@ -1,0 +1,4073 @@
+{
+  "item": [
+    {
+      "id": "f8275e61-0742-46fd-ad8c-63e9cd3958d1",
+      "name": "payment",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "72f839e2-7718-45f9-83d5-622656dfcc41",
+          "name": "List All Links",
+          "request": {
+            "name": "List All Links",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "link"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_gte",
+                  "value": "<string>",
+                  "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Query string to search. eg. email address or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "contact_id",
+                  "value": "<string>",
+                  "description": "The contact ID to filter by (reference to AccountingContact)"
+                },
+                {
+                  "disabled": false,
+                  "key": "payment_id",
+                  "value": "<string>",
+                  "description": "The payment ID to filter by (reference to PaymentPayment)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6d0cadd6-b246-4d49-a4b6-9ea85a46c498",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updated_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contact_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"amount\": 3236.5189079994484,\n    \"contact_id\": \"string\",\n    \"created_at\": \"2012-04-13T04:37:30.397Z\",\n    \"currency\": \"string\",\n    \"id\": \"string\",\n    \"is_active\": true,\n    \"is_chargeable_now\": true,\n    \"lineitems\": [\n      {\n        \"account_id\": \"string\",\n        \"created_at\": \"1959-07-15T20:18:57.940Z\",\n        \"discount_amount\": 4646.971286517991,\n        \"id\": \"string\",\n        \"item_description\": \"string\",\n        \"item_id\": \"string\",\n        \"item_name\": \"string\",\n        \"item_sku\": \"string\",\n        \"notes\": \"string\",\n        \"refund_amount\": 9839.87356404499,\n        \"refunded_at\": \"2007-04-25T10:58:55.078Z\",\n        \"tax_amount\": 4536.763668035984,\n        \"taxrate_id\": \"string\",\n        \"total_amount\": 955.1487733070452,\n        \"unit_amount\": 5809.689720734043,\n        \"unit_quantity\": 106.88421370100288,\n        \"updated_at\": \"1990-10-23T00:19:53.734Z\"\n      },\n      {\n        \"account_id\": \"string\",\n        \"created_at\": \"2007-05-01T13:37:44.883Z\",\n        \"discount_amount\": 343.353985654159,\n        \"id\": \"string\",\n        \"item_description\": \"string\",\n        \"item_id\": \"string\",\n        \"item_name\": \"string\",\n        \"item_sku\": \"string\",\n        \"notes\": \"string\",\n        \"refund_amount\": 8466.211919515148,\n        \"refunded_at\": \"2006-09-22T11:20:01.714Z\",\n        \"tax_amount\": 524.7542901006952,\n        \"taxrate_id\": \"string\",\n        \"total_amount\": 745.5909121449345,\n        \"unit_amount\": 7459.436582040058,\n        \"unit_quantity\": 9.884784789290224,\n        \"updated_at\": \"1984-04-15T09:31:13.337Z\"\n      }\n    ],\n    \"payment_id\": \"string\",\n    \"raw\": {\n      \"key_0\": 6262.656825974271\n    },\n    \"success_url\": \"string\",\n    \"updated_at\": \"1973-02-04T14:04:30.979Z\",\n    \"url\": \"string\"\n  },\n  {\n    \"amount\": 9617.005589292081,\n    \"contact_id\": \"string\",\n    \"created_at\": \"2005-05-11T19:01:43.959Z\",\n    \"currency\": \"string\",\n    \"id\": \"string\",\n    \"is_active\": false,\n    \"is_chargeable_now\": true,\n    \"lineitems\": [\n      {\n        \"account_id\": \"string\",\n        \"created_at\": \"1986-10-15T11:28:33.759Z\",\n        \"discount_amount\": 1547.3236376351795,\n        \"id\": \"string\",\n        \"item_description\": \"string\",\n        \"item_id\": \"string\",\n        \"item_name\": \"string\",\n        \"item_sku\": \"string\",\n        \"notes\": \"string\",\n        \"refund_amount\": 3678.370555985063,\n        \"refunded_at\": \"1974-07-19T18:20:42.991Z\",\n        \"tax_amount\": 5168.355862837028,\n        \"taxrate_id\": \"string\",\n        \"total_amount\": 3281.5120604043846,\n        \"unit_amount\": 1372.4521224955345,\n        \"unit_quantity\": 5956.008495003664,\n        \"updated_at\": \"2024-08-19T16:28:58.065Z\"\n      },\n      {\n        \"account_id\": \"string\",\n        \"created_at\": \"2003-05-04T17:03:14.852Z\",\n        \"discount_amount\": 514.1858346508288,\n        \"id\": \"string\",\n        \"item_description\": \"string\",\n        \"item_id\": \"string\",\n        \"item_name\": \"string\",\n        \"item_sku\": \"string\",\n        \"notes\": \"string\",\n        \"refund_amount\": 7976.735505909477,\n        \"refunded_at\": \"1990-07-16T22:44:20.425Z\",\n        \"tax_amount\": 6789.625815755329,\n        \"taxrate_id\": \"string\",\n        \"total_amount\": 2768.8435675676383,\n        \"unit_amount\": 7443.299258328901,\n        \"unit_quantity\": 2350.3288707483216,\n        \"updated_at\": \"1975-04-24T16:28:18.461Z\"\n      }\n    ],\n    \"payment_id\": \"string\",\n    \"raw\": {\n      \"key_0\": 5844,\n      \"key_1\": 1959\n    },\n    \"success_url\": \"string\",\n    \"updated_at\": \"1981-11-22T18:39:19.798Z\",\n    \"url\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9257558-3835-43b8-87f0-85981751975c",
+          "name": "Create a Link",
+          "request": {
+            "name": "Create a Link",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "link"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"is_active\": \"<boolean>\",\n  \"is_chargeable_now\": \"<boolean>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"payment_id\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 1588\n  },\n  \"success_url\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c8606f6e-6b74-452a-a9ba-98aa717d12ec",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "link"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"is_active\": \"<boolean>\",\n  \"is_chargeable_now\": \"<boolean>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"payment_id\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 1561,\n    \"key_1\": \"string\",\n    \"key_2\": 8331.550523869444,\n    \"key_3\": 6995\n  },\n  \"success_url\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": \"<number>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"is_active\": \"<boolean>\",\n  \"is_chargeable_now\": \"<boolean>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"payment_id\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 1561,\n    \"key_1\": \"string\",\n    \"key_2\": 8331.550523869444,\n    \"key_3\": 6995\n  },\n  \"success_url\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"url\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ff02686-6ce2-4f00-8678-92ce9bcb25a5",
+          "name": "Remove a Link",
+          "request": {
+            "name": "Remove a Link",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "link",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Link"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f3c42b63-690f-4162-87e0-63c269f68e8e",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "link",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Link"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f7adac62-0e92-4b9f-b990-dbb8a119e3d7",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "link",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Link"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00d31cfe-1b75-46d9-aae3-bb82b7370d39",
+          "name": "Retrieve a Link",
+          "request": {
+            "name": "Retrieve a Link",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "link",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Link"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c3a05da6-4bba-4f4d-a5ff-6ae517bd3e28",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "link",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Link"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": \"<number>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"is_active\": \"<boolean>\",\n  \"is_chargeable_now\": \"<boolean>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"payment_id\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 1561,\n    \"key_1\": \"string\",\n    \"key_2\": 8331.550523869444,\n    \"key_3\": 6995\n  },\n  \"success_url\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"url\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0bb0e623-b1a7-4c49-a0bd-ae26851ca749",
+          "name": "Update a Link",
+          "request": {
+            "name": "Update a Link",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "link",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Link"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"is_active\": \"<boolean>\",\n  \"is_chargeable_now\": \"<boolean>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"payment_id\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 1588\n  },\n  \"success_url\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "285574e7-4d73-42ab-af35-36ee5094ec81",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "link",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Link"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"is_active\": \"<boolean>\",\n  \"is_chargeable_now\": \"<boolean>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"payment_id\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 1561,\n    \"key_1\": \"string\",\n    \"key_2\": 8331.550523869444,\n    \"key_3\": 6995\n  },\n  \"success_url\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": \"<number>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"is_active\": \"<boolean>\",\n  \"is_chargeable_now\": \"<boolean>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"payment_id\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 1561,\n    \"key_1\": \"string\",\n    \"key_2\": 8331.550523869444,\n    \"key_3\": 6995\n  },\n  \"success_url\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"url\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2fbe8162-f95a-40c0-bff1-651ada5e167f",
+          "name": "Update a Link",
+          "request": {
+            "name": "Update a Link",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "link",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Link"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"is_active\": \"<boolean>\",\n  \"is_chargeable_now\": \"<boolean>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"payment_id\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 1588\n  },\n  \"success_url\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "53d29b66-169b-4b57-a702-57e4c9ab6ba3",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "link",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Link"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"<number>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"is_active\": \"<boolean>\",\n  \"is_chargeable_now\": \"<boolean>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"payment_id\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 1561,\n    \"key_1\": \"string\",\n    \"key_2\": 8331.550523869444,\n    \"key_3\": 6995\n  },\n  \"success_url\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": \"<number>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"id\": \"<string>\",\n  \"is_active\": \"<boolean>\",\n  \"is_chargeable_now\": \"<boolean>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"payment_id\": \"<string>\",\n  \"raw\": {\n    \"key_0\": 1561,\n    \"key_1\": \"string\",\n    \"key_2\": 8331.550523869444,\n    \"key_3\": 6995\n  },\n  \"success_url\": \"<string>\",\n  \"updated_at\": \"<dateTime>\",\n  \"url\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0be61a7f-3c63-4c8b-b68c-8e0bd574e2dd",
+          "name": "List All Payments",
+          "request": {
+            "name": "List All Payments",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "payment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_gte",
+                  "value": "<string>",
+                  "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Query string to search. eg. email address or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "invoice_id",
+                  "value": "<string>",
+                  "description": "The invoice ID to filter by (reference to AccountingInvoice)"
+                },
+                {
+                  "disabled": false,
+                  "key": "contact_id",
+                  "value": "<string>",
+                  "description": "The contact ID to filter by (reference to AccountingContact)"
+                },
+                {
+                  "disabled": false,
+                  "key": "link_id",
+                  "value": "<string>",
+                  "description": "The link ID to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "bill_id",
+                  "value": "<string>",
+                  "description": "The bill ID to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "The type to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "org_id",
+                  "value": "<string>",
+                  "description": "The org ID to filter by (reference to AccountingOrganization)"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_gte",
+                  "value": "<string>",
+                  "description": "The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_lt",
+                  "value": "<string>",
+                  "description": "The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b8809357-5868-4a18-84ba-a713a99114cd",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "payment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updated_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "invoice_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contact_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "link_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bill_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "org_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_lt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"account_id\": \"string\",\n    \"bill_id\": \"string\",\n    \"contact_id\": \"string\",\n    \"created_at\": \"1956-12-05T12:26:20.485Z\",\n    \"currency\": \"USD\",\n    \"id\": \"string\",\n    \"invoice_id\": \"string\",\n    \"notes\": \"string\",\n    \"payment_method\": \"string\",\n    \"raw\": {\n      \"key_0\": 5109.923235715756\n    },\n    \"reference\": \"string\",\n    \"total_amount\": 2777.728874845868,\n    \"type\": \"INVOICE\",\n    \"updated_at\": \"1987-01-23T10:22:15.200Z\"\n  },\n  {\n    \"account_id\": \"string\",\n    \"bill_id\": \"string\",\n    \"contact_id\": \"string\",\n    \"created_at\": \"1955-11-19T03:04:24.832Z\",\n    \"currency\": \"USD\",\n    \"id\": \"string\",\n    \"invoice_id\": \"string\",\n    \"notes\": \"string\",\n    \"payment_method\": \"string\",\n    \"raw\": {\n      \"key_0\": 3246.2591092468874\n    },\n    \"reference\": \"string\",\n    \"total_amount\": 1229.5067805581882,\n    \"type\": \"BILL\",\n    \"updated_at\": \"2016-04-26T21:31:17.403Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8fabb0e1-4d79-4745-be1f-f91ba7db857e",
+          "name": "Create a Payment",
+          "request": {
+            "name": "Create a Payment",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "payment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<string>\",\n  \"bill_id\": \"<string>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"USD\",\n  \"id\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"payment_method\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 7783.8351987956985\n  },\n  \"reference\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"type\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9cb9df17-0c89-4e9a-a8e8-d05476e051e9",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "payment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<string>\",\n  \"bill_id\": \"<string>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"USD\",\n  \"id\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"payment_method\": \"<string>\",\n  \"raw\": {\n    \"key_0\": false,\n    \"key_1\": 8147.895907615544,\n    \"key_2\": \"string\",\n    \"key_3\": 3469.7506882554385\n  },\n  \"reference\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"type\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"<string>\",\n  \"bill_id\": \"<string>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"USD\",\n  \"id\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"payment_method\": \"<string>\",\n  \"raw\": {\n    \"key_0\": false,\n    \"key_1\": 8147.895907615544,\n    \"key_2\": \"string\",\n    \"key_3\": 3469.7506882554385\n  },\n  \"reference\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"type\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e1f69244-37c2-4de5-8878-190215f31d7e",
+          "name": "Remove a Payment",
+          "request": {
+            "name": "Remove a Payment",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "payment",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Payment"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a21f30b0-8a5e-45ca-a505-fe83f15d90ed",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "payment",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Payment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e1d8f9dc-0ae6-4877-80aa-3cc978ef1c4e",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "payment",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Payment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c61119c1-53b7-4f00-8112-5b09779cb0a3",
+          "name": "Retrieve a Payment",
+          "request": {
+            "name": "Retrieve a Payment",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "payment",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Payment"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9b042ec0-032f-49de-adab-b9562e6f6308",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "payment",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Payment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"<string>\",\n  \"bill_id\": \"<string>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"USD\",\n  \"id\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"payment_method\": \"<string>\",\n  \"raw\": {\n    \"key_0\": false,\n    \"key_1\": 8147.895907615544,\n    \"key_2\": \"string\",\n    \"key_3\": 3469.7506882554385\n  },\n  \"reference\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"type\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "50fc2b1f-acef-49cc-96d9-f0f82ec36755",
+          "name": "Update a Payment",
+          "request": {
+            "name": "Update a Payment",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "payment",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Payment"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<string>\",\n  \"bill_id\": \"<string>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"USD\",\n  \"id\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"payment_method\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 7783.8351987956985\n  },\n  \"reference\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"type\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8c8b2f6b-e353-4bf3-af89-ba3a2d119a87",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "payment",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Payment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<string>\",\n  \"bill_id\": \"<string>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"USD\",\n  \"id\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"payment_method\": \"<string>\",\n  \"raw\": {\n    \"key_0\": false,\n    \"key_1\": 8147.895907615544,\n    \"key_2\": \"string\",\n    \"key_3\": 3469.7506882554385\n  },\n  \"reference\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"type\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"<string>\",\n  \"bill_id\": \"<string>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"USD\",\n  \"id\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"payment_method\": \"<string>\",\n  \"raw\": {\n    \"key_0\": false,\n    \"key_1\": 8147.895907615544,\n    \"key_2\": \"string\",\n    \"key_3\": 3469.7506882554385\n  },\n  \"reference\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"type\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5022c41e-789f-4ddc-bfcc-31328160dc27",
+          "name": "Update a Payment",
+          "request": {
+            "name": "Update a Payment",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "payment",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Payment"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<string>\",\n  \"bill_id\": \"<string>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"USD\",\n  \"id\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"payment_method\": \"<string>\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": 7783.8351987956985\n  },\n  \"reference\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"type\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "699cbc33-4c37-4c6a-9ecb-808ab2c842ac",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "payment",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Payment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account_id\": \"<string>\",\n  \"bill_id\": \"<string>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"USD\",\n  \"id\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"payment_method\": \"<string>\",\n  \"raw\": {\n    \"key_0\": false,\n    \"key_1\": 8147.895907615544,\n    \"key_2\": \"string\",\n    \"key_3\": 3469.7506882554385\n  },\n  \"reference\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"type\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_id\": \"<string>\",\n  \"bill_id\": \"<string>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"USD\",\n  \"id\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"payment_method\": \"<string>\",\n  \"raw\": {\n    \"key_0\": false,\n    \"key_1\": 8147.895907615544,\n    \"key_2\": \"string\",\n    \"key_3\": 3469.7506882554385\n  },\n  \"reference\": \"<string>\",\n  \"total_amount\": \"<number>\",\n  \"type\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b9e8f197-7b98-4365-8147-7b564b8e481e",
+          "name": "List All Payouts",
+          "request": {
+            "name": "List All Payouts",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "payout"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_gte",
+                  "value": "<string>",
+                  "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Query string to search. eg. email address or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c4c4722f-ea17-40bb-beee-5a52bc49d11f",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "payout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updated_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"total_amount\": 808.2992330966654,\n    \"created_at\": \"string\",\n    \"currency\": \"string\",\n    \"id\": \"string\",\n    \"notes\": \"string\",\n    \"raw\": {\n      \"key_0\": \"string\",\n      \"key_1\": false\n    },\n    \"status\": \"FAILED\",\n    \"updated_at\": \"string\"\n  },\n  {\n    \"total_amount\": 3437.716791059008,\n    \"created_at\": \"string\",\n    \"currency\": \"string\",\n    \"id\": \"string\",\n    \"notes\": \"string\",\n    \"raw\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"status\": \"PENDING\",\n    \"updated_at\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0358e94c-b86a-4adf-be1c-a6477958696b",
+          "name": "Retrieve a Payout",
+          "request": {
+            "name": "Retrieve a Payout",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "payout",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Payout"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "60bdb468-d831-49dd-8e40-79de5909a6a4",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "payout",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Payout"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_amount\": 9229.090363732907,\n  \"created_at\": \"string\",\n  \"currency\": \"string\",\n  \"id\": \"string\",\n  \"notes\": \"string\",\n  \"raw\": {\n    \"key_0\": 9348.512865378396,\n    \"key_1\": 7651.859352055351,\n    \"key_2\": 1584.3766628701483,\n    \"key_3\": 5263.386780593358\n  },\n  \"status\": \"SUCCEEDED\",\n  \"updated_at\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "abf02d5d-21b0-4c9a-b67f-d54f8e79c251",
+          "name": "List All Refunds",
+          "request": {
+            "name": "List All Refunds",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "refund"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_gte",
+                  "value": "<string>",
+                  "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Query string to search. eg. email address or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "payment_id",
+                  "value": "<string>",
+                  "description": "The payment ID to filter by (reference to PaymentPayment)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ba4d3191-a1a5-43a1-82d7-d5223be18fc0",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updated_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "payment_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"total_amount\": 807.7728149948193,\n    \"payment_id\": \"string\",\n    \"created_at\": \"1967-11-06T20:36:07.969Z\",\n    \"currency\": \"string\",\n    \"id\": \"string\",\n    \"notes\": \"string\",\n    \"raw\": {\n      \"key_0\": 6801,\n      \"key_1\": \"string\"\n    },\n    \"reference\": \"string\",\n    \"status\": \"FAILED\",\n    \"updated_at\": \"1980-03-29T16:19:59.318Z\"\n  },\n  {\n    \"total_amount\": 4162.754440302782,\n    \"payment_id\": \"string\",\n    \"created_at\": \"2003-04-06T22:13:40.895Z\",\n    \"currency\": \"string\",\n    \"id\": \"string\",\n    \"notes\": \"string\",\n    \"raw\": {\n      \"key_0\": \"string\"\n    },\n    \"reference\": \"string\",\n    \"status\": \"FAILED\",\n    \"updated_at\": \"2014-02-14T03:10:39.179Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ec4827f0-7dcd-4803-81e3-834dd28036d1",
+          "name": "Retrieve a Refund",
+          "request": {
+            "name": "Retrieve a Refund",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "refund",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Refund"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a4ad8f66-2264-4819-b510-eb245f23f7a3",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "refund",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Refund"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total_amount\": 2801.1321406388124,\n  \"payment_id\": \"string\",\n  \"created_at\": \"2003-05-30T20:06:49.434Z\",\n  \"currency\": \"string\",\n  \"id\": \"string\",\n  \"notes\": \"string\",\n  \"raw\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"reference\": \"string\",\n  \"status\": \"CANCELED\",\n  \"updated_at\": \"1970-08-04T08:16:51.287Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "23185165-0cce-4698-95c4-a8913fa4b2f8",
+          "name": "List All Subscriptions",
+          "request": {
+            "name": "List All Subscriptions",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "subscription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_gte",
+                  "value": "<string>",
+                  "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Query string to search. eg. email address or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "contact_id",
+                  "value": "<string>",
+                  "description": "The contact ID to filter by (reference to AccountingContact)"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_gte",
+                  "value": "<string>",
+                  "description": "The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_lt",
+                  "value": "<string>",
+                  "description": "The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2c7ebdb4-cce6-4fcb-bccc-f50163b04131",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "subscription"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updated_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "contact_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_lt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"canceled_at\": \"1983-10-24T21:00:35.695Z\",\n    \"contact_id\": \"string\",\n    \"created_at\": \"1989-08-22T21:12:36.688Z\",\n    \"currency\": \"string\",\n    \"current_period_end_at\": \"2006-06-13T23:57:07.541Z\",\n    \"current_period_start_at\": \"1971-04-26T12:49:12.364Z\",\n    \"day_of_month\": 3035.5804611256763,\n    \"day_of_week\": 899.0034483028564,\n    \"description\": \"string\",\n    \"end_at\": \"1960-03-25T23:17:40.909Z\",\n    \"id\": \"string\",\n    \"interval\": 8141.043790259558,\n    \"interval_unit\": \"DAY\",\n    \"invoice_id\": \"string\",\n    \"lineitems\": [\n      {\n        \"account_id\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"discount_amount\": \"<number>\",\n        \"id\": \"<string>\",\n        \"item_description\": \"<string>\",\n        \"item_id\": \"<string>\",\n        \"item_name\": \"<string>\",\n        \"item_sku\": \"<string>\",\n        \"notes\": \"<string>\",\n        \"refund_amount\": \"<number>\",\n        \"refunded_at\": \"<dateTime>\",\n        \"tax_amount\": \"<number>\",\n        \"taxrate_id\": \"<string>\",\n        \"total_amount\": \"<number>\",\n        \"unit_amount\": \"<number>\",\n        \"unit_quantity\": \"<number>\",\n        \"updated_at\": \"<dateTime>\"\n      },\n      {\n        \"account_id\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"discount_amount\": \"<number>\",\n        \"id\": \"<string>\",\n        \"item_description\": \"<string>\",\n        \"item_id\": \"<string>\",\n        \"item_name\": \"<string>\",\n        \"item_sku\": \"<string>\",\n        \"notes\": \"<string>\",\n        \"refund_amount\": \"<number>\",\n        \"refunded_at\": \"<dateTime>\",\n        \"tax_amount\": \"<number>\",\n        \"taxrate_id\": \"<string>\",\n        \"total_amount\": \"<number>\",\n        \"unit_amount\": \"<number>\",\n        \"unit_quantity\": \"<number>\",\n        \"updated_at\": \"<dateTime>\"\n      }\n    ],\n    \"month\": 6023.737976217214,\n    \"raw\": {\n      \"key_0\": true\n    },\n    \"start_at\": \"2004-05-08T20:50:25.864Z\",\n    \"status\": \"INACTIVE\",\n    \"updated_at\": \"1997-02-05T15:47:01.528Z\"\n  },\n  {\n    \"canceled_at\": \"1958-02-19T19:38:17.686Z\",\n    \"contact_id\": \"string\",\n    \"created_at\": \"2012-02-21T21:38:38.184Z\",\n    \"currency\": \"string\",\n    \"current_period_end_at\": \"1967-03-10T13:41:50.376Z\",\n    \"current_period_start_at\": \"1970-04-16T05:11:18.504Z\",\n    \"day_of_month\": 679.5499255439963,\n    \"day_of_week\": 3271.642202688312,\n    \"description\": \"string\",\n    \"end_at\": \"1960-06-27T18:19:47.603Z\",\n    \"id\": \"string\",\n    \"interval\": 7962.538844965895,\n    \"interval_unit\": \"YEAR\",\n    \"invoice_id\": \"string\",\n    \"lineitems\": [\n      {\n        \"account_id\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"discount_amount\": \"<number>\",\n        \"id\": \"<string>\",\n        \"item_description\": \"<string>\",\n        \"item_id\": \"<string>\",\n        \"item_name\": \"<string>\",\n        \"item_sku\": \"<string>\",\n        \"notes\": \"<string>\",\n        \"refund_amount\": \"<number>\",\n        \"refunded_at\": \"<dateTime>\",\n        \"tax_amount\": \"<number>\",\n        \"taxrate_id\": \"<string>\",\n        \"total_amount\": \"<number>\",\n        \"unit_amount\": \"<number>\",\n        \"unit_quantity\": \"<number>\",\n        \"updated_at\": \"<dateTime>\"\n      },\n      {\n        \"account_id\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"discount_amount\": \"<number>\",\n        \"id\": \"<string>\",\n        \"item_description\": \"<string>\",\n        \"item_id\": \"<string>\",\n        \"item_name\": \"<string>\",\n        \"item_sku\": \"<string>\",\n        \"notes\": \"<string>\",\n        \"refund_amount\": \"<number>\",\n        \"refunded_at\": \"<dateTime>\",\n        \"tax_amount\": \"<number>\",\n        \"taxrate_id\": \"<string>\",\n        \"total_amount\": \"<number>\",\n        \"unit_amount\": \"<number>\",\n        \"unit_quantity\": \"<number>\",\n        \"updated_at\": \"<dateTime>\"\n      }\n    ],\n    \"month\": 3111.2040518775075,\n    \"raw\": {\n      \"key_0\": true,\n      \"key_1\": 5121.648000649314\n    },\n    \"start_at\": \"1950-10-16T08:03:37.222Z\",\n    \"status\": \"ACTIVE\",\n    \"updated_at\": \"1975-04-07T15:25:29.886Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c30f584-9f7f-4606-8068-0f8f648e6f5f",
+          "name": "Create a Subscription",
+          "request": {
+            "name": "Create a Subscription",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "subscription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"canceled_at\": \"<dateTime>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"current_period_end_at\": \"<dateTime>\",\n  \"current_period_start_at\": \"<dateTime>\",\n  \"day_of_month\": \"<number>\",\n  \"day_of_week\": \"<number>\",\n  \"description\": \"<string>\",\n  \"end_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"interval\": \"<number>\",\n  \"interval_unit\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"month\": \"<number>\",\n  \"raw\": {\n    \"key_0\": \"string\"\n  },\n  \"start_at\": \"<dateTime>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "610679d1-73eb-4c40-8fe5-ad142139cd35",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "subscription"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"canceled_at\": \"<dateTime>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"current_period_end_at\": \"<dateTime>\",\n  \"current_period_start_at\": \"<dateTime>\",\n  \"day_of_month\": \"<number>\",\n  \"day_of_week\": \"<number>\",\n  \"description\": \"<string>\",\n  \"end_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"interval\": \"<number>\",\n  \"interval_unit\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"month\": \"<number>\",\n  \"raw\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"start_at\": \"<dateTime>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"canceled_at\": \"<dateTime>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"current_period_end_at\": \"<dateTime>\",\n  \"current_period_start_at\": \"<dateTime>\",\n  \"day_of_month\": \"<number>\",\n  \"day_of_week\": \"<number>\",\n  \"description\": \"<string>\",\n  \"end_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"interval\": \"<number>\",\n  \"interval_unit\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"month\": \"<number>\",\n  \"raw\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"start_at\": \"<dateTime>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6bde93e-f5af-451c-9c57-7a69d5fad2a7",
+          "name": "Remove a Subscription",
+          "request": {
+            "name": "Remove a Subscription",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "subscription",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Subscription"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6cdb6315-118b-42c8-80f3-d692edb1e750",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "subscription",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "58d536f8-09e4-4531-b8b6-9ad4575ae497",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "subscription",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2bd8342f-2f1b-43e5-a329-12bbce7d918f",
+          "name": "Retrieve a Subscription",
+          "request": {
+            "name": "Retrieve a Subscription",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "subscription",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Subscription"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3b8af06a-0323-4b8c-a1d2-6ab8dded5603",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "subscription",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"canceled_at\": \"<dateTime>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"current_period_end_at\": \"<dateTime>\",\n  \"current_period_start_at\": \"<dateTime>\",\n  \"day_of_month\": \"<number>\",\n  \"day_of_week\": \"<number>\",\n  \"description\": \"<string>\",\n  \"end_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"interval\": \"<number>\",\n  \"interval_unit\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"month\": \"<number>\",\n  \"raw\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"start_at\": \"<dateTime>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3435c3b2-f138-408c-97ee-58348a8d3dfa",
+          "name": "Update a Subscription",
+          "request": {
+            "name": "Update a Subscription",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "subscription",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Subscription"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"canceled_at\": \"<dateTime>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"current_period_end_at\": \"<dateTime>\",\n  \"current_period_start_at\": \"<dateTime>\",\n  \"day_of_month\": \"<number>\",\n  \"day_of_week\": \"<number>\",\n  \"description\": \"<string>\",\n  \"end_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"interval\": \"<number>\",\n  \"interval_unit\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"month\": \"<number>\",\n  \"raw\": {\n    \"key_0\": \"string\"\n  },\n  \"start_at\": \"<dateTime>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6cece37b-b38b-4274-9545-0d967f65a65d",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "subscription",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"canceled_at\": \"<dateTime>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"current_period_end_at\": \"<dateTime>\",\n  \"current_period_start_at\": \"<dateTime>\",\n  \"day_of_month\": \"<number>\",\n  \"day_of_week\": \"<number>\",\n  \"description\": \"<string>\",\n  \"end_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"interval\": \"<number>\",\n  \"interval_unit\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"month\": \"<number>\",\n  \"raw\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"start_at\": \"<dateTime>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"canceled_at\": \"<dateTime>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"current_period_end_at\": \"<dateTime>\",\n  \"current_period_start_at\": \"<dateTime>\",\n  \"day_of_month\": \"<number>\",\n  \"day_of_week\": \"<number>\",\n  \"description\": \"<string>\",\n  \"end_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"interval\": \"<number>\",\n  \"interval_unit\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"month\": \"<number>\",\n  \"raw\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"start_at\": \"<dateTime>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc19747d-f446-481d-b97f-7f7ca7e6e789",
+          "name": "Update a Subscription",
+          "request": {
+            "name": "Update a Subscription",
+            "description": {},
+            "url": {
+              "path": [
+                "payment",
+                ":connection_id",
+                "subscription",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Subscription"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"canceled_at\": \"<dateTime>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"current_period_end_at\": \"<dateTime>\",\n  \"current_period_start_at\": \"<dateTime>\",\n  \"day_of_month\": \"<number>\",\n  \"day_of_week\": \"<number>\",\n  \"description\": \"<string>\",\n  \"end_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"interval\": \"<number>\",\n  \"interval_unit\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"month\": \"<number>\",\n  \"raw\": {\n    \"key_0\": \"string\"\n  },\n  \"start_at\": \"<dateTime>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8c62e12c-00b0-48f5-8782-4a05aec24c4c",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment",
+                    ":connection_id",
+                    "subscription",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"canceled_at\": \"<dateTime>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"current_period_end_at\": \"<dateTime>\",\n  \"current_period_start_at\": \"<dateTime>\",\n  \"day_of_month\": \"<number>\",\n  \"day_of_week\": \"<number>\",\n  \"description\": \"<string>\",\n  \"end_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"interval\": \"<number>\",\n  \"interval_unit\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"month\": \"<number>\",\n  \"raw\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"start_at\": \"<dateTime>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"canceled_at\": \"<dateTime>\",\n  \"contact_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"currency\": \"<string>\",\n  \"current_period_end_at\": \"<dateTime>\",\n  \"current_period_start_at\": \"<dateTime>\",\n  \"day_of_month\": \"<number>\",\n  \"day_of_week\": \"<number>\",\n  \"description\": \"<string>\",\n  \"end_at\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"interval\": \"<number>\",\n  \"interval_unit\": \"<string>\",\n  \"invoice_id\": \"<string>\",\n  \"lineitems\": [\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"account_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"discount_amount\": \"<number>\",\n      \"id\": \"<string>\",\n      \"item_description\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"item_name\": \"<string>\",\n      \"item_sku\": \"<string>\",\n      \"notes\": \"<string>\",\n      \"refund_amount\": \"<number>\",\n      \"refunded_at\": \"<dateTime>\",\n      \"tax_amount\": \"<number>\",\n      \"taxrate_id\": \"<string>\",\n      \"total_amount\": \"<number>\",\n      \"unit_amount\": \"<number>\",\n      \"unit_quantity\": \"<number>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"month\": \"<number>\",\n  \"raw\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"start_at\": \"<dateTime>\",\n  \"status\": \"<string>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.unified.to",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "edb86d9e-09f7-49c3-9209-b48df7ed70a6",
+    "name": "Unified.to account payment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "One API to Rule Them All\n\nContact Support:\n Email: hello@unified.to",
+      "type": "text/plain"
+    }
+  }
+}

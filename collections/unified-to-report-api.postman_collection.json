@@ -1,0 +1,943 @@
+{
+  "item": [
+    {
+      "id": "26cf9a1c-5601-4ad2-a2da-742a0fc03dc4",
+      "name": "report",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "da248a4e-3b0a-4c9e-9884-e69eac999991",
+          "name": "List all reports",
+          "request": {
+            "name": "List all reports",
+            "description": {},
+            "url": {
+              "path": [
+                "accounting",
+                ":connection_id",
+                "report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_gte",
+                  "value": "<string>",
+                  "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Query string to search. eg. email address or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_gte",
+                  "value": "<string>",
+                  "description": "The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_lt",
+                  "value": "<string>",
+                  "description": "The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4ad930d5-025e-4aef-8238-8d5a57de12f1",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    ":connection_id",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updated_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_lt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"balance_sheet\": {\n      \"assets\": [\n        {\n          \"account_id\": \"string\",\n          \"amount\": 3393.6069376508094,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"account_id\": \"string\",\n          \"amount\": 439.7557553613729,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"created_at\": \"1949-02-05T13:36:19.787Z\",\n      \"currency\": \"string\",\n      \"end_at\": \"1948-11-28T23:38:20.275Z\",\n      \"equity\": [\n        {\n          \"account_id\": \"string\",\n          \"amount\": 1780.2340687290186,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"account_id\": \"string\",\n          \"amount\": 8686.945975207222,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"id\": \"string\",\n      \"liabilities\": [\n        {\n          \"account_id\": \"string\",\n          \"amount\": 3396.1560327607585,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"account_id\": \"string\",\n          \"amount\": 654.582367899983,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"name\": \"string\",\n      \"net_assets_amount\": 5280.37553834113,\n      \"raw\": {\n        \"key_0\": 2808,\n        \"key_1\": 5712,\n        \"key_2\": 2390\n      },\n      \"start_at\": \"1981-09-04T12:17:07.674Z\",\n      \"updated_at\": \"2001-11-30T16:29:15.368Z\"\n    },\n    \"created_at\": \"1967-05-28T22:45:56.641Z\",\n    \"currency\": \"string\",\n    \"end_at\": \"2016-07-22T20:41:17.318Z\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"profit_and_loss\": {\n      \"category_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"cost_of_goods_sold\": [\n        {\n          \"amount\": 2682.6788808481574,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"amount\": 6113.009015125141,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"cost_of_goods_sold_sections\": [\n        {\n          \"accounts\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"section_name\": \"string\",\n          \"section_type\": \"string\",\n          \"total_amount\": 2541.92101611864\n        },\n        {\n          \"accounts\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"section_name\": \"string\",\n          \"section_type\": \"string\",\n          \"total_amount\": 4582.713099302186\n        }\n      ],\n      \"cost_of_goods_sold_total_amount\": 8311.405324983323,\n      \"created_at\": \"1973-06-02T11:54:30.711Z\",\n      \"currency\": \"string\",\n      \"end_at\": \"2013-09-26T08:08:19.376Z\",\n      \"expenses\": [\n        {\n          \"amount\": 9069.189942994826,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"amount\": 2491.8232759902126,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"expenses_sections\": [\n        {\n          \"accounts\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"section_name\": \"string\",\n          \"section_type\": \"string\",\n          \"total_amount\": 7485.530700009737\n        },\n        {\n          \"accounts\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"section_name\": \"string\",\n          \"section_type\": \"string\",\n          \"total_amount\": 4372.219436073877\n        }\n      ],\n      \"expenses_total_amount\": 5590.201706773088,\n      \"gross_profit_amount\": 9130.002244900246,\n      \"id\": \"string\",\n      \"income\": [\n        {\n          \"amount\": 2240.874695652808,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"amount\": 4078.71707724447,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"income_sections\": [\n        {\n          \"accounts\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"section_name\": \"string\",\n          \"section_type\": \"string\",\n          \"total_amount\": 6546.864165904161\n        },\n        {\n          \"accounts\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"section_name\": \"string\",\n          \"section_type\": \"string\",\n          \"total_amount\": 3976.6424060522\n        }\n      ],\n      \"income_total_amount\": 128.4600305802064,\n      \"name\": \"string\",\n      \"net_income_amount\": 7339.792492711268,\n      \"net_profit_amount\": 4020.4223771734783,\n      \"raw\": {\n        \"key_0\": true,\n        \"key_1\": true\n      },\n      \"start_at\": \"1975-11-22T17:35:54.200Z\",\n      \"updated_at\": \"1999-03-26T23:25:55.193Z\"\n    },\n    \"raw\": {\n      \"key_0\": \"string\",\n      \"key_1\": 6451\n    },\n    \"start_at\": \"2025-08-31T13:13:23.941Z\",\n    \"trial_balance\": {\n      \"created_at\": \"1956-08-02T21:06:44.907Z\",\n      \"currency\": \"string\",\n      \"end_at\": \"2002-03-05T09:09:22.042Z\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"raw\": {\n        \"key_0\": 1340.9908087431334,\n        \"key_1\": 2804.918633712087,\n        \"key_2\": false\n      },\n      \"start_at\": \"1956-02-05T02:33:06.738Z\",\n      \"sub_items\": [\n        {\n          \"account_id\": \"string\",\n          \"account_name\": \"string\",\n          \"amount\": 3590.6026055977914\n        },\n        {\n          \"account_id\": \"string\",\n          \"account_name\": \"string\",\n          \"amount\": 7039.980287868417\n        }\n      ],\n      \"total_credit_amount\": 9240.645416761543,\n      \"total_debit_amount\": 7931.227716153006,\n      \"updated_at\": \"1969-04-29T01:48:17.080Z\"\n    },\n    \"type\": \"TRIAL_BALANCE\",\n    \"updated_at\": \"1995-09-08T05:52:13.015Z\"\n  },\n  {\n    \"balance_sheet\": {\n      \"assets\": [\n        {\n          \"account_id\": \"string\",\n          \"amount\": 8874.041936886197,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"account_id\": \"string\",\n          \"amount\": 5127.791707715745,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"created_at\": \"1971-09-06T07:20:27.406Z\",\n      \"currency\": \"string\",\n      \"end_at\": \"2019-08-11T10:58:11.441Z\",\n      \"equity\": [\n        {\n          \"account_id\": \"string\",\n          \"amount\": 7814.9830091566155,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"account_id\": \"string\",\n          \"amount\": 5086.904403066761,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"id\": \"string\",\n      \"liabilities\": [\n        {\n          \"account_id\": \"string\",\n          \"amount\": 2000.5286842217674,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"account_id\": \"string\",\n          \"amount\": 9175.064151534205,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"name\": \"string\",\n      \"net_assets_amount\": 8534.183671284054,\n      \"raw\": {\n        \"key_0\": true\n      },\n      \"start_at\": \"1974-11-09T19:32:12.408Z\",\n      \"updated_at\": \"1986-10-23T19:33:36.261Z\"\n    },\n    \"created_at\": \"1997-07-31T22:08:40.561Z\",\n    \"currency\": \"string\",\n    \"end_at\": \"2025-02-20T12:25:38.633Z\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"profit_and_loss\": {\n      \"category_ids\": [\n        \"string\",\n        \"string\"\n      ],\n      \"cost_of_goods_sold\": [\n        {\n          \"amount\": 667.4746282591016,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"amount\": 8464.420085728265,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"cost_of_goods_sold_sections\": [\n        {\n          \"accounts\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"section_name\": \"string\",\n          \"section_type\": \"string\",\n          \"total_amount\": 3976.1191640978977\n        },\n        {\n          \"accounts\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"section_name\": \"string\",\n          \"section_type\": \"string\",\n          \"total_amount\": 5197.825731164468\n        }\n      ],\n      \"cost_of_goods_sold_total_amount\": 9845.055468146054,\n      \"created_at\": \"2015-03-14T05:59:29.657Z\",\n      \"currency\": \"string\",\n      \"end_at\": \"2001-09-24T17:18:23.689Z\",\n      \"expenses\": [\n        {\n          \"amount\": 183.18042457133532,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"amount\": 7566.36610715081,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"expenses_sections\": [\n        {\n          \"accounts\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"section_name\": \"string\",\n          \"section_type\": \"string\",\n          \"total_amount\": 3845.7342819005826\n        },\n        {\n          \"accounts\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"section_name\": \"string\",\n          \"section_type\": \"string\",\n          \"total_amount\": 7342.003955714103\n        }\n      ],\n      \"expenses_total_amount\": 5279.822791484342,\n      \"gross_profit_amount\": 6329.28652097572,\n      \"id\": \"string\",\n      \"income\": [\n        {\n          \"amount\": 7400.8902414614195,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"amount\": 3532.3006902002476,\n          \"name\": \"string\",\n          \"sub_items\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"income_sections\": [\n        {\n          \"accounts\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"section_name\": \"string\",\n          \"section_type\": \"string\",\n          \"total_amount\": 1132.1207069034856\n        },\n        {\n          \"accounts\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"section_name\": \"string\",\n          \"section_type\": \"string\",\n          \"total_amount\": 8580.422919868473\n        }\n      ],\n      \"income_total_amount\": 8003.376976975602,\n      \"name\": \"string\",\n      \"net_income_amount\": 9652.976197367565,\n      \"net_profit_amount\": 6153.226842754373,\n      \"raw\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"start_at\": \"1965-03-12T18:00:56.130Z\",\n      \"updated_at\": \"2005-02-23T12:02:34.603Z\"\n    },\n    \"raw\": {\n      \"key_0\": false,\n      \"key_1\": true,\n      \"key_2\": 9510.939967723096\n    },\n    \"start_at\": \"1970-02-10T08:12:00.622Z\",\n    \"trial_balance\": {\n      \"created_at\": \"2020-02-05T06:20:39.386Z\",\n      \"currency\": \"string\",\n      \"end_at\": \"1978-08-04T03:50:31.197Z\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"raw\": {\n        \"key_0\": 2646.081351582289,\n        \"key_1\": 9664.513023363808,\n        \"key_2\": 6342.247923961538\n      },\n      \"start_at\": \"1975-07-13T20:37:43.472Z\",\n      \"sub_items\": [\n        {\n          \"account_id\": \"string\",\n          \"account_name\": \"string\",\n          \"amount\": 3053.4996376144873\n        },\n        {\n          \"account_id\": \"string\",\n          \"account_name\": \"string\",\n          \"amount\": 8209.170979452332\n        }\n      ],\n      \"total_credit_amount\": 765.1826267401207,\n      \"total_debit_amount\": 3041.7269718057173,\n      \"updated_at\": \"1953-10-29T11:07:14.219Z\"\n    },\n    \"type\": \"PROFIT_AND_LOSS\",\n    \"updated_at\": \"1964-02-27T22:56:18.733Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbfed554-91ef-4b1e-9463-84d4a889e1ad",
+          "name": "Retrieve a report",
+          "request": {
+            "name": "Retrieve a report",
+            "description": {},
+            "url": {
+              "path": [
+                "accounting",
+                ":connection_id",
+                "report",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the Report"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "83fe9c06-f56e-4f0e-8bf8-2ccf93388715",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    ":connection_id",
+                    "report",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the Report"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"balance_sheet\": {\n    \"assets\": [\n      {\n        \"account_id\": \"string\",\n        \"amount\": 2985.0617698778547,\n        \"name\": \"string\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      },\n      {\n        \"account_id\": \"string\",\n        \"amount\": 946.9303698619758,\n        \"name\": \"string\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      }\n    ],\n    \"created_at\": \"1963-05-07T08:43:48.392Z\",\n    \"currency\": \"string\",\n    \"end_at\": \"1992-07-22T05:47:30.813Z\",\n    \"equity\": [\n      {\n        \"account_id\": \"string\",\n        \"amount\": 1787.0105912804247,\n        \"name\": \"string\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      },\n      {\n        \"account_id\": \"string\",\n        \"amount\": 1546.458039679841,\n        \"name\": \"string\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      }\n    ],\n    \"id\": \"string\",\n    \"liabilities\": [\n      {\n        \"account_id\": \"string\",\n        \"amount\": 5388.013675717825,\n        \"name\": \"string\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      },\n      {\n        \"account_id\": \"string\",\n        \"amount\": 2699.0371674479297,\n        \"name\": \"string\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/AccountingBalancesheetItem detected>\"\n          }\n        ]\n      }\n    ],\n    \"name\": \"string\",\n    \"net_assets_amount\": 1677.9792686188034,\n    \"raw\": {\n      \"key_0\": 243,\n      \"key_1\": 8412.227617948052\n    },\n    \"start_at\": \"1985-05-16T16:50:18.739Z\",\n    \"updated_at\": \"1983-03-28T13:44:59.674Z\"\n  },\n  \"created_at\": \"2016-05-27T05:04:11.192Z\",\n  \"currency\": \"string\",\n  \"end_at\": \"1965-01-03T17:18:37.037Z\",\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"profit_and_loss\": {\n    \"category_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"cost_of_goods_sold\": [\n      {\n        \"amount\": 524.0132806842057,\n        \"name\": \"string\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"amount\": 9713.254129031586,\n        \"name\": \"string\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"cost_of_goods_sold_sections\": [\n      {\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"section_name\": \"string\",\n        \"section_type\": \"string\",\n        \"total_amount\": 7545.386688504589\n      },\n      {\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"section_name\": \"string\",\n        \"section_type\": \"string\",\n        \"total_amount\": 9465.808387005543\n      }\n    ],\n    \"cost_of_goods_sold_total_amount\": 3025.2137519763724,\n    \"created_at\": \"1979-12-08T05:09:29.475Z\",\n    \"currency\": \"string\",\n    \"end_at\": \"1962-06-19T12:09:13.546Z\",\n    \"expenses\": [\n      {\n        \"amount\": 5090.654291302187,\n        \"name\": \"string\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"amount\": 8538.746308126327,\n        \"name\": \"string\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"expenses_sections\": [\n      {\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"section_name\": \"string\",\n        \"section_type\": \"string\",\n        \"total_amount\": 8163.973699329588\n      },\n      {\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"section_name\": \"string\",\n        \"section_type\": \"string\",\n        \"total_amount\": 8504.611808535656\n      }\n    ],\n    \"expenses_total_amount\": 1897.5698140504726,\n    \"gross_profit_amount\": 5975.792163848105,\n    \"id\": \"string\",\n    \"income\": [\n      {\n        \"amount\": 4801.581516566329,\n        \"name\": \"string\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"amount\": 8207.256521504516,\n        \"name\": \"string\",\n        \"sub_items\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"income_sections\": [\n      {\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"section_name\": \"string\",\n        \"section_type\": \"string\",\n        \"total_amount\": 897.4965445481308\n      },\n      {\n        \"accounts\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"section_name\": \"string\",\n        \"section_type\": \"string\",\n        \"total_amount\": 5837.0252697042015\n      }\n    ],\n    \"income_total_amount\": 1925.26754175549,\n    \"name\": \"string\",\n    \"net_income_amount\": 4726.356604340218,\n    \"net_profit_amount\": 1952.4213415735048,\n    \"raw\": {\n      \"key_0\": 1989\n    },\n    \"start_at\": \"1980-03-18T12:20:10.719Z\",\n    \"updated_at\": \"1987-07-08T22:44:05.992Z\"\n  },\n  \"raw\": {\n    \"key_0\": 9725,\n    \"key_1\": 8830.690463178573\n  },\n  \"start_at\": \"1971-05-07T03:36:09.782Z\",\n  \"trial_balance\": {\n    \"created_at\": \"2013-07-08T02:48:46.569Z\",\n    \"currency\": \"string\",\n    \"end_at\": \"2018-01-29T13:25:41.092Z\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"raw\": {\n      \"key_0\": 9913.504388234769,\n      \"key_1\": 2116.6329823307806\n    },\n    \"start_at\": \"2025-05-14T20:21:53.007Z\",\n    \"sub_items\": [\n      {\n        \"account_id\": \"string\",\n        \"account_name\": \"string\",\n        \"amount\": 755.5283349155318\n      },\n      {\n        \"account_id\": \"string\",\n        \"account_name\": \"string\",\n        \"amount\": 5826.552205612861\n      }\n    ],\n    \"total_credit_amount\": 6327.055890675928,\n    \"total_debit_amount\": 1822.3387934050527,\n    \"updated_at\": \"2011-11-06T02:12:16.823Z\"\n  },\n  \"type\": \"PROFIT_AND_LOSS\",\n  \"updated_at\": \"2015-01-05T14:12:34.670Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f43a160-0d8a-49c9-9a71-fbba630ab064",
+          "name": "List All Reports",
+          "request": {
+            "name": "List All Reports",
+            "description": {},
+            "url": {
+              "path": [
+                "ads",
+                ":connection_id",
+                "report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_gte",
+                  "value": "<string>",
+                  "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Query string to search. eg. email address or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "org_id",
+                  "value": "<string>",
+                  "description": "The org ID to filter by (reference to AdsOrganization)"
+                },
+                {
+                  "disabled": false,
+                  "key": "campaign_id",
+                  "value": "<string>",
+                  "description": "The campaign ID to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "group_id",
+                  "value": "<string>",
+                  "description": "The group ID to filter by (reference to AdsGroup)"
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_id",
+                  "value": "<string>",
+                  "description": "The ad ID to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_gte",
+                  "value": "<string>",
+                  "description": "The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_lt",
+                  "value": "<string>",
+                  "description": "The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "64a3d429-5ff4-4a1e-982f-7a8b2396618f",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ads",
+                    ":connection_id",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updated_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "org_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ad_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_lt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"created_at\": \"1996-03-08T09:47:27.442Z\",\n    \"currency\": \"string\",\n    \"end_at\": \"1981-12-06T15:59:12.009Z\",\n    \"id\": \"string\",\n    \"metrics\": [\n      {\n        \"ad\": {\n          \"ad_copy\": \"string\",\n          \"ad_type\": \"DISPLAY\",\n          \"campaign_id\": \"string\",\n          \"created_at\": \"1969-10-22T02:19:23.888Z\",\n          \"creative_asset_url\": \"string\",\n          \"creative_ids\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"cta\": \"string\",\n          \"description\": \"string\",\n          \"display_url\": \"string\",\n          \"final_url\": \"string\",\n          \"group_id\": \"string\",\n          \"headline\": \"string\",\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"organization_id\": \"string\",\n          \"path1\": \"string\",\n          \"path2\": \"string\",\n          \"promoted\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"raw\": {\n            \"key_0\": 7449.051265543387,\n            \"key_1\": 2858,\n            \"key_2\": 9121.70313177175,\n            \"key_3\": 6568.038637358222\n          },\n          \"status\": \"SCHEDULED_FOR_DELETION\",\n          \"updated_at\": \"1971-01-03T08:20:02.960Z\"\n        },\n        \"campaign\": {\n          \"advertising_channel_type\": \"APP\",\n          \"budget_amount\": 3358.515335369877,\n          \"budget_period\": \"MONTHLY\",\n          \"campaign_budget_identifier\": \"string\",\n          \"category\": \"string\",\n          \"created_at\": \"2001-04-04T20:44:54.997Z\",\n          \"currency\": \"string\",\n          \"end_at\": \"1958-09-26T01:33:03.445Z\",\n          \"frequency_cap\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"goal\": \"UNSPECIFIED\",\n          \"has_eu_political_ads\": true,\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"organization_id\": \"string\",\n          \"planned_spend_amount\": 9913.91794269913,\n          \"raw\": {\n            \"key_0\": \"string\",\n            \"key_1\": 8389.369755917245\n          },\n          \"start_at\": \"2026-02-17T22:01:22.606Z\",\n          \"status\": \"PAUSED\",\n          \"targeting\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"total_spend_amount\": 350.12107134331114,\n          \"updated_at\": \"2021-08-20T03:58:38.687Z\"\n        },\n        \"group\": {\n          \"bid_amount\": 3358.8709382822503,\n          \"bid_strategy\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"billing_event\": \"ENGAGEMENT\",\n          \"budget_allocation_type\": \"UNLIMITED\",\n          \"budget_amount\": 8875.377073701828,\n          \"budget_max_amount\": 4612.759223504659,\n          \"budget_period\": \"MONTHLY\",\n          \"budget_unit\": \"IMPRESSIONS\",\n          \"campaign_id\": \"string\",\n          \"created_at\": \"1963-07-17T18:12:06.080Z\",\n          \"creative_ids\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": \"string\",\n          \"end_at\": \"1976-08-27T19:17:37.916Z\",\n          \"frequency_cap\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"has_eu_political_ads\": true,\n          \"id\": \"string\",\n          \"insertionorder_id\": \"string\",\n          \"name\": \"string\",\n          \"optimization_goal\": \"APP_INSTALLS\",\n          \"organization_id\": \"string\",\n          \"pacing\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"parent_id\": \"string\",\n          \"promoted\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"raw\": {\n            \"key_0\": 7420.525033906118,\n            \"key_1\": 6718.206649954209,\n            \"key_2\": 4578,\n            \"key_3\": false\n          },\n          \"start_at\": \"2003-01-27T03:43:07.396Z\",\n          \"status\": \"DRAFT\",\n          \"targeting\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": \"SEARCH\",\n          \"updated_at\": \"2020-11-12T00:56:47.712Z\"\n        },\n        \"type\": \"ROAS\",\n        \"value\": 9256.133993707646\n      },\n      {\n        \"ad\": {\n          \"ad_copy\": \"string\",\n          \"ad_type\": \"SOCIAL\",\n          \"campaign_id\": \"string\",\n          \"created_at\": \"2022-04-01T12:04:43.848Z\",\n          \"creative_asset_url\": \"string\",\n          \"creative_ids\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"cta\": \"string\",\n          \"description\": \"string\",\n          \"display_url\": \"string\",\n          \"final_url\": \"string\",\n          \"group_id\": \"string\",\n          \"headline\": \"string\",\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"organization_id\": \"string\",\n          \"path1\": \"string\",\n          \"path2\": \"string\",\n          \"promoted\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"raw\": {\n            \"key_0\": \"string\",\n            \"key_1\": 6329,\n            \"key_2\": \"string\"\n          },\n          \"status\": \"SCHEDULED_FOR_DELETION\",\n          \"updated_at\": \"1983-07-23T15:49:28.551Z\"\n        },\n        \"campaign\": {\n          \"advertising_channel_type\": \"VIDEO\",\n          \"budget_amount\": 5912.126771652483,\n          \"budget_period\": \"LIFETIME\",\n          \"campaign_budget_identifier\": \"string\",\n          \"category\": \"string\",\n          \"created_at\": \"2022-01-31T14:32:54.041Z\",\n          \"currency\": \"string\",\n          \"end_at\": \"1970-08-01T21:18:59.864Z\",\n          \"frequency_cap\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"goal\": \"BRAND_AWARENESS\",\n          \"has_eu_political_ads\": true,\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"organization_id\": \"string\",\n          \"planned_spend_amount\": 5156.936207572702,\n          \"raw\": {\n            \"key_0\": 7440,\n            \"key_1\": true,\n            \"key_2\": false,\n            \"key_3\": false\n          },\n          \"start_at\": \"1976-04-12T16:27:56.579Z\",\n          \"status\": \"DRAFT\",\n          \"targeting\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"total_spend_amount\": 3954.7229531121143,\n          \"updated_at\": \"1966-01-29T23:08:19.331Z\"\n        },\n        \"group\": {\n          \"bid_amount\": 3728.633485931454,\n          \"bid_strategy\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"billing_event\": \"PAGE_LIKES\",\n          \"budget_allocation_type\": \"UNLIMITED\",\n          \"budget_amount\": 1006.7127468207204,\n          \"budget_max_amount\": 4657.448378089498,\n          \"budget_period\": \"TOTAL\",\n          \"budget_unit\": \"UNSPECIFIED\",\n          \"campaign_id\": \"string\",\n          \"created_at\": \"1950-11-08T12:03:53.432Z\",\n          \"creative_ids\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": \"string\",\n          \"end_at\": \"1974-09-14T02:38:16.936Z\",\n          \"frequency_cap\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"has_eu_political_ads\": true,\n          \"id\": \"string\",\n          \"insertionorder_id\": \"string\",\n          \"name\": \"string\",\n          \"optimization_goal\": \"LEAD_GENERATION\",\n          \"organization_id\": \"string\",\n          \"pacing\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"parent_id\": \"string\",\n          \"promoted\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"raw\": {\n            \"key_0\": 4096\n          },\n          \"start_at\": \"1958-10-21T00:28:07.257Z\",\n          \"status\": \"SCHEDULED_FOR_DELETION\",\n          \"targeting\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": \"DISPLAY\",\n          \"updated_at\": \"2002-01-29T04:05:02.694Z\"\n        },\n        \"type\": \"ROAS\",\n        \"value\": 9068.117056564184\n      }\n    ],\n    \"organization_id\": \"string\",\n    \"raw\": {\n      \"key_0\": \"string\"\n    },\n    \"start_at\": \"1994-10-27T22:22:58.390Z\",\n    \"updated_at\": \"2010-04-17T13:09:05.465Z\"\n  },\n  {\n    \"created_at\": \"1968-03-10T18:37:45.183Z\",\n    \"currency\": \"string\",\n    \"end_at\": \"1960-07-21T15:45:27.247Z\",\n    \"id\": \"string\",\n    \"metrics\": [\n      {\n        \"ad\": {\n          \"ad_copy\": \"string\",\n          \"ad_type\": \"CALL\",\n          \"campaign_id\": \"string\",\n          \"created_at\": \"1957-02-09T12:32:12.472Z\",\n          \"creative_asset_url\": \"string\",\n          \"creative_ids\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"cta\": \"string\",\n          \"description\": \"string\",\n          \"display_url\": \"string\",\n          \"final_url\": \"string\",\n          \"group_id\": \"string\",\n          \"headline\": \"string\",\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"organization_id\": \"string\",\n          \"path1\": \"string\",\n          \"path2\": \"string\",\n          \"promoted\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"raw\": {\n            \"key_0\": \"string\"\n          },\n          \"status\": \"PAUSED\",\n          \"updated_at\": \"1996-08-09T00:38:40.281Z\"\n        },\n        \"campaign\": {\n          \"advertising_channel_type\": \"CAROUSEL\",\n          \"budget_amount\": 9577.266304120794,\n          \"budget_period\": \"TOTAL\",\n          \"campaign_budget_identifier\": \"string\",\n          \"category\": \"string\",\n          \"created_at\": \"1984-06-03T17:08:25.283Z\",\n          \"currency\": \"string\",\n          \"end_at\": \"2023-03-14T13:05:11.755Z\",\n          \"frequency_cap\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"goal\": \"WEBSITE_TRAFFIC\",\n          \"has_eu_political_ads\": true,\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"organization_id\": \"string\",\n          \"planned_spend_amount\": 9328.787063896969,\n          \"raw\": {\n            \"key_0\": \"string\"\n          },\n          \"start_at\": \"2024-11-10T12:37:01.182Z\",\n          \"status\": \"UNSPECIFIED\",\n          \"targeting\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"total_spend_amount\": 6341.567026161967,\n          \"updated_at\": \"1963-07-07T05:52:40.898Z\"\n        },\n        \"group\": {\n          \"bid_amount\": 8488.125225164342,\n          \"bid_strategy\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"billing_event\": \"VIDEO_VIEWS\",\n          \"budget_allocation_type\": \"UNLIMITED\",\n          \"budget_amount\": 2906.6163376437958,\n          \"budget_max_amount\": 2193.679639696663,\n          \"budget_period\": \"DAILY\",\n          \"budget_unit\": \"IMPRESSIONS\",\n          \"campaign_id\": \"string\",\n          \"created_at\": \"1947-02-21T05:31:54.609Z\",\n          \"creative_ids\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": \"string\",\n          \"end_at\": \"1979-12-24T23:59:19.738Z\",\n          \"frequency_cap\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"has_eu_political_ads\": false,\n          \"id\": \"string\",\n          \"insertionorder_id\": \"string\",\n          \"name\": \"string\",\n          \"optimization_goal\": \"LANDING_PAGE_VIEWS\",\n          \"organization_id\": \"string\",\n          \"pacing\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"parent_id\": \"string\",\n          \"promoted\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"raw\": {\n            \"key_0\": 5332\n          },\n          \"start_at\": \"2011-12-13T16:29:00.759Z\",\n          \"status\": \"ARCHIVED\",\n          \"targeting\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": \"CALL\",\n          \"updated_at\": \"1965-07-14T14:39:39.830Z\"\n        },\n        \"type\": \"CTR\",\n        \"value\": 8083.6896921185735\n      },\n      {\n        \"ad\": {\n          \"ad_copy\": \"string\",\n          \"ad_type\": \"CAROUSEL\",\n          \"campaign_id\": \"string\",\n          \"created_at\": \"2000-05-09T18:11:46.978Z\",\n          \"creative_asset_url\": \"string\",\n          \"creative_ids\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"cta\": \"string\",\n          \"description\": \"string\",\n          \"display_url\": \"string\",\n          \"final_url\": \"string\",\n          \"group_id\": \"string\",\n          \"headline\": \"string\",\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"organization_id\": \"string\",\n          \"path1\": \"string\",\n          \"path2\": \"string\",\n          \"promoted\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"raw\": {\n            \"key_0\": 7900\n          },\n          \"status\": \"UNSPECIFIED\",\n          \"updated_at\": \"2020-01-03T18:14:23.639Z\"\n        },\n        \"campaign\": {\n          \"advertising_channel_type\": \"TEXT\",\n          \"budget_amount\": 7572.44819314793,\n          \"budget_period\": \"DAILY\",\n          \"campaign_budget_identifier\": \"string\",\n          \"category\": \"string\",\n          \"created_at\": \"2009-08-04T14:33:33.499Z\",\n          \"currency\": \"string\",\n          \"end_at\": \"1957-06-28T08:02:25.453Z\",\n          \"frequency_cap\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"goal\": \"UNSPECIFIED\",\n          \"has_eu_political_ads\": false,\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"organization_id\": \"string\",\n          \"planned_spend_amount\": 5775.6127851345955,\n          \"raw\": {\n            \"key_0\": false,\n            \"key_1\": 4277.524827095584\n          },\n          \"start_at\": \"1956-06-20T01:54:58.245Z\",\n          \"status\": \"PAUSED\",\n          \"targeting\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"total_spend_amount\": 9309.440475083653,\n          \"updated_at\": \"1982-04-28T00:37:33.379Z\"\n        },\n        \"group\": {\n          \"bid_amount\": 9302.137561223997,\n          \"bid_strategy\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"billing_event\": \"POST_ENGAGEMENT\",\n          \"budget_allocation_type\": \"UNLIMITED\",\n          \"budget_amount\": 7170.3791117668125,\n          \"budget_max_amount\": 9536.52249160714,\n          \"budget_period\": \"LIFETIME\",\n          \"budget_unit\": \"CURRENCY\",\n          \"campaign_id\": \"string\",\n          \"created_at\": \"2025-07-16T22:27:10.903Z\",\n          \"creative_ids\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": \"string\",\n          \"end_at\": \"1965-11-30T03:54:41.503Z\",\n          \"frequency_cap\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"has_eu_political_ads\": false,\n          \"id\": \"string\",\n          \"insertionorder_id\": \"string\",\n          \"name\": \"string\",\n          \"optimization_goal\": \"PAGE_LIKES\",\n          \"organization_id\": \"string\",\n          \"pacing\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"parent_id\": \"string\",\n          \"promoted\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"raw\": {\n            \"key_0\": 3476.268812920561,\n            \"key_1\": 9591\n          },\n          \"start_at\": \"1998-08-25T21:50:24.444Z\",\n          \"status\": \"ARCHIVED\",\n          \"targeting\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": \"CAROUSEL\",\n          \"updated_at\": \"2019-01-27T22:30:50.861Z\"\n        },\n        \"type\": \"ECPM\",\n        \"value\": 3312.5867631438123\n      }\n    ],\n    \"organization_id\": \"string\",\n    \"raw\": {\n      \"key_0\": false\n    },\n    \"start_at\": \"2004-06-04T07:27:37.926Z\",\n    \"updated_at\": \"2022-07-14T11:48:53.284Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ae77bde-36be-4418-9ebd-9409fd6d3266",
+          "name": "List All Reports",
+          "request": {
+            "name": "List All Reports",
+            "description": {},
+            "url": {
+              "path": [
+                "martech",
+                ":connection_id",
+                "report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_gte",
+                  "value": "<string>",
+                  "description": "Return only results whose updated date is equal or greater to this value (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Query string to search. eg. email address or name"
+                },
+                {
+                  "disabled": false,
+                  "key": "campaign_id",
+                  "value": "<string>",
+                  "description": "The campaign ID to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "list_id",
+                  "value": "<string>",
+                  "description": "The list ID to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_gte",
+                  "value": "<string>",
+                  "description": "The start date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_lt",
+                  "value": "<string>",
+                  "description": "The end date to filter by (ISO-8601 / YYYY-MM-DDTHH:MM:SSZ format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "raw",
+                  "value": "<string>",
+                  "description": "Raw parameters to include in the 3rd-party request. Encoded as a URL component. eg. raw parameters: foo=bar&zoo=bar -> raw=foo%3Dbar%26zoo%3Dbar"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connection_id",
+                  "description": "(Required) ID of the connection"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "de7ed08f-b187-4b99-897b-85c69965d13c",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "martech",
+                    ":connection_id",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "updated_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "list_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_gte",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_lt",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "raw",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connection_id",
+                      "description": "(Required) ID of the connection"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"abuse_reports\": 4524.316596135156,\n    \"campaign_id\": \"string\",\n    \"click_rate\": 9673.88046262744,\n    \"clicks_total\": 428.53095071510137,\n    \"emails_sent\": 1291.731282935974,\n    \"end_at\": \"1997-01-19T09:05:05.651Z\",\n    \"forwards_count\": 8032.2804489774735,\n    \"forwards_opens\": 9127.672774488321,\n    \"hard_bounces\": 4046.4378320425485,\n    \"id\": \"string\",\n    \"last_click_at\": \"2018-05-04T20:29:02.951Z\",\n    \"last_open_at\": \"1951-12-26T07:08:24.098Z\",\n    \"links\": [\n      {\n        \"click_percentage\": 633.960619208529,\n        \"last_click_at\": \"1950-03-29T13:24:05.800Z\",\n        \"total_clicks\": 3366.373050946957,\n        \"unique_click_percentage\": 8259.60207694156,\n        \"unique_clicks\": 3332.108271995684,\n        \"url\": \"string\"\n      },\n      {\n        \"click_percentage\": 7171.052722238881,\n        \"last_click_at\": \"1978-07-06T19:08:53.410Z\",\n        \"total_clicks\": 5992.128547525106,\n        \"unique_click_percentage\": 2827.452043017178,\n        \"unique_clicks\": 7418.091625764823,\n        \"url\": \"string\"\n      }\n    ],\n    \"list_id\": \"string\",\n    \"open_rate\": 967.8222381267276,\n    \"opens_total\": 264.22519705772254,\n    \"raw\": {\n      \"key_0\": 9060\n    },\n    \"sent_at\": \"1978-08-14T03:35:04.392Z\",\n    \"soft_bounces\": 2981.000639986332,\n    \"start_at\": \"1967-04-03T12:00:13.219Z\",\n    \"syntax_errors\": 8272.354382089288,\n    \"unique_clicks\": 350.81240849317186,\n    \"unique_opens\": 9405.994949630485,\n    \"unique_subscriber_clicks\": 4004.281996980823,\n    \"unsubscribed\": 3303.7490847197546\n  },\n  {\n    \"abuse_reports\": 5317.349129621013,\n    \"campaign_id\": \"string\",\n    \"click_rate\": 2154.9670588726367,\n    \"clicks_total\": 900.780362815492,\n    \"emails_sent\": 765.1261797447439,\n    \"end_at\": \"1995-04-11T04:31:20.109Z\",\n    \"forwards_count\": 5253.64623316621,\n    \"forwards_opens\": 8304.389955470408,\n    \"hard_bounces\": 2700.890385979052,\n    \"id\": \"string\",\n    \"last_click_at\": \"2023-04-23T03:10:06.781Z\",\n    \"last_open_at\": \"2001-05-13T09:21:36.707Z\",\n    \"links\": [\n      {\n        \"click_percentage\": 3028.540229889981,\n        \"last_click_at\": \"1963-10-09T10:06:06.268Z\",\n        \"total_clicks\": 6030.873854124511,\n        \"unique_click_percentage\": 700.6792088345582,\n        \"unique_clicks\": 6992.550455779836,\n        \"url\": \"string\"\n      },\n      {\n        \"click_percentage\": 7575.739788209479,\n        \"last_click_at\": \"1980-01-10T14:58:31.225Z\",\n        \"total_clicks\": 4848.864125427741,\n        \"unique_click_percentage\": 9592.295662720784,\n        \"unique_clicks\": 2894.890681283806,\n        \"url\": \"string\"\n      }\n    ],\n    \"list_id\": \"string\",\n    \"open_rate\": 2685.683195213786,\n    \"opens_total\": 4697.6492074412,\n    \"raw\": {\n      \"key_0\": 5277.285422446813\n    },\n    \"sent_at\": \"1949-04-19T13:24:46.677Z\",\n    \"soft_bounces\": 5903.938349188099,\n    \"start_at\": \"1949-09-17T07:28:14.238Z\",\n    \"syntax_errors\": 3202.085407257307,\n    \"unique_clicks\": 5550.312543419418,\n    \"unique_opens\": 150.38946629926886,\n    \"unique_subscriber_clicks\": 3979.267380064204,\n    \"unsubscribed\": 8839.38604171982\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.unified.to",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3e6ee398-92dc-41b5-afca-0224a3e414fe",
+    "name": "Unified.to account report API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "One API to Rule Them All\n\nContact Support:\n Email: hello@unified.to",
+      "type": "text/plain"
+    }
+  }
+}

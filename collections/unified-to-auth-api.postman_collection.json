@@ -1,0 +1,429 @@
+{
+  "item": [
+    {
+      "id": "0229d253-7332-408d-b3a0-e4a465b727aa",
+      "name": "auth",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e039237f-7ba7-4738-b0cf-0cc6f0975698",
+          "name": "Authorize New Connection",
+          "request": {
+            "name": "Authorize New Connection",
+            "description": {
+              "content": "Returns an authorization URL for the specified integration.  Once a successful authorization occurs, a new connection is created.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "unified",
+                "integration",
+                "auth",
+                ":workspace_id",
+                ":integration_type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "success_redirect",
+                  "value": "<string>",
+                  "description": "The URL where you want the user to be redirect to after a successful authorization.  The connection ID will be appended with (id=<connectionId>) to this URL, as will the state that was provided."
+                },
+                {
+                  "disabled": false,
+                  "key": "failure_redirect",
+                  "value": "<string>",
+                  "description": "The URL where you want the user to be redirect to after an unsuccessful authentication. An \"error\" variable will be appended."
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "Extra state to send back to your success URL"
+                },
+                {
+                  "disabled": false,
+                  "key": "external_xref",
+                  "value": "<string>",
+                  "description": "Your user identifier to associate with the new Integration"
+                },
+                {
+                  "disabled": false,
+                  "key": "scopes",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "scopes",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "redirect",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "env",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "Language: en, fr, es, it, pt, zh, hi"
+                },
+                {
+                  "disabled": false,
+                  "key": "subdomain",
+                  "value": "<string>",
+                  "description": "Optional tenant domain or subdomain for integrations that require it to build the authorize, token, or API URL. Depending on the integration, this may be a bare subdomain or a full domain/URL."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspace_id",
+                  "description": "(Required) The ID of the workspace"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "integration_type",
+                  "description": "(Required) Type of the supported integration"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "72e0b847-cff1-4776-a434-1646e7adb79a",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "unified",
+                    "integration",
+                    "auth",
+                    ":workspace_id",
+                    ":integration_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "success_redirect",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "failure_redirect",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_xref",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scopes",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "redirect",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "env",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subdomain",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspace_id",
+                      "description": "(Required) The ID of the workspace"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "integration_type",
+                      "description": "(Required) Type of the supported integration"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71846c20-140e-4c14-ac46-656715693eb9",
+          "name": "Sign in a User",
+          "request": {
+            "name": "Sign in a User",
+            "description": {
+              "content": "Returns an authentication URL for the specified integration.  Once a successful authentication occurs, the name and email are returned inside a jwt parameter, which is a JSON web token that is base-64 encoded.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "unified",
+                "integration",
+                "login",
+                ":workspace_id",
+                ":integration_type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "success_redirect",
+                  "value": "<string>",
+                  "description": "The URL where you want the user to be redirect to after a successful authentication/sign-in.  A \"jwt\" parameter will be appended to the URL which will contain a name and email of the user who just signed-in."
+                },
+                {
+                  "disabled": false,
+                  "key": "failure_redirect",
+                  "value": "<string>",
+                  "description": "The URL where you want the user to be redirect to after an unsuccessful authentication. An \"error\" variable will be appended."
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "Extra state to send back to your success URL"
+                },
+                {
+                  "disabled": false,
+                  "key": "redirect",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "env",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspace_id",
+                  "description": "(Required) The ID of the workspace"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "integration_type",
+                  "description": "(Required) Type of the supported integration"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0b22ab19-670f-4cfc-8579-42673a253895",
+              "name": "Successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "unified",
+                    "integration",
+                    "login",
+                    ":workspace_id",
+                    ":integration_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "success_redirect",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "failure_redirect",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "redirect",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "env",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspace_id",
+                      "description": "(Required) The ID of the workspace"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "integration_type",
+                      "description": "(Required) Type of the supported integration"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.unified.to",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "30812e1d-99c2-4ea1-8ef5-66a2b8a1d745",
+    "name": "Unified.to account auth API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "One API to Rule Them All\n\nContact Support:\n Email: hello@unified.to",
+      "type": "text/plain"
+    }
+  }
+}
