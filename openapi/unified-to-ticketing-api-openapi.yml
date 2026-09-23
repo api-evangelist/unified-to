@@ -1,11 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: hello@unified.to
     url: https://unified.to/contact
   description: One API to Rule Them All
   termsOfService: https://unified.to/tos
-  title: Unified.to account ticketing API
+  title: Unified.to Ticketing API
   version: '1.0'
 servers:
 - description: North American data region
@@ -17,7 +17,7 @@ servers:
 security:
 - jwt: []
 tags:
-- name: ticketing
+- name: Ticketing
 paths:
   /ticketing/{connection_id}/category:
     get:
@@ -101,7 +101,7 @@ paths:
       - jwt: []
       summary: List All Categories
       tags:
-      - ticketing
+      - Ticketing
     post:
       operationId: createTicketingCategory
       parameters:
@@ -152,7 +152,7 @@ paths:
       - jwt: []
       summary: Create a Category
       tags:
-      - ticketing
+      - Ticketing
   /ticketing/{connection_id}/category/{id}:
     delete:
       operationId: removeTicketingCategory
@@ -184,7 +184,7 @@ paths:
       - jwt: []
       summary: Remove a Category
       tags:
-      - ticketing
+      - Ticketing
     get:
       operationId: getTicketingCategory
       parameters:
@@ -235,7 +235,7 @@ paths:
       - jwt: []
       summary: Retrieve a Category
       tags:
-      - ticketing
+      - Ticketing
     patch:
       operationId: patchTicketingCategory
       parameters:
@@ -292,7 +292,7 @@ paths:
       - jwt: []
       summary: Update a Category
       tags:
-      - ticketing
+      - Ticketing
     put:
       operationId: updateTicketingCategory
       parameters:
@@ -349,7 +349,7 @@ paths:
       - jwt: []
       summary: Update a Category
       tags:
-      - ticketing
+      - Ticketing
   /ticketing/{connection_id}/customer:
     get:
       operationId: listTicketingCustomers
@@ -426,7 +426,7 @@ paths:
       - jwt: []
       summary: List All Customers
       tags:
-      - ticketing
+      - Ticketing
     post:
       operationId: createTicketingCustomer
       parameters:
@@ -477,7 +477,7 @@ paths:
       - jwt: []
       summary: Create a Customer
       tags:
-      - ticketing
+      - Ticketing
   /ticketing/{connection_id}/customer/{id}:
     delete:
       operationId: removeTicketingCustomer
@@ -509,7 +509,7 @@ paths:
       - jwt: []
       summary: Remove a Customer
       tags:
-      - ticketing
+      - Ticketing
     get:
       operationId: getTicketingCustomer
       parameters:
@@ -560,7 +560,7 @@ paths:
       - jwt: []
       summary: Retrieve a Customer
       tags:
-      - ticketing
+      - Ticketing
     patch:
       operationId: patchTicketingCustomer
       parameters:
@@ -617,7 +617,7 @@ paths:
       - jwt: []
       summary: Update a Customer
       tags:
-      - ticketing
+      - Ticketing
     put:
       operationId: updateTicketingCustomer
       parameters:
@@ -674,7 +674,7 @@ paths:
       - jwt: []
       summary: Update a Customer
       tags:
-      - ticketing
+      - Ticketing
   /ticketing/{connection_id}/note:
     get:
       operationId: listTicketingNotes
@@ -763,7 +763,7 @@ paths:
       - jwt: []
       summary: List All Notes
       tags:
-      - ticketing
+      - Ticketing
     post:
       operationId: createTicketingNote
       parameters:
@@ -814,7 +814,7 @@ paths:
       - jwt: []
       summary: Create a Note
       tags:
-      - ticketing
+      - Ticketing
   /ticketing/{connection_id}/note/{id}:
     delete:
       operationId: removeTicketingNote
@@ -846,7 +846,7 @@ paths:
       - jwt: []
       summary: Remove a Note
       tags:
-      - ticketing
+      - Ticketing
     get:
       operationId: getTicketingNote
       parameters:
@@ -897,7 +897,7 @@ paths:
       - jwt: []
       summary: Retrieve a Note
       tags:
-      - ticketing
+      - Ticketing
     patch:
       operationId: patchTicketingNote
       parameters:
@@ -954,7 +954,7 @@ paths:
       - jwt: []
       summary: Update a Note
       tags:
-      - ticketing
+      - Ticketing
     put:
       operationId: updateTicketingNote
       parameters:
@@ -1011,7 +1011,7 @@ paths:
       - jwt: []
       summary: Update a Note
       tags:
-      - ticketing
+      - Ticketing
   /ticketing/{connection_id}/ticket:
     get:
       operationId: listTicketingTickets
@@ -1109,7 +1109,7 @@ paths:
       - jwt: []
       summary: List All Tickets
       tags:
-      - ticketing
+      - Ticketing
     post:
       operationId: createTicketingTicket
       parameters:
@@ -1169,7 +1169,7 @@ paths:
       - jwt: []
       summary: Create a Ticket
       tags:
-      - ticketing
+      - Ticketing
   /ticketing/{connection_id}/ticket/{id}:
     delete:
       operationId: removeTicketingTicket
@@ -1201,7 +1201,7 @@ paths:
       - jwt: []
       summary: Remove a Ticket
       tags:
-      - ticketing
+      - Ticketing
     get:
       operationId: getTicketingTicket
       parameters:
@@ -1261,7 +1261,7 @@ paths:
       - jwt: []
       summary: Retrieve a Ticket
       tags:
-      - ticketing
+      - Ticketing
     patch:
       operationId: patchTicketingTicket
       parameters:
@@ -1327,7 +1327,7 @@ paths:
       - jwt: []
       summary: Update a Ticket
       tags:
-      - ticketing
+      - Ticketing
     put:
       operationId: updateTicketingTicket
       parameters:
@@ -1393,12 +1393,50 @@ paths:
       - jwt: []
       summary: Update a Ticket
       tags:
-      - ticketing
+      - Ticketing
 components:
   schemas:
-    TicketingNotes:
+    TicketingCategory:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        name:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    TicketingTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    property_TicketingTicket_tags:
       items:
-        $ref: '#/components/schemas/TicketingNote'
+        type: string
       type: array
     TicketingTicket:
       properties:
@@ -1445,76 +1483,18 @@ components:
         user_id:
           type: string
       type: object
-    TicketingCategories:
+    TicketingTickets:
       items:
-        $ref: '#/components/schemas/TicketingCategory'
+        $ref: '#/components/schemas/TicketingTicket'
       type: array
-    property_TicketingCustomer_telephones:
+    TicketingNotes:
       items:
-        $ref: '#/components/schemas/TicketingTelephone'
+        $ref: '#/components/schemas/TicketingNote'
       type: array
-    TicketingCategory:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        is_active:
-          type: boolean
-        name:
-          type: string
-        parent_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    TicketingCustomer:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        emails:
-          $ref: '#/components/schemas/property_TicketingCustomer_emails'
-        id:
-          type: string
-        name:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        tags:
-          $ref: '#/components/schemas/property_TicketingCustomer_tags'
-        telephones:
-          $ref: '#/components/schemas/property_TicketingCustomer_telephones'
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    property_TicketingTicket_tags:
+    property_TicketingCustomer_tags:
       items:
         type: string
       type: array
-    TicketingEmail:
-      properties:
-        email:
-          type: string
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - email
-      type: object
     TicketingNote:
       properties:
         created_at:
@@ -1541,34 +1521,54 @@ components:
       items:
         $ref: '#/components/schemas/TicketingCustomer'
       type: array
-    property_TicketingCustomer_tags:
-      items:
-        type: string
-      type: array
-    TicketingTelephone:
+    TicketingCustomer:
       properties:
-        telephone:
+        created_at:
+          format: date-time
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_TicketingCustomer_emails'
+        id:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        tags:
+          $ref: '#/components/schemas/property_TicketingCustomer_tags'
+        telephones:
+          $ref: '#/components/schemas/property_TicketingCustomer_telephones'
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_TicketingCustomer_emails:
+      items:
+        $ref: '#/components/schemas/TicketingEmail'
+      type: array
+    property_TicketingCustomer_telephones:
+      items:
+        $ref: '#/components/schemas/TicketingTelephone'
+      type: array
+    TicketingCategories:
+      items:
+        $ref: '#/components/schemas/TicketingCategory'
+      type: array
+    TicketingEmail:
+      properties:
+        email:
           type: string
         type:
           enum:
           - WORK
           - HOME
           - OTHER
-          - FAX
-          - MOBILE
           type: string
           x-speakeasy-unknown-values: allow
       required:
-      - telephone
+      - email
       type: object
-    property_TicketingCustomer_emails:
-      items:
-        $ref: '#/components/schemas/TicketingEmail'
-      type: array
-    TicketingTickets:
-      items:
-        $ref: '#/components/schemas/TicketingTicket'
-      type: array
   securitySchemes:
     jwt:
       in: header

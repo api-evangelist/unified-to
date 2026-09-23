@@ -1,11 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: hello@unified.to
     url: https://unified.to/contact
   description: One API to Rule Them All
   termsOfService: https://unified.to/tos
-  title: Unified.to account uc API
+  title: Unified.to Uc API
   version: '1.0'
 servers:
 - description: North American data region
@@ -1267,6 +1267,124 @@ paths:
       - uc
 components:
   schemas:
+    UcContact:
+      description: A contact represents a person that optionally is associated with a call
+      properties:
+        company:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_UcContact_emails'
+        first_name:
+          type: string
+        id:
+          type: string
+        last_name:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        telephones:
+          $ref: '#/components/schemas/property_UcContact_telephones'
+        title:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    UcRecordingMedia:
+      properties:
+        end_at:
+          format: date-time
+          type: string
+        language:
+          type: string
+        recording_download_url:
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        transcript_download_url:
+          type: string
+        transcripts:
+          $ref: '#/components/schemas/property_UcRecordingMedia_transcripts'
+      type: object
+    property_UcRecordingMedia_transcripts:
+      items:
+        $ref: '#/components/schemas/UcRecordingTranscript'
+      type: array
+    property_UcCall_telephone:
+      description: The telephone number called
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    UcComment:
+      properties:
+        call_id:
+          type: string
+        content:
+          type: string
+        created_at:
+          type: string
+        id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          type: string
+        user_id:
+          type: string
+      required:
+      - content
+      type: object
+    UcRecordingTranscript:
+      properties:
+        contact_id:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        text:
+          type: string
+        user_id:
+          type: string
+      required:
+      - text
+      type: object
+    UcEmail:
+      properties:
+        email:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - email
+      type: object
     UcRecording:
       properties:
         call_id:
@@ -1314,54 +1432,6 @@ components:
         web_url:
           type: string
       type: object
-    UcContacts:
-      items:
-        $ref: '#/components/schemas/UcContact'
-      type: array
-    UcRecordingMedia:
-      properties:
-        end_at:
-          format: date-time
-          type: string
-        language:
-          type: string
-        recording_download_url:
-          type: string
-        start_at:
-          format: date-time
-          type: string
-        transcript_download_url:
-          type: string
-        transcripts:
-          $ref: '#/components/schemas/property_UcRecordingMedia_transcripts'
-      type: object
-    property_UcContact_telephones:
-      description: An array of telephones for this contact
-      items:
-        $ref: '#/components/schemas/UcTelephone'
-      type: array
-    property_UcCall_contacts:
-      items:
-        $ref: '#/components/schemas/UcContact'
-      type: array
-    property_UcRecordingMedia_transcripts:
-      items:
-        $ref: '#/components/schemas/UcRecordingTranscript'
-      type: array
-    UcEmail:
-      properties:
-        email:
-          type: string
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - email
-      type: object
     UcCall:
       properties:
         contact_id:
@@ -1402,23 +1472,28 @@ components:
         user_phone:
           type: string
       type: object
-    property_UcCall_telephone:
-      description: The telephone number called
-      properties:
-        telephone:
-          type: string
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          - FAX
-          - MOBILE
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - telephone
-      type: object
+    property_UcContact_telephones:
+      description: An array of telephones for this contact
+      items:
+        $ref: '#/components/schemas/UcTelephone'
+      type: array
+    UcCalls:
+      items:
+        $ref: '#/components/schemas/UcCall'
+      type: array
+    property_UcContact_emails:
+      description: An array of email addresses for this contact
+      items:
+        $ref: '#/components/schemas/UcEmail'
+      type: array
+    UcContacts:
+      items:
+        $ref: '#/components/schemas/UcContact'
+      type: array
+    UcComments:
+      items:
+        $ref: '#/components/schemas/UcComment'
+      type: array
     UcTelephone:
       properties:
         telephone:
@@ -1435,88 +1510,13 @@ components:
       required:
       - telephone
       type: object
-    UcComment:
-      properties:
-        call_id:
-          type: string
-        content:
-          type: string
-        created_at:
-          type: string
-        id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        updated_at:
-          type: string
-        user_id:
-          type: string
-      required:
-      - content
-      type: object
-    UcCalls:
+    property_UcCall_contacts:
       items:
-        $ref: '#/components/schemas/UcCall'
+        $ref: '#/components/schemas/UcContact'
       type: array
-    UcComments:
-      items:
-        $ref: '#/components/schemas/UcComment'
-      type: array
-    UcContact:
-      description: A contact represents a person that optionally is associated with a call
-      properties:
-        company:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        emails:
-          $ref: '#/components/schemas/property_UcContact_emails'
-        first_name:
-          type: string
-        id:
-          type: string
-        last_name:
-          type: string
-        name:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        telephones:
-          $ref: '#/components/schemas/property_UcContact_telephones'
-        title:
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-      type: object
     property_UcRecording_media:
       items:
         $ref: '#/components/schemas/UcRecordingMedia'
-      type: array
-    UcRecordingTranscript:
-      properties:
-        contact_id:
-          type: string
-        end_at:
-          format: date-time
-          type: string
-        start_at:
-          format: date-time
-          type: string
-        text:
-          type: string
-        user_id:
-          type: string
-      required:
-      - text
-      type: object
-    property_UcContact_emails:
-      description: An array of email addresses for this contact
-      items:
-        $ref: '#/components/schemas/UcEmail'
       type: array
     UcRecordings:
       items:

@@ -1,11 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: hello@unified.to
     url: https://unified.to/contact
   description: One API to Rule Them All
   termsOfService: https://unified.to/tos
-  title: .to account unified API
+  title: .to Unified API
   version: '1.0'
 servers:
 - description: North American data region
@@ -497,7 +497,7 @@ paths:
       - unified
   /unified/integration/auth/{workspace_id}/{integration_type}:
     get:
-      description: Returns an authorization URL for the specified integration.  Once a successful authorization occurs, a new connection is created.
+      description: Returns an authorization URL for the specified integration. Once a successful authorization occurs, a new connection is created.
       operationId: getUnifiedIntegrationAuth
       parameters:
       - description: The URL where you want the user to be redirect to after a successful authorization.  The connection ID will be appended with (id=<connectionId>) to this URL, as will the state that was provided.
@@ -984,220 +984,71 @@ paths:
       - unified
 components:
   schemas:
-    property_IntegrationSupport_slow_fields:
-      items:
-        type: string
-      type: array
-    Webhook:
-      description: A webhook is used to POST new/updated information to your server.
+    ApiCall:
       properties:
-        checked_at:
-          format: date-time
-          type: string
         connection_id:
           type: string
         created_at:
           format: date-time
           type: string
-        db_name_prefix:
-          type: string
-        db_schema:
-          type: string
-        db_type:
-          enum:
-          - mongodb
-          - mysql
-          - postgres
-          - mssql
-          - mariadb
-          - supabase
-          type: string
-          x-speakeasy-unknown-values: allow
-        db_url:
-          type: string
+        endapi_response_time:
+          type: number
         environment:
           default: Production
           type: string
-        event:
-          enum:
-          - updated
-          - created
-          - deleted
+        error:
           type: string
-          x-speakeasy-unknown-values: allow
-        fields:
-          type: string
-        filters:
-          $ref: '#/components/schemas/property_Webhook_filters'
-        hook_url:
+        external_xref:
           type: string
         id:
           type: string
         integration_type:
           type: string
-        interval:
+        ip_address:
+          type: string
+        is_billable:
+          type: boolean
+        method:
+          type: string
+        name:
+          type: string
+        path:
+          type: string
+        size:
           type: number
-        is_beta:
-          type: boolean
-        is_healthy:
-          type: boolean
-        is_paused:
-          type: boolean
-        object_type:
+        status:
+          type: string
+        type:
           enum:
-          - accounting_account
-          - accounting_transaction
-          - accounting_journal
-          - accounting_contact
-          - accounting_invoice
-          - accounting_bill
-          - accounting_creditmemo
-          - accounting_taxrate
-          - accounting_organization
-          - accounting_order
-          - accounting_salesorder
-          - accounting_purchaseorder
-          - accounting_report
-          - accounting_balancesheet
-          - accounting_profitloss
-          - accounting_trialbalance
-          - accounting_category
-          - accounting_expense
-          - accounting_cashflow
-          - payment_payment
-          - payment_link
-          - payment_payout
-          - payment_refund
-          - payment_subscription
-          - commerce_item
-          - commerce_collection
-          - commerce_inventory
-          - commerce_location
-          - commerce_review
-          - commerce_saleschannel
-          - commerce_itemvariant
-          - commerce_reservation
-          - commerce_availability
-          - verification_package
-          - verification_request
-          - assessment_package
-          - assessment_order
-          - ats_activity
-          - ats_application
-          - ats_applicationstatus
-          - ats_candidate
-          - ats_document
-          - ats_interview
-          - ats_job
-          - ats_scorecard
-          - ats_company
-          - crm_company
-          - crm_contact
-          - crm_deal
-          - crm_event
-          - crm_lead
-          - crm_pipeline
-          - hris_employee
-          - hris_group
-          - hris_payslip
-          - hris_timeoff
-          - hris_company
-          - hris_location
-          - hris_device
-          - hris_timeshift
-          - hris_deduction
-          - hris_benefit
-          - hris_bankaccount
-          - martech_list
-          - martech_member
-          - martech_campaign
-          - martech_report
-          - passthrough
-          - ticketing_note
-          - ticketing_ticket
-          - ticketing_customer
-          - ticketing_category
-          - uc_contact
-          - uc_call
-          - uc_comment
-          - uc_recording
-          - enrich_person
-          - enrich_company
-          - storage_file
-          - genai_model
-          - genai_prompt
-          - genai_embedding
-          - messaging_message
-          - messaging_channel
-          - messaging_event
-          - kms_space
-          - kms_page
-          - kms_comment
-          - task_project
-          - task_task
-          - task_comment
-          - task_change
-          - scim_users
-          - scim_groups
-          - lms_course
-          - lms_class
-          - lms_student
-          - lms_instructor
-          - lms_content
-          - lms_collection
-          - lms_activity
-          - repo_organization
-          - repo_repository
-          - repo_branch
-          - repo_commit
-          - repo_pullrequest
-          - metadata_metadata
-          - calendar_calendar
-          - calendar_event
-          - calendar_busy
-          - calendar_link
-          - calendar_recording
-          - calendar_webinar
-          - ads_organization
-          - ads_ad
-          - ads_campaign
-          - ads_report
-          - ads_group
-          - ads_creative
-          - ads_insertionorder
-          - ads_target
-          - ads_promoted
-          - forms_form
-          - forms_submission
-          - shipping_carrier
-          - shipping_rate
-          - shipping_shipment
-          - shipping_label
-          - shipping_tracking
-          - signing_document
-          - signing_signatory
-          - signing_template
+          - login
+          - webhook
+          - inbound
+          - mcp
           type: string
           x-speakeasy-unknown-values: allow
-        page_max_limit:
+        unified_response_time:
           type: number
-        runs:
-          $ref: '#/components/schemas/property_Webhook_runs'
-        updated_at:
-          format: date-time
+        user_agent:
           type: string
-        webhook_type:
-          enum:
-          - virtual
-          - native
+        webhook_id:
           type: string
-          x-speakeasy-unknown-values: allow
         workspace_id:
           type: string
       required:
-      - connection_id
-      - object_type
-      - event
+      - integration_type
+      - name
+      - path
+      - status
+      - type
+      - method
+      type: object
+    Connections:
+      items:
+        $ref: '#/components/schemas/Connection'
+      type: array
+    property_IntegrationSupport_outbound_fields:
+      additionalProperties:
+        type: string
       type: object
     property_IntegrationSupport_webhook_events:
       properties:
@@ -1208,402 +1059,121 @@ components:
         updated:
           $ref: '#/components/schemas/property_IntegrationSupport_webhook_events_updated'
       type: object
-    property_IntegrationSupport_webhook_events_deleted:
-      items:
-        enum:
-        - virtual
-        - native
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    property_IntegrationSupport_inbound_fields:
-      additionalProperties:
-        type: string
-      type: object
-    property_IntegrationSupport_methods:
-      additionalProperties:
-        type: boolean
-      type: object
-    property_IntegrationSupport_raw_objects:
-      description: objects that we map from in the integration
-      items:
-        type: string
-      type: array
-    property_IntegrationSupport_webhook_events_created:
-      items:
-        enum:
-        - virtual
-        - native
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    property_IntegrationSupport_outbound_fields:
-      additionalProperties:
-        type: string
-      type: object
-    Webhooks:
-      items:
-        $ref: '#/components/schemas/Webhook'
-      type: array
-    property_Issue_type:
-      items:
-        type: string
-      type: array
-    property_Connection_permissions:
-      items:
-        enum:
-        - accounting_account_read
-        - accounting_account_write
-        - accounting_transaction_read
-        - accounting_transaction_write
-        - accounting_journal_read
-        - accounting_journal_write
-        - accounting_invoice_read
-        - accounting_invoice_write
-        - accounting_bill_read
-        - accounting_bill_write
-        - accounting_creditmemo_read
-        - accounting_creditmemo_write
-        - accounting_contact_read
-        - accounting_contact_write
-        - accounting_expense_read
-        - accounting_expense_write
-        - accounting_taxrate_read
-        - accounting_taxrate_write
-        - accounting_organization_read
-        - accounting_order_read
-        - accounting_order_write
-        - accounting_purchaseorder_read
-        - accounting_purchaseorder_write
-        - accounting_salesorder_read
-        - accounting_salesorder_write
-        - accounting_report_read
-        - accounting_report_write
-        - accounting_trialbalance_read
-        - accounting_trialbalance_write
-        - accounting_profitloss_read
-        - accounting_profitloss_write
-        - accounting_balancesheet_read
-        - accounting_balancesheet_write
-        - accounting_category_read
-        - accounting_category_write
-        - payment_payment_read
-        - payment_payment_write
-        - accounting_cashflow_read
-        - accounting_cashflow_write
-        - payment_payout_read
-        - payment_refund_read
-        - payment_link_read
-        - payment_link_write
-        - payment_subscription_read
-        - payment_subscription_write
-        - commerce_item_read
-        - commerce_item_write
-        - commerce_collection_read
-        - commerce_collection_write
-        - commerce_inventory_read
-        - commerce_inventory_write
-        - commerce_location_read
-        - commerce_location_write
-        - commerce_review_read
-        - commerce_review_write
-        - commerce_saleschannel_read
-        - commerce_saleschannel_write
-        - commerce_itemvariant_read
-        - commerce_itemvariant_write
-        - commerce_reservation_read
-        - commerce_reservation_write
-        - commerce_availability_read
-        - commerce_availability_write
-        - verification_package_read
-        - verification_request_read
-        - verification_request_write
-        - assessment_package_read
-        - assessment_package_write
-        - assessment_order_write
-        - ats_activity_read
-        - ats_activity_write
-        - ats_application_read
-        - ats_application_write
-        - ats_applicationstatus_read
-        - ats_candidate_read
-        - ats_candidate_write
-        - ats_interview_read
-        - ats_interview_write
-        - ats_job_read
-        - ats_job_write
-        - ats_company_read
-        - ats_company_write
-        - ats_document_read
-        - ats_document_write
-        - ats_scorecard_read
-        - ats_scorecard_write
-        - crm_company_read
-        - crm_company_write
-        - crm_contact_read
-        - crm_contact_write
-        - crm_deal_read
-        - crm_deal_write
-        - crm_event_read
-        - crm_event_write
-        - crm_lead_read
-        - crm_lead_write
-        - crm_pipeline_read
-        - crm_pipeline_write
-        - martech_list_read
-        - martech_list_write
-        - martech_member_read
-        - martech_member_write
-        - martech_campaign_read
-        - martech_campaign_write
-        - martech_report_read
-        - martech_report_write
-        - ticketing_customer_read
-        - ticketing_customer_write
-        - ticketing_ticket_read
-        - ticketing_ticket_write
-        - ticketing_note_read
-        - ticketing_note_write
-        - ticketing_category_read
-        - ticketing_category_write
-        - hris_employee_read
-        - hris_employee_write
-        - hris_group_read
-        - hris_group_write
-        - hris_payslip_read
-        - hris_payslip_write
-        - hris_timeoff_read
-        - hris_timeoff_write
-        - hris_timeshift_read
-        - hris_timeshift_write
-        - hris_company_read
-        - hris_company_write
-        - hris_location_read
-        - hris_location_write
-        - hris_device_read
-        - hris_device_write
-        - hris_deduction_read
-        - hris_deduction_write
-        - hris_benefit_read
-        - hris_benefit_write
-        - hris_bankaccount_read
-        - hris_bankaccount_write
-        - uc_call_read
-        - uc_contact_read
-        - uc_contact_write
-        - uc_comment_read
-        - uc_comment_write
-        - uc_recording_read
-        - storage_file_read
-        - storage_file_write
-        - webhook
-        - genai_model_read
-        - genai_prompt_read
-        - genai_prompt_write
-        - genai_embedding_read
-        - genai_embedding_write
-        - messaging_message_read
-        - messaging_message_write
-        - messaging_channel_read
-        - messaging_event_read
-        - messaging_event_write
-        - kms_space_read
-        - kms_space_write
-        - kms_page_read
-        - kms_page_write
-        - kms_comment_read
-        - kms_comment_write
-        - task_project_read
-        - task_project_write
-        - task_task_read
-        - task_task_write
-        - task_change_read
-        - task_comment_read
-        - task_comment_write
-        - scim_users_read
-        - scim_users_write
-        - scim_groups_read
-        - scim_groups_write
-        - lms_course_read
-        - lms_course_write
-        - lms_class_read
-        - lms_class_write
-        - lms_student_read
-        - lms_student_write
-        - lms_instructor_read
-        - lms_instructor_write
-        - lms_content_read
-        - lms_content_write
-        - lms_collection_read
-        - lms_collection_write
-        - lms_activity_read
-        - lms_activity_write
-        - repo_organization_read
-        - repo_organization_write
-        - repo_repository_read
-        - repo_repository_write
-        - repo_branch_read
-        - repo_branch_write
-        - repo_commit_read
-        - repo_commit_write
-        - repo_pullrequest_read
-        - repo_pullrequest_write
-        - metadata_metadata_read
-        - metadata_metadata_write
-        - calendar_calendar_read
-        - calendar_calendar_write
-        - calendar_event_read
-        - calendar_event_write
-        - calendar_busy_read
-        - calendar_link_read
-        - calendar_link_write
-        - calendar_recording_read
-        - calendar_recording_write
-        - calendar_webinar_read
-        - calendar_webinar_write
-        - enrich_person_read
-        - enrich_company_read
-        - ads_ad_read
-        - ads_ad_write
-        - ads_campaign_read
-        - ads_campaign_write
-        - ads_group_read
-        - ads_group_write
-        - ads_report_read
-        - ads_organization_read
-        - ads_organization_write
-        - ads_creative_read
-        - ads_creative_write
-        - ads_insertionorder_read
-        - ads_insertionorder_write
-        - ads_target_read
-        - ads_promoted_read
-        - forms_form_read
-        - forms_form_write
-        - forms_submission_read
-        - forms_submission_write
-        - shipping_shipment_read
-        - shipping_shipment_write
-        - shipping_label_read
-        - shipping_label_write
-        - shipping_tracking_read
-        - shipping_rate_read
-        - shipping_carrier_read
-        - signing_document_read
-        - signing_document_write
-        - signing_signatory_read
-        - signing_signatory_write
-        - signing_template_read
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    Environments:
-      description: A list of environments in the workspace.
-      items:
-        type: string
-      type: array
-    Issue:
+    Integration:
+      description: Informational object for supported integrations.
       properties:
+        active_healthy_connections:
+          type: number
+        api:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        api_docs_url:
+          type: string
+        beta:
+          type: boolean
+        categories:
+          $ref: '#/components/schemas/property_Integration_categories'
+        color:
+          type: string
         created_at:
           type: string
-        id:
+        description:
           type: string
-        importance:
-          type: number
-        resolution_time:
-          type: number
-        size:
-          type: number
-        status:
-          enum:
-          - COMPLETED
-          - NEW
-          - ROADMAP
-          - IN_PROGRESS
-          - ON_HOLD
-          - VALIDATING
-          - REJECTED
+        fa_icon:
           type: string
-          x-speakeasy-unknown-values: allow
-        ticket_ref:
+        featured:
+          type: boolean
+        in_progress:
+          type: boolean
+        is_active:
+          type: boolean
+        is_hidden:
+          type: boolean
+        logo_url:
           type: string
-        title:
-          type: string
-        type:
-          $ref: '#/components/schemas/property_Issue_type'
-        updated_at:
-          type: string
-        url:
-          type: string
-        workspace_id:
-          type: string
-      required:
-      - title
-      - status
-      - workspace_id
-      - ticket_ref
-      type: object
-    property_Connection_auth:
-      description: An authentication object that represents a specific authorized user's connection to an integration.
-      properties:
-        access_token:
-          type: string
-        api_url:
-          type: string
-        app_id:
-          type: string
-        audience:
-          type: string
-        authorize_url:
-          type: string
-        client_id:
-          type: string
-        client_secret:
-          type: string
-        consumer_key:
-          type: string
-        consumer_secret:
-          type: string
-        dev_api_key:
-          type: string
-        emails:
-          $ref: '#/components/schemas/property_Connection_auth_emails'
-        expires_in:
-          type: number
-        expiry_date:
-          format: date-time
-          type: string
-        key:
-          type: string
-        meta:
-          additionalProperties: true
-          type: object
         name:
           type: string
-        other_auth_info:
-          $ref: '#/components/schemas/property_Connection_auth_other_auth_info'
-        pem:
+        partnership:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        popularity:
+          type: number
+        rate_limit_description:
           type: string
-        refresh_token:
-          type: string
-        refresh_token_expires_date:
+        saml:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        sandbox:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        support:
+          $ref: '#/components/schemas/property_Integration_support'
+        tested_at:
           format: date-time
           type: string
-        refresh_token_expires_in:
-          type: number
-        refresh_url:
+        text_color:
           type: string
-        state:
+        token_instructions:
+          $ref: '#/components/schemas/property_Integration_token_instructions'
+        token_names:
+          $ref: '#/components/schemas/property_Integration_token_names'
+        type:
           type: string
-        token:
+        updated_at:
           type: string
-        token_url:
+        web_url:
           type: string
-        user_id:
-          type: string
+      required:
+      - type
+      - name
+      - categories
       type: object
-    property_Integration_token_instructions:
-      description: instructions for the user on how to find the token/key
+    property_Integration_token_names:
+      description: if auth_types = 'token'
       items:
         type: string
       type: array
@@ -2728,205 +2298,553 @@ components:
         webhook_events:
           $ref: '#/components/schemas/property_IntegrationSupport_webhook_events'
       type: object
-    Integration:
-      description: Informational object for supported integrations.
-      properties:
-        active_healthy_connections:
-          type: number
-        api:
-          additionalProperties: true
-          anyOf:
-          - type: object
-          - type: string
-          - type: number
-          - type: boolean
-          - items:
-              anyOf:
-              - type: object
-              - type: string
-              - type: number
-              - type: boolean
-            type: array
-        api_docs_url:
-          type: string
-        beta:
-          type: boolean
-        categories:
-          $ref: '#/components/schemas/property_Integration_categories'
-        color:
-          type: string
-        created_at:
-          type: string
-        description:
-          type: string
-        fa_icon:
-          type: string
-        featured:
-          type: boolean
-        in_progress:
-          type: boolean
-        is_active:
-          type: boolean
-        is_hidden:
-          type: boolean
-        logo_url:
-          type: string
-        name:
-          type: string
-        partnership:
-          additionalProperties: true
-          anyOf:
-          - type: object
-          - type: string
-          - type: number
-          - type: boolean
-          - items:
-              anyOf:
-              - type: object
-              - type: string
-              - type: number
-              - type: boolean
-            type: array
-        popularity:
-          type: number
-        rate_limit_description:
-          type: string
-        saml:
-          additionalProperties: true
-          anyOf:
-          - type: object
-          - type: string
-          - type: number
-          - type: boolean
-          - items:
-              anyOf:
-              - type: object
-              - type: string
-              - type: number
-              - type: boolean
-            type: array
-        sandbox:
-          additionalProperties: true
-          anyOf:
-          - type: object
-          - type: string
-          - type: number
-          - type: boolean
-          - items:
-              anyOf:
-              - type: object
-              - type: string
-              - type: number
-              - type: boolean
-            type: array
-        support:
-          $ref: '#/components/schemas/property_Integration_support'
-        tested_at:
-          format: date-time
-          type: string
-        text_color:
-          type: string
-        token_instructions:
-          $ref: '#/components/schemas/property_Integration_token_instructions'
-        token_names:
-          $ref: '#/components/schemas/property_Integration_token_names'
-        type:
-          type: string
-        updated_at:
-          type: string
-        web_url:
-          type: string
-      required:
-      - type
-      - name
-      - categories
-      type: object
-    property_Connection_auth_emails:
+    property_IntegrationSupport_slow_fields:
       items:
         type: string
       type: array
-    Connections:
-      items:
-        $ref: '#/components/schemas/Connection'
-      type: array
+    Webhook:
+      description: A webhook is used to POST new/updated information to your server.
+      properties:
+        checked_at:
+          format: date-time
+          type: string
+        connection_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        db_name_prefix:
+          type: string
+        db_schema:
+          type: string
+        db_type:
+          enum:
+          - mongodb
+          - mysql
+          - postgres
+          - mssql
+          - mariadb
+          - supabase
+          type: string
+          x-speakeasy-unknown-values: allow
+        db_url:
+          type: string
+        environment:
+          default: Production
+          type: string
+        event:
+          enum:
+          - updated
+          - created
+          - deleted
+          type: string
+          x-speakeasy-unknown-values: allow
+        fields:
+          type: string
+        filters:
+          $ref: '#/components/schemas/property_Webhook_filters'
+        hook_url:
+          type: string
+        id:
+          type: string
+        integration_type:
+          type: string
+        interval:
+          type: number
+        is_beta:
+          type: boolean
+        is_healthy:
+          type: boolean
+        is_paused:
+          type: boolean
+        object_type:
+          enum:
+          - accounting_account
+          - accounting_transaction
+          - accounting_journal
+          - accounting_contact
+          - accounting_invoice
+          - accounting_bill
+          - accounting_creditmemo
+          - accounting_taxrate
+          - accounting_organization
+          - accounting_order
+          - accounting_salesorder
+          - accounting_purchaseorder
+          - accounting_report
+          - accounting_balancesheet
+          - accounting_profitloss
+          - accounting_trialbalance
+          - accounting_category
+          - accounting_expense
+          - accounting_cashflow
+          - payment_payment
+          - payment_link
+          - payment_payout
+          - payment_refund
+          - payment_subscription
+          - commerce_item
+          - commerce_collection
+          - commerce_inventory
+          - commerce_location
+          - commerce_review
+          - commerce_saleschannel
+          - commerce_itemvariant
+          - commerce_reservation
+          - commerce_availability
+          - verification_package
+          - verification_request
+          - assessment_package
+          - assessment_order
+          - ats_activity
+          - ats_application
+          - ats_applicationstatus
+          - ats_candidate
+          - ats_document
+          - ats_interview
+          - ats_job
+          - ats_scorecard
+          - ats_company
+          - crm_company
+          - crm_contact
+          - crm_deal
+          - crm_event
+          - crm_lead
+          - crm_pipeline
+          - hris_employee
+          - hris_group
+          - hris_payslip
+          - hris_timeoff
+          - hris_company
+          - hris_location
+          - hris_device
+          - hris_timeshift
+          - hris_deduction
+          - hris_benefit
+          - hris_bankaccount
+          - martech_list
+          - martech_member
+          - martech_campaign
+          - martech_report
+          - passthrough
+          - ticketing_note
+          - ticketing_ticket
+          - ticketing_customer
+          - ticketing_category
+          - uc_contact
+          - uc_call
+          - uc_comment
+          - uc_recording
+          - enrich_person
+          - enrich_company
+          - storage_file
+          - genai_model
+          - genai_prompt
+          - genai_embedding
+          - messaging_message
+          - messaging_channel
+          - messaging_event
+          - kms_space
+          - kms_page
+          - kms_comment
+          - task_project
+          - task_task
+          - task_comment
+          - task_change
+          - scim_users
+          - scim_groups
+          - lms_course
+          - lms_class
+          - lms_student
+          - lms_instructor
+          - lms_content
+          - lms_collection
+          - lms_activity
+          - repo_organization
+          - repo_repository
+          - repo_branch
+          - repo_commit
+          - repo_pullrequest
+          - metadata_metadata
+          - calendar_calendar
+          - calendar_event
+          - calendar_busy
+          - calendar_link
+          - calendar_recording
+          - calendar_webinar
+          - ads_organization
+          - ads_ad
+          - ads_campaign
+          - ads_report
+          - ads_group
+          - ads_creative
+          - ads_insertionorder
+          - ads_target
+          - ads_promoted
+          - forms_form
+          - forms_submission
+          - shipping_carrier
+          - shipping_rate
+          - shipping_shipment
+          - shipping_label
+          - shipping_tracking
+          - signing_document
+          - signing_signatory
+          - signing_template
+          type: string
+          x-speakeasy-unknown-values: allow
+        page_max_limit:
+          type: number
+        runs:
+          $ref: '#/components/schemas/property_Webhook_runs'
+        updated_at:
+          format: date-time
+          type: string
+        webhook_type:
+          enum:
+          - virtual
+          - native
+          type: string
+          x-speakeasy-unknown-values: allow
+        workspace_id:
+          type: string
+      required:
+      - connection_id
+      - object_type
+      - event
+      type: object
     property_Webhook_runs:
       description: An array of the most revent virtual webhook runs
       items:
         type: string
       type: array
-    property_IntegrationSupport_webhook_events_updated:
+    Webhooks:
+      items:
+        $ref: '#/components/schemas/Webhook'
+      type: array
+    property_Integration_token_instructions:
+      description: instructions for the user on how to find the token/key
+      items:
+        type: string
+      type: array
+    property_Connection_auth_emails:
+      items:
+        type: string
+      type: array
+    property_Connection_permissions:
       items:
         enum:
-        - virtual
-        - native
+        - accounting_account_read
+        - accounting_account_write
+        - accounting_transaction_read
+        - accounting_transaction_write
+        - accounting_journal_read
+        - accounting_journal_write
+        - accounting_invoice_read
+        - accounting_invoice_write
+        - accounting_bill_read
+        - accounting_bill_write
+        - accounting_creditmemo_read
+        - accounting_creditmemo_write
+        - accounting_contact_read
+        - accounting_contact_write
+        - accounting_expense_read
+        - accounting_expense_write
+        - accounting_taxrate_read
+        - accounting_taxrate_write
+        - accounting_organization_read
+        - accounting_order_read
+        - accounting_order_write
+        - accounting_purchaseorder_read
+        - accounting_purchaseorder_write
+        - accounting_salesorder_read
+        - accounting_salesorder_write
+        - accounting_report_read
+        - accounting_report_write
+        - accounting_trialbalance_read
+        - accounting_trialbalance_write
+        - accounting_profitloss_read
+        - accounting_profitloss_write
+        - accounting_balancesheet_read
+        - accounting_balancesheet_write
+        - accounting_category_read
+        - accounting_category_write
+        - payment_payment_read
+        - payment_payment_write
+        - accounting_cashflow_read
+        - accounting_cashflow_write
+        - payment_payout_read
+        - payment_refund_read
+        - payment_link_read
+        - payment_link_write
+        - payment_subscription_read
+        - payment_subscription_write
+        - commerce_item_read
+        - commerce_item_write
+        - commerce_collection_read
+        - commerce_collection_write
+        - commerce_inventory_read
+        - commerce_inventory_write
+        - commerce_location_read
+        - commerce_location_write
+        - commerce_review_read
+        - commerce_review_write
+        - commerce_saleschannel_read
+        - commerce_saleschannel_write
+        - commerce_itemvariant_read
+        - commerce_itemvariant_write
+        - commerce_reservation_read
+        - commerce_reservation_write
+        - commerce_availability_read
+        - commerce_availability_write
+        - verification_package_read
+        - verification_request_read
+        - verification_request_write
+        - assessment_package_read
+        - assessment_package_write
+        - assessment_order_write
+        - ats_activity_read
+        - ats_activity_write
+        - ats_application_read
+        - ats_application_write
+        - ats_applicationstatus_read
+        - ats_candidate_read
+        - ats_candidate_write
+        - ats_interview_read
+        - ats_interview_write
+        - ats_job_read
+        - ats_job_write
+        - ats_company_read
+        - ats_company_write
+        - ats_document_read
+        - ats_document_write
+        - ats_scorecard_read
+        - ats_scorecard_write
+        - crm_company_read
+        - crm_company_write
+        - crm_contact_read
+        - crm_contact_write
+        - crm_deal_read
+        - crm_deal_write
+        - crm_event_read
+        - crm_event_write
+        - crm_lead_read
+        - crm_lead_write
+        - crm_pipeline_read
+        - crm_pipeline_write
+        - martech_list_read
+        - martech_list_write
+        - martech_member_read
+        - martech_member_write
+        - martech_campaign_read
+        - martech_campaign_write
+        - martech_report_read
+        - martech_report_write
+        - ticketing_customer_read
+        - ticketing_customer_write
+        - ticketing_ticket_read
+        - ticketing_ticket_write
+        - ticketing_note_read
+        - ticketing_note_write
+        - ticketing_category_read
+        - ticketing_category_write
+        - hris_employee_read
+        - hris_employee_write
+        - hris_group_read
+        - hris_group_write
+        - hris_payslip_read
+        - hris_payslip_write
+        - hris_timeoff_read
+        - hris_timeoff_write
+        - hris_timeshift_read
+        - hris_timeshift_write
+        - hris_company_read
+        - hris_company_write
+        - hris_location_read
+        - hris_location_write
+        - hris_device_read
+        - hris_device_write
+        - hris_deduction_read
+        - hris_deduction_write
+        - hris_benefit_read
+        - hris_benefit_write
+        - hris_bankaccount_read
+        - hris_bankaccount_write
+        - uc_call_read
+        - uc_contact_read
+        - uc_contact_write
+        - uc_comment_read
+        - uc_comment_write
+        - uc_recording_read
+        - storage_file_read
+        - storage_file_write
+        - webhook
+        - genai_model_read
+        - genai_prompt_read
+        - genai_prompt_write
+        - genai_embedding_read
+        - genai_embedding_write
+        - messaging_message_read
+        - messaging_message_write
+        - messaging_channel_read
+        - messaging_event_read
+        - messaging_event_write
+        - kms_space_read
+        - kms_space_write
+        - kms_page_read
+        - kms_page_write
+        - kms_comment_read
+        - kms_comment_write
+        - task_project_read
+        - task_project_write
+        - task_task_read
+        - task_task_write
+        - task_change_read
+        - task_comment_read
+        - task_comment_write
+        - scim_users_read
+        - scim_users_write
+        - scim_groups_read
+        - scim_groups_write
+        - lms_course_read
+        - lms_course_write
+        - lms_class_read
+        - lms_class_write
+        - lms_student_read
+        - lms_student_write
+        - lms_instructor_read
+        - lms_instructor_write
+        - lms_content_read
+        - lms_content_write
+        - lms_collection_read
+        - lms_collection_write
+        - lms_activity_read
+        - lms_activity_write
+        - repo_organization_read
+        - repo_organization_write
+        - repo_repository_read
+        - repo_repository_write
+        - repo_branch_read
+        - repo_branch_write
+        - repo_commit_read
+        - repo_commit_write
+        - repo_pullrequest_read
+        - repo_pullrequest_write
+        - metadata_metadata_read
+        - metadata_metadata_write
+        - calendar_calendar_read
+        - calendar_calendar_write
+        - calendar_event_read
+        - calendar_event_write
+        - calendar_busy_read
+        - calendar_link_read
+        - calendar_link_write
+        - calendar_recording_read
+        - calendar_recording_write
+        - calendar_webinar_read
+        - calendar_webinar_write
+        - enrich_person_read
+        - enrich_company_read
+        - ads_ad_read
+        - ads_ad_write
+        - ads_campaign_read
+        - ads_campaign_write
+        - ads_group_read
+        - ads_group_write
+        - ads_report_read
+        - ads_organization_read
+        - ads_organization_write
+        - ads_creative_read
+        - ads_creative_write
+        - ads_insertionorder_read
+        - ads_insertionorder_write
+        - ads_target_read
+        - ads_promoted_read
+        - forms_form_read
+        - forms_form_write
+        - forms_submission_read
+        - forms_submission_write
+        - shipping_shipment_read
+        - shipping_shipment_write
+        - shipping_label_read
+        - shipping_label_write
+        - shipping_tracking_read
+        - shipping_rate_read
+        - shipping_carrier_read
+        - signing_document_read
+        - signing_document_write
+        - signing_signatory_read
+        - signing_signatory_write
+        - signing_template_read
         type: string
         x-speakeasy-unknown-values: allow
       type: array
-    Integrations:
+    property_IntegrationSupport_inbound_fields:
+      additionalProperties:
+        type: string
+      type: object
+    property_Issue_type:
       items:
-        $ref: '#/components/schemas/Integration'
+        type: string
+      type: array
+    ApiCalls:
+      items:
+        $ref: '#/components/schemas/ApiCall'
       type: array
     property_Connection_auth_other_auth_info:
       description: When integration.auth_type = "other", this field contains the authentication credentials in the same order as token_names
       items:
         type: string
       type: array
-    Issues:
+    Integrations:
       items:
-        $ref: '#/components/schemas/Issue'
-      type: array
-    ApiCalls:
-      items:
-        $ref: '#/components/schemas/ApiCall'
+        $ref: '#/components/schemas/Integration'
       type: array
     property_Integration_support:
       additionalProperties:
         $ref: '#/components/schemas/IntegrationSupport'
       type: object
-    property_Webhook_filters:
-      additionalProperties:
-        type: string
+    Issue:
+      properties:
+        created_at:
+          type: string
+        id:
+          type: string
+        importance:
+          type: number
+        resolution_time:
+          type: number
+        size:
+          type: number
+        status:
+          enum:
+          - COMPLETED
+          - NEW
+          - ROADMAP
+          - IN_PROGRESS
+          - ON_HOLD
+          - VALIDATING
+          - REJECTED
+          type: string
+          x-speakeasy-unknown-values: allow
+        ticket_ref:
+          type: string
+        title:
+          type: string
+        type:
+          $ref: '#/components/schemas/property_Issue_type'
+        updated_at:
+          type: string
+        url:
+          type: string
+        workspace_id:
+          type: string
+      required:
+      - title
+      - status
+      - workspace_id
+      - ticket_ref
       type: object
-    property_Integration_token_names:
-      description: if auth_types = 'token'
-      items:
-        type: string
-      type: array
-    property_Integration_categories:
-      description: The categories of support solutions that this integration has
-      items:
-        enum:
-        - passthrough
-        - hris
-        - ats
-        - auth
-        - crm
-        - enrich
-        - martech
-        - ticketing
-        - uc
-        - accounting
-        - storage
-        - commerce
-        - payment
-        - genai
-        - messaging
-        - kms
-        - task
-        - scim
-        - lms
-        - repo
-        - metadata
-        - calendar
-        - verification
-        - ads
-        - forms
-        - shipping
-        - assessment
-        - signing
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
     property_Connection_categories:
       description: The Integration categories that this connection supports
       items:
@@ -2959,6 +2877,36 @@ components:
         - shipping
         - assessment
         - signing
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_IntegrationSupport_raw_objects:
+      description: objects that we map from in the integration
+      items:
+        type: string
+      type: array
+    property_IntegrationSupport_webhook_events_deleted:
+      items:
+        enum:
+        - virtual
+        - native
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_Webhook_filters:
+      additionalProperties:
+        type: string
+      type: object
+    Environments:
+      description: A list of environments in the workspace.
+      items:
+        type: string
+      type: array
+    property_IntegrationSupport_webhook_events_created:
+      items:
+        enum:
+        - virtual
+        - native
         type: string
         x-speakeasy-unknown-values: allow
       type: array
@@ -3011,64 +2959,116 @@ components:
       - permissions
       - categories
       type: object
-    ApiCall:
+    property_IntegrationSupport_webhook_events_updated:
+      items:
+        enum:
+        - virtual
+        - native
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_Connection_auth:
+      description: An authentication object that represents a specific authorized user's connection to an integration.
       properties:
-        connection_id:
+        access_token:
           type: string
-        created_at:
+        api_url:
+          type: string
+        app_id:
+          type: string
+        audience:
+          type: string
+        authorize_url:
+          type: string
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        consumer_key:
+          type: string
+        consumer_secret:
+          type: string
+        dev_api_key:
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_Connection_auth_emails'
+        expires_in:
+          type: number
+        expiry_date:
           format: date-time
           type: string
-        endapi_response_time:
-          type: number
-        environment:
-          default: Production
+        key:
           type: string
-        error:
-          type: string
-        external_xref:
-          type: string
-        id:
-          type: string
-        integration_type:
-          type: string
-        ip_address:
-          type: string
-        is_billable:
-          type: boolean
-        method:
-          type: string
+        meta:
+          additionalProperties: true
+          type: object
         name:
           type: string
-        path:
+        other_auth_info:
+          $ref: '#/components/schemas/property_Connection_auth_other_auth_info'
+        pem:
           type: string
-        size:
+        refresh_token:
+          type: string
+        refresh_token_expires_date:
+          format: date-time
+          type: string
+        refresh_token_expires_in:
           type: number
-        status:
+        refresh_url:
           type: string
-        type:
-          enum:
-          - login
-          - webhook
-          - inbound
-          - mcp
+        state:
           type: string
-          x-speakeasy-unknown-values: allow
-        unified_response_time:
-          type: number
-        user_agent:
+        token:
           type: string
-        webhook_id:
+        token_url:
           type: string
-        workspace_id:
+        user_id:
           type: string
-      required:
-      - integration_type
-      - name
-      - path
-      - status
-      - type
-      - method
       type: object
+    Issues:
+      items:
+        $ref: '#/components/schemas/Issue'
+      type: array
+    property_IntegrationSupport_methods:
+      additionalProperties:
+        type: boolean
+      type: object
+    property_Integration_categories:
+      description: The categories of support solutions that this integration has
+      items:
+        enum:
+        - passthrough
+        - hris
+        - ats
+        - auth
+        - crm
+        - enrich
+        - martech
+        - ticketing
+        - uc
+        - accounting
+        - storage
+        - commerce
+        - payment
+        - genai
+        - messaging
+        - kms
+        - task
+        - scim
+        - lms
+        - repo
+        - metadata
+        - calendar
+        - verification
+        - ads
+        - forms
+        - shipping
+        - assessment
+        - signing
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
   securitySchemes:
     jwt:
       in: header

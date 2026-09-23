@@ -1,11 +1,11 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   contact:
     email: hello@unified.to
     url: https://unified.to/contact
   description: One API to Rule Them All
   termsOfService: https://unified.to/tos
-  title: Unified.to account payment API
+  title: Unified.to Payment API
   version: '1.0'
 servers:
 - description: North American data region
@@ -17,7 +17,7 @@ servers:
 security:
 - jwt: []
 tags:
-- name: payment
+- name: Payment
 paths:
   /payment/{connection_id}/link:
     get:
@@ -112,7 +112,7 @@ paths:
       - jwt: []
       summary: List All Links
       tags:
-      - payment
+      - Payment
     post:
       operationId: createPaymentLink
       parameters:
@@ -168,7 +168,7 @@ paths:
       - jwt: []
       summary: Create a Link
       tags:
-      - payment
+      - Payment
   /payment/{connection_id}/link/{id}:
     delete:
       operationId: removePaymentLink
@@ -200,7 +200,7 @@ paths:
       - jwt: []
       summary: Remove a Link
       tags:
-      - payment
+      - Payment
     get:
       operationId: getPaymentLink
       parameters:
@@ -256,7 +256,7 @@ paths:
       - jwt: []
       summary: Retrieve a Link
       tags:
-      - payment
+      - Payment
     patch:
       operationId: patchPaymentLink
       parameters:
@@ -318,7 +318,7 @@ paths:
       - jwt: []
       summary: Update a Link
       tags:
-      - payment
+      - Payment
     put:
       operationId: updatePaymentLink
       parameters:
@@ -380,7 +380,7 @@ paths:
       - jwt: []
       summary: Update a Link
       tags:
-      - payment
+      - Payment
   /payment/{connection_id}/payment:
     get:
       operationId: listPaymentPayments
@@ -511,7 +511,7 @@ paths:
       - jwt: []
       summary: List All Payments
       tags:
-      - payment
+      - Payment
     post:
       operationId: createPaymentPayment
       parameters:
@@ -568,7 +568,7 @@ paths:
       - jwt: []
       summary: Create a Payment
       tags:
-      - payment
+      - Payment
   /payment/{connection_id}/payment/{id}:
     delete:
       operationId: removePaymentPayment
@@ -600,7 +600,7 @@ paths:
       - jwt: []
       summary: Remove a Payment
       tags:
-      - payment
+      - Payment
     get:
       operationId: getPaymentPayment
       parameters:
@@ -657,7 +657,7 @@ paths:
       - jwt: []
       summary: Retrieve a Payment
       tags:
-      - payment
+      - Payment
     patch:
       operationId: patchPaymentPayment
       parameters:
@@ -720,7 +720,7 @@ paths:
       - jwt: []
       summary: Update a Payment
       tags:
-      - payment
+      - Payment
     put:
       operationId: updatePaymentPayment
       parameters:
@@ -783,7 +783,7 @@ paths:
       - jwt: []
       summary: Update a Payment
       tags:
-      - payment
+      - Payment
   /payment/{connection_id}/payout:
     get:
       operationId: listPaymentPayouts
@@ -860,7 +860,7 @@ paths:
       - jwt: []
       summary: List All Payouts
       tags:
-      - payment
+      - Payment
   /payment/{connection_id}/payout/{id}:
     get:
       operationId: getPaymentPayout
@@ -912,7 +912,7 @@ paths:
       - jwt: []
       summary: Retrieve a Payout
       tags:
-      - payment
+      - Payment
   /payment/{connection_id}/refund:
     get:
       operationId: listPaymentRefunds
@@ -997,7 +997,7 @@ paths:
       - jwt: []
       summary: List All Refunds
       tags:
-      - payment
+      - Payment
   /payment/{connection_id}/refund/{id}:
     get:
       operationId: getPaymentRefund
@@ -1051,7 +1051,7 @@ paths:
       - jwt: []
       summary: Retrieve a Refund
       tags:
-      - payment
+      - Payment
   /payment/{connection_id}/subscription:
     get:
       operationId: listPaymentSubscriptions
@@ -1158,7 +1158,7 @@ paths:
       - jwt: []
       summary: List All Subscriptions
       tags:
-      - payment
+      - Payment
     post:
       operationId: createPaymentSubscription
       parameters:
@@ -1221,7 +1221,7 @@ paths:
       - jwt: []
       summary: Create a Subscription
       tags:
-      - payment
+      - Payment
   /payment/{connection_id}/subscription/{id}:
     delete:
       operationId: removePaymentSubscription
@@ -1253,7 +1253,7 @@ paths:
       - jwt: []
       summary: Remove a Subscription
       tags:
-      - payment
+      - Payment
     get:
       operationId: getPaymentSubscription
       parameters:
@@ -1316,7 +1316,7 @@ paths:
       - jwt: []
       summary: Retrieve a Subscription
       tags:
-      - payment
+      - Payment
     patch:
       operationId: patchPaymentSubscription
       parameters:
@@ -1385,7 +1385,7 @@ paths:
       - jwt: []
       summary: Update a Subscription
       tags:
-      - payment
+      - Payment
     put:
       operationId: updatePaymentSubscription
       parameters:
@@ -1454,90 +1454,16 @@ paths:
       - jwt: []
       summary: Update a Subscription
       tags:
-      - payment
+      - Payment
 components:
   schemas:
-    property_PaymentSubscription_lineitems:
+    property_PaymentLink_lineitems:
       items:
         $ref: '#/components/schemas/PaymentLineitem'
       type: array
-    PaymentPayment:
-      properties:
-        account_id:
-          type: string
-        bill_id:
-          type: string
-        contact_id:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        currency:
-          default: USD
-          type: string
-        id:
-          type: string
-        invoice_id:
-          type: string
-        notes:
-          type: string
-        payment_method:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        reference:
-          type: string
-        total_amount:
-          type: number
-        type:
-          enum:
-          - INVOICE
-          - BILL
-          type: string
-          x-speakeasy-unknown-values: allow
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    PaymentRefund:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        currency:
-          type: string
-        id:
-          type: string
-        notes:
-          type: string
-        payment_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        reference:
-          type: string
-        status:
-          enum:
-          - SUCCEEDED
-          - PENDING
-          - FAILED
-          - CANCELED
-          type: string
-          x-speakeasy-unknown-values: allow
-        total_amount:
-          type: number
-        updated_at:
-          format: date-time
-          type: string
-      required:
-      - total_amount
-      - payment_id
-      type: object
-    PaymentPayments:
+    PaymentRefunds:
       items:
-        $ref: '#/components/schemas/PaymentPayment'
+        $ref: '#/components/schemas/PaymentRefund'
       type: array
     PaymentLineitem:
       properties:
@@ -1579,22 +1505,6 @@ components:
           format: date-time
           type: string
       type: object
-    PaymentSubscriptions:
-      items:
-        $ref: '#/components/schemas/PaymentSubscription'
-      type: array
-    PaymentPayouts:
-      items:
-        $ref: '#/components/schemas/PaymentPayout'
-      type: array
-    PaymentLinks:
-      items:
-        $ref: '#/components/schemas/PaymentLink'
-      type: array
-    property_PaymentLink_lineitems:
-      items:
-        $ref: '#/components/schemas/PaymentLineitem'
-      type: array
     PaymentSubscription:
       properties:
         canceled_at:
@@ -1658,34 +1568,61 @@ components:
           format: date-time
           type: string
       type: object
-    PaymentPayout:
+    PaymentPayments:
+      items:
+        $ref: '#/components/schemas/PaymentPayment'
+      type: array
+    PaymentSubscriptions:
+      items:
+        $ref: '#/components/schemas/PaymentSubscription'
+      type: array
+    PaymentPayment:
       properties:
+        account_id:
+          type: string
+        bill_id:
+          type: string
+        contact_id:
+          type: string
         created_at:
+          format: date-time
           type: string
         currency:
+          default: USD
           type: string
         id:
           type: string
+        invoice_id:
+          type: string
         notes:
+          type: string
+        payment_method:
           type: string
         raw:
           additionalProperties: true
           type: object
-        status:
-          enum:
-          - SUCCEEDED
-          - PENDING
-          - FAILED
-          - CANCELED
+        reference:
           type: string
-          x-speakeasy-unknown-values: allow
         total_amount:
           type: number
-        updated_at:
+        type:
+          enum:
+          - INVOICE
+          - BILL
           type: string
-      required:
-      - total_amount
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
       type: object
+    PaymentLinks:
+      items:
+        $ref: '#/components/schemas/PaymentLink'
+      type: array
+    property_PaymentSubscription_lineitems:
+      items:
+        $ref: '#/components/schemas/PaymentLineitem'
+      type: array
     PaymentLink:
       properties:
         amount:
@@ -1718,10 +1655,73 @@ components:
         url:
           type: string
       type: object
-    PaymentRefunds:
+    PaymentPayouts:
       items:
-        $ref: '#/components/schemas/PaymentRefund'
+        $ref: '#/components/schemas/PaymentPayout'
       type: array
+    PaymentPayout:
+      properties:
+        created_at:
+          type: string
+        currency:
+          type: string
+        id:
+          type: string
+        notes:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        status:
+          enum:
+          - SUCCEEDED
+          - PENDING
+          - FAILED
+          - CANCELED
+          type: string
+          x-speakeasy-unknown-values: allow
+        total_amount:
+          type: number
+        updated_at:
+          type: string
+      required:
+      - total_amount
+      type: object
+    PaymentRefund:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        id:
+          type: string
+        notes:
+          type: string
+        payment_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        reference:
+          type: string
+        status:
+          enum:
+          - SUCCEEDED
+          - PENDING
+          - FAILED
+          - CANCELED
+          type: string
+          x-speakeasy-unknown-values: allow
+        total_amount:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - total_amount
+      - payment_id
+      type: object
   securitySchemes:
     jwt:
       in: header
