@@ -863,6 +863,40 @@ paths:
       - Signing
 components:
   schemas:
+    SigningTemplate:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        creator_id:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    SigningSignatories:
+      items:
+        $ref: '#/components/schemas/SigningSignatory'
+      type: array
+    SigningTemplates:
+      items:
+        $ref: '#/components/schemas/SigningTemplate'
+      type: array
+    SigningDocuments:
+      items:
+        $ref: '#/components/schemas/SigningDocument'
+      type: array
     SigningDocument:
       properties:
         completed_at:
@@ -908,36 +942,6 @@ components:
           format: date-time
           type: string
       type: object
-    SigningTemplate:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        creator_id:
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        is_active:
-          type: boolean
-        name:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    SigningTemplates:
-      items:
-        $ref: '#/components/schemas/SigningTemplate'
-      type: array
-    SigningSignatories:
-      items:
-        $ref: '#/components/schemas/SigningSignatory'
-      type: array
     SigningSignatory:
       properties:
         created_at:
@@ -984,10 +988,6 @@ components:
           format: date-time
           type: string
       type: object
-    SigningDocuments:
-      items:
-        $ref: '#/components/schemas/SigningDocument'
-      type: array
   securitySchemes:
     jwt:
       in: header

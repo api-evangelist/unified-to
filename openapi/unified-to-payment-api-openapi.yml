@@ -1457,52 +1457,162 @@ paths:
       - Payment
 components:
   schemas:
-    property_PaymentLink_lineitems:
-      items:
-        $ref: '#/components/schemas/PaymentLineitem'
-      type: array
+    PaymentRefund:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        id:
+          type: string
+        notes:
+          type: string
+        payment_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        reference:
+          type: string
+        status:
+          enum:
+          - SUCCEEDED
+          - PENDING
+          - FAILED
+          - CANCELED
+          type: string
+          x-speakeasy-unknown-values: allow
+        total_amount:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - total_amount
+      - payment_id
+      type: object
     PaymentRefunds:
       items:
         $ref: '#/components/schemas/PaymentRefund'
       type: array
-    PaymentLineitem:
+    PaymentPayout:
+      properties:
+        created_at:
+          type: string
+        currency:
+          type: string
+        id:
+          type: string
+        notes:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        status:
+          enum:
+          - SUCCEEDED
+          - PENDING
+          - FAILED
+          - CANCELED
+          type: string
+          x-speakeasy-unknown-values: allow
+        total_amount:
+          type: number
+        updated_at:
+          type: string
+      required:
+      - total_amount
+      type: object
+    PaymentPayments:
+      items:
+        $ref: '#/components/schemas/PaymentPayment'
+      type: array
+    PaymentPayouts:
+      items:
+        $ref: '#/components/schemas/PaymentPayout'
+      type: array
+    PaymentLinks:
+      items:
+        $ref: '#/components/schemas/PaymentLink'
+      type: array
+    PaymentSubscriptions:
+      items:
+        $ref: '#/components/schemas/PaymentSubscription'
+      type: array
+    property_PaymentSubscription_lineitems:
+      items:
+        $ref: '#/components/schemas/PaymentLineitem'
+      type: array
+    PaymentPayment:
       properties:
         account_id:
+          type: string
+        bill_id:
+          type: string
+        contact_id:
           type: string
         created_at:
           format: date-time
           type: string
-        discount_amount:
-          type: number
+        currency:
+          default: USD
+          type: string
         id:
           type: string
-        item_description:
-          type: string
-        item_id:
-          type: string
-        item_name:
-          type: string
-        item_sku:
+        invoice_id:
           type: string
         notes:
           type: string
-        refund_amount:
-          type: number
-        refunded_at:
-          format: date-time
+        payment_method:
           type: string
-        tax_amount:
-          type: number
-        taxrate_id:
+        raw:
+          additionalProperties: true
+          type: object
+        reference:
           type: string
         total_amount:
           type: number
-        unit_amount:
-          type: number
-        unit_quantity:
-          type: number
+        type:
+          enum:
+          - INVOICE
+          - BILL
+          type: string
+          x-speakeasy-unknown-values: allow
         updated_at:
           format: date-time
+          type: string
+      type: object
+    PaymentLink:
+      properties:
+        amount:
+          type: number
+        contact_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        is_chargeable_now:
+          type: boolean
+        lineitems:
+          $ref: '#/components/schemas/property_PaymentLink_lineitems'
+        payment_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        success_url:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        url:
           type: string
       type: object
     PaymentSubscription:
@@ -1568,159 +1678,49 @@ components:
           format: date-time
           type: string
       type: object
-    PaymentPayments:
-      items:
-        $ref: '#/components/schemas/PaymentPayment'
-      type: array
-    PaymentSubscriptions:
-      items:
-        $ref: '#/components/schemas/PaymentSubscription'
-      type: array
-    PaymentPayment:
-      properties:
-        account_id:
-          type: string
-        bill_id:
-          type: string
-        contact_id:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        currency:
-          default: USD
-          type: string
-        id:
-          type: string
-        invoice_id:
-          type: string
-        notes:
-          type: string
-        payment_method:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        reference:
-          type: string
-        total_amount:
-          type: number
-        type:
-          enum:
-          - INVOICE
-          - BILL
-          type: string
-          x-speakeasy-unknown-values: allow
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    PaymentLinks:
-      items:
-        $ref: '#/components/schemas/PaymentLink'
-      type: array
-    property_PaymentSubscription_lineitems:
+    property_PaymentLink_lineitems:
       items:
         $ref: '#/components/schemas/PaymentLineitem'
       type: array
-    PaymentLink:
+    PaymentLineitem:
       properties:
-        amount:
+        account_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        discount_amount:
           type: number
-        contact_id:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        currency:
-          type: string
         id:
           type: string
-        is_active:
-          type: boolean
-        is_chargeable_now:
-          type: boolean
-        lineitems:
-          $ref: '#/components/schemas/property_PaymentLink_lineitems'
-        payment_id:
+        item_description:
           type: string
-        raw:
-          additionalProperties: true
-          type: object
-        success_url:
+        item_id:
           type: string
-        updated_at:
-          format: date-time
+        item_name:
           type: string
-        url:
-          type: string
-      type: object
-    PaymentPayouts:
-      items:
-        $ref: '#/components/schemas/PaymentPayout'
-      type: array
-    PaymentPayout:
-      properties:
-        created_at:
-          type: string
-        currency:
-          type: string
-        id:
+        item_sku:
           type: string
         notes:
           type: string
-        raw:
-          additionalProperties: true
-          type: object
-        status:
-          enum:
-          - SUCCEEDED
-          - PENDING
-          - FAILED
-          - CANCELED
-          type: string
-          x-speakeasy-unknown-values: allow
-        total_amount:
+        refund_amount:
           type: number
-        updated_at:
-          type: string
-      required:
-      - total_amount
-      type: object
-    PaymentRefund:
-      properties:
-        created_at:
+        refunded_at:
           format: date-time
           type: string
-        currency:
+        tax_amount:
+          type: number
+        taxrate_id:
           type: string
-        id:
-          type: string
-        notes:
-          type: string
-        payment_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        reference:
-          type: string
-        status:
-          enum:
-          - SUCCEEDED
-          - PENDING
-          - FAILED
-          - CANCELED
-          type: string
-          x-speakeasy-unknown-values: allow
         total_amount:
+          type: number
+        unit_amount:
+          type: number
+        unit_quantity:
           type: number
         updated_at:
           format: date-time
           type: string
-      required:
-      - total_amount
-      - payment_id
       type: object
   securitySchemes:
     jwt:

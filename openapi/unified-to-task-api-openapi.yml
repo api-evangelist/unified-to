@@ -1262,10 +1262,202 @@ paths:
       - Task
 components:
   schemas:
+    TaskComments:
+      items:
+        $ref: '#/components/schemas/TaskComment'
+      type: array
+    property_TaskTask_follower_user_ids:
+      items:
+        type: string
+      type: array
+    TaskChangeItem:
+      properties:
+        field:
+          type: string
+        from:
+          type: string
+        to:
+          type: string
+      required:
+      - field
+      type: object
+    TaskChanges:
+      items:
+        $ref: '#/components/schemas/TaskChange'
+      type: array
+    property_TaskTask_metadata:
+      items:
+        $ref: '#/components/schemas/TaskMetadata'
+      type: array
+    property_TaskProject_group_ids:
+      items:
+        type: string
+      type: array
+    property_TaskTask_tags:
+      items:
+        type: string
+      type: array
+    property_TaskProject_metadata:
+      items:
+        $ref: '#/components/schemas/TaskMetadata'
+      type: array
+    TaskProjects:
+      items:
+        $ref: '#/components/schemas/TaskProject'
+      type: array
+    TaskProject:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        group_ids:
+          $ref: '#/components/schemas/property_TaskProject_group_ids'
+        has_children:
+          type: boolean
+        has_tasks:
+          type: boolean
+        id:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/property_TaskProject_metadata'
+        name:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          format: date-time
+          type: string
+        user_ids:
+          $ref: '#/components/schemas/property_TaskProject_user_ids'
+      type: object
+    TaskTask:
+      properties:
+        assigned_user_ids:
+          $ref: '#/components/schemas/property_TaskTask_assigned_user_ids'
+        attachment_ids:
+          $ref: '#/components/schemas/property_TaskTask_attachment_ids'
+        completed_at:
+          format: date-time
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        creator_user_id:
+          type: string
+        due_at:
+          format: date-time
+          type: string
+        follower_user_ids:
+          $ref: '#/components/schemas/property_TaskTask_follower_user_ids'
+        group_ids:
+          $ref: '#/components/schemas/property_TaskTask_group_ids'
+        has_children:
+          type: boolean
+        id:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/property_TaskTask_metadata'
+        name:
+          type: string
+        notes:
+          type: string
+        parent_id:
+          type: string
+        priority:
+          type: string
+        project_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        status:
+          enum:
+          - OPENED
+          - IN_PROGRESS
+          - COMPLETED
+          type: string
+          x-speakeasy-unknown-values: allow
+        tags:
+          $ref: '#/components/schemas/property_TaskTask_tags'
+        updated_at:
+          format: date-time
+          type: string
+        url:
+          type: string
+      type: object
+    property_TaskChange_items:
+      items:
+        $ref: '#/components/schemas/TaskChangeItem'
+      type: array
+    property_TaskProject_user_ids:
+      items:
+        type: string
+      type: array
+    property_TaskTask_group_ids:
+      items:
+        type: string
+      type: array
     property_TaskTask_attachment_ids:
       description: Array of attachment IDs retrieved from StorageFile.Get endpoint
       items:
         type: string
+      type: array
+    TaskChange:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        items:
+          $ref: '#/components/schemas/property_TaskChange_items'
+        raw:
+          additionalProperties: true
+          type: object
+        task_id:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_TaskTask_assigned_user_ids:
+      items:
+        type: string
+      type: array
+    TaskComment:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        task_id:
+          type: string
+        text:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+        user_name:
+          type: string
+      required:
+      - text
+      type: object
+    TaskTasks:
+      items:
+        $ref: '#/components/schemas/TaskTask'
       type: array
     TaskMetadata:
       properties:
@@ -1325,198 +1517,6 @@ components:
               - type: boolean
             type: array
       type: object
-    TaskComment:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        task_id:
-          type: string
-        text:
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-        user_id:
-          type: string
-        user_name:
-          type: string
-      required:
-      - text
-      type: object
-    property_TaskTask_follower_user_ids:
-      items:
-        type: string
-      type: array
-    property_TaskChange_items:
-      items:
-        $ref: '#/components/schemas/TaskChangeItem'
-      type: array
-    TaskTasks:
-      items:
-        $ref: '#/components/schemas/TaskTask'
-      type: array
-    TaskChanges:
-      items:
-        $ref: '#/components/schemas/TaskChange'
-      type: array
-    property_TaskTask_metadata:
-      items:
-        $ref: '#/components/schemas/TaskMetadata'
-      type: array
-    TaskChange:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        id:
-          type: string
-        items:
-          $ref: '#/components/schemas/property_TaskChange_items'
-        raw:
-          additionalProperties: true
-          type: object
-        task_id:
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-        user_id:
-          type: string
-      type: object
-    property_TaskProject_metadata:
-      items:
-        $ref: '#/components/schemas/TaskMetadata'
-      type: array
-    property_TaskProject_user_ids:
-      items:
-        type: string
-      type: array
-    property_TaskTask_assigned_user_ids:
-      items:
-        type: string
-      type: array
-    property_TaskProject_group_ids:
-      items:
-        type: string
-      type: array
-    property_TaskTask_group_ids:
-      items:
-        type: string
-      type: array
-    TaskChangeItem:
-      properties:
-        field:
-          type: string
-        from:
-          type: string
-        to:
-          type: string
-      required:
-      - field
-      type: object
-    TaskTask:
-      properties:
-        assigned_user_ids:
-          $ref: '#/components/schemas/property_TaskTask_assigned_user_ids'
-        attachment_ids:
-          $ref: '#/components/schemas/property_TaskTask_attachment_ids'
-        completed_at:
-          format: date-time
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        creator_user_id:
-          type: string
-        due_at:
-          format: date-time
-          type: string
-        follower_user_ids:
-          $ref: '#/components/schemas/property_TaskTask_follower_user_ids'
-        group_ids:
-          $ref: '#/components/schemas/property_TaskTask_group_ids'
-        has_children:
-          type: boolean
-        id:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/property_TaskTask_metadata'
-        name:
-          type: string
-        notes:
-          type: string
-        parent_id:
-          type: string
-        priority:
-          type: string
-        project_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        status:
-          enum:
-          - OPENED
-          - IN_PROGRESS
-          - COMPLETED
-          type: string
-          x-speakeasy-unknown-values: allow
-        tags:
-          $ref: '#/components/schemas/property_TaskTask_tags'
-        updated_at:
-          format: date-time
-          type: string
-        url:
-          type: string
-      type: object
-    TaskProjects:
-      items:
-        $ref: '#/components/schemas/TaskProject'
-      type: array
-    TaskProject:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        description:
-          type: string
-        group_ids:
-          $ref: '#/components/schemas/property_TaskProject_group_ids'
-        has_children:
-          type: boolean
-        has_tasks:
-          type: boolean
-        id:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/property_TaskProject_metadata'
-        name:
-          type: string
-        parent_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        updated_at:
-          format: date-time
-          type: string
-        user_ids:
-          $ref: '#/components/schemas/property_TaskProject_user_ids'
-      type: object
-    TaskComments:
-      items:
-        $ref: '#/components/schemas/TaskComment'
-      type: array
-    property_TaskTask_tags:
-      items:
-        type: string
-      type: array
   securitySchemes:
     jwt:
       in: header

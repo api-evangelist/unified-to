@@ -256,85 +256,6 @@ paths:
       - genai
 components:
   schemas:
-    property_GenaiEmbedding_content:
-      items:
-        $ref: '#/components/schemas/GenaiEmbeddingContent'
-      type: array
-    GenaiModels:
-      items:
-        $ref: '#/components/schemas/GenaiModel'
-      type: array
-    property_GenaiPrompt_messages:
-      items:
-        $ref: '#/components/schemas/GenaiContent'
-      type: array
-    GenaiPrompt:
-      properties:
-        max_tokens:
-          type: number
-        mcp_authorization_token:
-          type: string
-        mcp_deferred_tools:
-          $ref: '#/components/schemas/property_GenaiPrompt_mcp_deferred_tools'
-        mcp_url:
-          type: string
-        messages:
-          $ref: '#/components/schemas/property_GenaiPrompt_messages'
-        model_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        responses:
-          $ref: '#/components/schemas/property_GenaiPrompt_responses'
-        temperature:
-          type: number
-        tokens_used:
-          type: number
-      type: object
-    GenaiModel:
-      properties:
-        description:
-          type: string
-        has_temperature:
-          type: boolean
-        id:
-          type: string
-        max_tokens:
-          type: number
-        name:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        web_url:
-          type: string
-      type: object
-    property_GenaiPrompt_mcp_deferred_tools:
-      items:
-        type: string
-      type: array
-    GenaiEmbeddingContent:
-      properties:
-        text:
-          type: string
-      required:
-      - text
-      type: object
-    GenaiContent:
-      properties:
-        content:
-          type: string
-        role:
-          enum:
-          - SYSTEM
-          - USER
-          - ASSISTANT
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - content
-      type: object
     GenaiEmbedding:
       properties:
         content:
@@ -367,10 +288,89 @@ components:
         type:
           type: string
       type: object
+    GenaiPrompt:
+      properties:
+        max_tokens:
+          type: number
+        mcp_authorization_token:
+          type: string
+        mcp_deferred_tools:
+          $ref: '#/components/schemas/property_GenaiPrompt_mcp_deferred_tools'
+        mcp_url:
+          type: string
+        messages:
+          $ref: '#/components/schemas/property_GenaiPrompt_messages'
+        model_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        responses:
+          $ref: '#/components/schemas/property_GenaiPrompt_responses'
+        temperature:
+          type: number
+        tokens_used:
+          type: number
+      type: object
     property_GenaiPrompt_responses:
       items:
         type: string
       type: array
+    GenaiModel:
+      properties:
+        description:
+          type: string
+        has_temperature:
+          type: boolean
+        id:
+          type: string
+        max_tokens:
+          type: number
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        web_url:
+          type: string
+      type: object
+    GenaiModels:
+      items:
+        $ref: '#/components/schemas/GenaiModel'
+      type: array
+    GenaiEmbeddingContent:
+      properties:
+        text:
+          type: string
+      required:
+      - text
+      type: object
+    property_GenaiPrompt_messages:
+      items:
+        $ref: '#/components/schemas/GenaiContent'
+      type: array
+    property_GenaiEmbedding_content:
+      items:
+        $ref: '#/components/schemas/GenaiEmbeddingContent'
+      type: array
+    property_GenaiPrompt_mcp_deferred_tools:
+      items:
+        type: string
+      type: array
+    GenaiContent:
+      properties:
+        content:
+          type: string
+        role:
+          enum:
+          - SYSTEM
+          - USER
+          - ASSISTANT
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - content
+      type: object
   securitySchemes:
     jwt:
       in: header
