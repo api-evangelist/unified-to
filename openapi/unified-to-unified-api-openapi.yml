@@ -984,76 +984,9 @@ paths:
       - unified
 components:
   schemas:
-    Environments:
-      description: A list of environments in the workspace.
-      items:
-        type: string
-      type: array
-    property_Webhook_runs:
-      description: An array of the most revent virtual webhook runs
-      items:
-        type: string
-      type: array
-    property_Connection_auth_other_auth_info:
-      description: When integration.auth_type = "other", this field contains the authentication credentials in the same order as token_names
-      items:
-        type: string
-      type: array
     Issues:
       items:
         $ref: '#/components/schemas/Issue'
-      type: array
-    property_Connection_categories:
-      description: The Integration categories that this connection supports
-      items:
-        enum:
-        - passthrough
-        - hris
-        - ats
-        - auth
-        - crm
-        - enrich
-        - martech
-        - ticketing
-        - uc
-        - accounting
-        - storage
-        - commerce
-        - payment
-        - genai
-        - messaging
-        - kms
-        - task
-        - scim
-        - lms
-        - repo
-        - metadata
-        - calendar
-        - verification
-        - ads
-        - forms
-        - shipping
-        - assessment
-        - signing
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    Integrations:
-      items:
-        $ref: '#/components/schemas/Integration'
-      type: array
-    property_Integration_token_instructions:
-      description: instructions for the user on how to find the token/key
-      items:
-        type: string
-      type: array
-    property_IntegrationSupport_webhook_events_deleted:
-      items:
-        enum:
-        - virtual
-        - native
-        type: string
-        x-speakeasy-unknown-values: allow
       type: array
     Webhook:
       description: A webhook is used to POST new/updated information to your server.
@@ -1266,16 +1199,65 @@ components:
       - object_type
       - event
       type: object
-    property_Integration_token_names:
-      description: if auth_types = 'token'
-      items:
-        type: string
-      type: array
-    Connections:
-      items:
-        $ref: '#/components/schemas/Connection'
-      type: array
-    property_IntegrationSupport_webhook_events_updated:
+    ApiCall:
+      properties:
+        connection_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        endapi_response_time:
+          type: number
+        environment:
+          default: Production
+          type: string
+        error:
+          type: string
+        external_xref:
+          type: string
+        id:
+          type: string
+        integration_type:
+          type: string
+        ip_address:
+          type: string
+        is_billable:
+          type: boolean
+        method:
+          type: string
+        name:
+          type: string
+        path:
+          type: string
+        size:
+          type: number
+        status:
+          type: string
+        type:
+          enum:
+          - login
+          - webhook
+          - inbound
+          - mcp
+          type: string
+          x-speakeasy-unknown-values: allow
+        unified_response_time:
+          type: number
+        user_agent:
+          type: string
+        webhook_id:
+          type: string
+        workspace_id:
+          type: string
+      required:
+      - integration_type
+      - name
+      - path
+      - status
+      - type
+      - method
+      type: object
+    property_IntegrationSupport_webhook_events_deleted:
       items:
         enum:
         - virtual
@@ -1283,15 +1265,51 @@ components:
         type: string
         x-speakeasy-unknown-values: allow
       type: array
-    property_IntegrationSupport_raw_objects:
-      description: objects that we map from in the integration
+    ApiCalls:
       items:
-        type: string
+        $ref: '#/components/schemas/ApiCall'
       type: array
-    property_IntegrationSupport_slow_fields:
-      items:
-        type: string
-      type: array
+    Issue:
+      properties:
+        created_at:
+          type: string
+        id:
+          type: string
+        importance:
+          type: number
+        resolution_time:
+          type: number
+        size:
+          type: number
+        status:
+          enum:
+          - COMPLETED
+          - NEW
+          - ROADMAP
+          - IN_PROGRESS
+          - ON_HOLD
+          - VALIDATING
+          - REJECTED
+          type: string
+          x-speakeasy-unknown-values: allow
+        ticket_ref:
+          type: string
+        title:
+          type: string
+        type:
+          $ref: '#/components/schemas/property_Issue_type'
+        updated_at:
+          type: string
+        url:
+          type: string
+        workspace_id:
+          type: string
+      required:
+      - title
+      - status
+      - workspace_id
+      - ticket_ref
+      type: object
     IntegrationSupport:
       properties:
         from_webhook:
@@ -2413,63 +2431,107 @@ components:
         webhook_events:
           $ref: '#/components/schemas/property_IntegrationSupport_webhook_events'
       type: object
-    Connection:
-      description: A connection represents a specific authentication of an integration.
-      properties:
-        auth:
-          $ref: '#/components/schemas/property_Connection_auth'
-        auth_aws_arn:
-          type: string
-        auth_azure_keyvault_id:
-          type: string
-        auth_gcp_secret_name:
-          type: string
-        auth_hashi_vault_path:
-          type: string
-        categories:
-          $ref: '#/components/schemas/property_Connection_categories'
-        created_at:
-          format: date-time
-          type: string
-        environment:
-          default: Production
-          type: string
-        external_xref:
-          type: string
-        id:
-          type: string
-        integration_name:
-          type: string
-        integration_type:
-          type: string
-        is_paused:
-          type: boolean
-        last_healthy_at:
-          format: date-time
-          type: string
-        last_unhealthy_at:
-          format: date-time
-          type: string
-        permissions:
-          $ref: '#/components/schemas/property_Connection_permissions'
-        updated_at:
-          format: date-time
-          type: string
-        workspace_id:
-          type: string
-      required:
-      - integration_type
-      - permissions
-      - categories
-      type: object
-    property_Issue_type:
+    property_Connection_auth_other_auth_info:
+      description: When integration.auth_type = "other", this field contains the authentication credentials in the same order as token_names
       items:
         type: string
       type: array
-    property_Integration_support:
+    property_IntegrationSupport_outbound_fields:
       additionalProperties:
-        $ref: '#/components/schemas/IntegrationSupport'
+        type: string
       type: object
+    property_Webhook_runs:
+      description: An array of the most revent virtual webhook runs
+      items:
+        type: string
+      type: array
+    property_Connection_auth_emails:
+      items:
+        type: string
+      type: array
+    Webhooks:
+      items:
+        $ref: '#/components/schemas/Webhook'
+      type: array
+    Integrations:
+      items:
+        $ref: '#/components/schemas/Integration'
+      type: array
+    property_IntegrationSupport_webhook_events_created:
+      items:
+        enum:
+        - virtual
+        - native
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_IntegrationSupport_methods:
+      additionalProperties:
+        type: boolean
+      type: object
+    property_Connection_auth:
+      description: An authentication object that represents a specific authorized user's connection to an integration.
+      properties:
+        access_token:
+          type: string
+        api_url:
+          type: string
+        app_id:
+          type: string
+        audience:
+          type: string
+        authorize_url:
+          type: string
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        consumer_key:
+          type: string
+        consumer_secret:
+          type: string
+        dev_api_key:
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_Connection_auth_emails'
+        expires_in:
+          type: number
+        expiry_date:
+          format: date-time
+          type: string
+        key:
+          type: string
+        meta:
+          additionalProperties: true
+          type: object
+        name:
+          type: string
+        other_auth_info:
+          $ref: '#/components/schemas/property_Connection_auth_other_auth_info'
+        pem:
+          type: string
+        refresh_token:
+          type: string
+        refresh_token_expires_date:
+          format: date-time
+          type: string
+        refresh_token_expires_in:
+          type: number
+        refresh_url:
+          type: string
+        state:
+          type: string
+        token:
+          type: string
+        token_url:
+          type: string
+        user_id:
+          type: string
+      type: object
+    Connections:
+      items:
+        $ref: '#/components/schemas/Connection'
+      type: array
     property_Connection_permissions:
       items:
         enum:
@@ -2718,10 +2780,164 @@ components:
         type: string
         x-speakeasy-unknown-values: allow
       type: array
+    property_Webhook_filters:
+      additionalProperties:
+        type: string
+      type: object
+    property_Connection_categories:
+      description: The Integration categories that this connection supports
+      items:
+        enum:
+        - passthrough
+        - hris
+        - ats
+        - auth
+        - crm
+        - enrich
+        - martech
+        - ticketing
+        - uc
+        - accounting
+        - storage
+        - commerce
+        - payment
+        - genai
+        - messaging
+        - kms
+        - task
+        - scim
+        - lms
+        - repo
+        - metadata
+        - calendar
+        - verification
+        - ads
+        - forms
+        - shipping
+        - assessment
+        - signing
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    Connection:
+      description: A connection represents a specific authentication of an integration.
+      properties:
+        auth:
+          $ref: '#/components/schemas/property_Connection_auth'
+        auth_aws_arn:
+          type: string
+        auth_azure_keyvault_id:
+          type: string
+        auth_gcp_secret_name:
+          type: string
+        auth_hashi_vault_path:
+          type: string
+        categories:
+          $ref: '#/components/schemas/property_Connection_categories'
+        created_at:
+          format: date-time
+          type: string
+        environment:
+          default: Production
+          type: string
+        external_xref:
+          type: string
+        id:
+          type: string
+        integration_name:
+          type: string
+        integration_type:
+          type: string
+        is_paused:
+          type: boolean
+        last_healthy_at:
+          format: date-time
+          type: string
+        last_unhealthy_at:
+          format: date-time
+          type: string
+        permissions:
+          $ref: '#/components/schemas/property_Connection_permissions'
+        updated_at:
+          format: date-time
+          type: string
+        workspace_id:
+          type: string
+      required:
+      - integration_type
+      - permissions
+      - categories
+      type: object
+    property_Issue_type:
+      items:
+        type: string
+      type: array
+    property_Integration_support:
+      additionalProperties:
+        $ref: '#/components/schemas/IntegrationSupport'
+      type: object
+    property_IntegrationSupport_raw_objects:
+      description: objects that we map from in the integration
+      items:
+        type: string
+      type: array
+    property_Integration_token_instructions:
+      description: instructions for the user on how to find the token/key
+      items:
+        type: string
+      type: array
+    Environments:
+      description: A list of environments in the workspace.
+      items:
+        type: string
+      type: array
     property_IntegrationSupport_inbound_fields:
       additionalProperties:
         type: string
       type: object
+    property_Integration_categories:
+      description: The categories of support solutions that this integration has
+      items:
+        enum:
+        - passthrough
+        - hris
+        - ats
+        - auth
+        - crm
+        - enrich
+        - martech
+        - ticketing
+        - uc
+        - accounting
+        - storage
+        - commerce
+        - payment
+        - genai
+        - messaging
+        - kms
+        - task
+        - scim
+        - lms
+        - repo
+        - metadata
+        - calendar
+        - verification
+        - ads
+        - forms
+        - shipping
+        - assessment
+        - signing
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_IntegrationSupport_webhook_events_updated:
+      items:
+        enum:
+        - virtual
+        - native
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
     Integration:
       description: Informational object for supported integrations.
       properties:
@@ -2835,190 +3051,6 @@ components:
       - name
       - categories
       type: object
-    property_IntegrationSupport_outbound_fields:
-      additionalProperties:
-        type: string
-      type: object
-    property_IntegrationSupport_methods:
-      additionalProperties:
-        type: boolean
-      type: object
-    ApiCall:
-      properties:
-        connection_id:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        endapi_response_time:
-          type: number
-        environment:
-          default: Production
-          type: string
-        error:
-          type: string
-        external_xref:
-          type: string
-        id:
-          type: string
-        integration_type:
-          type: string
-        ip_address:
-          type: string
-        is_billable:
-          type: boolean
-        method:
-          type: string
-        name:
-          type: string
-        path:
-          type: string
-        size:
-          type: number
-        status:
-          type: string
-        type:
-          enum:
-          - login
-          - webhook
-          - inbound
-          - mcp
-          type: string
-          x-speakeasy-unknown-values: allow
-        unified_response_time:
-          type: number
-        user_agent:
-          type: string
-        webhook_id:
-          type: string
-        workspace_id:
-          type: string
-      required:
-      - integration_type
-      - name
-      - path
-      - status
-      - type
-      - method
-      type: object
-    ApiCalls:
-      items:
-        $ref: '#/components/schemas/ApiCall'
-      type: array
-    property_Webhook_filters:
-      additionalProperties:
-        type: string
-      type: object
-    property_Integration_categories:
-      description: The categories of support solutions that this integration has
-      items:
-        enum:
-        - passthrough
-        - hris
-        - ats
-        - auth
-        - crm
-        - enrich
-        - martech
-        - ticketing
-        - uc
-        - accounting
-        - storage
-        - commerce
-        - payment
-        - genai
-        - messaging
-        - kms
-        - task
-        - scim
-        - lms
-        - repo
-        - metadata
-        - calendar
-        - verification
-        - ads
-        - forms
-        - shipping
-        - assessment
-        - signing
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    property_Connection_auth:
-      description: An authentication object that represents a specific authorized user's connection to an integration.
-      properties:
-        access_token:
-          type: string
-        api_url:
-          type: string
-        app_id:
-          type: string
-        audience:
-          type: string
-        authorize_url:
-          type: string
-        client_id:
-          type: string
-        client_secret:
-          type: string
-        consumer_key:
-          type: string
-        consumer_secret:
-          type: string
-        dev_api_key:
-          type: string
-        emails:
-          $ref: '#/components/schemas/property_Connection_auth_emails'
-        expires_in:
-          type: number
-        expiry_date:
-          format: date-time
-          type: string
-        key:
-          type: string
-        meta:
-          additionalProperties: true
-          type: object
-        name:
-          type: string
-        other_auth_info:
-          $ref: '#/components/schemas/property_Connection_auth_other_auth_info'
-        pem:
-          type: string
-        refresh_token:
-          type: string
-        refresh_token_expires_date:
-          format: date-time
-          type: string
-        refresh_token_expires_in:
-          type: number
-        refresh_url:
-          type: string
-        state:
-          type: string
-        token:
-          type: string
-        token_url:
-          type: string
-        user_id:
-          type: string
-      type: object
-    property_Connection_auth_emails:
-      items:
-        type: string
-      type: array
-    property_IntegrationSupport_webhook_events_created:
-      items:
-        enum:
-        - virtual
-        - native
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    Webhooks:
-      items:
-        $ref: '#/components/schemas/Webhook'
-      type: array
     property_IntegrationSupport_webhook_events:
       properties:
         created:
@@ -3028,47 +3060,15 @@ components:
         updated:
           $ref: '#/components/schemas/property_IntegrationSupport_webhook_events_updated'
       type: object
-    Issue:
-      properties:
-        created_at:
-          type: string
-        id:
-          type: string
-        importance:
-          type: number
-        resolution_time:
-          type: number
-        size:
-          type: number
-        status:
-          enum:
-          - COMPLETED
-          - NEW
-          - ROADMAP
-          - IN_PROGRESS
-          - ON_HOLD
-          - VALIDATING
-          - REJECTED
-          type: string
-          x-speakeasy-unknown-values: allow
-        ticket_ref:
-          type: string
-        title:
-          type: string
-        type:
-          $ref: '#/components/schemas/property_Issue_type'
-        updated_at:
-          type: string
-        url:
-          type: string
-        workspace_id:
-          type: string
-      required:
-      - title
-      - status
-      - workspace_id
-      - ticket_ref
-      type: object
+    property_IntegrationSupport_slow_fields:
+      items:
+        type: string
+      type: array
+    property_Integration_token_names:
+      description: if auth_types = 'token'
+      items:
+        type: string
+      type: array
   securitySchemes:
     jwt:
       in: header

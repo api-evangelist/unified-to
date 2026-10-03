@@ -3325,6 +3325,32 @@ paths:
       - Commerce
 components:
   schemas:
+    property_CommerceItem_prices:
+      items:
+        $ref: '#/components/schemas/CommerceItemPrice'
+      type: array
+    CommerceSaleschannel:
+      properties:
+        collections:
+          $ref: '#/components/schemas/property_CommerceSaleschannel_collections'
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        raw:
+          additionalProperties: true
+          type: object
+        slug:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
     CommerceAvailability:
       properties:
         end_at:
@@ -3345,21 +3371,178 @@ components:
           format: date-time
           type: string
       type: object
+    CommerceCollection:
+      description: A collection of items/products/services
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        is_featured:
+          type: boolean
+        is_visible:
+          type: boolean
+        item_metadata:
+          $ref: '#/components/schemas/property_CommerceCollection_item_metadata'
+        media:
+          $ref: '#/components/schemas/property_CommerceCollection_media'
+        metadata:
+          $ref: '#/components/schemas/property_CommerceCollection_metadata'
+        name:
+          type: string
+        parent_id:
+          type: string
+        public_description:
+          type: string
+        public_name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        tags:
+          $ref: '#/components/schemas/property_CommerceCollection_tags'
+        type:
+          enum:
+          - COLLECTION
+          - SAVED_SEARCH
+          - CATEGORY
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - name
+      type: object
+    property_CommerceReview_comments:
+      items:
+        $ref: '#/components/schemas/CommerceReviewComment'
+      type: array
+    CommerceCollections:
+      items:
+        $ref: '#/components/schemas/CommerceCollection'
+      type: array
     property_CommerceCollection_metadata:
       items:
         $ref: '#/components/schemas/CommerceMetadata'
       type: array
-    CommerceItems:
+    property_CommerceItemvariant_prices:
       items:
-        $ref: '#/components/schemas/CommerceItem'
+        $ref: '#/components/schemas/CommerceItemPrice'
       type: array
-    property_CommerceCollection_item_metadata:
+    CommerceItemPrice:
+      properties:
+        compare_at_price:
+          type: number
+        currency:
+          type: string
+        price:
+          type: number
+      required:
+      - price
+      type: object
+    property_CommerceReviewComment_metadata:
       items:
         $ref: '#/components/schemas/CommerceMetadata'
+      type: array
+    property_CommerceSaleschannel_collections:
+      description: points to a CommerceCollection
+      items:
+        $ref: '#/components/schemas/CommerceReference'
+      type: array
+    property_CommerceItem_collection_ids:
+      description: ' @deprecated; use collections instead'
+      items:
+        type: string
       type: array
     property_CommerceReview_metadata:
       items:
         $ref: '#/components/schemas/CommerceMetadata'
+      type: array
+    property_CommerceItem_variants:
+      description: first variant is the default variant
+      items:
+        $ref: '#/components/schemas/CommerceItemvariant'
+      type: array
+    CommerceMetadata:
+      properties:
+        description:
+          type: string
+        extra_data:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        format:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - MEASUREMENT
+          - PRICE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        is_required:
+          type: boolean
+        namespace:
+          type: string
+        slug:
+          type: string
+        value:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+      type: object
+    property_CommerceItemMedia_metadata:
+      items:
+        $ref: '#/components/schemas/CommerceMetadata'
+      type: array
+    CommerceReviews:
+      items:
+        $ref: '#/components/schemas/CommerceReview'
+      type: array
+    property_CommerceLocation_categories:
+      items:
+        type: string
+      type: array
+    property_CommerceReview_media:
+      description: Photosvideos attached to the review
+      items:
+        $ref: '#/components/schemas/CommerceItemMedia'
       type: array
     CommerceItemMedia:
       properties:
@@ -3386,6 +3569,213 @@ components:
       required:
       - url
       type: object
+    property_CommerceItemOption_values:
+      items:
+        type: string
+      type: array
+    property_CommerceLocation_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    CommerceInventories:
+      items:
+        $ref: '#/components/schemas/CommerceInventory'
+      type: array
+    property_CommerceItemvariant_tags:
+      items:
+        type: string
+      type: array
+    property_CommerceItem_media:
+      items:
+        $ref: '#/components/schemas/CommerceItemMedia'
+      type: array
+    CommerceLocation:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_CommerceLocation_address'
+        categories:
+          $ref: '#/components/schemas/property_CommerceLocation_categories'
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        image_url:
+          type: string
+        is_active:
+          type: boolean
+        language_locale:
+          type: string
+        latitude:
+          type: number
+        location_type:
+          enum:
+          - RESTAURANT
+          - SALON
+          - WAREHOUSE
+          - STORE
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        longitude:
+          type: number
+        media:
+          $ref: '#/components/schemas/property_CommerceLocation_media'
+        name:
+          type: string
+        parent_id:
+          type: string
+        price_level:
+          type: string
+        rating:
+          type: number
+        raw:
+          additionalProperties: true
+          type: object
+        review_count:
+          type: number
+        telephones:
+          $ref: '#/components/schemas/property_CommerceLocation_telephones'
+        updated_at:
+          format: date-time
+          type: string
+        web_url:
+          type: string
+      required:
+      - name
+      type: object
+    property_CommerceItemvariant_metadata:
+      items:
+        $ref: '#/components/schemas/CommerceMetadata'
+      type: array
+    property_CommerceItemvariant_items:
+      description: references CommerceItem
+      items:
+        $ref: '#/components/schemas/CommerceReference'
+      type: array
+    property_CommerceItem_collections:
+      description: points to Collection with id, name, and type fields
+      items:
+        $ref: '#/components/schemas/CommerceReference'
+      type: array
+    CommerceInventory:
+      properties:
+        available:
+          type: number
+        id:
+          type: string
+        item_id:
+          type: string
+        item_option_id:
+          type: string
+        item_variant_id:
+          type: string
+        location_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - available
+      type: object
+    property_CommerceItemvariant_media:
+      items:
+        $ref: '#/components/schemas/CommerceItemMedia'
+      type: array
+    CommerceReview:
+      properties:
+        author_avatar_url:
+          type: string
+        author_email:
+          type: string
+        author_location:
+          type: string
+        author_name:
+          type: string
+        comments:
+          $ref: '#/components/schemas/property_CommerceReview_comments'
+        content:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        helpful_votes:
+          type: number
+        id:
+          type: string
+        is_featured:
+          type: boolean
+        is_public:
+          type: boolean
+        is_verified:
+          type: boolean
+        item_id:
+          type: string
+        item_variant_id:
+          type: string
+        location_id:
+          type: string
+        media:
+          $ref: '#/components/schemas/property_CommerceReview_media'
+        metadata:
+          $ref: '#/components/schemas/property_CommerceReview_metadata'
+        rating:
+          type: number
+        raw:
+          additionalProperties: true
+          type: object
+        status:
+          enum:
+          - PENDING
+          - APPROVED
+          - REJECTED
+          - SPAM
+          type: string
+          x-speakeasy-unknown-values: allow
+        title:
+          type: string
+        unhelpful_votes:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+        url:
+          type: string
+        verified_purchase:
+          type: boolean
+      required:
+      - item_id
+      type: object
+    CommerceReservations:
+      items:
+        $ref: '#/components/schemas/CommerceReservation'
+      type: array
+    property_CommerceCollection_tags:
+      items:
+        type: string
+      type: array
     CommerceReservation:
       properties:
         created_at:
@@ -3437,91 +3827,89 @@ components:
         url:
           type: string
       type: object
-    CommerceItemvariant:
+    property_CommerceLocation_media:
+      items:
+        $ref: '#/components/schemas/CommerceItemMedia'
+      type: array
+    property_CommerceCollection_item_metadata:
+      items:
+        $ref: '#/components/schemas/CommerceMetadata'
+      type: array
+    CommerceReviewComment:
       properties:
-        available_at:
-          format: date-time
+        author_avatar_url:
+          type: string
+        author_email:
+          type: string
+        author_location:
+          type: string
+        author_name:
+          type: string
+        content:
           type: string
         created_at:
           format: date-time
           type: string
-        description:
-          type: string
-        height:
+        helpful_votes:
           type: number
         id:
           type: string
-        inventory_id:
-          type: string
-        is_active:
+        is_public:
           type: boolean
-        is_featured:
+        is_verified:
           type: boolean
-        is_visible:
-          type: boolean
-        items:
-          $ref: '#/components/schemas/property_CommerceItemvariant_items'
-        length:
-          type: number
-        media:
-          $ref: '#/components/schemas/property_CommerceItemvariant_media'
         metadata:
-          $ref: '#/components/schemas/property_CommerceItemvariant_metadata'
-        name:
-          type: string
-        options:
-          $ref: '#/components/schemas/property_CommerceItemvariant_options'
-        prices:
-          $ref: '#/components/schemas/property_CommerceItemvariant_prices'
-        public_description:
-          type: string
-        public_name:
-          type: string
+          $ref: '#/components/schemas/property_CommerceReviewComment_metadata'
         raw:
           additionalProperties: true
           type: object
-        requires_shipping:
-          type: boolean
-        size_unit:
+        status:
           enum:
-          - cm
-          - inch
+          - PENDING
+          - APPROVED
+          - REJECTED
+          - SPAM
           type: string
           x-speakeasy-unknown-values: allow
-        sku:
-          type: string
-        tags:
-          $ref: '#/components/schemas/property_CommerceItemvariant_tags'
-        total_stock:
+        unhelpful_votes:
           type: number
         updated_at:
           format: date-time
           type: string
-        weight:
-          type: number
-        weight_unit:
-          enum:
-          - g
-          - kg
-          - oz
-          - lb
-          type: string
-          x-speakeasy-unknown-values: allow
-        width:
-          type: number
+      required:
+      - content
       type: object
+    CommerceItemvariants:
+      items:
+        $ref: '#/components/schemas/CommerceItemvariant'
+      type: array
+    property_CommerceCollection_media:
+      items:
+        $ref: '#/components/schemas/CommerceItemMedia'
+      type: array
+    property_CommerceItemvariant_options:
+      items:
+        $ref: '#/components/schemas/CommerceItemOption'
+      type: array
+    property_CommerceItem_tags:
+      items:
+        type: string
+      type: array
+    property_CommerceLocation_telephones:
+      items:
+        $ref: '#/components/schemas/CommerceTelephone'
+      type: array
+    CommerceAvailabilities:
+      items:
+        $ref: '#/components/schemas/CommerceAvailability'
+      type: array
+    CommerceLocations:
+      items:
+        $ref: '#/components/schemas/CommerceLocation'
+      type: array
     property_CommerceItem_metadata:
       items:
         $ref: '#/components/schemas/CommerceMetadata'
-      type: array
-    property_CommerceItem_collections:
-      description: points to Collection with id, name, and type fields
-      items:
-        $ref: '#/components/schemas/CommerceReference'
-      type: array
-    property_CommerceLocation_media:
-      items:
-        $ref: '#/components/schemas/CommerceItemMedia'
       type: array
     CommerceItem:
       properties:
@@ -3599,20 +3987,25 @@ components:
           type: string
           x-speakeasy-unknown-values: allow
       type: object
-    property_CommerceItem_variants:
-      description: first variant is the default variant
+    CommerceSaleschannels:
       items:
-        $ref: '#/components/schemas/CommerceItemvariant'
+        $ref: '#/components/schemas/CommerceSaleschannel'
       type: array
-    CommerceCollection:
-      description: A collection of items/products/services
+    CommerceItemvariant:
       properties:
+        available_at:
+          format: date-time
+          type: string
         created_at:
           format: date-time
           type: string
         description:
           type: string
+        height:
+          type: number
         id:
+          type: string
+        inventory_id:
           type: string
         is_active:
           type: boolean
@@ -3620,16 +4013,20 @@ components:
           type: boolean
         is_visible:
           type: boolean
-        item_metadata:
-          $ref: '#/components/schemas/property_CommerceCollection_item_metadata'
+        items:
+          $ref: '#/components/schemas/property_CommerceItemvariant_items'
+        length:
+          type: number
         media:
-          $ref: '#/components/schemas/property_CommerceCollection_media'
+          $ref: '#/components/schemas/property_CommerceItemvariant_media'
         metadata:
-          $ref: '#/components/schemas/property_CommerceCollection_metadata'
+          $ref: '#/components/schemas/property_CommerceItemvariant_metadata'
         name:
           type: string
-        parent_id:
-          type: string
+        options:
+          $ref: '#/components/schemas/property_CommerceItemvariant_options'
+        prices:
+          $ref: '#/components/schemas/property_CommerceItemvariant_prices'
         public_description:
           type: string
         public_name:
@@ -3637,208 +4034,63 @@ components:
         raw:
           additionalProperties: true
           type: object
+        requires_shipping:
+          type: boolean
+        size_unit:
+          enum:
+          - cm
+          - inch
+          type: string
+          x-speakeasy-unknown-values: allow
+        sku:
+          type: string
         tags:
-          $ref: '#/components/schemas/property_CommerceCollection_tags'
-        type:
-          enum:
-          - COLLECTION
-          - SAVED_SEARCH
-          - CATEGORY
-          type: string
-          x-speakeasy-unknown-values: allow
-        updated_at:
-          format: date-time
-          type: string
-      required:
-      - name
-      type: object
-    CommerceSaleschannels:
-      items:
-        $ref: '#/components/schemas/CommerceSaleschannel'
-      type: array
-    property_CommerceReview_comments:
-      items:
-        $ref: '#/components/schemas/CommerceReviewComment'
-      type: array
-    property_CommerceCollection_tags:
-      items:
-        type: string
-      type: array
-    property_CommerceItemvariant_media:
-      items:
-        $ref: '#/components/schemas/CommerceItemMedia'
-      type: array
-    CommerceReview:
-      properties:
-        author_avatar_url:
-          type: string
-        author_email:
-          type: string
-        author_location:
-          type: string
-        author_name:
-          type: string
-        comments:
-          $ref: '#/components/schemas/property_CommerceReview_comments'
-        content:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        helpful_votes:
-          type: number
-        id:
-          type: string
-        is_featured:
-          type: boolean
-        is_public:
-          type: boolean
-        is_verified:
-          type: boolean
-        item_id:
-          type: string
-        item_variant_id:
-          type: string
-        location_id:
-          type: string
-        media:
-          $ref: '#/components/schemas/property_CommerceReview_media'
-        metadata:
-          $ref: '#/components/schemas/property_CommerceReview_metadata'
-        rating:
-          type: number
-        raw:
-          additionalProperties: true
-          type: object
-        status:
-          enum:
-          - PENDING
-          - APPROVED
-          - REJECTED
-          - SPAM
-          type: string
-          x-speakeasy-unknown-values: allow
-        title:
-          type: string
-        unhelpful_votes:
+          $ref: '#/components/schemas/property_CommerceItemvariant_tags'
+        total_stock:
           type: number
         updated_at:
           format: date-time
           type: string
-        url:
-          type: string
-        verified_purchase:
-          type: boolean
-      required:
-      - item_id
-      type: object
-    CommerceLocation:
-      properties:
-        address:
-          $ref: '#/components/schemas/property_CommerceLocation_address'
-        categories:
-          $ref: '#/components/schemas/property_CommerceLocation_categories'
-        created_at:
-          format: date-time
-          type: string
-        currency:
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        image_url:
-          type: string
-        is_active:
-          type: boolean
-        language_locale:
-          type: string
-        latitude:
+        weight:
           type: number
-        location_type:
+        weight_unit:
           enum:
-          - RESTAURANT
-          - SALON
-          - WAREHOUSE
-          - STORE
-          - OTHER
+          - g
+          - kg
+          - oz
+          - lb
           type: string
           x-speakeasy-unknown-values: allow
-        longitude:
+        width:
           type: number
-        media:
-          $ref: '#/components/schemas/property_CommerceLocation_media'
+      type: object
+    CommerceReference:
+      properties:
+        id:
+          type: string
         name:
           type: string
-        parent_id:
+        type:
           type: string
-        price_level:
-          type: string
-        rating:
-          type: number
-        raw:
-          additionalProperties: true
-          type: object
-        review_count:
-          type: number
-        telephones:
-          $ref: '#/components/schemas/property_CommerceLocation_telephones'
-        updated_at:
-          format: date-time
-          type: string
-        web_url:
-          type: string
-      required:
-      - name
       type: object
-    CommerceReviewComment:
+    CommerceItems:
+      items:
+        $ref: '#/components/schemas/CommerceItem'
+      type: array
+    CommerceItemOption:
       properties:
-        author_avatar_url:
-          type: string
-        author_email:
-          type: string
-        author_location:
-          type: string
-        author_name:
-          type: string
-        content:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        helpful_votes:
-          type: number
         id:
           type: string
-        is_public:
-          type: boolean
-        is_verified:
-          type: boolean
-        metadata:
-          $ref: '#/components/schemas/property_CommerceReviewComment_metadata'
-        raw:
-          additionalProperties: true
-          type: object
-        status:
-          enum:
-          - PENDING
-          - APPROVED
-          - REJECTED
-          - SPAM
+        name:
           type: string
-          x-speakeasy-unknown-values: allow
-        unhelpful_votes:
+        position:
           type: number
-        updated_at:
-          format: date-time
-          type: string
+        values:
+          $ref: '#/components/schemas/property_CommerceItemOption_values'
       required:
-      - content
+      - name
+      - values
       type: object
-    CommerceAvailabilities:
-      items:
-        $ref: '#/components/schemas/CommerceAvailability'
-      type: array
     CommerceTelephone:
       properties:
         telephone:
@@ -3855,258 +4107,6 @@ components:
       required:
       - telephone
       type: object
-    CommerceReviews:
-      items:
-        $ref: '#/components/schemas/CommerceReview'
-      type: array
-    property_CommerceReviewComment_metadata:
-      items:
-        $ref: '#/components/schemas/CommerceMetadata'
-      type: array
-    property_CommerceItem_collection_ids:
-      description: ' @deprecated; use collections instead'
-      items:
-        type: string
-      type: array
-    property_CommerceLocation_telephones:
-      items:
-        $ref: '#/components/schemas/CommerceTelephone'
-      type: array
-    CommerceInventory:
-      properties:
-        available:
-          type: number
-        id:
-          type: string
-        item_id:
-          type: string
-        item_option_id:
-          type: string
-        item_variant_id:
-          type: string
-        location_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        updated_at:
-          format: date-time
-          type: string
-      required:
-      - available
-      type: object
-    property_CommerceReview_media:
-      description: Photosvideos attached to the review
-      items:
-        $ref: '#/components/schemas/CommerceItemMedia'
-      type: array
-    property_CommerceLocation_address:
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        country:
-          type: string
-        country_code:
-          type: string
-        postal_code:
-          type: string
-        region:
-          type: string
-        region_code:
-          type: string
-      type: object
-    CommerceReservations:
-      items:
-        $ref: '#/components/schemas/CommerceReservation'
-      type: array
-    property_CommerceSaleschannel_collections:
-      description: points to a CommerceCollection
-      items:
-        $ref: '#/components/schemas/CommerceReference'
-      type: array
-    CommerceSaleschannel:
-      properties:
-        collections:
-          $ref: '#/components/schemas/property_CommerceSaleschannel_collections'
-        created_at:
-          format: date-time
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        is_active:
-          type: boolean
-        raw:
-          additionalProperties: true
-          type: object
-        slug:
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    property_CommerceCollection_media:
-      items:
-        $ref: '#/components/schemas/CommerceItemMedia'
-      type: array
-    property_CommerceItem_prices:
-      items:
-        $ref: '#/components/schemas/CommerceItemPrice'
-      type: array
-    property_CommerceItemvariant_options:
-      items:
-        $ref: '#/components/schemas/CommerceItemOption'
-      type: array
-    property_CommerceItemvariant_tags:
-      items:
-        type: string
-      type: array
-    property_CommerceItemvariant_prices:
-      items:
-        $ref: '#/components/schemas/CommerceItemPrice'
-      type: array
-    CommerceItemOption:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        position:
-          type: number
-        values:
-          $ref: '#/components/schemas/property_CommerceItemOption_values'
-      required:
-      - name
-      - values
-      type: object
-    CommerceCollections:
-      items:
-        $ref: '#/components/schemas/CommerceCollection'
-      type: array
-    CommerceItemPrice:
-      properties:
-        compare_at_price:
-          type: number
-        currency:
-          type: string
-        price:
-          type: number
-      required:
-      - price
-      type: object
-    property_CommerceItemMedia_metadata:
-      items:
-        $ref: '#/components/schemas/CommerceMetadata'
-      type: array
-    property_CommerceItemOption_values:
-      items:
-        type: string
-      type: array
-    CommerceLocations:
-      items:
-        $ref: '#/components/schemas/CommerceLocation'
-      type: array
-    CommerceItemvariants:
-      items:
-        $ref: '#/components/schemas/CommerceItemvariant'
-      type: array
-    CommerceReference:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-      type: object
-    CommerceInventories:
-      items:
-        $ref: '#/components/schemas/CommerceInventory'
-      type: array
-    property_CommerceItemvariant_metadata:
-      items:
-        $ref: '#/components/schemas/CommerceMetadata'
-      type: array
-    property_CommerceLocation_categories:
-      items:
-        type: string
-      type: array
-    property_CommerceItem_media:
-      items:
-        $ref: '#/components/schemas/CommerceItemMedia'
-      type: array
-    property_CommerceItemvariant_items:
-      description: references CommerceItem
-      items:
-        $ref: '#/components/schemas/CommerceReference'
-      type: array
-    CommerceMetadata:
-      properties:
-        description:
-          type: string
-        extra_data:
-          additionalProperties: true
-          anyOf:
-          - type: object
-          - type: string
-          - type: number
-          - type: boolean
-          - items:
-              anyOf:
-              - type: object
-              - type: string
-              - type: number
-              - type: boolean
-            type: array
-        format:
-          enum:
-          - TEXT
-          - NUMBER
-          - DATE
-          - BOOLEAN
-          - FILE
-          - TEXTAREA
-          - SINGLE_SELECT
-          - MULTIPLE_SELECT
-          - MEASUREMENT
-          - PRICE
-          - YES_NO
-          - CURRENCY
-          - URL
-          type: string
-          x-speakeasy-unknown-values: allow
-        id:
-          type: string
-        is_required:
-          type: boolean
-        namespace:
-          type: string
-        slug:
-          type: string
-        value:
-          additionalProperties: true
-          anyOf:
-          - type: object
-          - type: string
-          - type: number
-          - type: boolean
-          - items:
-              anyOf:
-              - type: object
-              - type: string
-              - type: number
-              - type: boolean
-            type: array
-      type: object
-    property_CommerceItem_tags:
-      items:
-        type: string
-      type: array
   securitySchemes:
     jwt:
       in: header

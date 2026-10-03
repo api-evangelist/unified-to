@@ -516,6 +516,66 @@ paths:
       - Forms
 components:
   schemas:
+    property_FormField_choices:
+      description: For select/radio/checkbox fields
+      items:
+        type: string
+      type: array
+    FormsSubmission:
+      properties:
+        answers:
+          $ref: '#/components/schemas/property_FormsSubmission_answers'
+        created_at:
+          format: date-time
+          type: string
+        form_id:
+          type: string
+        id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        respondent_email:
+          type: string
+        respondent_name:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - form_id
+      - answers
+      type: object
+    property_FormAnswer_file_ids:
+      description: references StorageFile ID
+      items:
+        type: string
+      type: array
+    FormsForms:
+      items:
+        $ref: '#/components/schemas/FormsForm'
+      type: array
+    FormsSubmissions:
+      items:
+        $ref: '#/components/schemas/FormsSubmission'
+      type: array
+    property_FormsForm_fields:
+      items:
+        $ref: '#/components/schemas/FormField'
+      type: array
+    FormAnswer:
+      properties:
+        field_id:
+          type: string
+        field_name:
+          type: string
+        file_ids:
+          $ref: '#/components/schemas/property_FormAnswer_file_ids'
+        value:
+          type: string
+      required:
+      - field_id
+      type: object
     FormsForm:
       properties:
         confirmation_message:
@@ -553,40 +613,6 @@ components:
           type: string
       required:
       - name
-      type: object
-    FormsSubmissions:
-      items:
-        $ref: '#/components/schemas/FormsSubmission'
-      type: array
-    FormsForms:
-      items:
-        $ref: '#/components/schemas/FormsForm'
-      type: array
-    property_FormsForm_fields:
-      items:
-        $ref: '#/components/schemas/FormField'
-      type: array
-    property_FormsSubmission_answers:
-      items:
-        $ref: '#/components/schemas/FormAnswer'
-      type: array
-    property_FormField_choices:
-      description: For select/radio/checkbox fields
-      items:
-        type: string
-      type: array
-    FormAnswer:
-      properties:
-        field_id:
-          type: string
-        field_name:
-          type: string
-        file_ids:
-          $ref: '#/components/schemas/property_FormAnswer_file_ids'
-        value:
-          type: string
-      required:
-      - field_id
       type: object
     FormField:
       properties:
@@ -648,35 +674,9 @@ components:
       - name
       - type
       type: object
-    FormsSubmission:
-      properties:
-        answers:
-          $ref: '#/components/schemas/property_FormsSubmission_answers'
-        created_at:
-          format: date-time
-          type: string
-        form_id:
-          type: string
-        id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        respondent_email:
-          type: string
-        respondent_name:
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-      required:
-      - form_id
-      - answers
-      type: object
-    property_FormAnswer_file_ids:
-      description: references StorageFile ID
+    property_FormsSubmission_answers:
       items:
-        type: string
+        $ref: '#/components/schemas/FormAnswer'
       type: array
   securitySchemes:
     jwt:

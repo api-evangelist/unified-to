@@ -1396,39 +1396,39 @@ paths:
       - Ticketing
 components:
   schemas:
-    TicketingNotes:
+    property_TicketingCustomer_telephones:
       items:
-        $ref: '#/components/schemas/TicketingNote'
+        $ref: '#/components/schemas/TicketingTelephone'
       type: array
-    TicketingCategory:
+    TicketingNote:
       properties:
         created_at:
           format: date-time
+          type: string
+        customer_id:
           type: string
         description:
           type: string
         id:
           type: string
-        is_active:
-          type: boolean
-        name:
-          type: string
-        parent_id:
-          type: string
         raw:
           additionalProperties: true
           type: object
+        ticket_id:
+          type: string
         updated_at:
           format: date-time
           type: string
+        user_id:
+          type: string
       type: object
-    property_TicketingCustomer_tags:
-      items:
-        type: string
-      type: array
     TicketingCustomers:
       items:
         $ref: '#/components/schemas/TicketingCustomer'
+      type: array
+    TicketingCategories:
+      items:
+        $ref: '#/components/schemas/TicketingCategory'
       type: array
     TicketingCustomer:
       properties:
@@ -1452,70 +1452,6 @@ components:
           format: date-time
           type: string
       type: object
-    property_TicketingTicket_tags:
-      items:
-        type: string
-      type: array
-    TicketingEmail:
-      properties:
-        email:
-          type: string
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - email
-      type: object
-    TicketingNote:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        customer_id:
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        ticket_id:
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-        user_id:
-          type: string
-      type: object
-    TicketingCategories:
-      items:
-        $ref: '#/components/schemas/TicketingCategory'
-      type: array
-    TicketingTelephone:
-      properties:
-        telephone:
-          type: string
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          - FAX
-          - MOBILE
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - telephone
-      type: object
-    property_TicketingCustomer_emails:
-      items:
-        $ref: '#/components/schemas/TicketingEmail'
-      type: array
     TicketingTicket:
       properties:
         category:
@@ -1561,13 +1497,77 @@ components:
         user_id:
           type: string
       type: object
-    property_TicketingCustomer_telephones:
+    TicketingCategory:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        name:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    TicketingNotes:
       items:
-        $ref: '#/components/schemas/TicketingTelephone'
+        $ref: '#/components/schemas/TicketingNote'
+      type: array
+    property_TicketingCustomer_emails:
+      items:
+        $ref: '#/components/schemas/TicketingEmail'
+      type: array
+    TicketingEmail:
+      properties:
+        email:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - email
+      type: object
+    TicketingTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    property_TicketingCustomer_tags:
+      items:
+        type: string
       type: array
     TicketingTickets:
       items:
         $ref: '#/components/schemas/TicketingTicket'
+      type: array
+    property_TicketingTicket_tags:
+      items:
+        type: string
       type: array
   securitySchemes:
     jwt:

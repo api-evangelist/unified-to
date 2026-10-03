@@ -1082,6 +1082,42 @@ paths:
       - KMS
 components:
   schemas:
+    KmsSpace:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        name:
+          type: string
+        parent_id:
+          type: string
+        parent_page_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      required:
+      - name
+      type: object
+    KmsPages:
+      items:
+        $ref: '#/components/schemas/KmsPage'
+      type: array
+    KmsSpaces:
+      items:
+        $ref: '#/components/schemas/KmsSpace'
+      type: array
     KmsPage:
       properties:
         created_at:
@@ -1124,6 +1160,52 @@ components:
       required:
       - title
       - type
+      type: object
+    property_KmsPage_metadata:
+      items:
+        $ref: '#/components/schemas/KmsPageMetadata'
+      type: array
+    KmsComments:
+      items:
+        $ref: '#/components/schemas/KmsComment'
+      type: array
+    KmsComment:
+      properties:
+        content:
+          type: string
+        content_type:
+          enum:
+          - HTML
+          - MARKDOWN
+          - TEXT
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        page_id:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        type:
+          enum:
+          - PAGE_INLINE
+          - PAGE
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      required:
+      - content
       type: object
     KmsPageMetadata:
       properties:
@@ -1184,88 +1266,6 @@ components:
               - type: boolean
             type: array
       type: object
-    KmsComment:
-      properties:
-        content:
-          type: string
-        content_type:
-          enum:
-          - HTML
-          - MARKDOWN
-          - TEXT
-          - OTHER
-          type: string
-          x-speakeasy-unknown-values: allow
-        created_at:
-          format: date-time
-          type: string
-        id:
-          type: string
-        page_id:
-          type: string
-        parent_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        type:
-          enum:
-          - PAGE_INLINE
-          - PAGE
-          type: string
-          x-speakeasy-unknown-values: allow
-        updated_at:
-          format: date-time
-          type: string
-        user_id:
-          type: string
-      required:
-      - content
-      type: object
-    KmsComments:
-      items:
-        $ref: '#/components/schemas/KmsComment'
-      type: array
-    KmsSpace:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        is_active:
-          type: boolean
-        name:
-          type: string
-        parent_id:
-          type: string
-        parent_page_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        updated_at:
-          format: date-time
-          type: string
-        user_id:
-          type: string
-      required:
-      - name
-      type: object
-    KmsSpaces:
-      items:
-        $ref: '#/components/schemas/KmsSpace'
-      type: array
-    KmsPages:
-      items:
-        $ref: '#/components/schemas/KmsPage'
-      type: array
-    property_KmsPage_metadata:
-      items:
-        $ref: '#/components/schemas/KmsPageMetadata'
-      type: array
   securitySchemes:
     jwt:
       in: header

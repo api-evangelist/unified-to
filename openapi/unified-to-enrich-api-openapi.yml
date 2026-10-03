@@ -107,6 +107,76 @@ paths:
       - Enrich
 components:
   schemas:
+    EnrichPersonWorkHistory:
+      properties:
+        company_domain:
+          type: string
+        company_id:
+          type: string
+        company_name:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        location:
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        title:
+          type: string
+      required:
+      - title
+      type: object
+    property_EnrichPerson_telephones:
+      description: An array of telephones for this person
+      items:
+        $ref: '#/components/schemas/EnrichTelephone'
+      type: array
+    property_EnrichPerson_work_histories:
+      items:
+        $ref: '#/components/schemas/EnrichPersonWorkHistory'
+      type: array
+    property_EnrichPerson_address:
+      description: The address of the person
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_EnrichCompany_address:
+      description: The address of the company
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
     EnrichCompany:
       description: A company object from an enrichment integration
       properties:
@@ -168,51 +238,32 @@ components:
         youtube_url:
           type: string
       type: object
-    EnrichPersonWorkHistory:
-      properties:
-        company_domain:
-          type: string
-        company_id:
-          type: string
-        company_name:
-          type: string
-        end_at:
-          format: date-time
-          type: string
-        location:
-          type: string
-        start_at:
-          format: date-time
-          type: string
-        title:
-          type: string
-      required:
-      - title
-      type: object
-    property_EnrichPerson_work_histories:
+    property_EnrichPerson_emails:
+      description: An array of email addresses for this person
       items:
-        $ref: '#/components/schemas/EnrichPersonWorkHistory'
+        $ref: '#/components/schemas/EnrichEmail'
       type: array
-    property_EnrichPerson_address:
-      description: The address of the person
+    EnrichTelephone:
       properties:
-        address1:
+        telephone:
           type: string
-        address2:
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
           type: string
-        city:
-          type: string
-        country:
-          type: string
-        country_code:
-          type: string
-        postal_code:
-          type: string
-        region:
-          type: string
-        region_code:
-          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
       type: object
+    property_EnrichCompany_telephones:
+      description: An array of telephones for this company
+      items:
+        $ref: '#/components/schemas/EnrichTelephone'
+      type: array
     EnrichEmail:
       properties:
         email:
@@ -292,57 +343,6 @@ components:
         work_histories:
           $ref: '#/components/schemas/property_EnrichPerson_work_histories'
       type: object
-    property_EnrichCompany_telephones:
-      description: An array of telephones for this company
-      items:
-        $ref: '#/components/schemas/EnrichTelephone'
-      type: array
-    property_EnrichPerson_emails:
-      description: An array of email addresses for this person
-      items:
-        $ref: '#/components/schemas/EnrichEmail'
-      type: array
-    property_EnrichCompany_address:
-      description: The address of the company
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        country:
-          type: string
-        country_code:
-          type: string
-        postal_code:
-          type: string
-        region:
-          type: string
-        region_code:
-          type: string
-      type: object
-    EnrichTelephone:
-      properties:
-        telephone:
-          type: string
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          - FAX
-          - MOBILE
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - telephone
-      type: object
-    property_EnrichPerson_telephones:
-      description: An array of telephones for this person
-      items:
-        $ref: '#/components/schemas/EnrichTelephone'
-      type: array
   securitySchemes:
     jwt:
       in: header

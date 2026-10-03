@@ -743,14 +743,24 @@ paths:
       - Messaging
 components:
   schemas:
-    property_MessagingMessage_channel_ids:
-      description: '@deprecated; use channels instead'
+    property_MessagingEvent_message_buttons:
       items:
-        type: string
+        $ref: '#/components/schemas/MessagingButton'
       type: array
-    property_MessagingMessage_reactions:
+    property_MessagingReaction_member:
+      properties:
+        email:
+          type: string
+        image_url:
+          type: string
+        name:
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_MessagingEvent_message_attachments:
       items:
-        $ref: '#/components/schemas/MessagingReaction'
+        $ref: '#/components/schemas/MessagingAttachment'
       type: array
     MessagingReference:
       properties:
@@ -759,81 +769,166 @@ components:
         name:
           type: string
       type: object
-    property_MessagingEvent_message_attachments:
-      items:
-        $ref: '#/components/schemas/MessagingAttachment'
-      type: array
-    property_MessagingMessage_hidden_members:
-      description: for email systems, this field represents the BCC value
+    property_MessagingMessage_destination_members:
+      description: for email systems, this field represents the To value
       items:
         $ref: '#/components/schemas/MessagingMember'
       type: array
-    property_MessagingEvent_message_hidden_members:
-      description: for email systems, this field represents the BCC value
+    MessagingChannels:
       items:
-        $ref: '#/components/schemas/MessagingMember'
+        $ref: '#/components/schemas/MessagingChannel'
       type: array
     property_MessagingMessage_channels:
       description: Represents the names of all channels to which the message is sent. Identifies the channels where the message is posted.
       items:
         $ref: '#/components/schemas/MessagingReference'
       type: array
-    property_MessagingEvent_message:
+    property_MessagingEvent_message_destination_members:
+      description: for email systems, this field represents the To value
+      items:
+        $ref: '#/components/schemas/MessagingMember'
+      type: array
+    property_MessagingMessage_author_member:
+      description: for email systems, this field represents the From value
       properties:
-        attachments:
-          $ref: '#/components/schemas/property_MessagingEvent_message_attachments'
-        author_member:
-          $ref: '#/components/schemas/property_MessagingEvent_message_author_member'
-        buttons:
-          $ref: '#/components/schemas/property_MessagingEvent_message_buttons'
-        channel_id:
+        email:
           type: string
-        channel_ids:
-          $ref: '#/components/schemas/property_MessagingEvent_message_channel_ids'
-        channels:
-          $ref: '#/components/schemas/property_MessagingEvent_message_channels'
+        image_url:
+          type: string
+        name:
+          type: string
+        user_id:
+          type: string
+      type: object
+    MessagingMessages:
+      items:
+        $ref: '#/components/schemas/MessagingMessage'
+      type: array
+    property_MessagingMessage_attachments:
+      items:
+        $ref: '#/components/schemas/MessagingAttachment'
+      type: array
+    property_MessagingMessage_channel_ids:
+      description: '@deprecated; use channels instead'
+      items:
+        type: string
+      type: array
+    MessagingEvent:
+      properties:
+        button:
+          $ref: '#/components/schemas/property_MessagingEvent_button'
+        channel:
+          $ref: '#/components/schemas/property_MessagingEvent_channel'
         created_at:
           format: date-time
           type: string
-        destination_members:
-          $ref: '#/components/schemas/property_MessagingEvent_message_destination_members'
-        has_children:
-          type: boolean
-        hidden_members:
-          $ref: '#/components/schemas/property_MessagingEvent_message_hidden_members'
         id:
           type: string
-        is_unread:
+        is_replacing_original:
           type: boolean
-        mentioned_members:
-          $ref: '#/components/schemas/property_MessagingEvent_message_mentioned_members'
         message:
+          $ref: '#/components/schemas/property_MessagingEvent_message'
+        raw:
+          additionalProperties: true
+          type: object
+        type:
+          enum:
+          - MESSAGE_RECEIVED
+          - REACTION_ADDED
+          - REACTION_REMOVED
+          - BUTTON_CLICK
+          - APP_MENTION
+          - CHANNEL_JOINED
+          - CHANNEL_LEFT
+          - CHANNEL_CREATED
+          - CHANNEL_DELETED
+          - CHANNEL_RENAMED
+          - USER_CREATED
+          - USER_DELETED
+          - USER_UPDATED
           type: string
-        message_html:
+          x-speakeasy-unknown-values: allow
+        user:
+          $ref: '#/components/schemas/property_MessagingEvent_user'
+      type: object
+    MessagingButton:
+      properties:
+        icon:
           type: string
-        message_markdown:
+        id:
           type: string
-        message_thread_identifier:
+        text:
+          type: string
+      required:
+      - id
+      type: object
+    property_MessagingEvent_button:
+      properties:
+        icon:
+          type: string
+        id:
+          type: string
+        text:
+          type: string
+      required:
+      - id
+      type: object
+    property_MessagingChannel_members:
+      items:
+        $ref: '#/components/schemas/MessagingMember'
+      type: array
+    MessagingMember:
+      properties:
+        email:
+          type: string
+        image_url:
+          type: string
+        name:
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_MessagingEvent_message_channel_ids:
+      description: '@deprecated; use channels instead'
+      items:
+        type: string
+      type: array
+    property_MessagingEvent_channel:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        has_subchannels:
+          type: boolean
+        id:
+          type: string
+        is_active:
+          type: boolean
+        is_private:
+          type: boolean
+        members:
+          $ref: '#/components/schemas/property_MessagingEvent_channel_members'
+        name:
           type: string
         parent_id:
           type: string
         raw:
           additionalProperties: true
           type: object
-        reactions:
-          $ref: '#/components/schemas/property_MessagingEvent_message_reactions'
-        reference:
-          type: string
-        root_message_id:
-          type: string
-        subject:
-          type: string
         updated_at:
           format: date-time
           type: string
         web_url:
           type: string
+      required:
+      - name
       type: object
+    property_MessagingEvent_channel_members:
+      items:
+        $ref: '#/components/schemas/MessagingMember'
+      type: array
     MessagingChannel:
       properties:
         created_at:
@@ -866,6 +961,61 @@ components:
       required:
       - name
       type: object
+    MessagingAttachment:
+      properties:
+        content_identifier:
+          type: string
+        content_type:
+          type: string
+        download_url:
+          type: string
+        filename:
+          type: string
+        message_id:
+          type: string
+        size:
+          type: number
+      type: object
+    property_MessagingEvent_message_channels:
+      description: Represents the names of all channels to which the message is sent. Identifies the channels where the message is posted.
+      items:
+        $ref: '#/components/schemas/MessagingReference'
+      type: array
+    property_MessagingMessage_reactions:
+      items:
+        $ref: '#/components/schemas/MessagingReaction'
+      type: array
+    property_MessagingEvent_message_reactions:
+      items:
+        $ref: '#/components/schemas/MessagingReaction'
+      type: array
+    property_MessagingMessage_hidden_members:
+      description: for email systems, this field represents the BCC value
+      items:
+        $ref: '#/components/schemas/MessagingMember'
+      type: array
+    property_MessagingEvent_message_author_member:
+      description: for email systems, this field represents the From value
+      properties:
+        email:
+          type: string
+        image_url:
+          type: string
+        name:
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_MessagingMessage_mentioned_members:
+      description: for email systems, this field represents the CC value
+      items:
+        $ref: '#/components/schemas/MessagingMember'
+      type: array
+    property_MessagingEvent_message_mentioned_members:
+      description: for email systems, this field represents the CC value
+      items:
+        $ref: '#/components/schemas/MessagingMember'
+      type: array
     MessagingMessage:
       properties:
         attachments:
@@ -922,51 +1072,12 @@ components:
         web_url:
           type: string
       type: object
-    property_MessagingEvent_message_mentioned_members:
-      description: for email systems, this field represents the CC value
-      items:
-        $ref: '#/components/schemas/MessagingMember'
-      type: array
-    property_MessagingMessage_mentioned_members:
-      description: for email systems, this field represents the CC value
-      items:
-        $ref: '#/components/schemas/MessagingMember'
-      type: array
-    MessagingChannels:
-      items:
-        $ref: '#/components/schemas/MessagingChannel'
-      type: array
-    property_MessagingReaction_member:
-      properties:
-        email:
-          type: string
-        image_url:
-          type: string
-        name:
-          type: string
-        user_id:
-          type: string
-      type: object
-    MessagingAttachment:
-      properties:
-        content_identifier:
-          type: string
-        content_type:
-          type: string
-        download_url:
-          type: string
-        filename:
-          type: string
-        message_id:
-          type: string
-        size:
-          type: number
-      type: object
     property_MessagingMessage_buttons:
       items:
         $ref: '#/components/schemas/MessagingButton'
       type: array
-    property_MessagingChannel_members:
+    property_MessagingEvent_message_hidden_members:
+      description: for email systems, this field represents the BCC value
       items:
         $ref: '#/components/schemas/MessagingMember'
       type: array
@@ -980,157 +1091,6 @@ components:
       - reaction
       - member
       type: object
-    property_MessagingEvent_message_buttons:
-      items:
-        $ref: '#/components/schemas/MessagingButton'
-      type: array
-    property_MessagingEvent_message_destination_members:
-      description: for email systems, this field represents the To value
-      items:
-        $ref: '#/components/schemas/MessagingMember'
-      type: array
-    property_MessagingEvent_message_author_member:
-      description: for email systems, this field represents the From value
-      properties:
-        email:
-          type: string
-        image_url:
-          type: string
-        name:
-          type: string
-        user_id:
-          type: string
-      type: object
-    property_MessagingEvent_message_channels:
-      description: Represents the names of all channels to which the message is sent. Identifies the channels where the message is posted.
-      items:
-        $ref: '#/components/schemas/MessagingReference'
-      type: array
-    MessagingMember:
-      properties:
-        email:
-          type: string
-        image_url:
-          type: string
-        name:
-          type: string
-        user_id:
-          type: string
-      type: object
-    property_MessagingMessage_attachments:
-      items:
-        $ref: '#/components/schemas/MessagingAttachment'
-      type: array
-    MessagingMessages:
-      items:
-        $ref: '#/components/schemas/MessagingMessage'
-      type: array
-    property_MessagingEvent_channel_members:
-      items:
-        $ref: '#/components/schemas/MessagingMember'
-      type: array
-    MessagingEvent:
-      properties:
-        button:
-          $ref: '#/components/schemas/property_MessagingEvent_button'
-        channel:
-          $ref: '#/components/schemas/property_MessagingEvent_channel'
-        created_at:
-          format: date-time
-          type: string
-        id:
-          type: string
-        is_replacing_original:
-          type: boolean
-        message:
-          $ref: '#/components/schemas/property_MessagingEvent_message'
-        raw:
-          additionalProperties: true
-          type: object
-        type:
-          enum:
-          - MESSAGE_RECEIVED
-          - REACTION_ADDED
-          - REACTION_REMOVED
-          - BUTTON_CLICK
-          - APP_MENTION
-          - CHANNEL_JOINED
-          - CHANNEL_LEFT
-          - CHANNEL_CREATED
-          - CHANNEL_DELETED
-          - CHANNEL_RENAMED
-          - USER_CREATED
-          - USER_DELETED
-          - USER_UPDATED
-          type: string
-          x-speakeasy-unknown-values: allow
-        user:
-          $ref: '#/components/schemas/property_MessagingEvent_user'
-      type: object
-    property_MessagingMessage_destination_members:
-      description: for email systems, this field represents the To value
-      items:
-        $ref: '#/components/schemas/MessagingMember'
-      type: array
-    property_MessagingEvent_channel:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        description:
-          type: string
-        has_subchannels:
-          type: boolean
-        id:
-          type: string
-        is_active:
-          type: boolean
-        is_private:
-          type: boolean
-        members:
-          $ref: '#/components/schemas/property_MessagingEvent_channel_members'
-        name:
-          type: string
-        parent_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        updated_at:
-          format: date-time
-          type: string
-        web_url:
-          type: string
-      required:
-      - name
-      type: object
-    property_MessagingMessage_author_member:
-      description: for email systems, this field represents the From value
-      properties:
-        email:
-          type: string
-        image_url:
-          type: string
-        name:
-          type: string
-        user_id:
-          type: string
-      type: object
-    MessagingButton:
-      properties:
-        icon:
-          type: string
-        id:
-          type: string
-        text:
-          type: string
-      required:
-      - id
-      type: object
-    property_MessagingEvent_message_reactions:
-      items:
-        $ref: '#/components/schemas/MessagingReaction'
-      type: array
     property_MessagingEvent_user:
       properties:
         id:
@@ -1138,21 +1098,61 @@ components:
         name:
           type: string
       type: object
-    property_MessagingEvent_message_channel_ids:
-      description: '@deprecated; use channels instead'
-      items:
-        type: string
-      type: array
-    property_MessagingEvent_button:
+    property_MessagingEvent_message:
       properties:
-        icon:
+        attachments:
+          $ref: '#/components/schemas/property_MessagingEvent_message_attachments'
+        author_member:
+          $ref: '#/components/schemas/property_MessagingEvent_message_author_member'
+        buttons:
+          $ref: '#/components/schemas/property_MessagingEvent_message_buttons'
+        channel_id:
           type: string
+        channel_ids:
+          $ref: '#/components/schemas/property_MessagingEvent_message_channel_ids'
+        channels:
+          $ref: '#/components/schemas/property_MessagingEvent_message_channels'
+        created_at:
+          format: date-time
+          type: string
+        destination_members:
+          $ref: '#/components/schemas/property_MessagingEvent_message_destination_members'
+        has_children:
+          type: boolean
+        hidden_members:
+          $ref: '#/components/schemas/property_MessagingEvent_message_hidden_members'
         id:
           type: string
-        text:
+        is_unread:
+          type: boolean
+        mentioned_members:
+          $ref: '#/components/schemas/property_MessagingEvent_message_mentioned_members'
+        message:
           type: string
-      required:
-      - id
+        message_html:
+          type: string
+        message_markdown:
+          type: string
+        message_thread_identifier:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        reactions:
+          $ref: '#/components/schemas/property_MessagingEvent_message_reactions'
+        reference:
+          type: string
+        root_message_id:
+          type: string
+        subject:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        web_url:
+          type: string
       type: object
   securitySchemes:
     jwt:

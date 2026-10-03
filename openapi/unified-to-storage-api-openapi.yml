@@ -426,29 +426,6 @@ paths:
       - Storage
 components:
   schemas:
-    StorageFiles:
-      items:
-        $ref: '#/components/schemas/StorageFile'
-      type: array
-    property_StorageFile_permissions:
-      items:
-        $ref: '#/components/schemas/StoragePermission'
-      type: array
-    StoragePermission:
-      properties:
-        group_id:
-          type: string
-        is_hidden:
-          type: boolean
-        is_public:
-          type: boolean
-        roles:
-          $ref: '#/components/schemas/property_StoragePermission_roles'
-        user_id:
-          type: string
-      required:
-      - roles
-      type: object
     StorageFile:
       properties:
         created_at:
@@ -495,6 +472,34 @@ components:
         web_url:
           type: string
       type: object
+    StoragePermission:
+      properties:
+        group_id:
+          type: string
+        is_hidden:
+          type: boolean
+        is_public:
+          type: boolean
+        roles:
+          $ref: '#/components/schemas/property_StoragePermission_roles'
+        user_id:
+          type: string
+      required:
+      - roles
+      type: object
+    property_StorageFile_permissions:
+      items:
+        $ref: '#/components/schemas/StoragePermission'
+      type: array
+    property_StoragePermission_roles:
+      items:
+        enum:
+        - OWNER
+        - READ
+        - WRITE
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
     StorageReference:
       properties:
         id:
@@ -504,14 +509,9 @@ components:
         type:
           type: string
       type: object
-    property_StoragePermission_roles:
+    StorageFiles:
       items:
-        enum:
-        - OWNER
-        - READ
-        - WRITE
-        type: string
-        x-speakeasy-unknown-values: allow
+        $ref: '#/components/schemas/StorageFile'
       type: array
     property_StorageFile_references:
       items:
