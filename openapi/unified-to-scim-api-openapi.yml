@@ -444,168 +444,32 @@ paths:
       - SCIM
 components:
   schemas:
-    ScimRole:
+    property_ScimUser_groups:
+      items:
+        $ref: '#/components/schemas/ScimUserGroups'
+      type: array
+    ScimGroup:
       properties:
-        display:
+        displayName:
           type: string
-        primary:
-          type: boolean
-        type:
+        externalId:
           type: string
-        value:
+        groupType:
           type: string
+        id:
+          type: string
+        members:
+          $ref: '#/components/schemas/property_ScimGroup_members'
+        meta:
+          $ref: '#/components/schemas/property_ScimGroup_meta'
+        schemas:
+          $ref: '#/components/schemas/property_ScimGroup_schemas'
       required:
-      - value
+      - displayName
       type: object
-    property_ScimUser_photos:
-      items:
-        $ref: '#/components/schemas/ScimPhoto'
-      type: array
-    ScimUsers:
-      items:
-        $ref: '#/components/schemas/ScimUser'
-      type: array
-    property_ScimGroup_schemas:
-      description: Array of schema URIs
-      items:
-        enum:
-        - urn:ietf:params:scim:schemas:core:2.0:Group
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    ScimGroupMember:
-      properties:
-        $ref:
-          type: string
-        display:
-          type: string
-        operation:
-          enum:
-          - add
-          - delete
-          type: string
-          x-speakeasy-unknown-values: allow
-        type:
-          enum:
-          - User
-          - Group
-          type: string
-          x-speakeasy-unknown-values: allow
-        value:
-          type: string
-      required:
-      - value
-      type: object
-    ScimPhoto:
-      properties:
-        display:
-          type: string
-        primary:
-          type: boolean
-        type:
-          enum:
-          - photo
-          - thumbnail
-          type: string
-          x-speakeasy-unknown-values: allow
-        value:
-          type: string
-      type: object
-    property_ScimGroup_meta:
-      properties:
-        created:
-          type: string
-        lastModified:
-          type: string
-        location:
-          type: string
-        resourceType:
-          enum:
-          - User
-          - Group
-          type: string
-          x-speakeasy-unknown-values: allow
-        version:
-          type: string
-      type: object
-    property_ScimUser_emails:
-      items:
-        $ref: '#/components/schemas/ScimEmail'
-      type: array
     property_ScimUser_urn_ietf_params_scim_schemas_extension_enterprise_2_0_User_additionalManagers:
       items:
         $ref: '#/components/schemas/ScimManager'
-      type: array
-    ScimPhoneNumber:
-      properties:
-        display:
-          type: string
-        primary:
-          type: boolean
-        type:
-          enum:
-          - work
-          - home
-          - other
-          - mobile
-          - fax
-          - pager
-          type: string
-          x-speakeasy-unknown-values: allow
-        value:
-          type: string
-      type: object
-    ScimUserGroups:
-      properties:
-        $ref:
-          type: string
-        display:
-          type: string
-        type:
-          enum:
-          - direct
-          - indirect
-          type: string
-          x-speakeasy-unknown-values: allow
-        value:
-          type: string
-      required:
-      - value
-      type: object
-    property_ScimUser_schemas:
-      items:
-        enum:
-        - urn:ietf:params:scim:schemas:core:2.0:User
-        - urn:ietf:params:scim:schemas:extension:enterprise:2.0:User
-        - urn:ietf:params:scim:schemas:extension:lattice:attributes:1.0:User
-        - urn:ietf:params:scim:schemas:extension:peakon:2.0:User
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    ScimIms:
-      properties:
-        display:
-          type: string
-        primary:
-          type: boolean
-        type:
-          enum:
-          - aim
-          - qtalk
-          - icq
-          - xmpp
-          - msn
-          - skype
-          - qq
-          - yahoo
-          type: string
-          x-speakeasy-unknown-values: allow
-        value:
-          type: string
-      type: object
-    property_ScimUser_phoneNumbers:
-      items:
-        $ref: '#/components/schemas/ScimPhoneNumber'
       type: array
     ScimUser:
       properties:
@@ -666,33 +530,43 @@ components:
         x509Certificates:
           $ref: '#/components/schemas/property_ScimUser_x509Certificates'
       type: object
-    property_ScimGroup_members:
-      description: An array of members
+    ScimUsers:
       items:
-        $ref: '#/components/schemas/ScimGroupMember'
+        $ref: '#/components/schemas/ScimUser'
       type: array
-    ScimGroups:
+    property_ScimUser_emails:
       items:
-        $ref: '#/components/schemas/ScimGroup'
+        $ref: '#/components/schemas/ScimEmail'
       type: array
-    property_ScimUser_ims:
-      items:
-        $ref: '#/components/schemas/ScimIms'
-      type: array
-    property_ScimUser_name:
+    ScimUserGroups:
       properties:
-        familyName:
+        $ref:
           type: string
-        formatted:
+        display:
           type: string
-        givenName:
+        type:
+          enum:
+          - direct
+          - indirect
           type: string
-        honorificPrefix:
+          x-speakeasy-unknown-values: allow
+        value:
           type: string
-        honorificSuffix:
+      required:
+      - value
+      type: object
+    ScimRole:
+      properties:
+        display:
           type: string
-        middleName:
+        primary:
+          type: boolean
+        type:
           type: string
+        value:
+          type: string
+      required:
+      - value
       type: object
     property_ScimUser_urn_ietf_params_scim_schemas_extension_enterprise_2_0_User:
       description: an organization.
@@ -733,102 +607,24 @@ components:
           format: date-time
           type: string
       type: object
-    property_ScimUser_urn_ietf_params_scim_schemas_extension_peakon_2_0_User:
-      properties:
-        Date of Birth:
-          format: date-time
-          type: string
-        Gender:
-          enum:
-          - Female
-          - Male
-          type: string
-          x-speakeasy-unknown-values: allow
-        Manager:
-          type: string
-        Team:
-          type: string
-      type: object
-    ScimAddress:
-      properties:
-        country:
-          type: string
-        formatted:
-          type: string
-        locality:
-          type: string
-        postalCode:
-          type: string
-        region:
-          type: string
-        streetAddress:
-          type: string
-        type:
-          enum:
-          - work
-          - home
-          - other
-          type: string
-          x-speakeasy-unknown-values: allow
-      type: object
-    ScimManager:
-      description: '"id" attribute of another User.'
-      properties:
-        $ref:
-          type: string
-        displayName:
-          type: string
-        managerId:
-          type: string
-        type:
-          enum:
-          - direct
-          - indirect
-          type: string
-          x-speakeasy-unknown-values: allow
-        value:
-          type: string
-      type: object
-    property_ScimUser_urn_ietf_params_scim_schemas_extension_enterprise_2_0_User_manager:
-      description: '"id" attribute of another User.'
-      properties:
-        $ref:
-          type: string
-        displayName:
-          type: string
-        managerId:
-          type: string
-        type:
-          enum:
-          - direct
-          - indirect
-          type: string
-          x-speakeasy-unknown-values: allow
-        value:
-          type: string
-      type: object
-    property_ScimUser_groups:
+    property_ScimUser_photos:
       items:
-        $ref: '#/components/schemas/ScimUserGroups'
+        $ref: '#/components/schemas/ScimPhoto'
       type: array
-    ScimGroup:
+    ScimPhoto:
       properties:
-        displayName:
+        display:
           type: string
-        externalId:
+        primary:
+          type: boolean
+        type:
+          enum:
+          - photo
+          - thumbnail
           type: string
-        groupType:
+          x-speakeasy-unknown-values: allow
+        value:
           type: string
-        id:
-          type: string
-        members:
-          $ref: '#/components/schemas/property_ScimGroup_members'
-        meta:
-          $ref: '#/components/schemas/property_ScimGroup_meta'
-        schemas:
-          $ref: '#/components/schemas/property_ScimGroup_schemas'
-      required:
-      - displayName
       type: object
     ScimEmail:
       properties:
@@ -848,45 +644,84 @@ components:
       required:
       - type
       type: object
-    property_ScimUser_addresses:
-      items:
-        $ref: '#/components/schemas/ScimAddress'
-      type: array
-    property_ScimUser_meta:
+    ScimManager:
+      description: '"id" attribute of another User.'
       properties:
-        created:
+        $ref:
           type: string
-        lastModified:
+        displayName:
           type: string
-        location:
+        managerId:
           type: string
-        resourceType:
+        type:
           enum:
-          - User
-          - Group
+          - direct
+          - indirect
           type: string
           x-speakeasy-unknown-values: allow
-        version:
+        value:
           type: string
       type: object
-    property_ScimUser_roles:
-      description: Student, Faculty, ...
+    property_ScimGroup_members:
+      description: An array of members
       items:
-        $ref: '#/components/schemas/ScimRole'
+        $ref: '#/components/schemas/ScimGroupMember'
       type: array
-    ScimEntitlement:
+    property_ScimUser_urn_ietf_params_scim_schemas_extension_peakon_2_0_User:
+      properties:
+        Date of Birth:
+          format: date-time
+          type: string
+        Gender:
+          enum:
+          - Female
+          - Male
+          type: string
+          x-speakeasy-unknown-values: allow
+        Manager:
+          type: string
+        Team:
+          type: string
+      type: object
+    ScimIms:
       properties:
         display:
           type: string
         primary:
           type: boolean
         type:
+          enum:
+          - aim
+          - qtalk
+          - icq
+          - xmpp
+          - msn
+          - skype
+          - qq
+          - yahoo
           type: string
+          x-speakeasy-unknown-values: allow
         value:
           type: string
-      required:
-      - value
       type: object
+    property_ScimUser_schemas:
+      items:
+        enum:
+        - urn:ietf:params:scim:schemas:core:2.0:User
+        - urn:ietf:params:scim:schemas:extension:enterprise:2.0:User
+        - urn:ietf:params:scim:schemas:extension:lattice:attributes:1.0:User
+        - urn:ietf:params:scim:schemas:extension:peakon:2.0:User
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_ScimUser_entitlements:
+      items:
+        $ref: '#/components/schemas/ScimEntitlement'
+      type: array
+    property_ScimUser_phoneNumbers:
+      items:
+        $ref: '#/components/schemas/ScimPhoneNumber'
+      type: array
     property_ScimUser_urn_ietf_params_scim_schemas_extension_lattice_attributes_1_0_User:
       properties:
         Job Level:
@@ -933,14 +768,179 @@ components:
           format: date-time
           type: string
       type: object
-    property_ScimUser_entitlements:
+    ScimPhoneNumber:
+      properties:
+        display:
+          type: string
+        primary:
+          type: boolean
+        type:
+          enum:
+          - work
+          - home
+          - other
+          - mobile
+          - fax
+          - pager
+          type: string
+          x-speakeasy-unknown-values: allow
+        value:
+          type: string
+      type: object
+    ScimEntitlement:
+      properties:
+        display:
+          type: string
+        primary:
+          type: boolean
+        type:
+          type: string
+        value:
+          type: string
+      required:
+      - value
+      type: object
+    property_ScimUser_urn_ietf_params_scim_schemas_extension_enterprise_2_0_User_manager:
+      description: '"id" attribute of another User.'
+      properties:
+        $ref:
+          type: string
+        displayName:
+          type: string
+        managerId:
+          type: string
+        type:
+          enum:
+          - direct
+          - indirect
+          type: string
+          x-speakeasy-unknown-values: allow
+        value:
+          type: string
+      type: object
+    ScimAddress:
+      properties:
+        country:
+          type: string
+        formatted:
+          type: string
+        locality:
+          type: string
+        postalCode:
+          type: string
+        region:
+          type: string
+        streetAddress:
+          type: string
+        type:
+          enum:
+          - work
+          - home
+          - other
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_ScimGroup_meta:
+      properties:
+        created:
+          type: string
+        lastModified:
+          type: string
+        location:
+          type: string
+        resourceType:
+          enum:
+          - User
+          - Group
+          type: string
+          x-speakeasy-unknown-values: allow
+        version:
+          type: string
+      type: object
+    property_ScimUser_addresses:
       items:
-        $ref: '#/components/schemas/ScimEntitlement'
+        $ref: '#/components/schemas/ScimAddress'
+      type: array
+    property_ScimUser_meta:
+      properties:
+        created:
+          type: string
+        lastModified:
+          type: string
+        location:
+          type: string
+        resourceType:
+          enum:
+          - User
+          - Group
+          type: string
+          x-speakeasy-unknown-values: allow
+        version:
+          type: string
+      type: object
+    property_ScimUser_roles:
+      description: Student, Faculty, ...
+      items:
+        $ref: '#/components/schemas/ScimRole'
+      type: array
+    property_ScimUser_ims:
+      items:
+        $ref: '#/components/schemas/ScimIms'
+      type: array
+    property_ScimUser_name:
+      properties:
+        familyName:
+          type: string
+        formatted:
+          type: string
+        givenName:
+          type: string
+        honorificPrefix:
+          type: string
+        honorificSuffix:
+          type: string
+        middleName:
+          type: string
+      type: object
+    property_ScimGroup_schemas:
+      description: Array of schema URIs
+      items:
+        enum:
+        - urn:ietf:params:scim:schemas:core:2.0:Group
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    ScimGroups:
+      items:
+        $ref: '#/components/schemas/ScimGroup'
       type: array
     property_ScimUser_x509Certificates:
       items:
         $ref: '#/components/schemas/ScimRole'
       type: array
+    ScimGroupMember:
+      properties:
+        $ref:
+          type: string
+        display:
+          type: string
+        operation:
+          enum:
+          - add
+          - delete
+          type: string
+          x-speakeasy-unknown-values: allow
+        type:
+          enum:
+          - User
+          - Group
+          type: string
+          x-speakeasy-unknown-values: allow
+        value:
+          type: string
+      required:
+      - value
+      type: object
   securitySchemes:
     jwt:
       in: header

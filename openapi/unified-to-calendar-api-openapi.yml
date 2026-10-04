@@ -1838,65 +1838,9 @@ paths:
       - Calendar
 components:
   schemas:
-    CalendarAttachment:
-      properties:
-        download_url:
-          type: string
-        id:
-          type: string
-        mime_type:
-          type: string
-        name:
-          type: string
-      type: object
-    CalendarRecordingMedia:
-      properties:
-        attendees:
-          $ref: '#/components/schemas/property_CalendarRecordingMedia_attendees'
-        end_at:
-          format: date-time
-          type: string
-        language:
-          type: string
-        recording_download_url:
-          type: string
-        start_at:
-          format: date-time
-          type: string
-        transcript_download_url:
-          type: string
-        transcripts:
-          $ref: '#/components/schemas/property_CalendarRecordingMedia_transcripts'
-      type: object
-    property_CalendarEventRecurrence_on_days:
-      description: days of the week to repeat on, defaults to undefined (every day), only used if frequency is WEEKLY
-      items:
-        enum:
-        - SU
-        - MO
-        - TU
-        - WE
-        - TH
-        - FR
-        - SA
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
     property_CalendarWebinar_registrants:
       items:
         $ref: '#/components/schemas/CalendarWebinarRegistrant'
-      type: array
-    property_CalendarEvent_attendees:
-      items:
-        $ref: '#/components/schemas/CalendarAttendee'
-      type: array
-    CalendarBusies:
-      items:
-        $ref: '#/components/schemas/CalendarBusy'
-      type: array
-    property_CalendarWebinar_panelists:
-      items:
-        $ref: '#/components/schemas/CalendarWebinarPanelist'
       type: array
     CalendarWebinarRegistrant:
       properties:
@@ -1918,55 +1862,35 @@ components:
           type: string
           x-speakeasy-unknown-values: allow
       type: object
-    CalendarCalendars:
+    property_CalendarWebinar_recurrence:
       items:
-        $ref: '#/components/schemas/CalendarCalendar'
+        $ref: '#/components/schemas/CalendarEventRecurrence'
       type: array
-    CalendarEventRecurrence:
+    property_CalendarRecordingTranscript_attendee:
       properties:
-        count:
-          type: number
-        end_at:
-          format: date-time
+        email:
           type: string
-        excluded_dates:
-          $ref: '#/components/schemas/property_CalendarEventRecurrence_excluded_dates'
-        frequency:
+        is_cohost:
+          type: boolean
+        name:
+          type: string
+        required:
+          type: boolean
+        status:
           enum:
-          - DAILY
-          - WEEKLY
-          - MONTHLY
-          - YEARLY
+          - ACCEPTED
+          - REJECTED
+          - TENTATIVE
           type: string
           x-speakeasy-unknown-values: allow
-        included_dates:
-          $ref: '#/components/schemas/property_CalendarEventRecurrence_included_dates'
-        interval:
-          type: number
-        on_days:
-          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_days'
-        on_month_days:
-          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_month_days'
-        on_months:
-          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_months'
-        on_weeks:
-          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_weeks'
-        on_year_days:
-          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_year_days'
-        timezone:
+        user_id:
           type: string
-        week_start:
-          enum:
-          - SU
-          - MO
-          - TU
-          - WE
-          - TH
-          - FR
-          - SA
-          type: string
-          x-speakeasy-unknown-values: allow
       type: object
+    property_CalendarEventRecurrence_on_weeks:
+      description: week ordinals for BYDAY (e.g., -1 for last, -2 for second-to-last, 1 for first, 2 for second), only used with on_days. 0 is used for days without week ordinals.
+      items:
+        type: number
+      type: array
     CalendarRecording:
       properties:
         created_at:
@@ -1996,67 +1920,35 @@ components:
         web_url:
           type: string
       type: object
-    property_CalendarWebinar_conference:
-      items:
-        $ref: '#/components/schemas/CalendarConference'
-      type: array
-    property_CalendarEventRecurrence_excluded_dates:
-      description: dates to exclude from the recurrence, defaults to undefined (no exclusions)
-      items:
-        type: string
-      type: array
-    property_CalendarRecordingTranscript_attendee:
-      properties:
-        email:
-          type: string
-        is_cohost:
-          type: boolean
-        name:
-          type: string
-        required:
-          type: boolean
-        status:
-          enum:
-          - ACCEPTED
-          - REJECTED
-          - TENTATIVE
-          type: string
-          x-speakeasy-unknown-values: allow
-        user_id:
-          type: string
-      type: object
     CalendarRecordings:
       items:
         $ref: '#/components/schemas/CalendarRecording'
       type: array
-    property_CalendarRecordingMedia_attendees:
+    CalendarBusy:
+      properties:
+        description:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        timezone:
+          type: string
+      required:
+      - start_at
+      - end_at
+      type: object
+    property_CalendarEvent_attendees:
       items:
         $ref: '#/components/schemas/CalendarAttendee'
       type: array
-    property_CalendarRecording_media:
-      items:
-        $ref: '#/components/schemas/CalendarRecordingMedia'
-      type: array
-    property_CalendarWebinar_organizer:
-      properties:
-        email:
-          type: string
-        is_cohost:
-          type: boolean
-        name:
-          type: string
-        required:
-          type: boolean
-        status:
-          enum:
-          - ACCEPTED
-          - REJECTED
-          - TENTATIVE
-          type: string
-          x-speakeasy-unknown-values: allow
-        user_id:
-          type: string
-      type: object
     CalendarConference:
       properties:
         conference_identifier:
@@ -2078,14 +1970,9 @@ components:
         url:
           type: string
       type: object
-    property_CalendarEventRecurrence_on_month_days:
-      description: days of the month to repeat on, defaults to undefined (every day), only used if frequency is MONTHLY
+    property_CalendarWebinar_conference:
       items:
-        type: number
-      type: array
-    property_CalendarWebinar_recurrence:
-      items:
-        $ref: '#/components/schemas/CalendarEventRecurrence'
+        $ref: '#/components/schemas/CalendarConference'
       type: array
     CalendarAttendee:
       properties:
@@ -2107,6 +1994,19 @@ components:
         user_id:
           type: string
       type: object
+    property_CalendarEventRecurrence_on_year_days:
+      description: days of the year to repeat on, defaults to undefined (every day), only used if frequency is YEARLY
+      items:
+        type: number
+      type: array
+    property_CalendarEvent_recurrence:
+      items:
+        $ref: '#/components/schemas/CalendarEventRecurrence'
+      type: array
+    CalendarEvents:
+      items:
+        $ref: '#/components/schemas/CalendarEvent'
+      type: array
     CalendarWebinar:
       properties:
         calendar_id:
@@ -2245,10 +2145,6 @@ components:
         web_url:
           type: string
       type: object
-    CalendarLinks:
-      items:
-        $ref: '#/components/schemas/CalendarLink'
-      type: array
     CalendarWebinarPanelist:
       properties:
         email:
@@ -2269,6 +2165,10 @@ components:
           type: string
           x-speakeasy-unknown-values: allow
       type: object
+    property_CalendarRecordingMedia_attendees:
+      items:
+        $ref: '#/components/schemas/CalendarAttendee'
+      type: array
     CalendarCalendar:
       properties:
         created_at:
@@ -2292,6 +2192,200 @@ components:
           type: string
       required:
       - name
+      type: object
+    property_CalendarEventRecurrence_included_dates:
+      description: dates to include in the recurrence, defaults to undefined (no inclusions)
+      items:
+        type: string
+      type: array
+    CalendarEventRecurrence:
+      properties:
+        count:
+          type: number
+        end_at:
+          format: date-time
+          type: string
+        excluded_dates:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_excluded_dates'
+        frequency:
+          enum:
+          - DAILY
+          - WEEKLY
+          - MONTHLY
+          - YEARLY
+          type: string
+          x-speakeasy-unknown-values: allow
+        included_dates:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_included_dates'
+        interval:
+          type: number
+        on_days:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_days'
+        on_month_days:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_month_days'
+        on_months:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_months'
+        on_weeks:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_weeks'
+        on_year_days:
+          $ref: '#/components/schemas/property_CalendarEventRecurrence_on_year_days'
+        timezone:
+          type: string
+        week_start:
+          enum:
+          - SU
+          - MO
+          - TU
+          - WE
+          - TH
+          - FR
+          - SA
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    CalendarBusies:
+      items:
+        $ref: '#/components/schemas/CalendarBusy'
+      type: array
+    property_CalendarRecording_media:
+      items:
+        $ref: '#/components/schemas/CalendarRecordingMedia'
+      type: array
+    CalendarAttachment:
+      properties:
+        download_url:
+          type: string
+        id:
+          type: string
+        mime_type:
+          type: string
+        name:
+          type: string
+      type: object
+    CalendarCalendars:
+      items:
+        $ref: '#/components/schemas/CalendarCalendar'
+      type: array
+    CalendarLinks:
+      items:
+        $ref: '#/components/schemas/CalendarLink'
+      type: array
+    property_CalendarEventRecurrence_on_month_days:
+      description: days of the month to repeat on, defaults to undefined (every day), only used if frequency is MONTHLY
+      items:
+        type: number
+      type: array
+    CalendarRecordingTranscript:
+      properties:
+        attendee:
+          $ref: '#/components/schemas/property_CalendarRecordingTranscript_attendee'
+        end_at:
+          format: date-time
+          type: string
+        language:
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        text:
+          type: string
+      required:
+      - text
+      type: object
+    property_CalendarEventRecurrence_excluded_dates:
+      description: dates to exclude from the recurrence, defaults to undefined (no exclusions)
+      items:
+        type: string
+      type: array
+    property_CalendarEventRecurrence_on_months:
+      description: months of the year to repeat on, defaults to undefined (every month), only used if frequency is YEARLY, January is 1
+      items:
+        type: number
+      type: array
+    CalendarWebinars:
+      items:
+        $ref: '#/components/schemas/CalendarWebinar'
+      type: array
+    property_CalendarEvent_conference:
+      items:
+        $ref: '#/components/schemas/CalendarConference'
+      type: array
+    property_CalendarWebinar_organizer:
+      properties:
+        email:
+          type: string
+        is_cohost:
+          type: boolean
+        name:
+          type: string
+        required:
+          type: boolean
+        status:
+          enum:
+          - ACCEPTED
+          - REJECTED
+          - TENTATIVE
+          type: string
+          x-speakeasy-unknown-values: allow
+        user_id:
+          type: string
+      type: object
+    property_CalendarEventRecurrence_on_days:
+      description: days of the week to repeat on, defaults to undefined (every day), only used if frequency is WEEKLY
+      items:
+        enum:
+        - SU
+        - MO
+        - TU
+        - WE
+        - TH
+        - FR
+        - SA
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    CalendarRecordingMedia:
+      properties:
+        attendees:
+          $ref: '#/components/schemas/property_CalendarRecordingMedia_attendees'
+        end_at:
+          format: date-time
+          type: string
+        language:
+          type: string
+        recording_download_url:
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        transcript_download_url:
+          type: string
+        transcripts:
+          $ref: '#/components/schemas/property_CalendarRecordingMedia_transcripts'
+      type: object
+    property_CalendarRecordingMedia_transcripts:
+      items:
+        $ref: '#/components/schemas/CalendarRecordingTranscript'
+      type: array
+    property_CalendarEvent_organizer:
+      properties:
+        email:
+          type: string
+        is_cohost:
+          type: boolean
+        name:
+          type: string
+        required:
+          type: boolean
+        status:
+          enum:
+          - ACCEPTED
+          - REJECTED
+          - TENTATIVE
+          type: string
+          x-speakeasy-unknown-values: allow
+        user_id:
+          type: string
       type: object
     CalendarLink:
       properties:
@@ -2321,107 +2415,13 @@ components:
       required:
       - url
       type: object
-    CalendarWebinars:
-      items:
-        $ref: '#/components/schemas/CalendarWebinar'
-      type: array
-    property_CalendarEvent_recurrence:
-      items:
-        $ref: '#/components/schemas/CalendarEventRecurrence'
-      type: array
-    property_CalendarEventRecurrence_on_year_days:
-      description: days of the year to repeat on, defaults to undefined (every day), only used if frequency is YEARLY
-      items:
-        type: number
-      type: array
-    CalendarBusy:
-      properties:
-        description:
-          type: string
-        end_at:
-          format: date-time
-          type: string
-        id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        start_at:
-          format: date-time
-          type: string
-        timezone:
-          type: string
-      required:
-      - start_at
-      - end_at
-      type: object
-    property_CalendarEvent_organizer:
-      properties:
-        email:
-          type: string
-        is_cohost:
-          type: boolean
-        name:
-          type: string
-        required:
-          type: boolean
-        status:
-          enum:
-          - ACCEPTED
-          - REJECTED
-          - TENTATIVE
-          type: string
-          x-speakeasy-unknown-values: allow
-        user_id:
-          type: string
-      type: object
-    CalendarEvents:
-      items:
-        $ref: '#/components/schemas/CalendarEvent'
-      type: array
     property_CalendarEvent_attachments:
       items:
         $ref: '#/components/schemas/CalendarAttachment'
       type: array
-    property_CalendarEventRecurrence_included_dates:
-      description: dates to include in the recurrence, defaults to undefined (no inclusions)
+    property_CalendarWebinar_panelists:
       items:
-        type: string
-      type: array
-    property_CalendarRecordingMedia_transcripts:
-      items:
-        $ref: '#/components/schemas/CalendarRecordingTranscript'
-      type: array
-    property_CalendarEventRecurrence_on_weeks:
-      description: week ordinals for BYDAY (e.g., -1 for last, -2 for second-to-last, 1 for first, 2 for second), only used with on_days. 0 is used for days without week ordinals.
-      items:
-        type: number
-      type: array
-    property_CalendarEventRecurrence_on_months:
-      description: months of the year to repeat on, defaults to undefined (every month), only used if frequency is YEARLY, January is 1
-      items:
-        type: number
-      type: array
-    CalendarRecordingTranscript:
-      properties:
-        attendee:
-          $ref: '#/components/schemas/property_CalendarRecordingTranscript_attendee'
-        end_at:
-          format: date-time
-          type: string
-        language:
-          type: string
-        start_at:
-          format: date-time
-          type: string
-        text:
-          type: string
-      required:
-      - text
-      type: object
-    property_CalendarEvent_conference:
-      items:
-        $ref: '#/components/schemas/CalendarConference'
+        $ref: '#/components/schemas/CalendarWebinarPanelist'
       type: array
   securitySchemes:
     jwt:

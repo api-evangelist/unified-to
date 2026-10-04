@@ -1691,10 +1691,43 @@ paths:
       - Repo
 components:
   schemas:
-    property_RepoPullrequest_user_ids:
+    property_RepoOrganization_user_ids:
+      description: id values of the users/employees associated with this organization
       items:
         type: string
       type: array
+    RepoPullrequests:
+      items:
+        $ref: '#/components/schemas/RepoPullrequest'
+      type: array
+    RepoOrganizations:
+      items:
+        $ref: '#/components/schemas/RepoOrganization'
+      type: array
+    RepoCommit:
+      properties:
+        branch_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        message:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        repo_id:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      required:
+      - repo_id
+      type: object
     RepoPullrequest:
       properties:
         closed_at:
@@ -1727,17 +1760,17 @@ components:
         user_ids:
           $ref: '#/components/schemas/property_RepoPullrequest_user_ids'
       type: object
-    property_RepoPullrequest_labels:
+    RepoCommits:
+      items:
+        $ref: '#/components/schemas/RepoCommit'
+      type: array
+    property_RepoPullrequest_user_ids:
       items:
         type: string
       type: array
-    RepoBranches:
+    property_RepoPullrequest_commit_ids:
       items:
-        $ref: '#/components/schemas/RepoBranch'
-      type: array
-    RepoRepositories:
-      items:
-        $ref: '#/components/schemas/RepoRepository'
+        type: string
       type: array
     RepoRepository:
       properties:
@@ -1767,39 +1800,9 @@ components:
       required:
       - name
       type: object
-    property_RepoPullrequest_commit_ids:
+    RepoBranches:
       items:
-        type: string
-      type: array
-    RepoBranch:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        id:
-          type: string
-        name:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        repo_id:
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-      required:
-      - name
-      - repo_id
-      type: object
-    RepoPullrequests:
-      items:
-        $ref: '#/components/schemas/RepoPullrequest'
-      type: array
-    property_RepoOrganization_user_ids:
-      description: id values of the users/employees associated with this organization
-      items:
-        type: string
+        $ref: '#/components/schemas/RepoBranch'
       type: array
     RepoOrganization:
       properties:
@@ -1825,16 +1828,14 @@ components:
         web_url:
           type: string
       type: object
-    RepoCommit:
+    RepoBranch:
       properties:
-        branch_id:
-          type: string
         created_at:
           format: date-time
           type: string
         id:
           type: string
-        message:
+        name:
           type: string
         raw:
           additionalProperties: true
@@ -1844,18 +1845,17 @@ components:
         updated_at:
           format: date-time
           type: string
-        user_id:
-          type: string
       required:
+      - name
       - repo_id
       type: object
-    RepoOrganizations:
+    property_RepoPullrequest_labels:
       items:
-        $ref: '#/components/schemas/RepoOrganization'
+        type: string
       type: array
-    RepoCommits:
+    RepoRepositories:
       items:
-        $ref: '#/components/schemas/RepoCommit'
+        $ref: '#/components/schemas/RepoRepository'
       type: array
   securitySchemes:
     jwt:

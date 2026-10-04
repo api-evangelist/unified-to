@@ -426,6 +426,51 @@ paths:
       - Storage
 components:
   schemas:
+    StorageFiles:
+      items:
+        $ref: '#/components/schemas/StorageFile'
+      type: array
+    property_StorageFile_permissions:
+      items:
+        $ref: '#/components/schemas/StoragePermission'
+      type: array
+    property_StoragePermission_roles:
+      items:
+        enum:
+        - OWNER
+        - READ
+        - WRITE
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_StorageFile_references:
+      items:
+        $ref: '#/components/schemas/StorageReference'
+      type: array
+    StorageReference:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+      type: object
+    StoragePermission:
+      properties:
+        group_id:
+          type: string
+        is_hidden:
+          type: boolean
+        is_public:
+          type: boolean
+        roles:
+          $ref: '#/components/schemas/property_StoragePermission_roles'
+        user_id:
+          type: string
+      required:
+      - roles
+      type: object
     StorageFile:
       properties:
         created_at:
@@ -472,51 +517,6 @@ components:
         web_url:
           type: string
       type: object
-    StoragePermission:
-      properties:
-        group_id:
-          type: string
-        is_hidden:
-          type: boolean
-        is_public:
-          type: boolean
-        roles:
-          $ref: '#/components/schemas/property_StoragePermission_roles'
-        user_id:
-          type: string
-      required:
-      - roles
-      type: object
-    property_StorageFile_permissions:
-      items:
-        $ref: '#/components/schemas/StoragePermission'
-      type: array
-    property_StoragePermission_roles:
-      items:
-        enum:
-        - OWNER
-        - READ
-        - WRITE
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    StorageReference:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-      type: object
-    StorageFiles:
-      items:
-        $ref: '#/components/schemas/StorageFile'
-      type: array
-    property_StorageFile_references:
-      items:
-        $ref: '#/components/schemas/StorageReference'
-      type: array
   securitySchemes:
     jwt:
       in: header

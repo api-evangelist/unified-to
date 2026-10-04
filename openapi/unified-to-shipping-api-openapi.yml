@@ -1102,184 +1102,31 @@ paths:
       - Shipping
 components:
   schemas:
-    ShippingRateSurcharge:
+    property_ShippingShipment_insurance:
+      description: Insurance details
       properties:
-        amount:
+        coverage_amount:
           type: number
-        code:
-          type: string
-        description:
-          type: string
-        name:
-          type: string
-      type: object
-    property_ShippingShipment_from_address:
-      description: Origin address
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        company_name:
-          type: string
-        country:
-          type: string
-        country_code:
-          type: string
-        delivery_instructions:
-          type: string
-        email:
-          type: string
-        is_residential:
-          type: boolean
-        is_validated:
-          type: boolean
-        name:
-          type: string
-        postal_code:
-          type: string
-        region:
-          type: string
-        region_code:
-          type: string
-        telephone:
-          type: string
-      type: object
-    property_ShippingShipment_packages:
-      description: Array of packages in this shipment
-      items:
-        $ref: '#/components/schemas/ShippingPackage'
-      type: array
-    property_ShippingShipment_to_address:
-      description: Destination address
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        company_name:
-          type: string
-        country:
-          type: string
-        country_code:
-          type: string
-        delivery_instructions:
-          type: string
-        email:
-          type: string
-        is_residential:
-          type: boolean
-        is_validated:
-          type: boolean
-        name:
-          type: string
-        postal_code:
-          type: string
-        region:
-          type: string
-        region_code:
-          type: string
-        telephone:
-          type: string
-      type: object
-    property_ShippingShipment_customs_items:
-      description: Customs items
-      items:
-        $ref: '#/components/schemas/ShippingCustomsItem'
-      type: array
-    property_ShippingRate_rates:
-      items:
-        $ref: '#/components/schemas/ShippingRateRate'
-      type: array
-    ShippingCarrier:
-      properties:
-        code:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        id:
-          type: string
-        is_active:
-          type: boolean
-        logo_url:
-          type: string
-        name:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        updated_at:
-          format: date-time
-          type: string
-        website_url:
-          type: string
-      type: object
-    ShippingCarriers:
-      items:
-        $ref: '#/components/schemas/ShippingCarrier'
-      type: array
-    ShippingTracking:
-      properties:
-        actual_delivery_at:
-          format: date-time
-          type: string
-        carrier_id:
-          type: string
-        carrier_status_code:
-          type: string
-        carrier_status_description:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        estimated_delivery:
-          format: date-time
-          type: string
-        events:
-          $ref: '#/components/schemas/property_ShippingTracking_events'
-        id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        shipment_id:
-          type: string
-        status:
+        coverage_type:
           enum:
-          - PENDING
-          - PROCESSING
-          - IN_TRANSIT
-          - DELIVERED
-          - EXCEPTION
-          - CANCELLED
-          - LABEL_CREATED
-          - PICKED_UP
-          - OUT_FOR_DELIVERY
-          - DELIVERY_ATTEMPTED
-          - RETURNED_TO_SENDER
-          - HELD_AT_LOCATION
-          - CUSTOMS_CLEARANCE
-          - EXCEPTION_RESOLVED
+          - STANDARD
+          - PREMIUM
+          - CUSTOM
           type: string
           x-speakeasy-unknown-values: allow
-        status_description:
+        currency:
           type: string
-        tracking_number:
+        insurance_cost:
+          type: number
+        insurance_cost_currency:
           type: string
-        updated_at:
-          format: date-time
+        insurance_provider:
           type: string
+        insurance_provider_code:
+          type: string
+        insured_value:
+          type: number
       type: object
-    property_ShippingShipment_customs_restrictions:
-      description: Any restrictions
-      items:
-        type: string
-      type: array
     ShippingTrackingEvent:
       properties:
         carrier_status_code:
@@ -1320,39 +1167,10 @@ components:
           type: string
           x-speakeasy-unknown-values: allow
       type: object
-    property_ShippingTrackingEvent_location_address:
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        company_name:
-          type: string
-        country:
-          type: string
-        country_code:
-          type: string
-        delivery_instructions:
-          type: string
-        email:
-          type: string
-        is_residential:
-          type: boolean
-        is_validated:
-          type: boolean
-        name:
-          type: string
-        postal_code:
-          type: string
-        region:
-          type: string
-        region_code:
-          type: string
-        telephone:
-          type: string
-      type: object
+    ShippingLabels:
+      items:
+        $ref: '#/components/schemas/ShippingLabel'
+      type: array
     property_ShippingShipment_customs:
       description: Customs information
       properties:
@@ -1405,8 +1223,7 @@ components:
           type: string
           x-speakeasy-unknown-values: allow
       type: object
-    property_ShippingRate_from_address:
-      description: Origin address
+    property_ShippingTrackingEvent_location_address:
       properties:
         address1:
           type: string
@@ -1439,135 +1256,48 @@ components:
         telephone:
           type: string
       type: object
-    ShippingShipments:
+    property_ShippingRate_rates:
       items:
-        $ref: '#/components/schemas/ShippingShipment'
+        $ref: '#/components/schemas/ShippingRateRate'
       type: array
-    property_ShippingShipment_special_instructions:
-      description: Array of special instructions
+    property_ShippingRateRate_surcharges:
+      description: Additional charges
       items:
-        type: string
+        $ref: '#/components/schemas/ShippingRateSurcharge'
       type: array
-    property_ShippingTracking_events:
-      description: Array of tracking events
-      items:
-        $ref: '#/components/schemas/ShippingTrackingEvent'
-      type: array
-    property_ShippingRate_packages:
-      description: Multiple packages (alternative to package)
-      items:
-        $ref: '#/components/schemas/ShippingPackage'
-      type: array
-    ShippingLabels:
-      items:
-        $ref: '#/components/schemas/ShippingLabel'
-      type: array
-    ShippingRateRate:
+    property_ShippingShipment_return_address:
+      description: Return address (may differ from from_address)
       properties:
-        amount:
-          type: number
-        base_amount:
-          type: number
-        currency:
+        address1:
           type: string
-        delivery_days:
-          type: number
-        delivery_terms:
+        address2:
           type: string
-        description:
+        city:
           type: string
-        discount_amount:
-          type: number
-        estimated_days:
-          type: number
-        estimated_delivery_end_at:
-          format: date-time
+        company_name:
           type: string
-        estimated_delivery_start_at:
-          format: date-time
+        country:
           type: string
-        is_active:
+        country_code:
+          type: string
+        delivery_instructions:
+          type: string
+        email:
+          type: string
+        is_residential:
           type: boolean
-        is_guaranteed:
+        is_validated:
           type: boolean
-        is_negotiated_rate:
-          type: boolean
-        is_trackable:
-          type: boolean
-        package_type:
+        name:
           type: string
-        rate_source:
+        postal_code:
           type: string
-        surcharges:
-          $ref: '#/components/schemas/property_ShippingRateRate_surcharges'
-        tax_amount:
-          type: number
-        title:
+        region:
           type: string
-        transit_hours:
-          type: number
-      required:
-      - title
-      type: object
-    ShippingRate:
-      properties:
-        carrier_id:
+        region_code:
           type: string
-        currency:
+        telephone:
           type: string
-        from_address:
-          $ref: '#/components/schemas/property_ShippingRate_from_address'
-        id:
-          type: string
-        packages:
-          $ref: '#/components/schemas/property_ShippingRate_packages'
-        rates:
-          $ref: '#/components/schemas/property_ShippingRate_rates'
-        raw:
-          additionalProperties: true
-          type: object
-        ship_by_at:
-          format: date-time
-          type: string
-        shipment_id:
-          type: string
-        to_address:
-          $ref: '#/components/schemas/property_ShippingRate_to_address'
-      type: object
-    ShippingPackage:
-      properties:
-        currency:
-          type: string
-        description:
-          type: string
-        height:
-          type: number
-        insured_amount:
-          type: number
-        length:
-          type: number
-        size_unit:
-          enum:
-          - cm
-          - inch
-          type: string
-          x-speakeasy-unknown-values: allow
-        tracking_number:
-          type: string
-        value:
-          type: number
-        weight:
-          type: number
-        weight_unit:
-          enum:
-          - g
-          - kg
-          - oz
-          - lb
-          type: string
-          x-speakeasy-unknown-values: allow
-        width:
-          type: number
       type: object
     ShippingShipment:
       properties:
@@ -1672,35 +1402,195 @@ components:
         warehouse_location_name:
           type: string
       type: object
-    property_ShippingShipment_insurance:
-      description: Insurance details
+    property_ShippingShipment_customs_items:
+      description: Customs items
+      items:
+        $ref: '#/components/schemas/ShippingCustomsItem'
+      type: array
+    property_ShippingTracking_events:
+      description: Array of tracking events
+      items:
+        $ref: '#/components/schemas/ShippingTrackingEvent'
+      type: array
+    property_ShippingShipment_packages:
+      description: Array of packages in this shipment
+      items:
+        $ref: '#/components/schemas/ShippingPackage'
+      type: array
+    property_ShippingRate_from_address:
+      description: Origin address
       properties:
-        coverage_amount:
-          type: number
-        coverage_type:
-          enum:
-          - STANDARD
-          - PREMIUM
-          - CUSTOM
+        address1:
           type: string
-          x-speakeasy-unknown-values: allow
+        address2:
+          type: string
+        city:
+          type: string
+        company_name:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        delivery_instructions:
+          type: string
+        email:
+          type: string
+        is_residential:
+          type: boolean
+        is_validated:
+          type: boolean
+        name:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+        telephone:
+          type: string
+      type: object
+    property_ShippingShipment_from_address:
+      description: Origin address
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        company_name:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        delivery_instructions:
+          type: string
+        email:
+          type: string
+        is_residential:
+          type: boolean
+        is_validated:
+          type: boolean
+        name:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+        telephone:
+          type: string
+      type: object
+    ShippingRate:
+      properties:
+        carrier_id:
+          type: string
         currency:
           type: string
-        insurance_cost:
-          type: number
-        insurance_cost_currency:
+        from_address:
+          $ref: '#/components/schemas/property_ShippingRate_from_address'
+        id:
           type: string
-        insurance_provider:
+        packages:
+          $ref: '#/components/schemas/property_ShippingRate_packages'
+        rates:
+          $ref: '#/components/schemas/property_ShippingRate_rates'
+        raw:
+          additionalProperties: true
+          type: object
+        ship_by_at:
+          format: date-time
           type: string
-        insurance_provider_code:
+        shipment_id:
           type: string
-        insured_value:
-          type: number
+        to_address:
+          $ref: '#/components/schemas/property_ShippingRate_to_address'
       type: object
-    property_ShippingRateRate_surcharges:
-      description: Additional charges
+    property_ShippingRate_packages:
+      description: Multiple packages (alternative to package)
       items:
-        $ref: '#/components/schemas/ShippingRateSurcharge'
+        $ref: '#/components/schemas/ShippingPackage'
+      type: array
+    property_ShippingRate_to_address:
+      description: Destination address
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        company_name:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        delivery_instructions:
+          type: string
+        email:
+          type: string
+        is_residential:
+          type: boolean
+        is_validated:
+          type: boolean
+        name:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+        telephone:
+          type: string
+      type: object
+    property_ShippingShipment_special_instructions:
+      description: Array of special instructions
+      items:
+        type: string
+      type: array
+    property_ShippingShipment_to_address:
+      description: Destination address
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        company_name:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        delivery_instructions:
+          type: string
+        email:
+          type: string
+        is_residential:
+          type: boolean
+        is_validated:
+          type: boolean
+        name:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+        telephone:
+          type: string
+      type: object
+    ShippingShipments:
+      items:
+        $ref: '#/components/schemas/ShippingShipment'
       type: array
     ShippingLabel:
       properties:
@@ -1762,6 +1652,22 @@ components:
           format: date-time
           type: string
       type: object
+    property_ShippingShipment_customs_restrictions:
+      description: Any restrictions
+      items:
+        type: string
+      type: array
+    ShippingRateSurcharge:
+      properties:
+        amount:
+          type: number
+        code:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
+      type: object
     ShippingCustomsItem:
       properties:
         amount:
@@ -1789,72 +1695,166 @@ components:
           type: string
           x-speakeasy-unknown-values: allow
       type: object
-    property_ShippingShipment_return_address:
-      description: Return address (may differ from from_address)
+    ShippingRateRate:
       properties:
-        address1:
+        amount:
+          type: number
+        base_amount:
+          type: number
+        currency:
           type: string
-        address2:
+        delivery_days:
+          type: number
+        delivery_terms:
           type: string
-        city:
+        description:
           type: string
-        company_name:
+        discount_amount:
+          type: number
+        estimated_days:
+          type: number
+        estimated_delivery_end_at:
+          format: date-time
           type: string
-        country:
+        estimated_delivery_start_at:
+          format: date-time
           type: string
-        country_code:
-          type: string
-        delivery_instructions:
-          type: string
-        email:
-          type: string
-        is_residential:
+        is_active:
           type: boolean
-        is_validated:
+        is_guaranteed:
           type: boolean
+        is_negotiated_rate:
+          type: boolean
+        is_trackable:
+          type: boolean
+        package_type:
+          type: string
+        rate_source:
+          type: string
+        surcharges:
+          $ref: '#/components/schemas/property_ShippingRateRate_surcharges'
+        tax_amount:
+          type: number
+        title:
+          type: string
+        transit_hours:
+          type: number
+      required:
+      - title
+      type: object
+    ShippingCarriers:
+      items:
+        $ref: '#/components/schemas/ShippingCarrier'
+      type: array
+    ShippingCarrier:
+      properties:
+        code:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        logo_url:
+          type: string
         name:
           type: string
-        postal_code:
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          format: date-time
           type: string
-        region:
-          type: string
-        region_code:
-          type: string
-        telephone:
+        website_url:
           type: string
       type: object
-    property_ShippingRate_to_address:
-      description: Destination address
+    ShippingPackage:
       properties:
-        address1:
+        currency:
           type: string
-        address2:
+        description:
           type: string
-        city:
+        height:
+          type: number
+        insured_amount:
+          type: number
+        length:
+          type: number
+        size_unit:
+          enum:
+          - cm
+          - inch
           type: string
-        company_name:
+          x-speakeasy-unknown-values: allow
+        tracking_number:
           type: string
-        country:
+        value:
+          type: number
+        weight:
+          type: number
+        weight_unit:
+          enum:
+          - g
+          - kg
+          - oz
+          - lb
           type: string
-        country_code:
+          x-speakeasy-unknown-values: allow
+        width:
+          type: number
+      type: object
+    ShippingTracking:
+      properties:
+        actual_delivery_at:
+          format: date-time
           type: string
-        delivery_instructions:
+        carrier_id:
           type: string
-        email:
+        carrier_status_code:
           type: string
-        is_residential:
-          type: boolean
-        is_validated:
-          type: boolean
-        name:
+        carrier_status_description:
           type: string
-        postal_code:
+        created_at:
+          format: date-time
           type: string
-        region:
+        estimated_delivery:
+          format: date-time
           type: string
-        region_code:
+        events:
+          $ref: '#/components/schemas/property_ShippingTracking_events'
+        id:
           type: string
-        telephone:
+        raw:
+          additionalProperties: true
+          type: object
+        shipment_id:
+          type: string
+        status:
+          enum:
+          - PENDING
+          - PROCESSING
+          - IN_TRANSIT
+          - DELIVERED
+          - EXCEPTION
+          - CANCELLED
+          - LABEL_CREATED
+          - PICKED_UP
+          - OUT_FOR_DELIVERY
+          - DELIVERY_ATTEMPTED
+          - RETURNED_TO_SENDER
+          - HELD_AT_LOCATION
+          - CUSTOMS_CLEARANCE
+          - EXCEPTION_RESOLVED
+          type: string
+          x-speakeasy-unknown-values: allow
+        status_description:
+          type: string
+        tracking_number:
+          type: string
+        updated_at:
+          format: date-time
           type: string
       type: object
   securitySchemes:

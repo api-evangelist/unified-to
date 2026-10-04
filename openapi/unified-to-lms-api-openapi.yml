@@ -2596,188 +2596,33 @@ paths:
       - LMS
 components:
   schemas:
-    LmsInstructor:
+    LmsCollection:
       properties:
-        created_at:
-          format: date-time
-          type: string
-        emails:
-          $ref: '#/components/schemas/property_LmsInstructor_emails'
-        first_name:
-          type: string
-        id:
-          type: string
-        image_url:
-          type: string
-        last_name:
-          type: string
-        name:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        telephones:
-          $ref: '#/components/schemas/property_LmsInstructor_telephones'
-        title:
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    property_LmsClass_instructor_ids:
-      items:
-        type: string
-      type: array
-    property_LmsCourse_languages:
-      items:
-        type: string
-      type: array
-    LmsActivities:
-      items:
-        $ref: '#/components/schemas/LmsActivity'
-      type: array
-    property_LmsCourse_skills:
-      items:
-        type: string
-      type: array
-    LmsActivity:
-      properties:
-        assigned_grade:
-          type: string
-        completed_at:
-          format: date-time
-          type: string
-        content_id:
-          type: string
-        course_id:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        duration_minutes:
-          type: number
-        id:
-          type: string
-        is_completed:
-          type: boolean
-        progress_percentage:
-          type: number
-        raw:
-          additionalProperties: true
-          type: object
-        started_at:
-          format: date-time
-          type: string
-        student_id:
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    property_LmsContent_course_ids:
-      items:
-        type: string
-      type: array
-    property_LmsStudent_address:
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        country:
-          type: string
-        country_code:
-          type: string
-        postal_code:
-          type: string
-        region:
-          type: string
-        region_code:
-          type: string
-      type: object
-    LmsContent:
-      properties:
-        categories:
-          $ref: '#/components/schemas/property_LmsContent_categories'
-        collection_ids:
-          $ref: '#/components/schemas/property_LmsContent_collection_ids'
-        course_ids:
-          $ref: '#/components/schemas/property_LmsContent_course_ids'
         created_at:
           format: date-time
           type: string
         description:
           type: string
-        duration_minutes:
-          type: number
-        external_reference:
-          type: string
         id:
           type: string
-        instructor_ids:
-          $ref: '#/components/schemas/property_LmsContent_instructor_ids'
         is_active:
           type: boolean
-        languages:
-          $ref: '#/components/schemas/property_LmsContent_languages'
-        localizations:
-          $ref: '#/components/schemas/property_LmsContent_localizations'
         media:
-          $ref: '#/components/schemas/property_LmsContent_media'
+          $ref: '#/components/schemas/property_LmsCollection_media'
         name:
           type: string
-        provider_name:
+        parent_id:
           type: string
         raw:
           additionalProperties: true
           type: object
-        short_description:
-          type: string
-        skills:
-          $ref: '#/components/schemas/property_LmsContent_skills'
-        sort_order:
-          type: number
         updated_at:
           format: date-time
           type: string
       type: object
-    LmsStudent:
-      properties:
-        address:
-          $ref: '#/components/schemas/property_LmsStudent_address'
-        created_at:
-          format: date-time
-          type: string
-        emails:
-          $ref: '#/components/schemas/property_LmsStudent_emails'
-        first_name:
-          type: string
-        id:
-          type: string
-        image_url:
-          type: string
-        last_name:
-          type: string
-        name:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        telephones:
-          $ref: '#/components/schemas/property_LmsStudent_telephones'
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    property_LmsContent_localizations:
+    property_LmsInstructor_emails:
       items:
-        $ref: '#/components/schemas/LmsContentLocalization'
-      type: array
-    property_LmsCourse_students:
-      items:
-        $ref: '#/components/schemas/LmsStudent'
+        $ref: '#/components/schemas/LmsEmail'
       type: array
     LmsCourse:
       properties:
@@ -2834,6 +2679,211 @@ components:
       required:
       - name
       type: object
+    LmsStudent:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_LmsStudent_address'
+        created_at:
+          format: date-time
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_LmsStudent_emails'
+        first_name:
+          type: string
+        id:
+          type: string
+        image_url:
+          type: string
+        last_name:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        telephones:
+          $ref: '#/components/schemas/property_LmsStudent_telephones'
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_LmsClass_media:
+      items:
+        $ref: '#/components/schemas/LmsMedia'
+      type: array
+    property_LmsContent_collection_ids:
+      items:
+        type: string
+      type: array
+    LmsEmail:
+      properties: {}
+      type: object
+    property_LmsStudent_telephones:
+      items:
+        $ref: '#/components/schemas/LmsTelephone'
+      type: array
+    LmsActivities:
+      items:
+        $ref: '#/components/schemas/LmsActivity'
+      type: array
+    LmsCourses:
+      items:
+        $ref: '#/components/schemas/LmsCourse'
+      type: array
+    property_LmsCourse_instructors:
+      items:
+        $ref: '#/components/schemas/LmsInstructor'
+      type: array
+    property_LmsMedia_languages:
+      description: ISO 2-digit language codes
+      items:
+        type: string
+      type: array
+    property_LmsCourse_languages:
+      items:
+        type: string
+      type: array
+    LmsActivity:
+      properties:
+        assigned_grade:
+          type: string
+        completed_at:
+          format: date-time
+          type: string
+        content_id:
+          type: string
+        course_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        duration_minutes:
+          type: number
+        id:
+          type: string
+        is_completed:
+          type: boolean
+        progress_percentage:
+          type: number
+        raw:
+          additionalProperties: true
+          type: object
+        started_at:
+          format: date-time
+          type: string
+        student_id:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_LmsCourse_skills:
+      items:
+        type: string
+      type: array
+    LmsStudents:
+      items:
+        $ref: '#/components/schemas/LmsStudent'
+      type: array
+    LmsMedia:
+      properties:
+        content:
+          type: string
+        description:
+          type: string
+        languages:
+          $ref: '#/components/schemas/property_LmsMedia_languages'
+        name:
+          type: string
+        thumbnail_url:
+          type: string
+        type:
+          enum:
+          - IMAGE
+          - HEADSHOT
+          - VIDEO
+          - WEB
+          - DOCUMENT
+          - TEXT
+          - HTML
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        url:
+          type: string
+      type: object
+    property_LmsCourse_media:
+      items:
+        $ref: '#/components/schemas/LmsMedia'
+      type: array
+    property_LmsCourse_categories:
+      items:
+        type: string
+      type: array
+    property_LmsInstructor_telephones:
+      items:
+        $ref: '#/components/schemas/LmsTelephone'
+      type: array
+    property_LmsContent_categories:
+      items:
+        type: string
+      type: array
+    property_LmsContent_skills:
+      items:
+        type: string
+      type: array
+    LmsCollections:
+      items:
+        $ref: '#/components/schemas/LmsCollection'
+      type: array
+    property_LmsClass_languages:
+      items:
+        type: string
+      type: array
+    property_LmsContent_media:
+      items:
+        $ref: '#/components/schemas/LmsMedia'
+      type: array
+    property_LmsCourse_students:
+      items:
+        $ref: '#/components/schemas/LmsStudent'
+      type: array
+    property_LmsStudent_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_LmsCollection_media:
+      items:
+        $ref: '#/components/schemas/LmsMedia'
+      type: array
+    property_LmsContent_course_ids:
+      items:
+        type: string
+      type: array
+    property_LmsCourse_instructor_ids:
+      description: '@deprecated; use instructors'
+      items:
+        type: string
+      type: array
+    property_LmsContent_localizations:
+      items:
+        $ref: '#/components/schemas/LmsContentLocalization'
+      type: array
     LmsTelephone:
       properties:
         telephone:
@@ -2850,58 +2900,21 @@ components:
       required:
       - telephone
       type: object
-    property_LmsClass_media:
-      items:
-        $ref: '#/components/schemas/LmsMedia'
-      type: array
-    property_LmsClass_student_ids:
-      items:
-        type: string
-      type: array
     property_LmsContent_instructor_ids:
       items:
         type: string
       type: array
-    LmsCollection:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        is_active:
-          type: boolean
-        media:
-          $ref: '#/components/schemas/property_LmsCollection_media'
-        name:
-          type: string
-        parent_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    property_LmsContent_media:
+    LmsClasses:
       items:
-        $ref: '#/components/schemas/LmsMedia'
+        $ref: '#/components/schemas/LmsClass'
       type: array
-    LmsContentLocalization:
-      properties:
-        description:
-          type: string
-        language:
-          type: string
-        name:
-          type: string
-      type: object
-    property_LmsCourse_instructors:
+    LmsContents:
       items:
-        $ref: '#/components/schemas/LmsInstructor'
+        $ref: '#/components/schemas/LmsContent'
+      type: array
+    property_LmsCourse_content_ids:
+      items:
+        type: string
       type: array
     LmsClass:
       properties:
@@ -2934,126 +2947,113 @@ components:
       - name
       - course_id
       type: object
-    property_LmsContent_categories:
-      items:
-        type: string
-      type: array
-    property_LmsContent_skills:
-      items:
-        type: string
-      type: array
-    property_LmsMedia_languages:
-      description: ISO 2-digit language codes
-      items:
-        type: string
-      type: array
-    LmsStudents:
-      items:
-        $ref: '#/components/schemas/LmsStudent'
-      type: array
     property_LmsCourse_student_ids:
       description: '@deprecated; use students'
       items:
         type: string
       type: array
-    property_LmsCourse_categories:
-      items:
-        type: string
-      type: array
-    property_LmsInstructor_telephones:
-      items:
-        $ref: '#/components/schemas/LmsTelephone'
-      type: array
-    LmsEmail:
-      properties: {}
-      type: object
-    property_LmsStudent_telephones:
-      items:
-        $ref: '#/components/schemas/LmsTelephone'
-      type: array
-    property_LmsInstructor_emails:
-      items:
-        $ref: '#/components/schemas/LmsEmail'
-      type: array
-    LmsClasses:
-      items:
-        $ref: '#/components/schemas/LmsClass'
-      type: array
-    property_LmsCourse_media:
-      items:
-        $ref: '#/components/schemas/LmsMedia'
-      type: array
-    property_LmsClass_languages:
-      items:
-        type: string
-      type: array
-    LmsInstructors:
-      items:
-        $ref: '#/components/schemas/LmsInstructor'
-      type: array
-    LmsCourses:
-      items:
-        $ref: '#/components/schemas/LmsCourse'
-      type: array
-    LmsMedia:
-      properties:
-        content:
-          type: string
-        description:
-          type: string
-        languages:
-          $ref: '#/components/schemas/property_LmsMedia_languages'
-        name:
-          type: string
-        thumbnail_url:
-          type: string
-        type:
-          enum:
-          - IMAGE
-          - HEADSHOT
-          - VIDEO
-          - WEB
-          - DOCUMENT
-          - TEXT
-          - HTML
-          - OTHER
-          type: string
-          x-speakeasy-unknown-values: allow
-        url:
-          type: string
-      type: object
-    property_LmsStudent_emails:
-      items:
-        $ref: '#/components/schemas/LmsEmail'
-      type: array
-    LmsContents:
-      items:
-        $ref: '#/components/schemas/LmsContent'
-      type: array
     property_LmsContent_languages:
       items:
         type: string
       type: array
-    property_LmsCourse_instructor_ids:
-      description: '@deprecated; use instructors'
+    LmsInstructor:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_LmsInstructor_emails'
+        first_name:
+          type: string
+        id:
+          type: string
+        image_url:
+          type: string
+        last_name:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        telephones:
+          $ref: '#/components/schemas/property_LmsInstructor_telephones'
+        title:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_LmsClass_student_ids:
       items:
         type: string
       type: array
-    property_LmsCourse_content_ids:
+    property_LmsClass_instructor_ids:
       items:
         type: string
       type: array
-    LmsCollections:
+    LmsContent:
+      properties:
+        categories:
+          $ref: '#/components/schemas/property_LmsContent_categories'
+        collection_ids:
+          $ref: '#/components/schemas/property_LmsContent_collection_ids'
+        course_ids:
+          $ref: '#/components/schemas/property_LmsContent_course_ids'
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        duration_minutes:
+          type: number
+        external_reference:
+          type: string
+        id:
+          type: string
+        instructor_ids:
+          $ref: '#/components/schemas/property_LmsContent_instructor_ids'
+        is_active:
+          type: boolean
+        languages:
+          $ref: '#/components/schemas/property_LmsContent_languages'
+        localizations:
+          $ref: '#/components/schemas/property_LmsContent_localizations'
+        media:
+          $ref: '#/components/schemas/property_LmsContent_media'
+        name:
+          type: string
+        provider_name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        short_description:
+          type: string
+        skills:
+          $ref: '#/components/schemas/property_LmsContent_skills'
+        sort_order:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    LmsContentLocalization:
+      properties:
+        description:
+          type: string
+        language:
+          type: string
+        name:
+          type: string
+      type: object
+    LmsInstructors:
       items:
-        $ref: '#/components/schemas/LmsCollection'
+        $ref: '#/components/schemas/LmsInstructor'
       type: array
-    property_LmsCollection_media:
+    property_LmsStudent_emails:
       items:
-        $ref: '#/components/schemas/LmsMedia'
-      type: array
-    property_LmsContent_collection_ids:
-      items:
-        type: string
+        $ref: '#/components/schemas/LmsEmail'
       type: array
   securitySchemes:
     jwt:

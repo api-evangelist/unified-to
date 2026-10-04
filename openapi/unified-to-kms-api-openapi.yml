@@ -1082,41 +1082,21 @@ paths:
       - KMS
 components:
   schemas:
-    KmsSpace:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        is_active:
-          type: boolean
-        name:
-          type: string
-        parent_id:
-          type: string
-        parent_page_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        updated_at:
-          format: date-time
-          type: string
-        user_id:
-          type: string
-      required:
-      - name
-      type: object
+    KmsSpaces:
+      items:
+        $ref: '#/components/schemas/KmsSpace'
+      type: array
     KmsPages:
       items:
         $ref: '#/components/schemas/KmsPage'
       type: array
-    KmsSpaces:
+    property_KmsPage_metadata:
       items:
-        $ref: '#/components/schemas/KmsSpace'
+        $ref: '#/components/schemas/KmsPageMetadata'
+      type: array
+    KmsComments:
+      items:
+        $ref: '#/components/schemas/KmsComment'
       type: array
     KmsPage:
       properties:
@@ -1161,14 +1141,6 @@ components:
       - title
       - type
       type: object
-    property_KmsPage_metadata:
-      items:
-        $ref: '#/components/schemas/KmsPageMetadata'
-      type: array
-    KmsComments:
-      items:
-        $ref: '#/components/schemas/KmsComment'
-      type: array
     KmsComment:
       properties:
         content:
@@ -1265,6 +1237,34 @@ components:
               - type: number
               - type: boolean
             type: array
+      type: object
+    KmsSpace:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        name:
+          type: string
+        parent_id:
+          type: string
+        parent_page_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      required:
+      - name
       type: object
   securitySchemes:
     jwt:

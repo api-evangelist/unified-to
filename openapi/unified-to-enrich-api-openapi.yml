@@ -128,11 +128,6 @@ components:
       required:
       - title
       type: object
-    property_EnrichPerson_telephones:
-      description: An array of telephones for this person
-      items:
-        $ref: '#/components/schemas/EnrichTelephone'
-      type: array
     property_EnrichPerson_work_histories:
       items:
         $ref: '#/components/schemas/EnrichPersonWorkHistory'
@@ -157,6 +152,27 @@ components:
         region_code:
           type: string
       type: object
+    EnrichEmail:
+      properties:
+        email:
+          type: string
+        is_verified:
+          type: boolean
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - email
+      type: object
+    property_EnrichPerson_emails:
+      description: An array of email addresses for this person
+      items:
+        $ref: '#/components/schemas/EnrichEmail'
+      type: array
     property_EnrichCompany_address:
       description: The address of the company
       properties:
@@ -177,6 +193,11 @@ components:
         region_code:
           type: string
       type: object
+    property_EnrichPerson_telephones:
+      description: An array of telephones for this person
+      items:
+        $ref: '#/components/schemas/EnrichTelephone'
+      type: array
     EnrichCompany:
       description: A company object from an enrichment integration
       properties:
@@ -237,48 +258,6 @@ components:
           type: string
         youtube_url:
           type: string
-      type: object
-    property_EnrichPerson_emails:
-      description: An array of email addresses for this person
-      items:
-        $ref: '#/components/schemas/EnrichEmail'
-      type: array
-    EnrichTelephone:
-      properties:
-        telephone:
-          type: string
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          - FAX
-          - MOBILE
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - telephone
-      type: object
-    property_EnrichCompany_telephones:
-      description: An array of telephones for this company
-      items:
-        $ref: '#/components/schemas/EnrichTelephone'
-      type: array
-    EnrichEmail:
-      properties:
-        email:
-          type: string
-        is_verified:
-          type: boolean
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - email
       type: object
     EnrichPerson:
       description: A person object from an enrichment integration
@@ -342,6 +321,27 @@ components:
           type: number
         work_histories:
           $ref: '#/components/schemas/property_EnrichPerson_work_histories'
+      type: object
+    property_EnrichCompany_telephones:
+      description: An array of telephones for this company
+      items:
+        $ref: '#/components/schemas/EnrichTelephone'
+      type: array
+    EnrichTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
       type: object
   securitySchemes:
     jwt:

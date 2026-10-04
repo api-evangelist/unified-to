@@ -389,6 +389,141 @@ paths:
       - Assessment
 components:
   schemas:
+    AssessmentAttribute:
+      properties:
+        label:
+          type: string
+        reference:
+          type: string
+        score_max:
+          type: number
+        score_value:
+          type: number
+        status:
+          enum:
+          - OPEN
+          - IN_PROGRESS
+          - COMPLETED
+          - FAILED
+          - REJECTED
+          type: string
+          x-speakeasy-unknown-values: allow
+        type:
+          enum:
+          - TEXT
+          - NUMBER
+          - SUB_RESULT
+          type: string
+          x-speakeasy-unknown-values: allow
+        value:
+          type: string
+      required:
+      - type
+      - label
+      type: object
+    AssessmentParameter:
+      properties:
+        file_types:
+          $ref: '#/components/schemas/property_AssessmentParameter_file_types'
+        id:
+          type: string
+        is_required:
+          type: boolean
+        name:
+          type: string
+        options:
+          $ref: '#/components/schemas/property_AssessmentParameter_options'
+        public_question:
+          type: string
+        type:
+          enum:
+          - TEXT
+          - NUMBER
+          - MULTIPLE_CHOICE
+          - MULTIPLE_SELECT
+          - DATE
+          - FILE
+          type: string
+          x-speakeasy-unknown-values: allow
+        valid_regions:
+          $ref: '#/components/schemas/property_AssessmentParameter_valid_regions'
+      required:
+      - name
+      type: object
+    property_AssessmentParameter_valid_regions:
+      description: Regions where this parameter is valid ({country}-{state} or {country})
+      items:
+        type: string
+      type: array
+    property_AssessmentPackageRegion_regions:
+      description: Countryregion codes where this package is available ({country}-{state} or {country})
+      items:
+        type: string
+      type: array
+    property_AssessmentOrder_response_download_urls:
+      description: Report download URLs
+      items:
+        type: string
+      type: array
+    property_AssessmentPackage_tags:
+      description: Category tags (e.g., "Assessment", "Background Check")
+      items:
+        type: string
+      type: array
+    property_AssessmentOrder_parameters:
+      description: Filled-in answers to the package's parameter questions
+      items:
+        $ref: '#/components/schemas/AssessmentParameterInput'
+      type: array
+    property_AssessmentPackage_integration_types:
+      description: Integration types that support this package
+      items:
+        type: string
+      type: array
+    property_AssessmentParameter_options:
+      description: Options for MULTIPLE_CHOICE and MULTIPLE_SELECT
+      items:
+        type: string
+      type: array
+    property_AssessmentPackage_regions:
+      items:
+        $ref: '#/components/schemas/AssessmentPackageRegion'
+      type: array
+    property_AssessmentOrder_profile_social_media_urls:
+      items:
+        type: string
+      type: array
+    property_AssessmentOrder_response_details:
+      items:
+        $ref: '#/components/schemas/AssessmentResponseDetail'
+      type: array
+    property_AssessmentOrder_profile_telephones:
+      items:
+        type: string
+      type: array
+    AssessmentPackageRegion:
+      properties:
+        cost_amount:
+          type: number
+        currency:
+          type: string
+        processing_time:
+          type: number
+        regions:
+          $ref: '#/components/schemas/property_AssessmentPackageRegion_regions'
+      required:
+      - regions
+      - cost_amount
+      type: object
+    property_AssessmentOrder_response_attributes:
+      description: Additional result attributes
+      items:
+        $ref: '#/components/schemas/AssessmentAttribute'
+      type: array
+    AssessmentPackages:
+      items:
+        $ref: '#/components/schemas/AssessmentPackage'
+      type: array
     AssessmentPackage:
       description: Used by assessment providers to SUBMIT packages to ATS systems
       properties:
@@ -446,33 +581,15 @@ components:
       - name
       - type
       type: object
-    AssessmentPackageRegion:
-      properties:
-        cost_amount:
-          type: number
-        currency:
-          type: string
-        processing_time:
-          type: number
-        regions:
-          $ref: '#/components/schemas/property_AssessmentPackageRegion_regions'
-      required:
-      - regions
-      - cost_amount
-      type: object
-    property_AssessmentOrder_profile_social_media_urls:
-      items:
-        type: string
-      type: array
     property_AssessmentPackage_aliases:
       description: Alternative namesidentifiers for this package
       items:
         type: string
       type: array
-    property_AssessmentOrder_response_attributes:
-      description: Additional result attributes
+    property_AssessmentParameter_file_types:
+      description: Valid file MIME types for FILE type
       items:
-        $ref: '#/components/schemas/AssessmentAttribute'
+        type: string
       type: array
     AssessmentAddress:
       properties:
@@ -492,74 +609,6 @@ components:
           type: string
         region_code:
           type: string
-      type: object
-    property_AssessmentOrder_profile_telephones:
-      items:
-        type: string
-      type: array
-    AssessmentParameterInput:
-      properties:
-        inputs:
-          $ref: '#/components/schemas/property_AssessmentParameterInput_inputs'
-        name:
-          type: string
-        parameter_id:
-          type: string
-      type: object
-    property_AssessmentPackage_regions:
-      items:
-        $ref: '#/components/schemas/AssessmentPackageRegion'
-      type: array
-    property_AssessmentParameter_file_types:
-      description: Valid file MIME types for FILE type
-      items:
-        type: string
-      type: array
-    property_AssessmentOrder_response_download_urls:
-      description: Report download URLs
-      items:
-        type: string
-      type: array
-    property_AssessmentOrder_profile_emails:
-      items:
-        type: string
-      type: array
-    property_AssessmentPackage_integration_types:
-      description: Integration types that support this package
-      items:
-        type: string
-      type: array
-    AssessmentAttribute:
-      properties:
-        label:
-          type: string
-        reference:
-          type: string
-        score_max:
-          type: number
-        score_value:
-          type: number
-        status:
-          enum:
-          - OPEN
-          - IN_PROGRESS
-          - COMPLETED
-          - FAILED
-          - REJECTED
-          type: string
-          x-speakeasy-unknown-values: allow
-        type:
-          enum:
-          - TEXT
-          - NUMBER
-          - SUB_RESULT
-          type: string
-          x-speakeasy-unknown-values: allow
-        value:
-          type: string
-      required:
-      - type
-      - label
       type: object
     AssessmentOrder:
       properties:
@@ -676,56 +725,20 @@ components:
       - workspace_id
       - connection_id
       type: object
-    property_AssessmentOrder_parameters:
-      description: Filled-in answers to the package's parameter questions
+    property_AssessmentOrder_profile_addresses:
       items:
-        $ref: '#/components/schemas/AssessmentParameterInput'
+        $ref: '#/components/schemas/AssessmentAddress'
       type: array
-    property_AssessmentPackageRegion_regions:
-      description: Countryregion codes where this package is available ({country}-{state} or {country})
-      items:
-        type: string
-      type: array
-    AssessmentParameter:
+    AssessmentParameterInput:
       properties:
-        file_types:
-          $ref: '#/components/schemas/property_AssessmentParameter_file_types'
-        id:
-          type: string
-        is_required:
-          type: boolean
+        inputs:
+          $ref: '#/components/schemas/property_AssessmentParameterInput_inputs'
         name:
           type: string
-        options:
-          $ref: '#/components/schemas/property_AssessmentParameter_options'
-        public_question:
+        parameter_id:
           type: string
-        type:
-          enum:
-          - TEXT
-          - NUMBER
-          - MULTIPLE_CHOICE
-          - MULTIPLE_SELECT
-          - DATE
-          - FILE
-          type: string
-          x-speakeasy-unknown-values: allow
-        valid_regions:
-          $ref: '#/components/schemas/property_AssessmentParameter_valid_regions'
-      required:
-      - name
       type: object
-    property_AssessmentPackage_tags:
-      description: Category tags (e.g., "Assessment", "Background Check")
-      items:
-        type: string
-      type: array
-    AssessmentPackages:
-      items:
-        $ref: '#/components/schemas/AssessmentPackage'
-      type: array
-    property_AssessmentParameter_options:
-      description: Options for MULTIPLE_CHOICE and MULTIPLE_SELECT
+    property_AssessmentOrder_profile_emails:
       items:
         type: string
       type: array
@@ -753,19 +766,6 @@ components:
         title:
           type: string
       type: object
-    property_AssessmentParameter_valid_regions:
-      description: Regions where this parameter is valid ({country}-{state} or {country})
-      items:
-        type: string
-      type: array
-    property_AssessmentOrder_response_details:
-      items:
-        $ref: '#/components/schemas/AssessmentResponseDetail'
-      type: array
-    property_AssessmentOrder_profile_addresses:
-      items:
-        $ref: '#/components/schemas/AssessmentAddress'
-      type: array
   securitySchemes:
     jwt:
       in: header

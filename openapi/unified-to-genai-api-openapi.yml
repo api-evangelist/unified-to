@@ -256,10 +256,6 @@ paths:
       - genai
 components:
   schemas:
-    property_GenaiPrompt_mcp_deferred_tools:
-      items:
-        type: string
-      type: array
     GenaiEmbeddingContent:
       properties:
         text:
@@ -281,6 +277,14 @@ components:
       required:
       - content
       type: object
+    property_GenaiPrompt_mcp_deferred_tools:
+      items:
+        type: string
+      type: array
+    property_GenaiPrompt_messages:
+      items:
+        $ref: '#/components/schemas/GenaiContent'
+      type: array
     GenaiPrompt:
       properties:
         max_tokens:
@@ -305,6 +309,14 @@ components:
         tokens_used:
           type: number
       type: object
+    GenaiModels:
+      items:
+        $ref: '#/components/schemas/GenaiModel'
+      type: array
+    property_GenaiEmbedding_content:
+      items:
+        $ref: '#/components/schemas/GenaiEmbeddingContent'
+      type: array
     property_GenaiPrompt_responses:
       items:
         type: string
@@ -341,18 +353,6 @@ components:
         type:
           type: string
       type: object
-    property_GenaiEmbedding_content:
-      items:
-        $ref: '#/components/schemas/GenaiEmbeddingContent'
-      type: array
-    property_GenaiPrompt_messages:
-      items:
-        $ref: '#/components/schemas/GenaiContent'
-      type: array
-    GenaiModels:
-      items:
-        $ref: '#/components/schemas/GenaiModel'
-      type: array
     GenaiModel:
       properties:
         description:

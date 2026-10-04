@@ -6073,71 +6073,24 @@ paths:
       - Accounting
 components:
   schemas:
-    property_AccountingCreditmemo_attachments:
+    property_AccountingCashflow_investing_sections:
       items:
-        $ref: '#/components/schemas/AccountingAttachment'
+        $ref: '#/components/schemas/AccountingCashflowSection'
       type: array
-    property_AccountingReport_profit_and_loss_cost_of_goods_sold:
-      description: '@deprecated – use cost_of_goods_sold_sections instead'
+    property_AccountingProfitlossCategory_sub_items:
       items:
-        $ref: '#/components/schemas/AccountingProfitlossCategory'
+        $ref: '#/components/schemas/AccountingProfitlossSubcategory'
       type: array
-    AccountingContactPaymentMethod:
-      properties:
-        default:
-          type: boolean
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          enum:
-          - ACH
-          - ALIPAY
-          - CARD
-          - GIROPAY
-          - IDEAL
-          - OTHER
-          - PAYPAL
-          - WIRE
-          - CHECK
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - type
-      type: object
-    AccountingContacts:
-      items:
-        $ref: '#/components/schemas/AccountingContact'
-      type: array
-    property_AccountingProfitloss_expenses:
-      description: '@deprecated – use expenses_sections instead'
-      items:
-        $ref: '#/components/schemas/AccountingProfitlossCategory'
-      type: array
-    AccountingProfitlossAccount:
+    AccountingBalancesheetItem:
       properties:
         account_id:
           type: string
-        account_name:
-          type: string
-        total_amount:
+        amount:
           type: number
-        transaction_ids:
-          $ref: '#/components/schemas/property_AccountingProfitlossAccount_transaction_ids'
-      type: object
-    AccountingBalancesheets:
-      items:
-        $ref: '#/components/schemas/AccountingBalancesheet'
-      type: array
-    AccountingAssociatedContact:
-      properties:
-        emails:
-          $ref: '#/components/schemas/property_AccountingAssociatedContact_emails'
-        id:
-          type: string
         name:
           type: string
+        sub_items:
+          $ref: '#/components/schemas/property_AccountingBalancesheetItem_sub_items'
       type: object
     AccountingProfitloss:
       properties:
@@ -6189,786 +6142,25 @@ components:
           format: date-time
           type: string
       type: object
-    property_AccountingPurchaseorder_billing_address:
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        country:
-          type: string
-        country_code:
-          type: string
-        postal_code:
-          type: string
-        region:
-          type: string
-        region_code:
-          type: string
-      type: object
-    property_AccountingReport_profit_and_loss_category_ids:
+    property_AccountingProfitloss_expenses:
+      description: '@deprecated – use expenses_sections instead'
       items:
-        type: string
+        $ref: '#/components/schemas/AccountingProfitlossCategory'
       type: array
-    AccountingJournalLineitem:
-      properties:
-        account_id:
-          type: string
-        category_ids:
-          $ref: '#/components/schemas/property_AccountingJournalLineitem_category_ids'
-        contact_id:
-          type: string
-        credit_amount:
-          type: number
-        debit_amount:
-          type: number
-        description:
-          type: string
-        group_id:
-          type: string
-        id:
-          type: string
-        invoice_id:
-          type: string
-        organization_id:
-          type: string
-        payment_id:
-          type: string
-        project_id:
-          type: string
-        tax_amount:
-          type: number
-        total_amount:
-          type: number
-      type: object
-    AccountingEmail:
-      properties:
-        email:
-          type: string
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          type: string
-          x-speakeasy-unknown-values: allow
-      type: object
-    AccountingTaxrates:
-      items:
-        $ref: '#/components/schemas/AccountingTaxrate'
-      type: array
-    AccountingReports:
-      items:
-        $ref: '#/components/schemas/AccountingReport'
-      type: array
-    property_AccountingBill_attachments:
-      items:
-        $ref: '#/components/schemas/AccountingAttachment'
-      type: array
-    AccountingLineitem:
-      properties:
-        account_id:
-          type: string
-        category_ids:
-          $ref: '#/components/schemas/property_AccountingLineitem_category_ids'
-        created_at:
-          format: date-time
-          type: string
-        discount_amount:
-          type: number
-        id:
-          type: string
-        item_description:
-          type: string
-        item_id:
-          type: string
-        item_name:
-          type: string
-        item_sku:
-          type: string
-        item_variants:
-          $ref: '#/components/schemas/property_AccountingLineitem_item_variants'
-        locations:
-          $ref: '#/components/schemas/property_AccountingLineitem_locations'
-        notes:
-          type: string
-        refund_amount:
-          type: number
-        refunded_at:
-          format: date-time
-          type: string
-        tax_amount:
-          type: number
-        taxrate_id:
-          type: string
-        total_amount:
-          type: number
-        unit_amount:
-          type: number
-        unit_quantity:
-          type: number
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    AccountingCreditmemoes:
-      items:
-        $ref: '#/components/schemas/AccountingCreditmemo'
-      type: array
-    AccountingCategories:
-      items:
-        $ref: '#/components/schemas/AccountingCategory'
-      type: array
-    property_AccountingCreditmemo_lineitems:
-      items:
-        $ref: '#/components/schemas/AccountingLineitem'
-      type: array
-    AccountingProfitlosses:
-      items:
-        $ref: '#/components/schemas/AccountingProfitloss'
-      type: array
-    property_AccountingLineitem_locations:
-      items:
-        $ref: '#/components/schemas/AccountingReference'
-      type: array
-    AccountingInvoices:
-      items:
-        $ref: '#/components/schemas/AccountingInvoice'
-      type: array
-    property_AccountingProfitloss_income:
+    property_AccountingReport_profit_and_loss_income:
       description: '@deprecated – use income_sections instead'
       items:
         $ref: '#/components/schemas/AccountingProfitlossCategory'
       type: array
-    property_AccountingInvoice_lineitems:
-      items:
-        $ref: '#/components/schemas/AccountingLineitem'
-      type: array
-    property_AccountingSalesorder_lineitems:
-      items:
-        $ref: '#/components/schemas/AccountingLineitem'
-      type: array
-    property_AccountingContact_telephones:
-      items:
-        $ref: '#/components/schemas/AccountingTelephone'
-      type: array
-    AccountingTransactionContact:
-      properties:
-        id:
-          type: string
-        is_customer:
-          type: boolean
-        is_supplier:
-          type: boolean
-      required:
-      - id
-      type: object
-    AccountingSalesorder:
-      properties:
-        account_id:
-          type: string
-        billing_address:
-          $ref: '#/components/schemas/property_AccountingSalesorder_billing_address'
-        contact_id:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        currency:
-          type: string
-        id:
-          type: string
-        lineitems:
-          $ref: '#/components/schemas/property_AccountingSalesorder_lineitems'
-        organization_id:
-          type: string
-        posted_at:
-          format: date-time
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        sales_channel:
-          type: string
-        shipping_address:
-          $ref: '#/components/schemas/property_AccountingSalesorder_shipping_address'
-        status:
-          enum:
-          - DRAFT
-          - VOIDED
-          - AUTHORIZED
-          - PAID
-          - PARTIALLY_PAID
-          - PARTIALLY_REFUNDED
-          - REFUNDED
-          - SUBMITTED
-          - DELETED
-          type: string
-          x-speakeasy-unknown-values: allow
-        total_amount:
-          type: number
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    AccountingTrialbalanceSubItem:
-      properties:
-        account_id:
-          type: string
-        account_name:
-          type: string
-        amount:
-          type: number
-      type: object
-    AccountingExpenses:
-      items:
-        $ref: '#/components/schemas/AccountingExpense'
-      type: array
-    AccountingPurchaseorder:
-      properties:
-        account_id:
-          type: string
-        billing_address:
-          $ref: '#/components/schemas/property_AccountingPurchaseorder_billing_address'
-        contact_id:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        currency:
-          type: string
-        id:
-          type: string
-        lineitems:
-          $ref: '#/components/schemas/property_AccountingPurchaseorder_lineitems'
-        organization_id:
-          type: string
-        posted_at:
-          format: date-time
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        shipping_address:
-          $ref: '#/components/schemas/property_AccountingPurchaseorder_shipping_address'
-        status:
-          enum:
-          - DRAFT
-          - VOIDED
-          - AUTHORIZED
-          - PAID
-          - PARTIALLY_PAID
-          - PARTIALLY_REFUNDED
-          - REFUNDED
-          - SUBMITTED
-          - DELETED
-          type: string
-          x-speakeasy-unknown-values: allow
-        total_amount:
-          type: number
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    AccountingCashflow:
-      description: Sections
-      properties:
-        cash_beginning_amount:
-          type: number
-        cash_ending_amount:
-          type: number
-        category_ids:
-          $ref: '#/components/schemas/property_AccountingCashflow_category_ids'
-        contact_id:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        currency:
-          type: string
-        end_at:
-          format: date-time
-          type: string
-        financing_sections:
-          $ref: '#/components/schemas/property_AccountingCashflow_financing_sections'
-        id:
-          type: string
-        investing_sections:
-          $ref: '#/components/schemas/property_AccountingCashflow_investing_sections'
-        name:
-          type: string
-        net_change_in_cash_amount:
-          type: number
-        operating_sections:
-          $ref: '#/components/schemas/property_AccountingCashflow_operating_sections'
-        raw:
-          additionalProperties: true
-          type: object
-        start_at:
-          format: date-time
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    property_AccountingTransaction_lineitems:
-      items:
-        $ref: '#/components/schemas/AccountingTransactionLineItem'
-      type: array
-    AccountingTransactions:
-      items:
-        $ref: '#/components/schemas/AccountingTransaction'
-      type: array
-    AccountingAccountTaxonomy:
-      properties:
-        original_type:
-          type: string
-        type:
-          enum:
-          - CLASSIFICATION
-          - GROUP
-          - SUBGROUP
-          - SYSTEM_ROLE
-          - OTHER
-          type: string
-          x-speakeasy-unknown-values: allow
-        value:
-          type: string
-      required:
-      - type
-      - value
-      type: object
-    AccountingTaxrate:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        is_active:
-          type: boolean
-        name:
-          type: string
-        organization_id:
-          type: string
-        rate:
-          type: number
-        raw:
-          additionalProperties: true
-          type: object
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    property_AccountingCashflow_investing_sections:
-      items:
-        $ref: '#/components/schemas/AccountingCashflowSection'
-      type: array
-    property_AccountingLineitem_category_ids:
-      items:
-        type: string
-      type: array
-    property_AccountingCashflow_financing_sections:
-      items:
-        $ref: '#/components/schemas/AccountingCashflowSection'
-      type: array
-    property_AccountingSalesorder_billing_address:
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        country:
-          type: string
-        country_code:
-          type: string
-        postal_code:
-          type: string
-        region:
-          type: string
-        region_code:
-          type: string
-      type: object
-    property_AccountingCashflowItem_sub_items:
-      items:
-        $ref: '#/components/schemas/AccountingCashflowItem'
-      type: array
-    property_AccountingLineitem_item_variants:
-      items:
-        $ref: '#/components/schemas/AccountingReference'
-      type: array
-    property_AccountingInvoice_attachments:
-      items:
-        $ref: '#/components/schemas/AccountingAttachment'
-      type: array
-    AccountingOrder:
-      properties:
-        account_id:
-          type: string
-        billing_address:
-          $ref: '#/components/schemas/property_AccountingOrder_billing_address'
-        contact_id:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        currency:
-          type: string
-        id:
-          type: string
-        lineitems:
-          $ref: '#/components/schemas/property_AccountingOrder_lineitems'
-        posted_at:
-          format: date-time
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        shipping_address:
-          $ref: '#/components/schemas/property_AccountingOrder_shipping_address'
-        status:
-          enum:
-          - DRAFT
-          - VOIDED
-          - AUTHORIZED
-          - PAID
-          - PARTIALLY_PAID
-          - PARTIALLY_REFUNDED
-          - REFUNDED
-          - SUBMITTED
-          - DELETED
-          type: string
-          x-speakeasy-unknown-values: allow
-        total_amount:
-          type: number
-        type:
-          enum:
-          - SALES
-          - PURCHASE
-          type: string
-          x-speakeasy-unknown-values: allow
-        updated_at:
-          format: date-time
-          type: string
-      type: object
     property_AccountingReport_profit_and_loss_expenses_sections:
       items:
         $ref: '#/components/schemas/AccountingProfitlossSection'
       type: array
-    property_AccountingBalancesheet_assets:
-      items:
-        $ref: '#/components/schemas/AccountingBalancesheetItem'
-      type: array
-    property_AccountingProfitloss_income_sections:
-      items:
-        $ref: '#/components/schemas/AccountingProfitlossSection'
-      type: array
-    property_AccountingOrder_lineitems:
-      items:
-        $ref: '#/components/schemas/AccountingLineitem'
-      type: array
-    property_AccountingOrder_billing_address:
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        country:
-          type: string
-        country_code:
-          type: string
-        postal_code:
-          type: string
-        region:
-          type: string
-        region_code:
-          type: string
-      type: object
-    property_AccountingBalancesheetItem_sub_items:
-      items:
-        $ref: '#/components/schemas/AccountingBalancesheetItem'
-      type: array
-    property_AccountingReport_trial_balance:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        currency:
-          type: string
-        end_at:
-          format: date-time
-          type: string
-        id:
-          type: string
-        name:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        start_at:
-          format: date-time
-          type: string
-        sub_items:
-          $ref: '#/components/schemas/property_AccountingReport_trial_balance_sub_items'
-        total_credit_amount:
-          type: number
-        total_debit_amount:
-          type: number
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    property_AccountingReport_profit_and_loss_income_sections:
-      items:
-        $ref: '#/components/schemas/AccountingProfitlossSection'
-      type: array
-    property_AccountingTrialbalance_sub_items:
-      items:
-        $ref: '#/components/schemas/AccountingTrialbalanceSubItem'
-      type: array
-    AccountingProfitlossSection:
-      properties:
-        accounts:
-          $ref: '#/components/schemas/property_AccountingProfitlossSection_accounts'
-        section_name:
-          type: string
-        section_type:
-          type: string
-        total_amount:
-          type: number
-      type: object
-    property_AccountingProfitloss_expenses_sections:
-      items:
-        $ref: '#/components/schemas/AccountingProfitlossSection'
-      type: array
-    AccountingContact:
-      properties:
-        associated_contacts:
-          $ref: '#/components/schemas/property_AccountingContact_associated_contacts'
-        billing_address:
-          $ref: '#/components/schemas/property_AccountingContact_billing_address'
-        company_name:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        currency:
-          default: USD
-          type: string
-        emails:
-          $ref: '#/components/schemas/property_AccountingContact_emails'
-        first_name:
-          type: string
-        id:
-          type: string
-        identification:
-          type: string
-        is_active:
-          type: boolean
-        is_customer:
-          type: boolean
-        is_supplier:
-          type: boolean
-        last_name:
-          type: string
-        name:
-          type: string
-        organization_id:
-          type: string
-        payment_methods:
-          $ref: '#/components/schemas/property_AccountingContact_payment_methods'
-        portal_url:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        shipping_address:
-          $ref: '#/components/schemas/property_AccountingContact_shipping_address'
-        tax_exemption:
-          enum:
-          - FEDERAL_GOV
-          - REGION_GOV
-          - LOCAL_GOV
-          - TRIBAL_GOV
-          - CHARITABLE_ORG
-          - RELIGIOUS_ORG
-          - EDUCATIONAL_ORG
-          - MEDICAL_ORG
-          - RESALE
-          - FOREIGN
-          - OTHER
-          type: string
-          x-speakeasy-unknown-values: allow
-        tax_number:
-          type: string
-        telephones:
-          $ref: '#/components/schemas/property_AccountingContact_telephones'
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    AccountingCashflowItem:
-      properties:
-        account_id:
-          type: string
-        amount:
-          type: number
-        name:
-          type: string
-        sub_items:
-          $ref: '#/components/schemas/property_AccountingCashflowItem_sub_items'
-        transaction_ids:
-          $ref: '#/components/schemas/property_AccountingCashflowItem_transaction_ids'
-      type: object
     property_AccountingCashflowItem_transaction_ids:
       description: Optional linkage to transactions
       items:
         type: string
       type: array
-    property_AccountingTransaction_contacts:
-      items:
-        $ref: '#/components/schemas/AccountingTransactionContact'
-      type: array
-    property_AccountingReport_balance_sheet:
-      properties:
-        assets:
-          $ref: '#/components/schemas/property_AccountingReport_balance_sheet_assets'
-        created_at:
-          format: date-time
-          type: string
-        currency:
-          type: string
-        end_at:
-          format: date-time
-          type: string
-        equity:
-          $ref: '#/components/schemas/property_AccountingReport_balance_sheet_equity'
-        id:
-          type: string
-        liabilities:
-          $ref: '#/components/schemas/property_AccountingReport_balance_sheet_liabilities'
-        name:
-          type: string
-        net_assets_amount:
-          type: number
-        raw:
-          additionalProperties: true
-          type: object
-        start_at:
-          format: date-time
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    AccountingProfitlossSubcategory:
-      description: '@deprecated'
-      properties:
-        amount:
-          type: number
-        name:
-          type: string
-        transaction_ids:
-          $ref: '#/components/schemas/property_AccountingProfitlossSubcategory_transaction_ids'
-      type: object
-    property_AccountingProfitloss_cost_of_goods_sold_sections:
-      items:
-        $ref: '#/components/schemas/AccountingProfitlossSection'
-      type: array
-    property_AccountingReport_profit_and_loss_expenses:
-      description: '@deprecated – use expenses_sections instead'
-      items:
-        $ref: '#/components/schemas/AccountingProfitlossCategory'
-      type: array
-    property_AccountingProfitloss_category_ids:
-      items:
-        type: string
-      type: array
-    AccountingProfitlossCategory:
-      description: '@deprecated'
-      properties:
-        amount:
-          type: number
-        name:
-          type: string
-        sub_items:
-          $ref: '#/components/schemas/property_AccountingProfitlossCategory_sub_items'
-      type: object
-    AccountingJournal:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        currency:
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        lineitems:
-          $ref: '#/components/schemas/property_AccountingJournal_lineitems'
-        organization_id:
-          type: string
-        posted_at:
-          format: date-time
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        reference:
-          type: string
-        source:
-          type: string
-        tax_amount:
-          type: number
-        taxrate_id:
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    property_AccountingProfitlossSection_accounts:
-      items:
-        $ref: '#/components/schemas/AccountingProfitlossAccount'
-      type: array
-    property_AccountingContact_billing_address:
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        country:
-          type: string
-        country_code:
-          type: string
-        postal_code:
-          type: string
-        region:
-          type: string
-        region_code:
-          type: string
-      type: object
-    AccountingAttachment:
-      properties:
-        download_url:
-          type: string
-        id:
-          type: string
-        mime_type:
-          type: string
-        name:
-          type: string
-      type: object
     property_AccountingOrganization_address:
       properties:
         address1:
@@ -6988,14 +6180,19 @@ components:
         region_code:
           type: string
       type: object
-    AccountingOrders:
-      items:
-        $ref: '#/components/schemas/AccountingOrder'
-      type: array
-    property_AccountingJournalLineitem_category_ids:
-      items:
-        type: string
-      type: array
+    AccountingCashflowItem:
+      properties:
+        account_id:
+          type: string
+        amount:
+          type: number
+        name:
+          type: string
+        sub_items:
+          $ref: '#/components/schemas/property_AccountingCashflowItem_sub_items'
+        transaction_ids:
+          $ref: '#/components/schemas/property_AccountingCashflowItem_transaction_ids'
+      type: object
     AccountingBill:
       properties:
         attachments:
@@ -7077,58 +6274,137 @@ components:
         url:
           type: string
       type: object
-    property_AccountingExpense_lineitems:
+    AccountingTransactions:
       items:
-        $ref: '#/components/schemas/AccountingLineitem'
+        $ref: '#/components/schemas/AccountingTransaction'
       type: array
-    AccountingCashflowSection:
+    AccountingSalesorder:
       properties:
-        items:
-          $ref: '#/components/schemas/property_AccountingCashflowSection_items'
-        section_name:
+        account_id:
           type: string
-        total_amount:
-          type: number
-      type: object
-    property_AccountingCashflow_category_ids:
-      items:
-        type: string
-      type: array
-    AccountingTrialbalance:
-      properties:
+        billing_address:
+          $ref: '#/components/schemas/property_AccountingSalesorder_billing_address'
+        contact_id:
+          type: string
         created_at:
           format: date-time
           type: string
         currency:
           type: string
-        end_at:
-          format: date-time
-          type: string
         id:
           type: string
-        name:
+        lineitems:
+          $ref: '#/components/schemas/property_AccountingSalesorder_lineitems'
+        organization_id:
+          type: string
+        posted_at:
+          format: date-time
           type: string
         raw:
           additionalProperties: true
           type: object
-        start_at:
-          format: date-time
+        sales_channel:
           type: string
-        sub_items:
-          $ref: '#/components/schemas/property_AccountingTrialbalance_sub_items'
-        total_credit_amount:
-          type: number
-        total_debit_amount:
+        shipping_address:
+          $ref: '#/components/schemas/property_AccountingSalesorder_shipping_address'
+        status:
+          enum:
+          - DRAFT
+          - VOIDED
+          - AUTHORIZED
+          - PAID
+          - PARTIALLY_PAID
+          - PARTIALLY_REFUNDED
+          - REFUNDED
+          - SUBMITTED
+          - DELETED
+          type: string
+          x-speakeasy-unknown-values: allow
+        total_amount:
           type: number
         updated_at:
           format: date-time
           type: string
       type: object
+    property_AccountingTransaction_lineitems:
+      items:
+        $ref: '#/components/schemas/AccountingTransactionLineItem'
+      type: array
+    property_AccountingLineitem_locations:
+      items:
+        $ref: '#/components/schemas/AccountingReference'
+      type: array
+    AccountingJournals:
+      items:
+        $ref: '#/components/schemas/AccountingJournal'
+      type: array
+    AccountingReference:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    property_AccountingProfitloss_cost_of_goods_sold_sections:
+      items:
+        $ref: '#/components/schemas/AccountingProfitlossSection'
+      type: array
+    AccountingProfitlossSubcategory:
+      description: '@deprecated'
+      properties:
+        amount:
+          type: number
+        name:
+          type: string
+        transaction_ids:
+          $ref: '#/components/schemas/property_AccountingProfitlossSubcategory_transaction_ids'
+      type: object
+    AccountingTransactionLineItem:
+      properties:
+        account_id:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        object_type:
+          type: string
+        total_amount:
+          type: number
+        unit_amount:
+          type: number
+        unit_quantity:
+          type: number
+      type: object
+    AccountingProfitlossCategory:
+      description: '@deprecated'
+      properties:
+        amount:
+          type: number
+        name:
+          type: string
+        sub_items:
+          $ref: '#/components/schemas/property_AccountingProfitlossCategory_sub_items'
+      type: object
+    property_AccountingJournalLineitem_category_ids:
+      items:
+        type: string
+      type: array
+    property_AccountingBalancesheetItem_sub_items:
+      items:
+        $ref: '#/components/schemas/AccountingBalancesheetItem'
+      type: array
     property_AccountingBalancesheet_equity:
       items:
         $ref: '#/components/schemas/AccountingBalancesheetItem'
       type: array
-    property_AccountingOrder_shipping_address:
+    property_AccountingTransaction_contacts:
+      items:
+        $ref: '#/components/schemas/AccountingTransactionContact'
+      type: array
+    property_AccountingPurchaseorder_shipping_address:
       properties:
         address1:
           type: string
@@ -7147,14 +6423,508 @@ components:
         region_code:
           type: string
       type: object
-    AccountingBills:
+    AccountingJournalLineitem:
+      properties:
+        account_id:
+          type: string
+        category_ids:
+          $ref: '#/components/schemas/property_AccountingJournalLineitem_category_ids'
+        contact_id:
+          type: string
+        credit_amount:
+          type: number
+        debit_amount:
+          type: number
+        description:
+          type: string
+        group_id:
+          type: string
+        id:
+          type: string
+        invoice_id:
+          type: string
+        organization_id:
+          type: string
+        payment_id:
+          type: string
+        project_id:
+          type: string
+        tax_amount:
+          type: number
+        total_amount:
+          type: number
+      type: object
+    property_AccountingOrder_billing_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    AccountingContacts:
       items:
-        $ref: '#/components/schemas/AccountingBill'
+        $ref: '#/components/schemas/AccountingContact'
       type: array
+    property_AccountingSalesorder_billing_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_AccountingTrialbalance_sub_items:
+      items:
+        $ref: '#/components/schemas/AccountingTrialbalanceSubItem'
+      type: array
+    property_AccountingOrder_lineitems:
+      items:
+        $ref: '#/components/schemas/AccountingLineitem'
+      type: array
+    AccountingPurchaseorder:
+      properties:
+        account_id:
+          type: string
+        billing_address:
+          $ref: '#/components/schemas/property_AccountingPurchaseorder_billing_address'
+        contact_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        id:
+          type: string
+        lineitems:
+          $ref: '#/components/schemas/property_AccountingPurchaseorder_lineitems'
+        organization_id:
+          type: string
+        posted_at:
+          format: date-time
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        shipping_address:
+          $ref: '#/components/schemas/property_AccountingPurchaseorder_shipping_address'
+        status:
+          enum:
+          - DRAFT
+          - VOIDED
+          - AUTHORIZED
+          - PAID
+          - PARTIALLY_PAID
+          - PARTIALLY_REFUNDED
+          - REFUNDED
+          - SUBMITTED
+          - DELETED
+          type: string
+          x-speakeasy-unknown-values: allow
+        total_amount:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    AccountingAssociatedContact:
+      properties:
+        emails:
+          $ref: '#/components/schemas/property_AccountingAssociatedContact_emails'
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    AccountingAccountTaxonomy:
+      properties:
+        original_type:
+          type: string
+        type:
+          enum:
+          - CLASSIFICATION
+          - GROUP
+          - SUBGROUP
+          - SYSTEM_ROLE
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        value:
+          type: string
+      required:
+      - type
+      - value
+      type: object
+    AccountingTrialbalanceSubItem:
+      properties:
+        account_id:
+          type: string
+        account_name:
+          type: string
+        amount:
+          type: number
+      type: object
+    AccountingOrders:
+      items:
+        $ref: '#/components/schemas/AccountingOrder'
+      type: array
+    property_AccountingContact_telephones:
+      items:
+        $ref: '#/components/schemas/AccountingTelephone'
+      type: array
+    AccountingAccounts:
+      items:
+        $ref: '#/components/schemas/AccountingAccount'
+      type: array
+    AccountingAccount:
+      description: Chart of accounts
+      properties:
+        balance:
+          type: number
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        customer_defined_code:
+          type: string
+        description:
+          type: string
+        group:
+          type: string
+        id:
+          type: string
+        is_payable:
+          type: boolean
+        name:
+          type: string
+        organization_id:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        section:
+          type: string
+        status:
+          enum:
+          - ACTIVE
+          - ARCHIVED
+          type: string
+          x-speakeasy-unknown-values: allow
+        subgroup:
+          type: string
+        subsection:
+          type: string
+        taxonomy:
+          $ref: '#/components/schemas/property_AccountingAccount_taxonomy'
+        type:
+          enum:
+          - ACCOUNTS_PAYABLE
+          - ACCOUNTS_RECEIVABLE
+          - BANK
+          - CREDIT_CARD
+          - FIXED_ASSET
+          - LIABILITY
+          - EQUITY
+          - EXPENSE
+          - REVENUE
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AccountingReport_profit_and_loss_category_ids:
+      items:
+        type: string
+      type: array
+    AccountingCreditmemoes:
+      items:
+        $ref: '#/components/schemas/AccountingCreditmemo'
+      type: array
+    property_AccountingReport_profit_and_loss_income_sections:
+      items:
+        $ref: '#/components/schemas/AccountingProfitlossSection'
+      type: array
+    AccountingTaxrate:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        name:
+          type: string
+        organization_id:
+          type: string
+        rate:
+          type: number
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    AccountingContact:
+      properties:
+        associated_contacts:
+          $ref: '#/components/schemas/property_AccountingContact_associated_contacts'
+        billing_address:
+          $ref: '#/components/schemas/property_AccountingContact_billing_address'
+        company_name:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          default: USD
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_AccountingContact_emails'
+        first_name:
+          type: string
+        id:
+          type: string
+        identification:
+          type: string
+        is_active:
+          type: boolean
+        is_customer:
+          type: boolean
+        is_supplier:
+          type: boolean
+        last_name:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        payment_methods:
+          $ref: '#/components/schemas/property_AccountingContact_payment_methods'
+        portal_url:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        shipping_address:
+          $ref: '#/components/schemas/property_AccountingContact_shipping_address'
+        tax_exemption:
+          enum:
+          - FEDERAL_GOV
+          - REGION_GOV
+          - LOCAL_GOV
+          - TRIBAL_GOV
+          - CHARITABLE_ORG
+          - RELIGIOUS_ORG
+          - EDUCATIONAL_ORG
+          - MEDICAL_ORG
+          - RESALE
+          - FOREIGN
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        tax_number:
+          type: string
+        telephones:
+          $ref: '#/components/schemas/property_AccountingContact_telephones'
+        updated_at:
+          format: date-time
+          type: string
+      type: object
     property_AccountingJournal_lineitems:
       description: new field name
       items:
         $ref: '#/components/schemas/AccountingJournalLineitem'
+      type: array
+    property_AccountingPurchaseorder_billing_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_AccountingBalancesheet_liabilities:
+      items:
+        $ref: '#/components/schemas/AccountingBalancesheetItem'
+      type: array
+    AccountingCategories:
+      items:
+        $ref: '#/components/schemas/AccountingCategory'
+      type: array
+    AccountingSalesorders:
+      items:
+        $ref: '#/components/schemas/AccountingSalesorder'
+      type: array
+    property_AccountingLineitem_item_variants:
+      items:
+        $ref: '#/components/schemas/AccountingReference'
+      type: array
+    AccountingCashflow:
+      description: Sections
+      properties:
+        cash_beginning_amount:
+          type: number
+        cash_ending_amount:
+          type: number
+        category_ids:
+          $ref: '#/components/schemas/property_AccountingCashflow_category_ids'
+        contact_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        financing_sections:
+          $ref: '#/components/schemas/property_AccountingCashflow_financing_sections'
+        id:
+          type: string
+        investing_sections:
+          $ref: '#/components/schemas/property_AccountingCashflow_investing_sections'
+        name:
+          type: string
+        net_change_in_cash_amount:
+          type: number
+        operating_sections:
+          $ref: '#/components/schemas/property_AccountingCashflow_operating_sections'
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AccountingInvoice_attachments:
+      items:
+        $ref: '#/components/schemas/AccountingAttachment'
+      type: array
+    property_AccountingProfitlossAccount_transaction_ids:
+      items:
+        type: string
+      type: array
+    AccountingEmail:
+      properties:
+        email:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_AccountingReport_balance_sheet:
+      properties:
+        assets:
+          $ref: '#/components/schemas/property_AccountingReport_balance_sheet_assets'
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        equity:
+          $ref: '#/components/schemas/property_AccountingReport_balance_sheet_equity'
+        id:
+          type: string
+        liabilities:
+          $ref: '#/components/schemas/property_AccountingReport_balance_sheet_liabilities'
+        name:
+          type: string
+        net_assets_amount:
+          type: number
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AccountingContact_billing_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_AccountingReport_trial_balance_sub_items:
+      items:
+        $ref: '#/components/schemas/AccountingTrialbalanceSubItem'
+      type: array
+    property_AccountingBill_lineitems:
+      items:
+        $ref: '#/components/schemas/AccountingLineitem'
+      type: array
+    property_AccountingCashflow_operating_sections:
+      items:
+        $ref: '#/components/schemas/AccountingCashflowSection'
       type: array
     AccountingExpense:
       properties:
@@ -7201,54 +6971,6 @@ components:
           format: date-time
           type: string
         user_id:
-          type: string
-      type: object
-    property_AccountingCashflowSection_items:
-      items:
-        $ref: '#/components/schemas/AccountingCashflowItem'
-      type: array
-    AccountingTransaction:
-      properties:
-        account_id:
-          type: string
-        contacts:
-          $ref: '#/components/schemas/property_AccountingTransaction_contacts'
-        created_at:
-          format: date-time
-          type: string
-        currency:
-          type: string
-        customer_message:
-          type: string
-        id:
-          type: string
-        lineitems:
-          $ref: '#/components/schemas/property_AccountingTransaction_lineitems'
-        memo:
-          type: string
-        organization_id:
-          type: string
-        payment_method:
-          type: string
-        payment_terms:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        reference:
-          type: string
-        split_account_id:
-          type: string
-        sub_total_amount:
-          type: number
-        tax_amount:
-          type: number
-        total_amount:
-          type: number
-        type:
-          type: string
-        updated_at:
-          format: date-time
           type: string
       type: object
     AccountingInvoice:
@@ -7341,9 +7063,9 @@ components:
         url:
           type: string
       type: object
-    AccountingSalesorders:
+    property_AccountingPurchaseorder_lineitems:
       items:
-        $ref: '#/components/schemas/AccountingSalesorder'
+        $ref: '#/components/schemas/AccountingLineitem'
       type: array
     AccountingReport:
       description: '@deprecated; use either AccountingProfitandloss, AccountingTrialbalance, AccountingBalancesheet, or AccountingCashflow instead'
@@ -7383,132 +7105,9 @@ components:
           format: date-time
           type: string
       type: object
-    property_AccountingProfitloss_cost_of_goods_sold:
-      description: '@deprecated – use cost_of_goods_sold_sections instead'
-      items:
-        $ref: '#/components/schemas/AccountingProfitlossCategory'
-      type: array
-    AccountingTelephone:
-      properties:
-        telephone:
-          type: string
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          - FAX
-          - MOBILE
-          type: string
-          x-speakeasy-unknown-values: allow
-      type: object
-    AccountingTrialbalances:
-      items:
-        $ref: '#/components/schemas/AccountingTrialbalance'
-      type: array
-    property_AccountingAssociatedContact_emails:
-      items:
-        $ref: '#/components/schemas/AccountingEmail'
-      type: array
-    property_AccountingBalancesheet_liabilities:
-      items:
-        $ref: '#/components/schemas/AccountingBalancesheetItem'
-      type: array
-    property_AccountingProfitlossAccount_transaction_ids:
-      items:
-        type: string
-      type: array
-    AccountingPurchaseorders:
-      items:
-        $ref: '#/components/schemas/AccountingPurchaseorder'
-      type: array
-    AccountingAccount:
-      description: Chart of accounts
-      properties:
-        balance:
-          type: number
-        created_at:
-          format: date-time
-          type: string
-        currency:
-          type: string
-        customer_defined_code:
-          type: string
-        description:
-          type: string
-        group:
-          type: string
-        id:
-          type: string
-        is_payable:
-          type: boolean
-        name:
-          type: string
-        organization_id:
-          type: string
-        parent_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        section:
-          type: string
-        status:
-          enum:
-          - ACTIVE
-          - ARCHIVED
-          type: string
-          x-speakeasy-unknown-values: allow
-        subgroup:
-          type: string
-        subsection:
-          type: string
-        taxonomy:
-          $ref: '#/components/schemas/property_AccountingAccount_taxonomy'
-        type:
-          enum:
-          - ACCOUNTS_PAYABLE
-          - ACCOUNTS_RECEIVABLE
-          - BANK
-          - CREDIT_CARD
-          - FIXED_ASSET
-          - LIABILITY
-          - EQUITY
-          - EXPENSE
-          - REVENUE
-          - OTHER
-          type: string
-          x-speakeasy-unknown-values: allow
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    property_AccountingCashflow_operating_sections:
-      items:
-        $ref: '#/components/schemas/AccountingCashflowSection'
-      type: array
-    property_AccountingReport_profit_and_loss_cost_of_goods_sold_sections:
+    property_AccountingProfitloss_income_sections:
       items:
         $ref: '#/components/schemas/AccountingProfitlossSection'
-      type: array
-    AccountingReference:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-      type: object
-    property_AccountingReport_balance_sheet_assets:
-      items:
-        $ref: '#/components/schemas/AccountingBalancesheetItem'
-      type: array
-    property_AccountingProfitlossSubcategory_transaction_ids:
-      items:
-        type: string
-      type: array
-    property_AccountingContact_payment_methods:
-      items:
-        $ref: '#/components/schemas/AccountingContactPaymentMethod'
       type: array
     AccountingCreditmemo:
       properties:
@@ -7591,41 +7190,124 @@ components:
         url:
           type: string
       type: object
-    property_AccountingPurchaseorder_lineitems:
+    property_AccountingCreditmemo_lineitems:
       items:
         $ref: '#/components/schemas/AccountingLineitem'
       type: array
-    property_AccountingContact_associated_contacts:
+    property_AccountingReport_balance_sheet_liabilities:
       items:
-        $ref: '#/components/schemas/AccountingAssociatedContact'
+        $ref: '#/components/schemas/AccountingBalancesheetItem'
       type: array
-    AccountingJournals:
+    property_AccountingProfitloss_expenses_sections:
       items:
-        $ref: '#/components/schemas/AccountingJournal'
+        $ref: '#/components/schemas/AccountingProfitlossSection'
       type: array
-    property_AccountingReport_trial_balance_sub_items:
+    property_AccountingBalancesheet_assets:
       items:
-        $ref: '#/components/schemas/AccountingTrialbalanceSubItem'
+        $ref: '#/components/schemas/AccountingBalancesheetItem'
       type: array
-    property_AccountingSalesorder_shipping_address:
+    AccountingProfitlossSection:
       properties:
-        address1:
+        accounts:
+          $ref: '#/components/schemas/property_AccountingProfitlossSection_accounts'
+        section_name:
           type: string
-        address2:
+        section_type:
           type: string
-        city:
+        total_amount:
+          type: number
+      type: object
+    property_AccountingSalesorder_lineitems:
+      items:
+        $ref: '#/components/schemas/AccountingLineitem'
+      type: array
+    property_AccountingCashflow_financing_sections:
+      items:
+        $ref: '#/components/schemas/AccountingCashflowSection'
+      type: array
+    property_AccountingReport_profit_and_loss_expenses:
+      description: '@deprecated – use expenses_sections instead'
+      items:
+        $ref: '#/components/schemas/AccountingProfitlossCategory'
+      type: array
+    property_AccountingCreditmemo_attachments:
+      items:
+        $ref: '#/components/schemas/AccountingAttachment'
+      type: array
+    AccountingOrder:
+      properties:
+        account_id:
           type: string
-        country:
+        billing_address:
+          $ref: '#/components/schemas/property_AccountingOrder_billing_address'
+        contact_id:
           type: string
-        country_code:
+        created_at:
+          format: date-time
           type: string
-        postal_code:
+        currency:
           type: string
-        region:
+        id:
           type: string
-        region_code:
+        lineitems:
+          $ref: '#/components/schemas/property_AccountingOrder_lineitems'
+        posted_at:
+          format: date-time
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        shipping_address:
+          $ref: '#/components/schemas/property_AccountingOrder_shipping_address'
+        status:
+          enum:
+          - DRAFT
+          - VOIDED
+          - AUTHORIZED
+          - PAID
+          - PARTIALLY_PAID
+          - PARTIALLY_REFUNDED
+          - REFUNDED
+          - SUBMITTED
+          - DELETED
+          type: string
+          x-speakeasy-unknown-values: allow
+        total_amount:
+          type: number
+        type:
+          enum:
+          - SALES
+          - PURCHASE
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
           type: string
       type: object
+    property_AccountingProfitlossSection_accounts:
+      items:
+        $ref: '#/components/schemas/AccountingProfitlossAccount'
+      type: array
+    AccountingInvoices:
+      items:
+        $ref: '#/components/schemas/AccountingInvoice'
+      type: array
+    AccountingProfitlosses:
+      items:
+        $ref: '#/components/schemas/AccountingProfitloss'
+      type: array
+    property_AccountingCashflowItem_sub_items:
+      items:
+        $ref: '#/components/schemas/AccountingCashflowItem'
+      type: array
+    AccountingTaxrates:
+      items:
+        $ref: '#/components/schemas/AccountingTaxrate'
+      type: array
+    AccountingExpenses:
+      items:
+        $ref: '#/components/schemas/AccountingExpense'
+      type: array
     AccountingBalancesheet:
       properties:
         assets:
@@ -7658,43 +7340,45 @@ components:
           format: date-time
           type: string
       type: object
-    AccountingOrganizations:
+    property_AccountingContact_associated_contacts:
       items:
-        $ref: '#/components/schemas/AccountingOrganization'
+        $ref: '#/components/schemas/AccountingAssociatedContact'
       type: array
-    AccountingCategory:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        is_active:
-          type: boolean
-        name:
-          type: string
-        parent_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    AccountingTransactionLineItem:
+    AccountingLineitem:
       properties:
         account_id:
           type: string
-        description:
+        category_ids:
+          $ref: '#/components/schemas/property_AccountingLineitem_category_ids'
+        created_at:
+          format: date-time
           type: string
+        discount_amount:
+          type: number
         id:
           type: string
-        name:
+        item_description:
           type: string
-        object_type:
+        item_id:
+          type: string
+        item_name:
+          type: string
+        item_sku:
+          type: string
+        item_variants:
+          $ref: '#/components/schemas/property_AccountingLineitem_item_variants'
+        locations:
+          $ref: '#/components/schemas/property_AccountingLineitem_locations'
+        notes:
+          type: string
+        refund_amount:
+          type: number
+        refunded_at:
+          format: date-time
+          type: string
+        tax_amount:
+          type: number
+        taxrate_id:
           type: string
         total_amount:
           type: number
@@ -7702,10 +7386,254 @@ components:
           type: number
         unit_quantity:
           type: number
+        updated_at:
+          format: date-time
+          type: string
       type: object
+    AccountingTrialbalance:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        sub_items:
+          $ref: '#/components/schemas/property_AccountingTrialbalance_sub_items'
+        total_credit_amount:
+          type: number
+        total_debit_amount:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    AccountingTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    AccountingTransactionContact:
+      properties:
+        id:
+          type: string
+        is_customer:
+          type: boolean
+        is_supplier:
+          type: boolean
+      required:
+      - id
+      type: object
+    property_AccountingProfitlossSubcategory_transaction_ids:
+      items:
+        type: string
+      type: array
+    property_AccountingReport_profit_and_loss_cost_of_goods_sold_sections:
+      items:
+        $ref: '#/components/schemas/AccountingProfitlossSection'
+      type: array
+    AccountingContactPaymentMethod:
+      properties:
+        default:
+          type: boolean
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          enum:
+          - ACH
+          - ALIPAY
+          - CARD
+          - GIROPAY
+          - IDEAL
+          - OTHER
+          - PAYPAL
+          - WIRE
+          - CHECK
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - type
+      type: object
+    AccountingJournal:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        lineitems:
+          $ref: '#/components/schemas/property_AccountingJournal_lineitems'
+        organization_id:
+          type: string
+        posted_at:
+          format: date-time
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        reference:
+          type: string
+        source:
+          type: string
+        tax_amount:
+          type: number
+        taxrate_id:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    AccountingAttachment:
+      properties:
+        download_url:
+          type: string
+        id:
+          type: string
+        mime_type:
+          type: string
+        name:
+          type: string
+      type: object
+    property_AccountingContact_payment_methods:
+      items:
+        $ref: '#/components/schemas/AccountingContactPaymentMethod'
+      type: array
+    property_AccountingReport_trial_balance:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        sub_items:
+          $ref: '#/components/schemas/property_AccountingReport_trial_balance_sub_items'
+        total_credit_amount:
+          type: number
+        total_debit_amount:
+          type: number
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AccountingLineitem_category_ids:
+      items:
+        type: string
+      type: array
+    property_AccountingCashflowSection_items:
+      items:
+        $ref: '#/components/schemas/AccountingCashflowItem'
+      type: array
+    property_AccountingSalesorder_shipping_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_AccountingProfitloss_cost_of_goods_sold:
+      description: '@deprecated – use cost_of_goods_sold_sections instead'
+      items:
+        $ref: '#/components/schemas/AccountingProfitlossCategory'
+      type: array
     property_AccountingContact_emails:
       items:
         $ref: '#/components/schemas/AccountingEmail'
+      type: array
+    AccountingBalancesheets:
+      items:
+        $ref: '#/components/schemas/AccountingBalancesheet'
+      type: array
+    property_AccountingReport_balance_sheet_assets:
+      items:
+        $ref: '#/components/schemas/AccountingBalancesheetItem'
+      type: array
+    AccountingOrganizations:
+      items:
+        $ref: '#/components/schemas/AccountingOrganization'
+      type: array
+    property_AccountingExpense_lineitems:
+      items:
+        $ref: '#/components/schemas/AccountingLineitem'
+      type: array
+    AccountingProfitlossAccount:
+      properties:
+        account_id:
+          type: string
+        account_name:
+          type: string
+        total_amount:
+          type: number
+        transaction_ids:
+          $ref: '#/components/schemas/property_AccountingProfitlossAccount_transaction_ids'
+      type: object
+    property_AccountingReport_profit_and_loss_cost_of_goods_sold:
+      description: '@deprecated – use cost_of_goods_sold_sections instead'
+      items:
+        $ref: '#/components/schemas/AccountingProfitlossCategory'
+      type: array
+    AccountingPurchaseorders:
+      items:
+        $ref: '#/components/schemas/AccountingPurchaseorder'
+      type: array
+    AccountingBills:
+      items:
+        $ref: '#/components/schemas/AccountingBill'
+      type: array
+    AccountingCashflows:
+      items:
+        $ref: '#/components/schemas/AccountingCashflow'
       type: array
     property_AccountingReport_profit_and_loss:
       properties:
@@ -7791,49 +7719,58 @@ components:
         website:
           type: string
       type: object
-    AccountingCashflows:
+    property_AccountingCashflow_category_ids:
       items:
-        $ref: '#/components/schemas/AccountingCashflow'
+        type: string
       type: array
     property_AccountingAccount_taxonomy:
       items:
         $ref: '#/components/schemas/AccountingAccountTaxonomy'
       type: array
-    AccountingBalancesheetItem:
+    AccountingCategory:
       properties:
-        account_id:
+        created_at:
+          format: date-time
           type: string
-        amount:
-          type: number
+        description:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
         name:
           type: string
-        sub_items:
-          $ref: '#/components/schemas/property_AccountingBalancesheetItem_sub_items'
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          format: date-time
+          type: string
       type: object
-    property_AccountingReport_profit_and_loss_income:
-      description: '@deprecated – use income_sections instead'
+    property_AccountingOrder_shipping_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    AccountingReports:
       items:
-        $ref: '#/components/schemas/AccountingProfitlossCategory'
-      type: array
-    AccountingAccounts:
-      items:
-        $ref: '#/components/schemas/AccountingAccount'
-      type: array
-    property_AccountingReport_balance_sheet_equity:
-      items:
-        $ref: '#/components/schemas/AccountingBalancesheetItem'
-      type: array
-    property_AccountingReport_balance_sheet_liabilities:
-      items:
-        $ref: '#/components/schemas/AccountingBalancesheetItem'
-      type: array
-    property_AccountingProfitlossCategory_sub_items:
-      items:
-        $ref: '#/components/schemas/AccountingProfitlossSubcategory'
-      type: array
-    property_AccountingBill_lineitems:
-      items:
-        $ref: '#/components/schemas/AccountingLineitem'
+        $ref: '#/components/schemas/AccountingReport'
       type: array
     property_AccountingContact_shipping_address:
       properties:
@@ -7854,25 +7791,88 @@ components:
         region_code:
           type: string
       type: object
-    property_AccountingPurchaseorder_shipping_address:
+    AccountingTrialbalances:
+      items:
+        $ref: '#/components/schemas/AccountingTrialbalance'
+      type: array
+    property_AccountingAssociatedContact_emails:
+      items:
+        $ref: '#/components/schemas/AccountingEmail'
+      type: array
+    property_AccountingInvoice_lineitems:
+      items:
+        $ref: '#/components/schemas/AccountingLineitem'
+      type: array
+    property_AccountingProfitloss_category_ids:
+      items:
+        type: string
+      type: array
+    AccountingTransaction:
       properties:
-        address1:
+        account_id:
           type: string
-        address2:
+        contacts:
+          $ref: '#/components/schemas/property_AccountingTransaction_contacts'
+        created_at:
+          format: date-time
           type: string
-        city:
+        currency:
           type: string
-        country:
+        customer_message:
           type: string
-        country_code:
+        id:
           type: string
-        postal_code:
+        lineitems:
+          $ref: '#/components/schemas/property_AccountingTransaction_lineitems'
+        memo:
           type: string
-        region:
+        organization_id:
           type: string
-        region_code:
+        payment_method:
+          type: string
+        payment_terms:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        reference:
+          type: string
+        split_account_id:
+          type: string
+        sub_total_amount:
+          type: number
+        tax_amount:
+          type: number
+        total_amount:
+          type: number
+        type:
+          type: string
+        updated_at:
+          format: date-time
           type: string
       type: object
+    property_AccountingProfitloss_income:
+      description: '@deprecated – use income_sections instead'
+      items:
+        $ref: '#/components/schemas/AccountingProfitlossCategory'
+      type: array
+    property_AccountingBill_attachments:
+      items:
+        $ref: '#/components/schemas/AccountingAttachment'
+      type: array
+    AccountingCashflowSection:
+      properties:
+        items:
+          $ref: '#/components/schemas/property_AccountingCashflowSection_items'
+        section_name:
+          type: string
+        total_amount:
+          type: number
+      type: object
+    property_AccountingReport_balance_sheet_equity:
+      items:
+        $ref: '#/components/schemas/AccountingBalancesheetItem'
+      type: array
   securitySchemes:
     jwt:
       in: header

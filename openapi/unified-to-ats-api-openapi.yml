@@ -3198,13 +3198,318 @@ paths:
       - ATS
 components:
   schemas:
-    property_AtsCompany_recruiter_ids:
+    property_AtsCompany_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    AtsApplication:
+      properties:
+        answers:
+          $ref: '#/components/schemas/property_AtsApplication_answers'
+        applied_at:
+          format: date-time
+          type: string
+        candidate_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        hired_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        job_id:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/property_AtsApplication_metadata'
+        offers:
+          $ref: '#/components/schemas/property_AtsApplication_offers'
+        original_status:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        rejected_at:
+          format: date-time
+          type: string
+        rejected_reason:
+          type: string
+        source:
+          type: string
+        status:
+          enum:
+          - NEW
+          - REVIEWING
+          - SCREENING
+          - SUBMITTED
+          - FIRST_INTERVIEW
+          - SECOND_INTERVIEW
+          - THIRD_INTERVIEW
+          - BACKGROUND_CHECK
+          - OFFERED
+          - ACCEPTED
+          - HIRED
+          - REJECTED
+          - DECLINED
+          - WITHDRAWN
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_AtsCandidate_tags:
       items:
         type: string
       type: array
-    AtsCompanies:
+    property_AtsCompany_metadata:
       items:
-        $ref: '#/components/schemas/AtsCompany'
+        $ref: '#/components/schemas/AtsMetadata'
+      type: array
+    AtsDocument:
+      properties:
+        application_id:
+          type: string
+        candidate_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        document_data:
+          type: string
+        document_url:
+          type: string
+        filename:
+          type: string
+        id:
+          type: string
+        job_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        type:
+          enum:
+          - RESUME
+          - COVER_LETTER
+          - OFFER_PACKET
+          - OFFER_LETTER
+          - TAKE_HOME_TEST
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    AtsStatus:
+      properties:
+        description:
+          type: string
+        id:
+          type: string
+        original_status:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        status:
+          enum:
+          - NEW
+          - REVIEWING
+          - SCREENING
+          - SUBMITTED
+          - FIRST_INTERVIEW
+          - SECOND_INTERVIEW
+          - THIRD_INTERVIEW
+          - BACKGROUND_CHECK
+          - OFFERED
+          - ACCEPTED
+          - HIRED
+          - REJECTED
+          - DECLINED
+          - WITHDRAWN
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    AtsApplicationAnswer:
+      properties:
+        answers:
+          $ref: '#/components/schemas/property_AtsApplicationAnswer_answers'
+        question:
+          type: string
+        question_id:
+          type: string
+      required:
+      - question_id
+      - answers
+      type: object
+    property_AtsJob_questions:
+      items:
+        $ref: '#/components/schemas/AtsJobQuestion'
+      type: array
+    property_AtsCandidate_skills:
+      items:
+        type: string
+      type: array
+    AtsTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    property_AtsCandidate_emails:
+      items:
+        $ref: '#/components/schemas/AtsEmail'
+      type: array
+    property_AtsCandidate_telephones:
+      items:
+        $ref: '#/components/schemas/AtsTelephone'
+      type: array
+    property_AtsCandidate_education:
+      items:
+        $ref: '#/components/schemas/AtsCandidateEducation'
+      type: array
+    property_AtsJob_hiring_manager_ids:
+      items:
+        type: string
+      type: array
+    AtsScorecard:
+      properties:
+        application_id:
+          type: string
+        candidate_id:
+          type: string
+        comment:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        interview_id:
+          type: string
+        interviewer_id:
+          type: string
+        job_id:
+          type: string
+        questions:
+          $ref: '#/components/schemas/property_AtsScorecard_questions'
+        raw:
+          additionalProperties: true
+          type: object
+        recommendation:
+          enum:
+          - DEFINITELY_NO
+          - 'NO'
+          - 'YES'
+          - STRONG_YES
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    AtsReference:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    property_AtsJob_postings:
+      description: Public job postings
+      items:
+        $ref: '#/components/schemas/AtsJobPosting'
+      type: array
+    AtsScorecards:
+      items:
+        $ref: '#/components/schemas/AtsScorecard'
+      type: array
+    AtsCandidateExperience:
+      properties:
+        company_name:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        title:
+          type: string
+      type: object
+    property_AtsApplication_offers:
+      items:
+        $ref: '#/components/schemas/AtsOffer'
+      type: array
+    property_AtsActivity_from:
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - email
+      type: object
+    property_AtsJobQuestion_options:
+      items:
+        type: string
+      type: array
+    property_AtsScorecard_questions:
+      items:
+        $ref: '#/components/schemas/AtsScorecardQuestion'
+      type: array
+    property_AtsActivity_user_ids:
+      description: id values of the recruiters associated with the activity.
+      items:
+        type: string
+      type: array
+    property_AtsActivity_document_ids:
+      description: IDs for AtsDocument.get
+      items:
+        type: string
+      type: array
+    AtsInterviews:
+      items:
+        $ref: '#/components/schemas/AtsInterview'
       type: array
     AtsJobPosting:
       properties:
@@ -3229,129 +3534,6 @@ components:
           format: date-time
           type: string
       type: object
-    AtsCompany:
-      properties:
-        address:
-          $ref: '#/components/schemas/property_AtsCompany_address'
-        created_at:
-          format: date-time
-          type: string
-        id:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/property_AtsCompany_metadata'
-        name:
-          type: string
-        parent_id:
-          type: string
-        phone:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        recruiter_ids:
-          $ref: '#/components/schemas/property_AtsCompany_recruiter_ids'
-        updated_at:
-          format: date-time
-          type: string
-        website_url:
-          type: string
-      required:
-      - name
-      type: object
-    property_AtsOffer_compensation:
-      description: compensation details for the offer
-      items:
-        $ref: '#/components/schemas/AtsCompensation'
-      type: array
-    property_AtsActivity_document_ids:
-      description: IDs for AtsDocument.get
-      items:
-        type: string
-      type: array
-    property_AtsCandidate_skills:
-      items:
-        type: string
-      type: array
-    AtsTelephone:
-      properties:
-        telephone:
-          type: string
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          - FAX
-          - MOBILE
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - telephone
-      type: object
-    AtsApplicationAnswer:
-      properties:
-        answers:
-          $ref: '#/components/schemas/property_AtsApplicationAnswer_answers'
-        question:
-          type: string
-        question_id:
-          type: string
-      required:
-      - question_id
-      - answers
-      type: object
-    property_AtsJobQuestion_options:
-      items:
-        type: string
-      type: array
-    AtsCandidateEducation:
-      properties:
-        degree:
-          type: string
-        end_at:
-          format: date-time
-          type: string
-        field_of_study:
-          type: string
-        institution:
-          type: string
-        level:
-          type: string
-        start_at:
-          format: date-time
-          type: string
-      type: object
-    AtsReference:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-      type: object
-    property_AtsCandidate_education:
-      items:
-        $ref: '#/components/schemas/AtsCandidateEducation'
-      type: array
-    AtsScorecardQuestion:
-      properties:
-        answer:
-          type: string
-        description:
-          type: string
-        text:
-          type: string
-      required:
-      - text
-      type: object
-    property_AtsCandidate_experiences:
-      items:
-        $ref: '#/components/schemas/AtsCandidateExperience'
-      type: array
-    property_AtsApplicationAnswer_answers:
-      items:
-        type: string
-      type: array
     AtsAddress:
       properties:
         address1:
@@ -3371,43 +3553,181 @@ components:
         region_code:
           type: string
       type: object
-    AtsCompensation:
+    AtsDocuments:
+      items:
+        $ref: '#/components/schemas/AtsDocument'
+      type: array
+    AtsCandidateEducation:
       properties:
-        currency:
+        degree:
           type: string
-        frequency:
-          enum:
-          - ONE_TIME
-          - DAY
-          - QUARTER
-          - YEAR
-          - HOUR
-          - MONTH
-          - WEEK
+        end_at:
+          format: date-time
           type: string
-          x-speakeasy-unknown-values: allow
-        max:
-          type: number
-        min:
-          type: number
-        type:
-          enum:
-          - SALARY
-          - BONUS
-          - STOCK_OPTIONS
-          - EQUITY
-          - OTHER
+        field_of_study:
           type: string
-          x-speakeasy-unknown-values: allow
+        institution:
+          type: string
+        level:
+          type: string
+        start_at:
+          format: date-time
+          type: string
       type: object
-    property_AtsActivity_to:
+    property_AtsCandidate_sources:
+      items:
+        type: string
+      type: array
+    property_AtsCandidate_metadata:
+      items:
+        $ref: '#/components/schemas/AtsMetadata'
+      type: array
+    property_AtsJob_addresses:
+      items:
+        $ref: '#/components/schemas/AtsAddress'
+      type: array
+    property_AtsCandidate_address:
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_AtsOffer_compensation:
+      description: compensation details for the offer
+      items:
+        $ref: '#/components/schemas/AtsCompensation'
+      type: array
+    AtsStatuses:
+      items:
+        $ref: '#/components/schemas/AtsStatus'
+      type: array
+    property_AtsActivity_bcc:
       items:
         $ref: '#/components/schemas/AtsEmail'
       type: array
-    property_AtsApplication_offers:
+    AtsJobs:
       items:
-        $ref: '#/components/schemas/AtsOffer'
+        $ref: '#/components/schemas/AtsJob'
       type: array
+    AtsGroup:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          enum:
+          - TEAM
+          - GROUP
+          - DEPARTMENT
+          - DIVISION
+          - BUSINESS_UNIT
+          - BRANCH
+          - SUB_DEPARTMENT
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    AtsScorecardQuestion:
+      properties:
+        answer:
+          type: string
+        description:
+          type: string
+        text:
+          type: string
+      required:
+      - text
+      type: object
+    property_AtsApplication_answers:
+      items:
+        $ref: '#/components/schemas/AtsApplicationAnswer'
+      type: array
+    AtsCompanies:
+      items:
+        $ref: '#/components/schemas/AtsCompany'
+      type: array
+    AtsActivity:
+      properties:
+        application_id:
+          type: string
+        bcc:
+          $ref: '#/components/schemas/property_AtsActivity_bcc'
+        candidate_id:
+          type: string
+        cc:
+          $ref: '#/components/schemas/property_AtsActivity_cc'
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        document_ids:
+          $ref: '#/components/schemas/property_AtsActivity_document_ids'
+        from:
+          $ref: '#/components/schemas/property_AtsActivity_from'
+        id:
+          type: string
+        interview_id:
+          type: string
+        is_private:
+          type: boolean
+        job_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        sub_type:
+          type: string
+        title:
+          type: string
+        to:
+          $ref: '#/components/schemas/property_AtsActivity_to'
+        type:
+          enum:
+          - NOTE
+          - TASK
+          - EMAIL
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+        user_ids:
+          $ref: '#/components/schemas/property_AtsActivity_user_ids'
+      type: object
+    AtsCandidates:
+      items:
+        $ref: '#/components/schemas/AtsCandidate'
+      type: array
+    AtsEmail:
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - email
+      type: object
     AtsJobQuestion:
       properties:
         description:
@@ -3442,13 +3762,331 @@ components:
       - question
       - type
       type: object
+    property_AtsApplicationAnswer_answers:
+      items:
+        type: string
+      type: array
+    property_AtsCandidate_link_urls:
+      description: URLs for web pages containing additional material about the candidate (LinkedIn, other social media, articles, etc.)
+      items:
+        type: string
+      type: array
+    AtsMetadata:
+      properties:
+        extra_data:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+        format:
+          enum:
+          - TEXT
+          - NUMBER
+          - DATE
+          - BOOLEAN
+          - FILE
+          - TEXTAREA
+          - SINGLE_SELECT
+          - MULTIPLE_SELECT
+          - MEASUREMENT
+          - PRICE
+          - YES_NO
+          - CURRENCY
+          - URL
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        namespace:
+          type: string
+        slug:
+          type: string
+        value:
+          additionalProperties: true
+          anyOf:
+          - type: object
+          - type: string
+          - type: number
+          - type: boolean
+          - items:
+              anyOf:
+              - type: object
+              - type: string
+              - type: number
+              - type: boolean
+            type: array
+      type: object
+    property_AtsJob_metadata:
+      items:
+        $ref: '#/components/schemas/AtsMetadata'
+      type: array
+    AtsCompensation:
+      properties:
+        currency:
+          type: string
+        frequency:
+          enum:
+          - ONE_TIME
+          - DAY
+          - QUARTER
+          - YEAR
+          - HOUR
+          - MONTH
+          - WEEK
+          type: string
+          x-speakeasy-unknown-values: allow
+        max:
+          type: number
+        min:
+          type: number
+        type:
+          enum:
+          - SALARY
+          - BONUS
+          - STOCK_OPTIONS
+          - EQUITY
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_AtsActivity_cc:
+      items:
+        $ref: '#/components/schemas/AtsEmail'
+      type: array
+    property_AtsActivity_to:
+      items:
+        $ref: '#/components/schemas/AtsEmail'
+      type: array
+    AtsCompany:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_AtsCompany_address'
+        created_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/property_AtsCompany_metadata'
+        name:
+          type: string
+        parent_id:
+          type: string
+        phone:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        recruiter_ids:
+          $ref: '#/components/schemas/property_AtsCompany_recruiter_ids'
+        updated_at:
+          format: date-time
+          type: string
+        website_url:
+          type: string
+      required:
+      - name
+      type: object
+    property_AtsApplication_metadata:
+      items:
+        $ref: '#/components/schemas/AtsMetadata'
+      type: array
+    property_AtsJobPosting_address:
+      description: job-post-specific address
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        country_code:
+          type: string
+        postal_code:
+          type: string
+        region:
+          type: string
+        region_code:
+          type: string
+      type: object
+    property_AtsJob_groups:
+      description: The departments/divisions/teams that this job belongs to
+      items:
+        $ref: '#/components/schemas/AtsGroup'
+      type: array
+    property_AtsJob_openings:
+      items:
+        $ref: '#/components/schemas/AtsJobOpening'
+      type: array
+    AtsJobOpening:
+      properties:
+        application_id:
+          type: string
+        close_reason:
+          type: string
+        closed_at:
+          format: date-time
+          type: string
+        opened_at:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - OPEN
+          - CLOSED
+          type: string
+          x-speakeasy-unknown-values: allow
+      type: object
+    property_AtsJob_hiring_managers:
+      items:
+        $ref: '#/components/schemas/AtsReference'
+      type: array
     property_AtsInterview_user_ids:
       items:
         type: string
       type: array
-    property_AtsActivity_bcc:
+    property_AtsJob_compensation:
       items:
-        $ref: '#/components/schemas/AtsEmail'
+        $ref: '#/components/schemas/AtsCompensation'
+      type: array
+    AtsCandidate:
+      properties:
+        address:
+          $ref: '#/components/schemas/property_AtsCandidate_address'
+        company_id:
+          type: string
+        company_name:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        date_of_birth:
+          format: date-time
+          type: string
+        education:
+          $ref: '#/components/schemas/property_AtsCandidate_education'
+        emails:
+          $ref: '#/components/schemas/property_AtsCandidate_emails'
+        experiences:
+          $ref: '#/components/schemas/property_AtsCandidate_experiences'
+        external_identifier:
+          type: string
+        first_name:
+          type: string
+        id:
+          type: string
+        image_url:
+          type: string
+        last_name:
+          type: string
+        link_urls:
+          $ref: '#/components/schemas/property_AtsCandidate_link_urls'
+        metadata:
+          $ref: '#/components/schemas/property_AtsCandidate_metadata'
+        name:
+          type: string
+        origin:
+          enum:
+          - AGENCY
+          - APPLIED
+          - INTERNAL
+          - REFERRED
+          - SOURCED
+          - UNIVERSITY
+          type: string
+          x-speakeasy-unknown-values: allow
+        raw:
+          additionalProperties: true
+          type: object
+        skills:
+          $ref: '#/components/schemas/property_AtsCandidate_skills'
+        sources:
+          $ref: '#/components/schemas/property_AtsCandidate_sources'
+        tags:
+          $ref: '#/components/schemas/property_AtsCandidate_tags'
+        telephones:
+          $ref: '#/components/schemas/property_AtsCandidate_telephones'
+        title:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+        web_url:
+          type: string
+      type: object
+    property_AtsCandidate_experiences:
+      items:
+        $ref: '#/components/schemas/AtsCandidateExperience'
+      type: array
+    property_AtsJob_skills:
+      items:
+        type: string
+      type: array
+    AtsApplications:
+      items:
+        $ref: '#/components/schemas/AtsApplication'
+      type: array
+    property_AtsJob_public_job_urls:
+      description: URLs for pages containing public listings for the job
+      items:
+        type: string
+      type: array
+    AtsOffer:
+      properties:
+        accepted_at:
+          format: date-time
+          type: string
+        compensation:
+          $ref: '#/components/schemas/property_AtsOffer_compensation'
+        created_at:
+          format: date-time
+          type: string
+        creator_user_id:
+          type: string
+        employee_user_id:
+          type: string
+        id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        rejected_at:
+          format: date-time
+          type: string
+        sent_at:
+          format: date-time
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - CREATED
+          - SENT
+          - ACCEPTED
+          - REJECTED
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AtsJob_recruiter_ids:
+      items:
+        type: string
       type: array
     AtsJob:
       properties:
@@ -3530,261 +4168,6 @@ components:
           format: date-time
           type: string
       type: object
-    property_AtsApplication_metadata:
-      items:
-        $ref: '#/components/schemas/AtsMetadata'
-      type: array
-    property_AtsJob_skills:
-      items:
-        type: string
-      type: array
-    AtsScorecard:
-      properties:
-        application_id:
-          type: string
-        candidate_id:
-          type: string
-        comment:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        id:
-          type: string
-        interview_id:
-          type: string
-        interviewer_id:
-          type: string
-        job_id:
-          type: string
-        questions:
-          $ref: '#/components/schemas/property_AtsScorecard_questions'
-        raw:
-          additionalProperties: true
-          type: object
-        recommendation:
-          enum:
-          - DEFINITELY_NO
-          - 'NO'
-          - 'YES'
-          - STRONG_YES
-          type: string
-          x-speakeasy-unknown-values: allow
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    property_AtsJob_public_job_urls:
-      description: URLs for pages containing public listings for the job
-      items:
-        type: string
-      type: array
-    property_AtsCompany_address:
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        country:
-          type: string
-        country_code:
-          type: string
-        postal_code:
-          type: string
-        region:
-          type: string
-        region_code:
-          type: string
-      type: object
-    AtsDocuments:
-      items:
-        $ref: '#/components/schemas/AtsDocument'
-      type: array
-    AtsEmail:
-      properties:
-        email:
-          type: string
-        name:
-          type: string
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - email
-      type: object
-    property_AtsCandidate_emails:
-      items:
-        $ref: '#/components/schemas/AtsEmail'
-      type: array
-    AtsGroup:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        type:
-          enum:
-          - TEAM
-          - GROUP
-          - DEPARTMENT
-          - DIVISION
-          - BUSINESS_UNIT
-          - BRANCH
-          - SUB_DEPARTMENT
-          type: string
-          x-speakeasy-unknown-values: allow
-      type: object
-    AtsMetadata:
-      properties:
-        extra_data:
-          additionalProperties: true
-          anyOf:
-          - type: object
-          - type: string
-          - type: number
-          - type: boolean
-          - items:
-              anyOf:
-              - type: object
-              - type: string
-              - type: number
-              - type: boolean
-            type: array
-        format:
-          enum:
-          - TEXT
-          - NUMBER
-          - DATE
-          - BOOLEAN
-          - FILE
-          - TEXTAREA
-          - SINGLE_SELECT
-          - MULTIPLE_SELECT
-          - MEASUREMENT
-          - PRICE
-          - YES_NO
-          - CURRENCY
-          - URL
-          type: string
-          x-speakeasy-unknown-values: allow
-        id:
-          type: string
-        namespace:
-          type: string
-        slug:
-          type: string
-        value:
-          additionalProperties: true
-          anyOf:
-          - type: object
-          - type: string
-          - type: number
-          - type: boolean
-          - items:
-              anyOf:
-              - type: object
-              - type: string
-              - type: number
-              - type: boolean
-            type: array
-      type: object
-    property_AtsScorecard_questions:
-      items:
-        $ref: '#/components/schemas/AtsScorecardQuestion'
-      type: array
-    property_AtsJob_hiring_managers:
-      items:
-        $ref: '#/components/schemas/AtsReference'
-      type: array
-    property_AtsActivity_user_ids:
-      description: id values of the recruiters associated with the activity.
-      items:
-        type: string
-      type: array
-    AtsCandidates:
-      items:
-        $ref: '#/components/schemas/AtsCandidate'
-      type: array
-    AtsActivities:
-      items:
-        $ref: '#/components/schemas/AtsActivity'
-      type: array
-    property_AtsCandidate_telephones:
-      items:
-        $ref: '#/components/schemas/AtsTelephone'
-      type: array
-    AtsScorecards:
-      items:
-        $ref: '#/components/schemas/AtsScorecard'
-      type: array
-    property_AtsCompany_metadata:
-      items:
-        $ref: '#/components/schemas/AtsMetadata'
-      type: array
-    property_AtsCandidate_link_urls:
-      description: URLs for web pages containing additional material about the candidate (LinkedIn, other social media, articles, etc.)
-      items:
-        type: string
-      type: array
-    AtsInterviews:
-      items:
-        $ref: '#/components/schemas/AtsInterview'
-      type: array
-    AtsActivity:
-      properties:
-        application_id:
-          type: string
-        bcc:
-          $ref: '#/components/schemas/property_AtsActivity_bcc'
-        candidate_id:
-          type: string
-        cc:
-          $ref: '#/components/schemas/property_AtsActivity_cc'
-        created_at:
-          format: date-time
-          type: string
-        description:
-          type: string
-        document_ids:
-          $ref: '#/components/schemas/property_AtsActivity_document_ids'
-        from:
-          $ref: '#/components/schemas/property_AtsActivity_from'
-        id:
-          type: string
-        interview_id:
-          type: string
-        is_private:
-          type: boolean
-        job_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        sub_type:
-          type: string
-        title:
-          type: string
-        to:
-          $ref: '#/components/schemas/property_AtsActivity_to'
-        type:
-          enum:
-          - NOTE
-          - TASK
-          - EMAIL
-          type: string
-          x-speakeasy-unknown-values: allow
-        updated_at:
-          format: date-time
-          type: string
-        user_ids:
-          $ref: '#/components/schemas/property_AtsActivity_user_ids'
-      type: object
     AtsInterview:
       properties:
         application_id:
@@ -3826,394 +4209,11 @@ components:
         user_ids:
           $ref: '#/components/schemas/property_AtsInterview_user_ids'
       type: object
-    property_AtsActivity_from:
-      properties:
-        email:
-          type: string
-        name:
-          type: string
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - email
-      type: object
-    property_AtsCandidate_tags:
+    AtsActivities:
       items:
-        type: string
+        $ref: '#/components/schemas/AtsActivity'
       type: array
-    AtsApplication:
-      properties:
-        answers:
-          $ref: '#/components/schemas/property_AtsApplication_answers'
-        applied_at:
-          format: date-time
-          type: string
-        candidate_id:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        hired_at:
-          format: date-time
-          type: string
-        id:
-          type: string
-        job_id:
-          type: string
-        metadata:
-          $ref: '#/components/schemas/property_AtsApplication_metadata'
-        offers:
-          $ref: '#/components/schemas/property_AtsApplication_offers'
-        original_status:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        rejected_at:
-          format: date-time
-          type: string
-        rejected_reason:
-          type: string
-        source:
-          type: string
-        status:
-          enum:
-          - NEW
-          - REVIEWING
-          - SCREENING
-          - SUBMITTED
-          - FIRST_INTERVIEW
-          - SECOND_INTERVIEW
-          - THIRD_INTERVIEW
-          - BACKGROUND_CHECK
-          - OFFERED
-          - ACCEPTED
-          - HIRED
-          - REJECTED
-          - DECLINED
-          - WITHDRAWN
-          type: string
-          x-speakeasy-unknown-values: allow
-        updated_at:
-          format: date-time
-          type: string
-        user_id:
-          type: string
-      type: object
-    AtsOffer:
-      properties:
-        accepted_at:
-          format: date-time
-          type: string
-        compensation:
-          $ref: '#/components/schemas/property_AtsOffer_compensation'
-        created_at:
-          format: date-time
-          type: string
-        creator_user_id:
-          type: string
-        employee_user_id:
-          type: string
-        id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        rejected_at:
-          format: date-time
-          type: string
-        sent_at:
-          format: date-time
-          type: string
-        start_at:
-          format: date-time
-          type: string
-        status:
-          enum:
-          - CREATED
-          - SENT
-          - ACCEPTED
-          - REJECTED
-          type: string
-          x-speakeasy-unknown-values: allow
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    AtsStatuses:
-      items:
-        $ref: '#/components/schemas/AtsStatus'
-      type: array
-    property_AtsJob_groups:
-      description: The departments/divisions/teams that this job belongs to
-      items:
-        $ref: '#/components/schemas/AtsGroup'
-      type: array
-    property_AtsJob_metadata:
-      items:
-        $ref: '#/components/schemas/AtsMetadata'
-      type: array
-    property_AtsCandidate_address:
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        country:
-          type: string
-        country_code:
-          type: string
-        postal_code:
-          type: string
-        region:
-          type: string
-        region_code:
-          type: string
-      type: object
-    AtsStatus:
-      properties:
-        description:
-          type: string
-        id:
-          type: string
-        original_status:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        status:
-          enum:
-          - NEW
-          - REVIEWING
-          - SCREENING
-          - SUBMITTED
-          - FIRST_INTERVIEW
-          - SECOND_INTERVIEW
-          - THIRD_INTERVIEW
-          - BACKGROUND_CHECK
-          - OFFERED
-          - ACCEPTED
-          - HIRED
-          - REJECTED
-          - DECLINED
-          - WITHDRAWN
-          type: string
-          x-speakeasy-unknown-values: allow
-      type: object
-    AtsApplications:
-      items:
-        $ref: '#/components/schemas/AtsApplication'
-      type: array
-    property_AtsCandidate_metadata:
-      items:
-        $ref: '#/components/schemas/AtsMetadata'
-      type: array
-    AtsCandidateExperience:
-      properties:
-        company_name:
-          type: string
-        end_at:
-          format: date-time
-          type: string
-        start_at:
-          format: date-time
-          type: string
-        title:
-          type: string
-      type: object
-    property_AtsApplication_answers:
-      items:
-        $ref: '#/components/schemas/AtsApplicationAnswer'
-      type: array
-    property_AtsJob_addresses:
-      items:
-        $ref: '#/components/schemas/AtsAddress'
-      type: array
-    AtsCandidate:
-      properties:
-        address:
-          $ref: '#/components/schemas/property_AtsCandidate_address'
-        company_id:
-          type: string
-        company_name:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        date_of_birth:
-          format: date-time
-          type: string
-        education:
-          $ref: '#/components/schemas/property_AtsCandidate_education'
-        emails:
-          $ref: '#/components/schemas/property_AtsCandidate_emails'
-        experiences:
-          $ref: '#/components/schemas/property_AtsCandidate_experiences'
-        external_identifier:
-          type: string
-        first_name:
-          type: string
-        id:
-          type: string
-        image_url:
-          type: string
-        last_name:
-          type: string
-        link_urls:
-          $ref: '#/components/schemas/property_AtsCandidate_link_urls'
-        metadata:
-          $ref: '#/components/schemas/property_AtsCandidate_metadata'
-        name:
-          type: string
-        origin:
-          enum:
-          - AGENCY
-          - APPLIED
-          - INTERNAL
-          - REFERRED
-          - SOURCED
-          - UNIVERSITY
-          type: string
-          x-speakeasy-unknown-values: allow
-        raw:
-          additionalProperties: true
-          type: object
-        skills:
-          $ref: '#/components/schemas/property_AtsCandidate_skills'
-        sources:
-          $ref: '#/components/schemas/property_AtsCandidate_sources'
-        tags:
-          $ref: '#/components/schemas/property_AtsCandidate_tags'
-        telephones:
-          $ref: '#/components/schemas/property_AtsCandidate_telephones'
-        title:
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-        user_id:
-          type: string
-        web_url:
-          type: string
-      type: object
-    property_AtsActivity_cc:
-      items:
-        $ref: '#/components/schemas/AtsEmail'
-      type: array
-    property_AtsJob_compensation:
-      items:
-        $ref: '#/components/schemas/AtsCompensation'
-      type: array
-    property_AtsJob_questions:
-      items:
-        $ref: '#/components/schemas/AtsJobQuestion'
-      type: array
-    property_AtsJob_openings:
-      items:
-        $ref: '#/components/schemas/AtsJobOpening'
-      type: array
-    AtsJobOpening:
-      properties:
-        application_id:
-          type: string
-        close_reason:
-          type: string
-        closed_at:
-          format: date-time
-          type: string
-        opened_at:
-          format: date-time
-          type: string
-        status:
-          enum:
-          - OPEN
-          - CLOSED
-          type: string
-          x-speakeasy-unknown-values: allow
-      type: object
-    property_AtsCandidate_sources:
-      items:
-        type: string
-      type: array
-    property_AtsJob_hiring_manager_ids:
-      items:
-        type: string
-      type: array
-    property_AtsJob_postings:
-      description: Public job postings
-      items:
-        $ref: '#/components/schemas/AtsJobPosting'
-      type: array
-    AtsDocument:
-      properties:
-        application_id:
-          type: string
-        candidate_id:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        document_data:
-          type: string
-        document_url:
-          type: string
-        filename:
-          type: string
-        id:
-          type: string
-        job_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        type:
-          enum:
-          - RESUME
-          - COVER_LETTER
-          - OFFER_PACKET
-          - OFFER_LETTER
-          - TAKE_HOME_TEST
-          - OTHER
-          type: string
-          x-speakeasy-unknown-values: allow
-        updated_at:
-          format: date-time
-          type: string
-        user_id:
-          type: string
-      type: object
-    property_AtsJobPosting_address:
-      description: job-post-specific address
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        country:
-          type: string
-        country_code:
-          type: string
-        postal_code:
-          type: string
-        region:
-          type: string
-        region_code:
-          type: string
-      type: object
-    AtsJobs:
-      items:
-        $ref: '#/components/schemas/AtsJob'
-      type: array
-    property_AtsJob_recruiter_ids:
+    property_AtsCompany_recruiter_ids:
       items:
         type: string
       type: array

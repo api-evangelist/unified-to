@@ -2825,6 +2825,22 @@ paths:
       - Ads
 components:
   schemas:
+    property_AdsReportMetrics_group_targeting_audience_excluded_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsCampaign_targeting_content_keywords:
+      items:
+        $ref: '#/components/schemas/AdsKeyword'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_language:
+      description: Language targeting (Meta
+      properties:
+        codes:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_language_codes'
+        locale_ids:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_language_locale_ids'
+      type: object
     property_AdsGroup_targeting:
       properties:
         audience:
@@ -2848,23 +2864,270 @@ components:
         schedule:
           $ref: '#/components/schemas/property_AdsGroup_targeting_schedule'
       type: object
-    property_AdsReportMetrics_campaign_targeting_audience_combination_spec:
+    property_AdsCampaign_targeting_audience_custom_audiences:
       items:
-        $ref: '#/components/schemas/AudienceCombination'
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    LookalikeAudience:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        similarity:
+          type: number
+        source_audience_id:
+          type: string
+      required:
+      - id
+      type: object
+    AudienceCombination:
+      properties:
+        behaviors:
+          $ref: '#/components/schemas/property_AudienceCombination_behaviors'
+        demographics:
+          $ref: '#/components/schemas/property_AudienceCombination_demographics'
+        interests:
+          $ref: '#/components/schemas/property_AudienceCombination_interests'
+        life_events:
+          $ref: '#/components/schemas/property_AudienceCombination_life_events'
+      type: object
+    property_AdsGroup_targeting_content_video_excluded_youtube_videos:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_demographic:
+      description: 'Demographic targeting (Meta: age_min, age_max, genders)'
+      properties:
+        age_max:
+          type: number
+        age_min:
+          type: number
+        female:
+          type: boolean
+        male:
+          type: boolean
+      type: object
+    property_AdsReportMetrics_campaign_targeting_audience_excluded_custom_audiences:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsGroup_targeting_content_video:
+      properties:
+        durations:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_durations'
+        excluded_youtube_channels:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_excluded_youtube_channels'
+        excluded_youtube_videos:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_excluded_youtube_videos'
+        player_sizes:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_player_sizes'
+        positions:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_positions'
+        youtube_channels:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_youtube_channels'
+        youtube_videos:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_youtube_videos'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_audience_excluded_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
       type: array
     property_AudienceCombination_life_events:
       items:
         $ref: '#/components/schemas/AudienceSegment'
       type: array
-    property_AdsGroup_targeting_content_urls:
+    property_AdsGroup_targeting_content:
+      properties:
+        excluded_keywords:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_excluded_keywords'
+        excluded_topics:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_excluded_topics'
+        excluded_urls:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_excluded_urls'
+        keywords:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_keywords'
+        topics:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_topics'
+        urls:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_urls'
+        video:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_brand_safety_excluded_publisher_categories:
       items:
         type: string
       type: array
-    property_AdsGroup_targeting_audience_custom_audiences:
+    property_AdsReportMetrics_group_targeting_placement_facebook_positions:
       items:
-        $ref: '#/components/schemas/AudienceSegment'
+        type: string
       type: array
-    property_AdsCampaign_targeting_geographic_excluded_countries:
+    property_AdsReportMetrics_group_targeting_audience_lookalike_audiences:
+      items:
+        $ref: '#/components/schemas/LookalikeAudience'
+      type: array
+    property_AdsCampaign_targeting_audience:
+      properties:
+        behaviors:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_behaviors'
+        combination_spec:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_combination_spec'
+        custom_audiences:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_custom_audiences'
+        excluded_behaviors:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_excluded_behaviors'
+        excluded_custom_audiences:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_excluded_custom_audiences'
+        excluded_interests:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_excluded_interests'
+        interests:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_interests'
+        lookalike_audiences:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_lookalike_audiences'
+      type: object
+    property_AdsReportMetrics_group_targeting_content:
+      properties:
+        excluded_keywords:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_excluded_keywords'
+        excluded_topics:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_excluded_topics'
+        excluded_urls:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_excluded_urls'
+        keywords:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_keywords'
+        topics:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_topics'
+        urls:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_urls'
+        video:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video'
+      type: object
+    property_AdsCampaign_targeting_content_excluded_urls:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_schedule:
+      items:
+        $ref: '#/components/schemas/AdSchedule'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_video_durations:
+      items:
+        enum:
+        - SHORT
+        - MEDIUM
+        - LONG
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    AdsTarget:
+      description: Targeting search result (for ads_target list endpoint)
+      properties:
+        id:
+          type: string
+        is_active:
+          type: boolean
+        name:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        type:
+          enum:
+          - INTEREST
+          - BEHAVIOR
+          - LOCALE
+          - COUNTRY
+          - REGION
+          - CITY
+          - ZIP
+          - US_DMA
+          - TOPIC
+          - USER_LIST
+          - AGE_RANGE
+          - GENDER
+          - CARRIER
+          - DEVICE_MODEL
+          - OS_VERSION
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - id
+      type: object
+    property_AdsReportMetrics_group_targeting_device_user_os:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_demographic:
+      description: 'Demographic targeting (Meta: age_min, age_max, genders)'
+      properties:
+        age_max:
+          type: number
+        age_min:
+          type: number
+        female:
+          type: boolean
+        male:
+          type: boolean
+      type: object
+    property_AdsReportMetrics_group_targeting_content_excluded_topics:
+      items:
+        type: string
+      type: array
+    AdsKeyword:
+      description: Content targeting (keywords, topics, placements, video)
+      properties:
+        match_type:
+          enum:
+          - BROAD
+          - PHRASE
+          - EXACT
+          type: string
+          x-speakeasy-unknown-values: allow
+        text:
+          type: string
+      required:
+      - text
+      type: object
+    property_AdsCampaign_targeting_device_carriers:
+      items:
+        type: string
+      type: array
+    AdsPromoted:
+      description: Promoted entity (e.g. page, app, product, tweet) for ads create
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        type:
+          enum:
+          - PAGE_ID
+          - APP_ID
+          - STORE_URL
+          - PIXEL_ID
+          - CUSTOM_CONVERSION_ID
+          - CATALOG_ID
+          - PRODUCT_SET_ID
+          - PRIORITIZED_SET_ID
+          - EVENT_ID
+          - OFFER_ID
+          - LEAD_FORM_ID
+          - MESSAGING_CHANNEL_ID
+          - PRODUCT_ID
+          - TWEET_ID
+          - AD_GROUP_TYPE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - id
+      - type
+      type: object
+    property_AdsReportMetrics_group_targeting_geographic_us_dmas:
       items:
         type: string
       type: array
@@ -2872,9 +3135,249 @@ components:
       items:
         type: string
       type: array
-    property_AdsGroup_targeting_geographic_regions:
+    property_AdsCampaign_targeting_audience_combination_spec:
+      items:
+        $ref: '#/components/schemas/AudienceCombination'
+      type: array
+    property_AdsCampaign_targeting_brand_safety_excluded_content_labels:
+      description: Google Ads ContentLabelType
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_ad_creative_ids:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_brand_safety:
+      description: 'Brand safety (Meta: excluded_publisher_categories, etc.; Google'
+      properties:
+        block_list_ids:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_brand_safety_block_list_ids'
+        brand_safety_content_filter_levels:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_brand_safety_brand_safety_content_filter_levels'
+        excluded_content_labels:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_brand_safety_excluded_content_labels'
+        excluded_publisher_categories:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_brand_safety_excluded_publisher_categories'
+        publisher_visibility_categories:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_brand_safety_publisher_visibility_categories'
+      type: object
+    AdsCreatives:
+      items:
+        $ref: '#/components/schemas/AdsCreative'
+      type: array
+    property_AdsReportMetrics_group_targeting_content_video_durations:
+      items:
+        enum:
+        - SHORT
+        - MEDIUM
+        - LONG
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsReportMetrics_group_targeting_content_video_youtube_channels:
+      items:
+        type: string
+      type: array
+    AdsReport:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        id:
+          type: string
+        metrics:
+          $ref: '#/components/schemas/property_AdsReport_metrics'
+        organization_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AdsReportMetrics_campaign_targeting_placement:
+      properties:
+        audience_network_positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_placement_audience_network_positions'
+        facebook_positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_placement_facebook_positions'
+        instagram_positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_placement_instagram_positions'
+        messenger_positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_placement_messenger_positions'
+        platforms:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_placement_platforms'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_optimization:
+      description: 'Optimization (Meta: targeting_automation; Google: observation vs targeting mode)'
+      properties:
+        advantage_audience:
+          type: boolean
+        advantage_placements:
+          type: boolean
+        mode:
+          enum:
+          - TARGETING
+          - OBSERVATION
+          type: string
+          x-speakeasy-unknown-values: allow
+        targeting_optimization_expansion_all:
+          type: boolean
+      type: object
+    RegionTarget:
+      description: states, provinces, regions
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - id
+      type: object
+    property_AdsReportMetrics_group_targeting_content_topics:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_language:
+      description: Language targeting (Meta
+      properties:
+        codes:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_language_codes'
+        locale_ids:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_language_locale_ids'
+      type: object
+    property_AdsCampaign_targeting_geographic_excluded_regions:
       items:
         $ref: '#/components/schemas/RegionTarget'
+      type: array
+    property_AdsReportMetrics_group_targeting_device:
+      properties:
+        carriers:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_device_carriers'
+        types:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_device_types'
+        user_device:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_device_user_device'
+        user_os:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_device_user_os'
+      type: object
+    property_AdsGroup_pacing:
+      properties:
+        daily_max_amount:
+          type: number
+        daily_max_impressions:
+          type: number
+        period:
+          enum:
+          - UNSPECIFIED
+          - DAILY
+          - FLIGHT
+          type: string
+          x-speakeasy-unknown-values: allow
+        type:
+          type: string
+      type: object
+    property_AdsReportMetrics_campaign_targeting_device_carriers:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_content_video_youtube_channels:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_optimization:
+      description: 'Optimization (Meta: targeting_automation; Google: observation vs targeting mode)'
+      properties:
+        advantage_audience:
+          type: boolean
+        advantage_placements:
+          type: boolean
+        mode:
+          enum:
+          - TARGETING
+          - OBSERVATION
+          type: string
+          x-speakeasy-unknown-values: allow
+        targeting_optimization_expansion_all:
+          type: boolean
+      type: object
+    property_AdsInsertionorder_bid_strategy:
+      description: YOUTUBE_AND_PARTNERS
+      properties:
+        custom_bidding_algorithm_id:
+          type: string
+        fixed_bid_amount:
+          type: number
+        max_average_cpm_bid_amount:
+          type: number
+        performance_goal_amount:
+          type: number
+        performance_goal_type:
+          enum:
+          - UNSPECIFIED
+          - CPA
+          - CPC
+          - VIEWABLE_CPM
+          - CUSTOM_ALGO
+          - CIVA
+          - IVO_TEN
+          - AV_VIEWED
+          - REACH
+          type: string
+          x-speakeasy-unknown-values: allow
+        raise_bid_for_deals:
+          type: boolean
+        target_roas:
+          type: number
+        type:
+          enum:
+          - FIXED_BID
+          - MAXIMIZE_SPEND
+          - PERFORMANCE_GOAL
+          - YOUTUBE_AND_PARTNERS
+          type: string
+          x-speakeasy-unknown-values: allow
+        youtube_and_partners_type:
+          enum:
+          - UNSPECIFIED
+          - MANUAL_CPV
+          - MANUAL_CPM
+          - TARGET_CPA
+          - TARGET_CPM
+          - RESERVE_CPM
+          - MAXIMIZE_LIFT
+          - MAXIMIZE_CONVERSIONS
+          - TARGET_CPV
+          - TARGET_ROAS
+          - MAXIMIZE_CONVERSION_VALUE
+          type: string
+          x-speakeasy-unknown-values: allow
+        youtube_and_partners_value:
+          type: string
+      required:
+      - type
+      type: object
+    property_AdsCampaign_targeting_geographic_countries:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_geographic_regions:
+      items:
+        $ref: '#/components/schemas/RegionTarget'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_schedule:
+      items:
+        $ref: '#/components/schemas/AdSchedule'
       type: array
     property_AdsReportMetrics_group_targeting_brand_safety_publisher_visibility_categories:
       items:
@@ -2885,271 +3388,63 @@ components:
         type: string
         x-speakeasy-unknown-values: allow
       type: array
-    property_AdsReportMetrics_group_targeting_content_excluded_topics:
+    property_AdsReportMetrics_group_targeting_brand_safety_excluded_content_labels:
+      description: Google Ads ContentLabelType
       items:
         type: string
       type: array
-    property_AdsCampaign_targeting_placement_messenger_positions:
+    property_AdsReportMetrics_campaign_targeting_audience_lookalike_audiences:
       items:
-        type: string
+        $ref: '#/components/schemas/LookalikeAudience'
       type: array
+    property_AdsReportMetrics_group_targeting_audience:
+      properties:
+        behaviors:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_behaviors'
+        combination_spec:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_combination_spec'
+        custom_audiences:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_custom_audiences'
+        excluded_behaviors:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_excluded_behaviors'
+        excluded_custom_audiences:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_excluded_custom_audiences'
+        excluded_interests:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_excluded_interests'
+        interests:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_interests'
+        lookalike_audiences:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_lookalike_audiences'
+      type: object
     property_AdsGroup_targeting_audience_lookalike_audiences:
       items:
         $ref: '#/components/schemas/LookalikeAudience'
       type: array
-    property_AdsReportMetrics_group_targeting_content_topics:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_audience_behaviors:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsReportMetrics_campaign_targeting_content_video_excluded_youtube_channels:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_brand_safety_brand_safety_content_filter_levels:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_group:
-      properties:
-        bid_amount:
-          type: number
-        bid_strategy:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_bid_strategy'
-        billing_event:
-          enum:
-          - IMPRESSIONS
-          - LINK_CLICKS
-          - VIDEO_VIEWS
-          - APP_INSTALLS
-          - ENGAGEMENT
-          - PAGE_LIKES
-          - MESSAGES
-          - POST_ENGAGEMENT
-          - PURCHASE
-          - NONE
-          type: string
-          x-speakeasy-unknown-values: allow
-        budget_allocation_type:
-          enum:
-          - UNSPECIFIED
-          - AUTOMATIC
-          - FIXED
-          - UNLIMITED
-          type: string
-          x-speakeasy-unknown-values: allow
-        budget_amount:
-          type: number
-        budget_max_amount:
-          type: number
-        budget_period:
-          enum:
-          - DAILY
-          - MONTHLY
-          - TOTAL
-          - LIFETIME
-          type: string
-          x-speakeasy-unknown-values: allow
-        budget_unit:
-          enum:
-          - UNSPECIFIED
-          - CURRENCY
-          - IMPRESSIONS
-          type: string
-          x-speakeasy-unknown-values: allow
-        campaign_id:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        creative_ids:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_creative_ids'
-        currency:
-          type: string
-        end_at:
-          format: date-time
-          type: string
-        frequency_cap:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_frequency_cap'
-        has_eu_political_ads:
-          type: boolean
-        id:
-          type: string
-        insertionorder_id:
-          type: string
-        name:
-          type: string
-        optimization_goal:
-          enum:
-          - REACH
-          - IMPRESSIONS
-          - LINK_CLICKS
-          - LANDING_PAGE_VIEWS
-          - CONVERSIONS
-          - LEAD_GENERATION
-          - APP_INSTALLS
-          - APP_ENGAGEMENT
-          - VIDEO_VIEWS
-          - ENGAGEMENT
-          - PAGE_LIKES
-          - MESSAGES
-          type: string
-          x-speakeasy-unknown-values: allow
-        organization_id:
-          type: string
-        pacing:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_pacing'
-        parent_id:
-          type: string
-        promoted:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_promoted'
-        raw:
-          additionalProperties: true
-          type: object
-        start_at:
-          format: date-time
-          type: string
-        status:
-          enum:
-          - UNSPECIFIED
-          - ACTIVE
-          - PAUSED
-          - ARCHIVED
-          - DRAFT
-          - SCHEDULED_FOR_DELETION
-          type: string
-          x-speakeasy-unknown-values: allow
-        targeting:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting'
-        type:
-          enum:
-          - TEXT
-          - IMAGE
-          - VIDEO
-          - RESPONSIVE
-          - SHOPPING
-          - APP
-          - CALL
-          - CAROUSEL
-          - SOCIAL
-          - DISPLAY
-          - SEARCH
-          - AUDIO
-          - YOUTUBE
-          type: string
-          x-speakeasy-unknown-values: allow
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    property_AdsReportMetrics_campaign_targeting_content_excluded_urls:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_geographic_postal_codes:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_brand_safety_block_list_ids:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_geographic_excluded_cities:
-      items:
-        $ref: '#/components/schemas/CityTarget'
-      type: array
-    property_AdsReportMetrics_campaign_targeting_brand_safety_block_list_ids:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_geographic_location_types:
-      items:
-        enum:
-        - HOME
-        - RECENT
-        - TRAVEL
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    property_AdsCampaign_targeting_geographic_us_dmas:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_geographic_regions:
-      items:
-        $ref: '#/components/schemas/RegionTarget'
-      type: array
-    property_AdsGroup_targeting_brand_safety_block_list_ids:
-      items:
-        type: string
-      type: array
-    property_AdsGroup_targeting_geographic_excluded_postal_codes:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_group_targeting_brand_safety_block_list_ids:
-      items:
-        type: string
-      type: array
-    property_AdsGroup_targeting_content_excluded_keywords:
-      items:
-        $ref: '#/components/schemas/AdsKeyword'
-      type: array
-    property_AdsCampaign_targeting_content_video_positions:
-      items:
-        enum:
-        - PREROLL
-        - MIDROLL
-        - POSTROLL
-        - INSTREAM
-        - OUTSTREAM
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    property_AdsReportMetrics_campaign_targeting_geographic_excluded_countries:
-      items:
-        type: string
-      type: array
-    property_AudienceCombination_behaviors:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsReportMetrics_group_targeting_audience_excluded_behaviors:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsCampaign_targeting_audience_interests:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsCreative_promoted:
-      items:
-        $ref: '#/components/schemas/AdsPromoted'
-      type: array
-    property_AdsReportMetrics_group_targeting_geographic_postal_codes:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_schedule:
-      items:
-        $ref: '#/components/schemas/AdSchedule'
-      type: array
-    property_AdsReportMetrics_campaign_targeting_language:
+    property_AdsCampaign_targeting_language:
       description: Language targeting (Meta
       properties:
         codes:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_language_codes'
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_language_codes'
         locale_ids:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_language_locale_ids'
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_language_locale_ids'
       type: object
-    property_AdsCampaign_targeting_content_video_youtube_channels:
+    property_AdsGroup_targeting_placement_platforms:
       items:
         type: string
       type: array
-    property_AdsCampaign_targeting_audience_excluded_interests:
+    property_AdsReportMetrics_campaign_targeting_content_video_youtube_videos:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_language_locale_ids:
+      items:
+        type: number
+      type: array
+    property_AdsAd_creative_ids:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_audience_interests:
       items:
         $ref: '#/components/schemas/AudienceSegment'
       type: array
@@ -3285,52 +3580,124 @@ components:
           format: date-time
           type: string
       type: object
-    property_AdsReportMetrics_group_targeting_geographic_regions:
+    property_AdsGroup_targeting_device:
+      properties:
+        carriers:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_device_carriers'
+        types:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_device_types'
+        user_device:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_device_user_device'
+        user_os:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_device_user_os'
+      type: object
+    AdsInsertionorders:
       items:
-        $ref: '#/components/schemas/RegionTarget'
+        $ref: '#/components/schemas/AdsInsertionorder'
       type: array
-    property_AdsGroup_targeting_device_carriers:
+    property_AudienceCombination_demographics:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsGroup_targeting_language_codes:
       items:
         type: string
       type: array
-    property_AdsReportMetrics_campaign_targeting_geographic:
-      properties:
-        cities:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_cities'
-        countries:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_countries'
-        excluded_cities:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_excluded_cities'
-        excluded_countries:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_excluded_countries'
-        excluded_postal_codes:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_excluded_postal_codes'
-        excluded_regions:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_excluded_regions'
-        excluded_us_dmas:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_excluded_us_dmas'
-        location_types:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_location_types'
-        postal_codes:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_postal_codes'
-        presence_type:
-          enum:
-          - PRESENCE
-          - PRESENCE_OR_INTEREST
-          type: string
-          x-speakeasy-unknown-values: allow
-        regions:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_regions'
-        us_dmas:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_us_dmas'
-      type: object
-    AudienceSegment:
-      description: 'Audience targeting (Meta: custom_audiences, lookalike_audiences, flexible_spec)'
+    property_AdsGroup_targeting_brand_safety_brand_safety_content_filter_levels:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_geographic_excluded_postal_codes:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_placement_messenger_positions:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic_excluded_regions:
+      items:
+        $ref: '#/components/schemas/RegionTarget'
+      type: array
+    property_AdsCampaign_targeting_audience_excluded_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_placement_instagram_positions:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_brand_safety_publisher_visibility_categories:
+      items:
+        enum:
+        - limited
+        - standard
+        - expanded
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsReportMetrics_group_targeting_placement_instagram_positions:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_device_types:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_content_excluded_urls:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_placement_facebook_positions:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_audience_excluded_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic_postal_codes:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_language_codes:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_audience_excluded_custom_audiences:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_excluded_urls:
+      items:
+        type: string
+      type: array
+    AdsPromoteds:
+      items:
+        $ref: '#/components/schemas/AdsPromoted'
+      type: array
+    property_AdsCampaign_targeting_content_urls:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_geographic_excluded_us_dmas:
+      items:
+        type: string
+      type: array
+    CityTarget:
       properties:
         id:
           type: string
         name:
           type: string
+        radius:
+          type: number
+        radius_unit:
+          enum:
+          - MILES
+          - KILOMETERS
+          type: string
+          x-speakeasy-unknown-values: allow
       required:
       - id
       type: object
@@ -3338,90 +3705,7 @@ components:
       items:
         $ref: '#/components/schemas/CityTarget'
       type: array
-    property_AdsCampaign_targeting_geographic_excluded_us_dmas:
-      items:
-        type: string
-      type: array
-    property_AdsGroup_targeting_optimization:
-      description: 'Optimization (Meta: targeting_automation; Google: observation vs targeting mode)'
-      properties:
-        advantage_audience:
-          type: boolean
-        advantage_placements:
-          type: boolean
-        mode:
-          enum:
-          - TARGETING
-          - OBSERVATION
-          type: string
-          x-speakeasy-unknown-values: allow
-        targeting_optimization_expansion_all:
-          type: boolean
-      type: object
-    property_AdsGroup_targeting_schedule:
-      items:
-        $ref: '#/components/schemas/AdSchedule'
-      type: array
-    property_AdsReportMetrics_group_targeting_device_user_device:
-      items:
-        type: string
-      type: array
-    AdsInsertionorderBudgetSegment:
-      properties:
-        budget_amount:
-          type: number
-        description:
-          type: string
-        end_at:
-          format: date-time
-          type: string
-        start_at:
-          format: date-time
-          type: string
-      type: object
-    property_AdsReportMetrics_group_targeting_placement_platforms:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_ad_promoted:
-      items:
-        $ref: '#/components/schemas/AdsPromoted'
-      type: array
-    property_AdsCampaign_targeting_content_excluded_topics:
-      items:
-        type: string
-      type: array
-    property_AdsGroup_targeting_brand_safety_excluded_publisher_categories:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_audience_excluded_interests:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsReportMetrics_campaign_targeting_device_types:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_group_targeting_device_types:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_brand_safety:
-      description: 'Brand safety (Meta: excluded_publisher_categories, etc.; Google'
-      properties:
-        block_list_ids:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_brand_safety_block_list_ids'
-        brand_safety_content_filter_levels:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_brand_safety_brand_safety_content_filter_levels'
-        excluded_content_labels:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_brand_safety_excluded_content_labels'
-        excluded_publisher_categories:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_brand_safety_excluded_publisher_categories'
-        publisher_visibility_categories:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_brand_safety_publisher_visibility_categories'
-      type: object
-    property_AdsReportMetrics_group_targeting_content_video_durations:
+    property_AdsCampaign_targeting_content_video_durations:
       items:
         enum:
         - SHORT
@@ -3430,129 +3714,24 @@ components:
         type: string
         x-speakeasy-unknown-values: allow
       type: array
-    property_AdsGroup_targeting_geographic_excluded_countries:
+    property_AdsReportMetrics_campaign_targeting_placement_platforms:
       items:
         type: string
       type: array
-    property_AdsReportMetrics_campaign_targeting_content:
-      properties:
-        excluded_keywords:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_excluded_keywords'
-        excluded_topics:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_excluded_topics'
-        excluded_urls:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_excluded_urls'
-        keywords:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_keywords'
-        topics:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_topics'
-        urls:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_urls'
-        video:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video'
-      type: object
-    property_AdsReportMetrics_group_targeting_optimization:
-      description: 'Optimization (Meta: targeting_automation; Google: observation vs targeting mode)'
-      properties:
-        advantage_audience:
-          type: boolean
-        advantage_placements:
-          type: boolean
-        mode:
-          enum:
-          - TARGETING
-          - OBSERVATION
-          type: string
-          x-speakeasy-unknown-values: allow
-        targeting_optimization_expansion_all:
-          type: boolean
-      type: object
-    property_AdsCampaign_targeting_content_video:
-      properties:
-        durations:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_durations'
-        excluded_youtube_channels:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_excluded_youtube_channels'
-        excluded_youtube_videos:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_excluded_youtube_videos'
-        player_sizes:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_player_sizes'
-        positions:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_positions'
-        youtube_channels:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_youtube_channels'
-        youtube_videos:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_youtube_videos'
-      type: object
-    property_AdsReportMetrics_campaign_targeting_content_video_youtube_channels:
+    property_AdsGroup_targeting_brand_safety_publisher_visibility_categories:
+      items:
+        enum:
+        - limited
+        - standard
+        - expanded
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsGroup_targeting_brand_safety_block_list_ids:
       items:
         type: string
       type: array
-    property_AdsReportMetrics_campaign_targeting_audience_lookalike_audiences:
-      items:
-        $ref: '#/components/schemas/LookalikeAudience'
-      type: array
-    property_AdsGroup_targeting_language_codes:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_group_targeting_content_urls:
-      items:
-        type: string
-      type: array
-    property_AdsGroup_targeting_language_locale_ids:
-      items:
-        type: number
-      type: array
-    property_AdsReportMetrics_group_targeting_audience_combination_spec:
-      items:
-        $ref: '#/components/schemas/AudienceCombination'
-      type: array
-    property_AdsReportMetrics_group_targeting_content_video_excluded_youtube_videos:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_audience_excluded_behaviors:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsReportMetrics_campaign_targeting_audience_behaviors:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsCampaign_targeting_audience:
-      properties:
-        behaviors:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_behaviors'
-        combination_spec:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_combination_spec'
-        custom_audiences:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_custom_audiences'
-        excluded_behaviors:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_excluded_behaviors'
-        excluded_custom_audiences:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_excluded_custom_audiences'
-        excluded_interests:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_excluded_interests'
-        interests:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_interests'
-        lookalike_audiences:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience_lookalike_audiences'
-      type: object
-    property_AdsCampaign_targeting_audience_excluded_custom_audiences:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsReportMetrics_campaign_targeting_brand_safety_excluded_content_labels:
-      description: Google Ads ContentLabelType
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_audience_combination_spec:
-      items:
-        $ref: '#/components/schemas/AudienceCombination'
-      type: array
-    property_AdsReportMetrics_group_frequency_cap:
+    property_AdsReportMetrics_campaign_frequency_cap:
       properties:
         is_unlimited:
           type: boolean
@@ -3574,265 +3753,99 @@ components:
         time_unit_count:
           type: number
       type: object
-    property_AdsCampaign_targeting_content_keywords:
-      items:
-        $ref: '#/components/schemas/AdsKeyword'
-      type: array
-    property_AdsReportMetrics_group_targeting_content:
-      properties:
-        excluded_keywords:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_excluded_keywords'
-        excluded_topics:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_excluded_topics'
-        excluded_urls:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_excluded_urls'
-        keywords:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_keywords'
-        topics:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_topics'
-        urls:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_urls'
-        video:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video'
-      type: object
-    AdsPromoteds:
-      items:
-        $ref: '#/components/schemas/AdsPromoted'
-      type: array
-    property_AdsReportMetrics_group_targeting_content_video:
-      properties:
-        durations:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_durations'
-        excluded_youtube_channels:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_excluded_youtube_channels'
-        excluded_youtube_videos:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_excluded_youtube_videos'
-        player_sizes:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_player_sizes'
-        positions:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_positions'
-        youtube_channels:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_youtube_channels'
-        youtube_videos:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_youtube_videos'
-      type: object
-    property_AdsGroup_targeting_content_excluded_topics:
-      items:
-        type: string
-      type: array
-    AdsInsertionorders:
-      items:
-        $ref: '#/components/schemas/AdsInsertionorder'
-      type: array
-    AdsOrganization:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        currency:
-          type: string
-        id:
-          type: string
-        name:
-          type: string
-        parent_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        timezone:
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    property_AdsReportMetrics_group_targeting_audience_custom_audiences:
+    property_AdsGroup_targeting_audience_excluded_custom_audiences:
       items:
         $ref: '#/components/schemas/AudienceSegment'
       type: array
-    property_AdsCampaign_targeting_language:
-      description: Language targeting (Meta
+    property_AdsReportMetrics_campaign_targeting_content_video:
       properties:
-        codes:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_language_codes'
-        locale_ids:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_language_locale_ids'
+        durations:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_durations'
+        excluded_youtube_channels:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_excluded_youtube_channels'
+        excluded_youtube_videos:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_excluded_youtube_videos'
+        player_sizes:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_player_sizes'
+        positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_positions'
+        youtube_channels:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_youtube_channels'
+        youtube_videos:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_youtube_videos'
       type: object
-    property_AdsCampaign_targeting_device_carriers:
+    property_AudienceCombination_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_urls:
       items:
         type: string
       type: array
-    property_AdsGroup_targeting_content_video_player_sizes:
+    property_AdsReportMetrics_campaign_targeting_content_topics:
       items:
-        enum:
-        - SMALL
-        - LARGE
-        - HD
         type: string
-        x-speakeasy-unknown-values: allow
       type: array
-    property_AdsReportMetrics_group_targeting_geographic_location_types:
+    property_AdsReport_metrics:
       items:
-        enum:
-        - HOME
-        - RECENT
-        - TRAVEL
-        type: string
-        x-speakeasy-unknown-values: allow
+        $ref: '#/components/schemas/AdsReportMetrics'
       type: array
-    property_AdsCampaign_targeting_geographic:
+    property_AdsReportMetrics_campaign_targeting_audience_custom_audiences:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_group_targeting_device_types:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_audience_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsGroup_targeting_geographic_excluded_cities:
+      items:
+        $ref: '#/components/schemas/CityTarget'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_audience:
       properties:
-        cities:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_cities'
-        countries:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_countries'
-        excluded_cities:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_excluded_cities'
-        excluded_countries:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_excluded_countries'
-        excluded_postal_codes:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_excluded_postal_codes'
-        excluded_regions:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_excluded_regions'
-        excluded_us_dmas:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_excluded_us_dmas'
-        location_types:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_location_types'
-        postal_codes:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_postal_codes'
-        presence_type:
-          enum:
-          - PRESENCE
-          - PRESENCE_OR_INTEREST
-          type: string
-          x-speakeasy-unknown-values: allow
-        regions:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_regions'
-        us_dmas:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_us_dmas'
+        behaviors:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_behaviors'
+        combination_spec:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_combination_spec'
+        custom_audiences:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_custom_audiences'
+        excluded_behaviors:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_excluded_behaviors'
+        excluded_custom_audiences:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_excluded_custom_audiences'
+        excluded_interests:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_excluded_interests'
+        interests:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_interests'
+        lookalike_audiences:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_lookalike_audiences'
       type: object
-    property_AdsInsertionorder_bid_strategy:
-      description: YOUTUBE_AND_PARTNERS
+    property_AdsGroup_targeting_geographic_excluded_regions:
+      items:
+        $ref: '#/components/schemas/RegionTarget'
+      type: array
+    property_AdsCampaign_targeting_content_video:
       properties:
-        custom_bidding_algorithm_id:
-          type: string
-        fixed_bid_amount:
-          type: number
-        max_average_cpm_bid_amount:
-          type: number
-        performance_goal_amount:
-          type: number
-        performance_goal_type:
-          enum:
-          - UNSPECIFIED
-          - CPA
-          - CPC
-          - VIEWABLE_CPM
-          - CUSTOM_ALGO
-          - CIVA
-          - IVO_TEN
-          - AV_VIEWED
-          - REACH
-          type: string
-          x-speakeasy-unknown-values: allow
-        raise_bid_for_deals:
-          type: boolean
-        target_roas:
-          type: number
-        type:
-          enum:
-          - FIXED_BID
-          - MAXIMIZE_SPEND
-          - PERFORMANCE_GOAL
-          - YOUTUBE_AND_PARTNERS
-          type: string
-          x-speakeasy-unknown-values: allow
-        youtube_and_partners_type:
-          enum:
-          - UNSPECIFIED
-          - MANUAL_CPV
-          - MANUAL_CPM
-          - TARGET_CPA
-          - TARGET_CPM
-          - RESERVE_CPM
-          - MAXIMIZE_LIFT
-          - MAXIMIZE_CONVERSIONS
-          - TARGET_CPV
-          - TARGET_ROAS
-          - MAXIMIZE_CONVERSION_VALUE
-          type: string
-          x-speakeasy-unknown-values: allow
-        youtube_and_partners_value:
-          type: string
-      required:
-      - type
+        durations:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_durations'
+        excluded_youtube_channels:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_excluded_youtube_channels'
+        excluded_youtube_videos:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_excluded_youtube_videos'
+        player_sizes:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_player_sizes'
+        positions:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_positions'
+        youtube_channels:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_youtube_channels'
+        youtube_videos:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video_youtube_videos'
       type: object
-    property_AdsGroup_targeting_placement:
-      properties:
-        audience_network_positions:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_placement_audience_network_positions'
-        facebook_positions:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_placement_facebook_positions'
-        instagram_positions:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_placement_instagram_positions'
-        messenger_positions:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_placement_messenger_positions'
-        platforms:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_placement_platforms'
-      type: object
-    property_AdsGroup_targeting_content_video_durations:
-      items:
-        enum:
-        - SHORT
-        - MEDIUM
-        - LONG
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    property_AdsCampaign_targeting_schedule:
-      items:
-        $ref: '#/components/schemas/AdSchedule'
-      type: array
-    property_AdsInsertionorder_budget_segments:
-      items:
-        $ref: '#/components/schemas/AdsInsertionorderBudgetSegment'
-      type: array
-    property_AdsGroup_targeting_audience_combination_spec:
-      items:
-        $ref: '#/components/schemas/AudienceCombination'
-      type: array
-    property_AdsReportMetrics_group_targeting_brand_safety_excluded_content_labels:
-      description: Google Ads ContentLabelType
-      items:
-        type: string
-      type: array
-    property_AdsGroup_targeting_brand_safety_brand_safety_content_filter_levels:
-      items:
-        type: string
-      type: array
-    property_AdsGroup_targeting_content_video_excluded_youtube_videos:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_content_excluded_urls:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_content_video_positions:
-      items:
-        enum:
-        - PREROLL
-        - MIDROLL
-        - POSTROLL
-        - INSTREAM
-        - OUTSTREAM
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    property_AdsReportMetrics_group_creative_ids:
-      items:
-        type: string
-      type: array
     property_AdsReportMetrics_campaign:
       properties:
         advertising_channel_type:
@@ -3921,28 +3934,630 @@ components:
           format: date-time
           type: string
       type: object
-    property_AdsGroup_targeting_brand_safety_publisher_visibility_categories:
-      items:
-        enum:
-        - limited
-        - standard
-        - expanded
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    property_AdsReportMetrics_group_targeting_content_video_excluded_youtube_channels:
+    property_AdsReportMetrics_group_targeting_device_carriers:
       items:
         type: string
       type: array
-    property_AdsReportMetrics_group_targeting_audience_excluded_custom_audiences:
+    property_AdsReportMetrics_group_creative_ids:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_audience_custom_audiences:
       items:
         $ref: '#/components/schemas/AudienceSegment'
       type: array
-    AdsOrganizations:
+    AdsReportMetrics:
+      properties:
+        ad:
+          $ref: '#/components/schemas/property_AdsReportMetrics_ad'
+        campaign:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign'
+        group:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group'
+        type:
+          enum:
+          - CLICKS
+          - IMPRESSIONS
+          - CONVERSIONS
+          - COST
+          - CTR
+          - CPC
+          - CONVERSION_VALUE
+          - CPA
+          - ROAS
+          - CPM
+          - ECPM
+          - ENGAGEMENT
+          - VIDEO_COMPLETIONS
+          - VIDEO_VIEWS
+          - LEADS
+          - ENGAGEMENTS
+          - SAVES
+          - LIKES
+          - SHARES
+          - COMMENTS
+          - FOLLOWS
+          type: string
+          x-speakeasy-unknown-values: allow
+        value:
+          type: number
+      type: object
+    property_AdsCampaign_targeting_audience_behaviors:
       items:
-        $ref: '#/components/schemas/AdsOrganization'
+        $ref: '#/components/schemas/AudienceSegment'
       type: array
-    property_AdsReportMetrics_campaign_targeting_optimization:
+    property_AdsReportMetrics_group_pacing:
+      properties:
+        daily_max_amount:
+          type: number
+        daily_max_impressions:
+          type: number
+        period:
+          enum:
+          - UNSPECIFIED
+          - DAILY
+          - FLIGHT
+          type: string
+          x-speakeasy-unknown-values: allow
+        type:
+          type: string
+      type: object
+    AdsInsertionorderBudgetSegment:
+      properties:
+        budget_amount:
+          type: number
+        description:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        start_at:
+          format: date-time
+          type: string
+      type: object
+    property_AdsInsertionorder_frequency_cap:
+      properties:
+        is_unlimited:
+          type: boolean
+        max_impressions:
+          type: number
+        max_views:
+          type: number
+        time_unit:
+          enum:
+          - UNSPECIFIED
+          - LIFETIME
+          - MONTHS
+          - WEEKS
+          - DAYS
+          - HOURS
+          - MINUTES
+          type: string
+          x-speakeasy-unknown-values: allow
+        time_unit_count:
+          type: number
+      type: object
+    property_AdsGroup_targeting_device_user_device:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_language_codes:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_schedule:
+      items:
+        $ref: '#/components/schemas/AdSchedule'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic_excluded_cities:
+      items:
+        $ref: '#/components/schemas/CityTarget'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_audience_combination_spec:
+      items:
+        $ref: '#/components/schemas/AudienceCombination'
+      type: array
+    property_AdsReportMetrics_group_targeting_content_excluded_keywords:
+      items:
+        $ref: '#/components/schemas/AdsKeyword'
+      type: array
+    property_AdsAd_promoted:
+      items:
+        $ref: '#/components/schemas/AdsPromoted'
+      type: array
+    property_AdsGroup_targeting_device_carriers:
+      items:
+        type: string
+      type: array
+    AdsCreative:
+      properties:
+        asset_urls:
+          $ref: '#/components/schemas/property_AdsCreative_asset_urls'
+        body:
+          type: string
+        campaign_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        creative_type:
+          enum:
+          - UNSPECIFIED
+          - STANDARD
+          - EXPANDABLE
+          - VIDEO
+          - NATIVE
+          - AUDIO
+          - PUBLISHER_HOSTED
+          - ASSET_BASED
+          type: string
+          x-speakeasy-unknown-values: allow
+        cta:
+          type: string
+        external_ad_reference:
+          type: string
+        external_creative_reference:
+          type: string
+        external_placement_reference:
+          type: string
+        group_id:
+          type: string
+        height:
+          type: number
+        hosting_source:
+          enum:
+          - UNSPECIFIED
+          - CM
+          - THIRD_PARTY
+          - HOSTED
+          - RICH_MEDIA
+          - PUBLISHER_HOSTED
+          type: string
+          x-speakeasy-unknown-values: allow
+        id:
+          type: string
+        item_id:
+          type: string
+        link_url:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        path1:
+          type: string
+        path2:
+          type: string
+        promoted:
+          $ref: '#/components/schemas/property_AdsCreative_promoted'
+        raw:
+          additionalProperties: true
+          type: object
+        status:
+          enum:
+          - UNSPECIFIED
+          - ACTIVE
+          - PAUSED
+          - ARCHIVED
+          - DRAFT
+          - SCHEDULED_FOR_DELETION
+          type: string
+          x-speakeasy-unknown-values: allow
+        third_party_tag:
+          type: string
+        title:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        vast_tag_url:
+          type: string
+        width:
+          type: number
+      type: object
+    property_AdsReportMetrics_group_targeting_placement_messenger_positions:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_keywords:
+      items:
+        $ref: '#/components/schemas/AdsKeyword'
+      type: array
+    property_AdsGroup_targeting_content_video_player_sizes:
+      items:
+        enum:
+        - SMALL
+        - LARGE
+        - HD
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsReportMetrics_group_targeting_brand_safety:
+      description: 'Brand safety (Meta: excluded_publisher_categories, etc.; Google'
+      properties:
+        block_list_ids:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety_block_list_ids'
+        brand_safety_content_filter_levels:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety_brand_safety_content_filter_levels'
+        excluded_content_labels:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety_excluded_content_labels'
+        excluded_publisher_categories:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety_excluded_publisher_categories'
+        publisher_visibility_categories:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety_publisher_visibility_categories'
+      type: object
+    property_AdsReportMetrics_group_targeting_audience_combination_spec:
+      items:
+        $ref: '#/components/schemas/AudienceCombination'
+      type: array
+    property_AdsGroup_targeting_geographic_postal_codes:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_content_excluded_keywords:
+      items:
+        $ref: '#/components/schemas/AdsKeyword'
+      type: array
+    property_AdsCampaign_targeting_geographic_location_types:
+      items:
+        enum:
+        - HOME
+        - RECENT
+        - TRAVEL
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsCampaign_targeting_brand_safety_brand_safety_content_filter_levels:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_placement_audience_network_positions:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_geographic_cities:
+      items:
+        $ref: '#/components/schemas/CityTarget'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic_excluded_countries:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_content_video_youtube_videos:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_audience_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_group_targeting_audience_excluded_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsGroup_targeting_language:
+      description: Language targeting (Meta
+      properties:
+        codes:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_language_codes'
+        locale_ids:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_language_locale_ids'
+      type: object
+    property_AdsReportMetrics_group_targeting_geographic_excluded_regions:
+      items:
+        $ref: '#/components/schemas/RegionTarget'
+      type: array
+    property_AdsReportMetrics_group_promoted:
+      items:
+        $ref: '#/components/schemas/AdsPromoted'
+      type: array
+    property_AdsCampaign_targeting_placement_platforms:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_geographic_excluded_countries:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_placement_audience_network_positions:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_bid_strategy:
+      description: YOUTUBE_AND_PARTNERS
+      properties:
+        custom_bidding_algorithm_id:
+          type: string
+        fixed_bid_amount:
+          type: number
+        max_average_cpm_bid_amount:
+          type: number
+        performance_goal_amount:
+          type: number
+        performance_goal_type:
+          enum:
+          - UNSPECIFIED
+          - CPA
+          - CPC
+          - VIEWABLE_CPM
+          - CUSTOM_ALGO
+          - CIVA
+          - IVO_TEN
+          - AV_VIEWED
+          - REACH
+          type: string
+          x-speakeasy-unknown-values: allow
+        raise_bid_for_deals:
+          type: boolean
+        target_roas:
+          type: number
+        type:
+          enum:
+          - FIXED_BID
+          - MAXIMIZE_SPEND
+          - PERFORMANCE_GOAL
+          - YOUTUBE_AND_PARTNERS
+          type: string
+          x-speakeasy-unknown-values: allow
+        youtube_and_partners_type:
+          enum:
+          - UNSPECIFIED
+          - MANUAL_CPV
+          - MANUAL_CPM
+          - TARGET_CPA
+          - TARGET_CPM
+          - RESERVE_CPM
+          - MAXIMIZE_LIFT
+          - MAXIMIZE_CONVERSIONS
+          - TARGET_CPV
+          - TARGET_ROAS
+          - MAXIMIZE_CONVERSION_VALUE
+          type: string
+          x-speakeasy-unknown-values: allow
+        youtube_and_partners_value:
+          type: string
+      required:
+      - type
+      type: object
+    property_AdsGroup_targeting_geographic_excluded_us_dmas:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_geographic_excluded_countries:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_geographic_countries:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_content_excluded_topics:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_content_video_durations:
+      items:
+        enum:
+        - SHORT
+        - MEDIUM
+        - LONG
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsReportMetrics_group_targeting_geographic:
+      properties:
+        cities:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_cities'
+        countries:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_countries'
+        excluded_cities:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_excluded_cities'
+        excluded_countries:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_excluded_countries'
+        excluded_postal_codes:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_excluded_postal_codes'
+        excluded_regions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_excluded_regions'
+        excluded_us_dmas:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_excluded_us_dmas'
+        location_types:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_location_types'
+        postal_codes:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_postal_codes'
+        presence_type:
+          enum:
+          - PRESENCE
+          - PRESENCE_OR_INTEREST
+          type: string
+          x-speakeasy-unknown-values: allow
+        regions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_regions'
+        us_dmas:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_us_dmas'
+      type: object
+    property_AdsReportMetrics_group_targeting_content_excluded_urls:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_promoted:
+      items:
+        $ref: '#/components/schemas/AdsPromoted'
+      type: array
+    property_AdsGroup_targeting_placement_instagram_positions:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic_excluded_us_dmas:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_content_video_player_sizes:
+      items:
+        enum:
+        - SMALL
+        - LARGE
+        - HD
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_video_youtube_channels:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_geographic_excluded_us_dmas:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_placement:
+      properties:
+        audience_network_positions:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement_audience_network_positions'
+        facebook_positions:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement_facebook_positions'
+        instagram_positions:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement_instagram_positions'
+        messenger_positions:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement_messenger_positions'
+        platforms:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement_platforms'
+      type: object
+    property_AdsCampaign_targeting:
+      properties:
+        audience:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience'
+        brand_safety:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety'
+        content:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content'
+        demographic:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_demographic'
+        device:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_device'
+        geographic:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic'
+        language:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_language'
+        optimization:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_optimization'
+        placement:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement'
+        schedule:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_schedule'
+      type: object
+    property_AdsReportMetrics_group_targeting_content_video_excluded_youtube_videos:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_device_types:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_placement_instagram_positions:
+      items:
+        type: string
+      type: array
+    AdSchedule:
+      properties:
+        bid_modifier:
+          type: number
+        day_of_week:
+          enum:
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          - SUNDAY
+          type: string
+          x-speakeasy-unknown-values: allow
+        end_hour:
+          type: number
+        end_minute:
+          type: number
+        start_hour:
+          type: number
+        start_minute:
+          type: number
+      required:
+      - day_of_week
+      - start_hour
+      - end_hour
+      type: object
+    property_AdsReportMetrics_campaign_targeting_device_user_os:
+      items:
+        type: string
+      type: array
+    property_AdsInsertionorder_pacing:
+      properties:
+        daily_max_amount:
+          type: number
+        daily_max_impressions:
+          type: number
+        period:
+          enum:
+          - UNSPECIFIED
+          - DAILY
+          - FLIGHT
+          type: string
+          x-speakeasy-unknown-values: allow
+        type:
+          type: string
+      type: object
+    property_AdsReportMetrics_group_targeting_audience_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsGroup_targeting_language_locale_ids:
+      items:
+        type: number
+      type: array
+    property_AdsCampaign_targeting_content:
+      properties:
+        excluded_keywords:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_excluded_keywords'
+        excluded_topics:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_excluded_topics'
+        excluded_urls:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_excluded_urls'
+        keywords:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_keywords'
+        topics:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_topics'
+        urls:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_urls'
+        video:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video'
+      type: object
+    property_AdsGroup_targeting_content_keywords:
+      items:
+        $ref: '#/components/schemas/AdsKeyword'
+      type: array
+    property_AdsCampaign_targeting_language_locale_ids:
+      items:
+        type: number
+      type: array
+    property_AdsReportMetrics_campaign_targeting_audience_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_demographic:
+      description: 'Demographic targeting (Meta: age_min, age_max, genders)'
+      properties:
+        age_max:
+          type: number
+        age_min:
+          type: number
+        female:
+          type: boolean
+        male:
+          type: boolean
+      type: object
+    property_AdsReportMetrics_group_targeting_geographic_excluded_countries:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_optimization:
       description: 'Optimization (Meta: targeting_automation; Google: observation vs targeting mode)'
       properties:
         advantage_audience:
@@ -3958,55 +4573,515 @@ components:
         targeting_optimization_expansion_all:
           type: boolean
       type: object
-    property_AdsReportMetrics_campaign_targeting_geographic_excluded_cities:
+    property_AdsCampaign_targeting_content_video_positions:
       items:
-        $ref: '#/components/schemas/CityTarget'
+        enum:
+        - PREROLL
+        - MIDROLL
+        - POSTROLL
+        - INSTREAM
+        - OUTSTREAM
+        type: string
+        x-speakeasy-unknown-values: allow
       type: array
-    property_AdsInsertionorder_kpi:
+    property_AdsCampaign_frequency_cap:
       properties:
-        algorithm_id:
-          type: string
-        amount:
+        is_unlimited:
+          type: boolean
+        max_impressions:
           type: number
-        percentage:
+        max_views:
           type: number
-        string_value:
-          type: string
-        type:
+        time_unit:
           enum:
           - UNSPECIFIED
-          - CPM
-          - CPC
-          - CPA
-          - CTR
-          - VIEWABILITY
-          - CPIAVC
-          - CPE
-          - CPV
-          - CLICK_CVR
-          - IMPRESSION_CVR
-          - VCPM
-          - VTR
-          - AUDIO_COMPLETION_RATE
-          - VIDEO_COMPLETION_RATE
-          - CPCL
-          - CPCV
-          - TOS10
-          - MAXIMIZE_PACING
-          - CUSTOM_IMPRESSION_VALUE_OVER_COST
-          - OTHER
+          - LIFETIME
+          - MONTHS
+          - WEEKS
+          - DAYS
+          - HOURS
+          - MINUTES
           type: string
           x-speakeasy-unknown-values: allow
+        time_unit_count:
+          type: number
       type: object
+    property_AdsGroup_targeting_schedule:
+      items:
+        $ref: '#/components/schemas/AdSchedule'
+      type: array
+    AdsTargets:
+      items:
+        $ref: '#/components/schemas/AdsTarget'
+      type: array
+    property_AdsGroup_targeting_audience:
+      properties:
+        behaviors:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_behaviors'
+        combination_spec:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_combination_spec'
+        custom_audiences:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_custom_audiences'
+        excluded_behaviors:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_excluded_behaviors'
+        excluded_custom_audiences:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_excluded_custom_audiences'
+        excluded_interests:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_excluded_interests'
+        interests:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_interests'
+        lookalike_audiences:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_lookalike_audiences'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_placement_messenger_positions:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic_countries:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_content_video:
+      properties:
+        durations:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_durations'
+        excluded_youtube_channels:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_excluded_youtube_channels'
+        excluded_youtube_videos:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_excluded_youtube_videos'
+        player_sizes:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_player_sizes'
+        positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_positions'
+        youtube_channels:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_youtube_channels'
+        youtube_videos:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content_video_youtube_videos'
+      type: object
+    property_AdsReportMetrics_ad:
+      properties:
+        ad_copy:
+          type: string
+        ad_type:
+          enum:
+          - TEXT
+          - IMAGE
+          - VIDEO
+          - RESPONSIVE
+          - SHOPPING
+          - APP
+          - CALL
+          - CAROUSEL
+          - SOCIAL
+          - DISPLAY
+          - SEARCH
+          - AUDIO
+          - YOUTUBE
+          type: string
+          x-speakeasy-unknown-values: allow
+        campaign_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        creative_asset_url:
+          type: string
+        creative_ids:
+          $ref: '#/components/schemas/property_AdsReportMetrics_ad_creative_ids'
+        cta:
+          type: string
+        description:
+          type: string
+        display_url:
+          type: string
+        final_url:
+          type: string
+        group_id:
+          type: string
+        headline:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        path1:
+          type: string
+        path2:
+          type: string
+        promoted:
+          $ref: '#/components/schemas/property_AdsReportMetrics_ad_promoted'
+        raw:
+          additionalProperties: true
+          type: object
+        status:
+          enum:
+          - UNSPECIFIED
+          - ACTIVE
+          - PAUSED
+          - ARCHIVED
+          - DRAFT
+          - SCHEDULED_FOR_DELETION
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AdsReportMetrics_group_targeting_audience_excluded_custom_audiences:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_excluded_topics:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_language_codes:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_content_video_youtube_channels:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_device_user_device:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_geographic_location_types:
+      items:
+        enum:
+        - HOME
+        - RECENT
+        - TRAVEL
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
     property_AdsCampaign_targeting_content_video_youtube_videos:
       items:
         type: string
       type: array
-    property_AdsGroup_targeting_device_user_os:
+    property_AdsReportMetrics_campaign_targeting_brand_safety_excluded_content_labels:
+      description: Google Ads ContentLabelType
       items:
         type: string
       type: array
-    property_AdsGroup_targeting_device_types:
+    property_AdsReportMetrics_campaign_targeting_geographic_excluded_postal_codes:
+      items:
+        type: string
+      type: array
+    AdsAds:
+      items:
+        $ref: '#/components/schemas/AdsAd'
+      type: array
+    property_AdsInsertionorder_budget_segments:
+      items:
+        $ref: '#/components/schemas/AdsInsertionorderBudgetSegment'
+      type: array
+    property_AdsGroup_targeting_content_topics:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_video_excluded_youtube_videos:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_content_excluded_keywords:
+      items:
+        $ref: '#/components/schemas/AdsKeyword'
+      type: array
+    property_AdsReportMetrics_group_targeting_content_video_positions:
+      items:
+        enum:
+        - PREROLL
+        - MIDROLL
+        - POSTROLL
+        - INSTREAM
+        - OUTSTREAM
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsCampaign_targeting_audience_excluded_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_excluded_keywords:
+      items:
+        $ref: '#/components/schemas/AdsKeyword'
+      type: array
+    AdsOrganization:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        currency:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        timezone:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AdsReportMetrics_group_frequency_cap:
+      properties:
+        is_unlimited:
+          type: boolean
+        max_impressions:
+          type: number
+        max_views:
+          type: number
+        time_unit:
+          enum:
+          - UNSPECIFIED
+          - LIFETIME
+          - MONTHS
+          - WEEKS
+          - DAYS
+          - HOURS
+          - MINUTES
+          type: string
+          x-speakeasy-unknown-values: allow
+        time_unit_count:
+          type: number
+      type: object
+    property_AdsReportMetrics_group_targeting_brand_safety_block_list_ids:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_content_video_excluded_youtube_channels:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_geographic_postal_codes:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_video_player_sizes:
+      items:
+        enum:
+        - SMALL
+        - LARGE
+        - HD
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsReportMetrics_group_targeting_geographic_location_types:
+      items:
+        enum:
+        - HOME
+        - RECENT
+        - TRAVEL
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsGroup_targeting_geographic_us_dmas:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_optimization:
+      description: 'Optimization (Meta: targeting_automation; Google: observation vs targeting mode)'
+      properties:
+        advantage_audience:
+          type: boolean
+        advantage_placements:
+          type: boolean
+        mode:
+          enum:
+          - TARGETING
+          - OBSERVATION
+          type: string
+          x-speakeasy-unknown-values: allow
+        targeting_optimization_expansion_all:
+          type: boolean
+      type: object
+    property_AdsGroup_targeting_content_video_youtube_videos:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_content_video_excluded_youtube_videos:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_audience_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsCampaign_targeting_device_types:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_audience_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_brand_safety_publisher_visibility_categories:
+      items:
+        enum:
+        - limited
+        - standard
+        - expanded
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsCampaign_targeting_placement_messenger_positions:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group:
+      properties:
+        bid_amount:
+          type: number
+        bid_strategy:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_bid_strategy'
+        billing_event:
+          enum:
+          - IMPRESSIONS
+          - LINK_CLICKS
+          - VIDEO_VIEWS
+          - APP_INSTALLS
+          - ENGAGEMENT
+          - PAGE_LIKES
+          - MESSAGES
+          - POST_ENGAGEMENT
+          - PURCHASE
+          - NONE
+          type: string
+          x-speakeasy-unknown-values: allow
+        budget_allocation_type:
+          enum:
+          - UNSPECIFIED
+          - AUTOMATIC
+          - FIXED
+          - UNLIMITED
+          type: string
+          x-speakeasy-unknown-values: allow
+        budget_amount:
+          type: number
+        budget_max_amount:
+          type: number
+        budget_period:
+          enum:
+          - DAILY
+          - MONTHLY
+          - TOTAL
+          - LIFETIME
+          type: string
+          x-speakeasy-unknown-values: allow
+        budget_unit:
+          enum:
+          - UNSPECIFIED
+          - CURRENCY
+          - IMPRESSIONS
+          type: string
+          x-speakeasy-unknown-values: allow
+        campaign_id:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        creative_ids:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_creative_ids'
+        currency:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        frequency_cap:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_frequency_cap'
+        has_eu_political_ads:
+          type: boolean
+        id:
+          type: string
+        insertionorder_id:
+          type: string
+        name:
+          type: string
+        optimization_goal:
+          enum:
+          - REACH
+          - IMPRESSIONS
+          - LINK_CLICKS
+          - LANDING_PAGE_VIEWS
+          - CONVERSIONS
+          - LEAD_GENERATION
+          - APP_INSTALLS
+          - APP_ENGAGEMENT
+          - VIDEO_VIEWS
+          - ENGAGEMENT
+          - PAGE_LIKES
+          - MESSAGES
+          type: string
+          x-speakeasy-unknown-values: allow
+        organization_id:
+          type: string
+        pacing:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_pacing'
+        parent_id:
+          type: string
+        promoted:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_promoted'
+        raw:
+          additionalProperties: true
+          type: object
+        start_at:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - UNSPECIFIED
+          - ACTIVE
+          - PAUSED
+          - ARCHIVED
+          - DRAFT
+          - SCHEDULED_FOR_DELETION
+          type: string
+          x-speakeasy-unknown-values: allow
+        targeting:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting'
+        type:
+          enum:
+          - TEXT
+          - IMAGE
+          - VIDEO
+          - RESPONSIVE
+          - SHOPPING
+          - APP
+          - CALL
+          - CAROUSEL
+          - SOCIAL
+          - DISPLAY
+          - SEARCH
+          - AUDIO
+          - YOUTUBE
+          type: string
+          x-speakeasy-unknown-values: allow
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    property_AdsReportMetrics_group_targeting_brand_safety_excluded_publisher_categories:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_geographic_regions:
+      items:
+        $ref: '#/components/schemas/RegionTarget'
+      type: array
+    property_AdsGroup_targeting_content_video_excluded_youtube_channels:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_device_user_os:
       items:
         type: string
       type: array
@@ -4081,23 +5156,15 @@ components:
           format: date-time
           type: string
       type: object
-    property_AdsReportMetrics_group_targeting_device_carriers:
+    property_AdsGroup_targeting_placement_facebook_positions:
       items:
         type: string
       type: array
-    property_AdsGroup_targeting_demographic:
-      description: 'Demographic targeting (Meta: age_min, age_max, genders)'
-      properties:
-        age_max:
-          type: number
-        age_min:
-          type: number
-        female:
-          type: boolean
-        male:
-          type: boolean
-      type: object
-    property_AdsGroup_targeting_placement_audience_network_positions:
+    property_AdsGroup_targeting_audience_excluded_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_placement_audience_network_positions:
       items:
         type: string
       type: array
@@ -4189,82 +5256,251 @@ components:
           format: date-time
           type: string
       type: object
-    property_AdsGroup_promoted:
+    property_AdsReportMetrics_group_targeting:
+      properties:
+        audience:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience'
+        brand_safety:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety'
+        content:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content'
+        demographic:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_demographic'
+        device:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_device'
+        geographic:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic'
+        language:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_language'
+        optimization:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_optimization'
+        placement:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement'
+        schedule:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_schedule'
+      type: object
+    property_AdsCampaign_targeting_audience_lookalike_audiences:
+      items:
+        $ref: '#/components/schemas/LookalikeAudience'
+      type: array
+    property_AdsCampaign_targeting_content_video_excluded_youtube_channels:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_device:
+      properties:
+        carriers:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_device_carriers'
+        types:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_device_types'
+        user_device:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_device_user_device'
+        user_os:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_device_user_os'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_brand_safety_block_list_ids:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_brand_safety_brand_safety_content_filter_levels:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_geographic_excluded_postal_codes:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_geographic_regions:
+      items:
+        $ref: '#/components/schemas/RegionTarget'
+      type: array
+    property_AdsCampaign_targeting_content_excluded_topics:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_content_urls:
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_brand_safety_excluded_publisher_categories:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_brand_safety_brand_safety_content_filter_levels:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_geographic_cities:
+      items:
+        $ref: '#/components/schemas/CityTarget'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic_location_types:
+      items:
+        enum:
+        - HOME
+        - RECENT
+        - TRAVEL
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsReportMetrics_group_targeting_device_user_device:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_audience_custom_audiences:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_geographic_regions:
+      items:
+        $ref: '#/components/schemas/RegionTarget'
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content_video_excluded_youtube_channels:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_device:
+      properties:
+        carriers:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_device_carriers'
+        types:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_device_types'
+        user_device:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_device_user_device'
+        user_os:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_device_user_os'
+      type: object
+    property_AdsCampaign_targeting_content_video_player_sizes:
+      items:
+        enum:
+        - SMALL
+        - LARGE
+        - HD
+        type: string
+        x-speakeasy-unknown-values: allow
+      type: array
+    property_AdsReportMetrics_campaign_targeting_audience_excluded_behaviors:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    AudienceSegment:
+      description: 'Audience targeting (Meta: custom_audiences, lookalike_audiences, flexible_spec)'
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - id
+      type: object
+    property_AdsCampaign_targeting_brand_safety:
+      description: 'Brand safety (Meta: excluded_publisher_categories, etc.; Google'
+      properties:
+        block_list_ids:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety_block_list_ids'
+        brand_safety_content_filter_levels:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety_brand_safety_content_filter_levels'
+        excluded_content_labels:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety_excluded_content_labels'
+        excluded_publisher_categories:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety_excluded_publisher_categories'
+        publisher_visibility_categories:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety_publisher_visibility_categories'
+      type: object
+    property_AdsReportMetrics_ad_promoted:
       items:
         $ref: '#/components/schemas/AdsPromoted'
       type: array
-    property_AdsReportMetrics_group_targeting_geographic_us_dmas:
+    AdsCampaigns:
+      items:
+        $ref: '#/components/schemas/AdsCampaign'
+      type: array
+    property_AdsGroup_targeting_geographic_countries:
       items:
         type: string
       type: array
-    property_AdsGroup_frequency_cap:
+    property_AdsGroup_targeting_geographic:
       properties:
-        is_unlimited:
-          type: boolean
-        max_impressions:
-          type: number
-        max_views:
-          type: number
-        time_unit:
+        cities:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_cities'
+        countries:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_countries'
+        excluded_cities:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_excluded_cities'
+        excluded_countries:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_excluded_countries'
+        excluded_postal_codes:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_excluded_postal_codes'
+        excluded_regions:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_excluded_regions'
+        excluded_us_dmas:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_excluded_us_dmas'
+        location_types:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_location_types'
+        postal_codes:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_postal_codes'
+        presence_type:
           enum:
-          - UNSPECIFIED
-          - LIFETIME
-          - MONTHS
-          - WEEKS
-          - DAYS
-          - HOURS
-          - MINUTES
+          - PRESENCE
+          - PRESENCE_OR_INTEREST
           type: string
           x-speakeasy-unknown-values: allow
-        time_unit_count:
-          type: number
+        regions:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_regions'
+        us_dmas:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_us_dmas'
       type: object
-    property_AdsReportMetrics_group_targeting_content_video_youtube_channels:
+    property_AdsReportMetrics_group_targeting_language_locale_ids:
+      items:
+        type: number
+      type: array
+    property_AdsReportMetrics_campaign_targeting_device_user_device:
       items:
         type: string
       type: array
-    property_AdsReportMetrics_campaign_targeting_geographic_excluded_postal_codes:
+    property_AudienceCombination_interests:
+      items:
+        $ref: '#/components/schemas/AudienceSegment'
+      type: array
+    property_AdsCampaign_targeting_brand_safety_block_list_ids:
       items:
         type: string
       type: array
-    property_AdsReportMetrics_campaign_targeting_geographic_countries:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_device_user_os:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_group_targeting_schedule:
-      items:
-        $ref: '#/components/schemas/AdSchedule'
-      type: array
-    AdsReport:
+    property_AdsCampaign_targeting_geographic:
       properties:
-        created_at:
-          format: date-time
+        cities:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_cities'
+        countries:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_countries'
+        excluded_cities:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_excluded_cities'
+        excluded_countries:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_excluded_countries'
+        excluded_postal_codes:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_excluded_postal_codes'
+        excluded_regions:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_excluded_regions'
+        excluded_us_dmas:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_excluded_us_dmas'
+        location_types:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_location_types'
+        postal_codes:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_postal_codes'
+        presence_type:
+          enum:
+          - PRESENCE
+          - PRESENCE_OR_INTEREST
           type: string
-        currency:
-          type: string
-        end_at:
-          format: date-time
-          type: string
-        id:
-          type: string
-        metrics:
-          $ref: '#/components/schemas/property_AdsReport_metrics'
-        organization_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        start_at:
-          format: date-time
-          type: string
-        updated_at:
-          format: date-time
-          type: string
+          x-speakeasy-unknown-values: allow
+        regions:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_regions'
+        us_dmas:
+          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic_us_dmas'
       type: object
+    AdsOrganizations:
+      items:
+        $ref: '#/components/schemas/AdsOrganization'
+      type: array
     property_AdsReportMetrics_group_bid_strategy:
       description: YOUTUBE_AND_PARTNERS
       properties:
@@ -4321,21 +5557,21 @@ components:
       required:
       - type
       type: object
-    property_AdsReportMetrics_group_targeting_demographic:
-      description: 'Demographic targeting (Meta: age_min, age_max, genders)'
-      properties:
-        age_max:
-          type: number
-        age_min:
-          type: number
-        female:
-          type: boolean
-        male:
-          type: boolean
-      type: object
-    property_AdsReportMetrics_group_targeting_audience_excluded_interests:
+    property_AdsGroup_targeting_placement_audience_network_positions:
       items:
-        $ref: '#/components/schemas/AudienceSegment'
+        type: string
+      type: array
+    property_AdsCampaign_targeting_geographic_postal_codes:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_creative_ids:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_group_targeting_geographic_excluded_cities:
+      items:
+        $ref: '#/components/schemas/CityTarget'
       type: array
     AdsInsertionorder:
       properties:
@@ -4386,13 +5622,143 @@ components:
           format: date-time
           type: string
       type: object
-    property_AdsGroup_targeting_placement_facebook_positions:
+    property_AdsReportMetrics_campaign_targeting_placement_facebook_positions:
       items:
         type: string
       type: array
-    property_AdsCampaign_targeting_audience_excluded_behaviors:
+    property_AdsGroup_targeting_brand_safety_excluded_content_labels:
+      description: Google Ads ContentLabelType
       items:
-        $ref: '#/components/schemas/AudienceSegment'
+        type: string
+      type: array
+    property_AdsCreative_asset_urls:
+      description: Hosted asset mode (best-effort, provider-specific
+      items:
+        type: string
+      type: array
+    property_AdsCampaign_targeting_geographic_us_dmas:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_placement:
+      properties:
+        audience_network_positions:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_placement_audience_network_positions'
+        facebook_positions:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_placement_facebook_positions'
+        instagram_positions:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_placement_instagram_positions'
+        messenger_positions:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_placement_messenger_positions'
+        platforms:
+          $ref: '#/components/schemas/property_AdsGroup_targeting_placement_platforms'
+      type: object
+    property_AdsGroup_frequency_cap:
+      properties:
+        is_unlimited:
+          type: boolean
+        max_impressions:
+          type: number
+        max_views:
+          type: number
+        time_unit:
+          enum:
+          - UNSPECIFIED
+          - LIFETIME
+          - MONTHS
+          - WEEKS
+          - DAYS
+          - HOURS
+          - MINUTES
+          type: string
+          x-speakeasy-unknown-values: allow
+        time_unit_count:
+          type: number
+      type: object
+    property_AdsReportMetrics_group_targeting_geographic_cities:
+      items:
+        $ref: '#/components/schemas/CityTarget'
+      type: array
+    AdsGroups:
+      items:
+        $ref: '#/components/schemas/AdsGroup'
+      type: array
+    property_AdsReportMetrics_group_targeting_placement:
+      properties:
+        audience_network_positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement_audience_network_positions'
+        facebook_positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement_facebook_positions'
+        instagram_positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement_instagram_positions'
+        messenger_positions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement_messenger_positions'
+        platforms:
+          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement_platforms'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_geographic:
+      properties:
+        cities:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_cities'
+        countries:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_countries'
+        excluded_cities:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_excluded_cities'
+        excluded_countries:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_excluded_countries'
+        excluded_postal_codes:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_excluded_postal_codes'
+        excluded_regions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_excluded_regions'
+        excluded_us_dmas:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_excluded_us_dmas'
+        location_types:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_location_types'
+        postal_codes:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_postal_codes'
+        presence_type:
+          enum:
+          - PRESENCE
+          - PRESENCE_OR_INTEREST
+          type: string
+          x-speakeasy-unknown-values: allow
+        regions:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_regions'
+        us_dmas:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_geographic_us_dmas'
+      type: object
+    property_AdsReportMetrics_group_targeting_content_urls:
+      items:
+        type: string
+      type: array
+    property_AdsGroup_targeting_audience_combination_spec:
+      items:
+        $ref: '#/components/schemas/AudienceCombination'
+      type: array
+    property_AdsCampaign_targeting_device_user_os:
+      items:
+        type: string
+      type: array
+    property_AdsReportMetrics_campaign_targeting_content:
+      properties:
+        excluded_keywords:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_excluded_keywords'
+        excluded_topics:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_excluded_topics'
+        excluded_urls:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_excluded_urls'
+        keywords:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_keywords'
+        topics:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_topics'
+        urls:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_urls'
+        video:
+          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video'
+      type: object
+    property_AdsReportMetrics_campaign_targeting_geographic_us_dmas:
+      items:
+        type: string
       type: array
     property_AdsReportMetrics_campaign_targeting:
       properties:
@@ -4417,341 +5783,14 @@ components:
         schedule:
           $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_schedule'
       type: object
-    property_AdsGroup_targeting_placement_instagram_positions:
+    property_AdsReportMetrics_group_targeting_placement_platforms:
       items:
         type: string
       type: array
-    property_AdsReportMetrics_group_targeting_audience_behaviors:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsCampaign_targeting_device_types:
+    property_AdsReportMetrics_group_targeting_geographic_excluded_postal_codes:
       items:
         type: string
       type: array
-    property_AdsReportMetrics_campaign_targeting_brand_safety_excluded_publisher_categories:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_group_targeting_language_locale_ids:
-      items:
-        type: number
-      type: array
-    property_AdsReportMetrics_campaign_targeting_geographic_location_types:
-      items:
-        enum:
-        - HOME
-        - RECENT
-        - TRAVEL
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    property_AdsGroup_targeting_device:
-      properties:
-        carriers:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_device_carriers'
-        types:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_device_types'
-        user_device:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_device_user_device'
-        user_os:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_device_user_os'
-      type: object
-    property_AdsReportMetrics_group_targeting_content_excluded_urls:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_content_video_youtube_videos:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_content_keywords:
-      items:
-        $ref: '#/components/schemas/AdsKeyword'
-      type: array
-    property_AdsCampaign_targeting_placement_instagram_positions:
-      items:
-        type: string
-      type: array
-    property_AdsGroup_targeting_audience_interests:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsGroup_targeting_geographic_countries:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_placement_messenger_positions:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_group_targeting_brand_safety:
-      description: 'Brand safety (Meta: excluded_publisher_categories, etc.; Google'
-      properties:
-        block_list_ids:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety_block_list_ids'
-        brand_safety_content_filter_levels:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety_brand_safety_content_filter_levels'
-        excluded_content_labels:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety_excluded_content_labels'
-        excluded_publisher_categories:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety_excluded_publisher_categories'
-        publisher_visibility_categories:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety_publisher_visibility_categories'
-      type: object
-    property_AdsCampaign_targeting:
-      properties:
-        audience:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_audience'
-        brand_safety:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety'
-        content:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_content'
-        demographic:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_demographic'
-        device:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_device'
-        geographic:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_geographic'
-        language:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_language'
-        optimization:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_optimization'
-        placement:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement'
-        schedule:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_schedule'
-      type: object
-    property_AdsCampaign_targeting_optimization:
-      description: 'Optimization (Meta: targeting_automation; Google: observation vs targeting mode)'
-      properties:
-        advantage_audience:
-          type: boolean
-        advantage_placements:
-          type: boolean
-        mode:
-          enum:
-          - TARGETING
-          - OBSERVATION
-          type: string
-          x-speakeasy-unknown-values: allow
-        targeting_optimization_expansion_all:
-          type: boolean
-      type: object
-    property_AdsGroup_targeting_geographic_excluded_cities:
-      items:
-        $ref: '#/components/schemas/CityTarget'
-      type: array
-    property_AdsReportMetrics_campaign_targeting_device:
-      properties:
-        carriers:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_device_carriers'
-        types:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_device_types'
-        user_device:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_device_user_device'
-        user_os:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_device_user_os'
-      type: object
-    property_AdsCampaign_targeting_brand_safety_publisher_visibility_categories:
-      items:
-        enum:
-        - limited
-        - standard
-        - expanded
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    property_AdsCampaign_targeting_language_locale_ids:
-      items:
-        type: number
-      type: array
-    property_AdsCampaign_targeting_language_codes:
-      items:
-        type: string
-      type: array
-    LookalikeAudience:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        similarity:
-          type: number
-        source_audience_id:
-          type: string
-      required:
-      - id
-      type: object
-    property_AdsGroup_targeting_geographic:
-      properties:
-        cities:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_cities'
-        countries:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_countries'
-        excluded_cities:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_excluded_cities'
-        excluded_countries:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_excluded_countries'
-        excluded_postal_codes:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_excluded_postal_codes'
-        excluded_regions:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_excluded_regions'
-        excluded_us_dmas:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_excluded_us_dmas'
-        location_types:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_location_types'
-        postal_codes:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_postal_codes'
-        presence_type:
-          enum:
-          - PRESENCE
-          - PRESENCE_OR_INTEREST
-          type: string
-          x-speakeasy-unknown-values: allow
-        regions:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_regions'
-        us_dmas:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_geographic_us_dmas'
-      type: object
-    property_AdsReportMetrics_campaign_targeting_placement:
-      properties:
-        audience_network_positions:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_placement_audience_network_positions'
-        facebook_positions:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_placement_facebook_positions'
-        instagram_positions:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_placement_instagram_positions'
-        messenger_positions:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_placement_messenger_positions'
-        platforms:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_placement_platforms'
-      type: object
-    property_AdsReportMetrics_group_targeting_geographic:
-      properties:
-        cities:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_cities'
-        countries:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_countries'
-        excluded_cities:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_excluded_cities'
-        excluded_countries:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_excluded_countries'
-        excluded_postal_codes:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_excluded_postal_codes'
-        excluded_regions:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_excluded_regions'
-        excluded_us_dmas:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_excluded_us_dmas'
-        location_types:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_location_types'
-        postal_codes:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_postal_codes'
-        presence_type:
-          enum:
-          - PRESENCE
-          - PRESENCE_OR_INTEREST
-          type: string
-          x-speakeasy-unknown-values: allow
-        regions:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_regions'
-        us_dmas:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic_us_dmas'
-      type: object
-    property_AdsCampaign_targeting_device:
-      properties:
-        carriers:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_device_carriers'
-        types:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_device_types'
-        user_device:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_device_user_device'
-        user_os:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_device_user_os'
-      type: object
-    property_AdsReportMetrics_group_targeting_audience_lookalike_audiences:
-      items:
-        $ref: '#/components/schemas/LookalikeAudience'
-      type: array
-    property_AdsReportMetrics_group_targeting_placement_instagram_positions:
-      items:
-        type: string
-      type: array
-    AudienceCombination:
-      properties:
-        behaviors:
-          $ref: '#/components/schemas/property_AudienceCombination_behaviors'
-        demographics:
-          $ref: '#/components/schemas/property_AudienceCombination_demographics'
-        interests:
-          $ref: '#/components/schemas/property_AudienceCombination_interests'
-        life_events:
-          $ref: '#/components/schemas/property_AudienceCombination_life_events'
-      type: object
-    property_AdsCampaign_targeting_brand_safety:
-      description: 'Brand safety (Meta: excluded_publisher_categories, etc.; Google'
-      properties:
-        block_list_ids:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety_block_list_ids'
-        brand_safety_content_filter_levels:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety_brand_safety_content_filter_levels'
-        excluded_content_labels:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety_excluded_content_labels'
-        excluded_publisher_categories:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety_excluded_publisher_categories'
-        publisher_visibility_categories:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_brand_safety_publisher_visibility_categories'
-      type: object
-    property_AdsCampaign_targeting_content_video_excluded_youtube_videos:
-      items:
-        type: string
-      type: array
-    property_AdsGroup_targeting_geographic_excluded_us_dmas:
-      items:
-        type: string
-      type: array
-    property_AdsGroup_targeting_geographic_cities:
-      items:
-        $ref: '#/components/schemas/CityTarget'
-      type: array
-    property_AdsReportMetrics_campaign_targeting_content_excluded_topics:
-      items:
-        type: string
-      type: array
-    property_AdsGroup_targeting_content_keywords:
-      items:
-        $ref: '#/components/schemas/AdsKeyword'
-      type: array
-    property_AdsCampaign_targeting_placement_facebook_positions:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_content_video_excluded_youtube_channels:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_frequency_cap:
-      properties:
-        is_unlimited:
-          type: boolean
-        max_impressions:
-          type: number
-        max_views:
-          type: number
-        time_unit:
-          enum:
-          - UNSPECIFIED
-          - LIFETIME
-          - MONTHS
-          - WEEKS
-          - DAYS
-          - HOURS
-          - MINUTES
-          type: string
-          x-speakeasy-unknown-values: allow
-        time_unit_count:
-          type: number
-      type: object
     property_AdsGroup_targeting_brand_safety:
       description: 'Brand safety (Meta: excluded_publisher_categories, etc.; Google'
       properties:
@@ -4766,229 +5805,21 @@ components:
         publisher_visibility_categories:
           $ref: '#/components/schemas/property_AdsGroup_targeting_brand_safety_publisher_visibility_categories'
       type: object
-    property_AdsReportMetrics_group_targeting_language:
-      description: Language targeting (Meta
+    property_AdsGroup_targeting_demographic:
+      description: 'Demographic targeting (Meta: age_min, age_max, genders)'
       properties:
-        codes:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_language_codes'
-        locale_ids:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_language_locale_ids'
-      type: object
-    property_AdsReportMetrics_group_targeting_content_keywords:
-      items:
-        $ref: '#/components/schemas/AdsKeyword'
-      type: array
-    property_AdsGroup_targeting_content_video_youtube_channels:
-      items:
-        type: string
-      type: array
-    AdsReportMetrics:
-      properties:
-        ad:
-          $ref: '#/components/schemas/property_AdsReportMetrics_ad'
-        campaign:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign'
-        group:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group'
-        type:
-          enum:
-          - CLICKS
-          - IMPRESSIONS
-          - CONVERSIONS
-          - COST
-          - CTR
-          - CPC
-          - CONVERSION_VALUE
-          - CPA
-          - ROAS
-          - CPM
-          - ECPM
-          - ENGAGEMENT
-          - VIDEO_COMPLETIONS
-          - VIDEO_VIEWS
-          - LEADS
-          - ENGAGEMENTS
-          - SAVES
-          - LIKES
-          - SHARES
-          - COMMENTS
-          - FOLLOWS
-          type: string
-          x-speakeasy-unknown-values: allow
-        value:
+        age_max:
           type: number
+        age_min:
+          type: number
+        female:
+          type: boolean
+        male:
+          type: boolean
       type: object
-    property_AdsReportMetrics_campaign_targeting_audience_custom_audiences:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsReportMetrics_group_targeting_geographic_excluded_us_dmas:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_brand_safety_publisher_visibility_categories:
-      items:
-        enum:
-        - limited
-        - standard
-        - expanded
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    property_AdsReportMetrics_ad:
-      properties:
-        ad_copy:
-          type: string
-        ad_type:
-          enum:
-          - TEXT
-          - IMAGE
-          - VIDEO
-          - RESPONSIVE
-          - SHOPPING
-          - APP
-          - CALL
-          - CAROUSEL
-          - SOCIAL
-          - DISPLAY
-          - SEARCH
-          - AUDIO
-          - YOUTUBE
-          type: string
-          x-speakeasy-unknown-values: allow
-        campaign_id:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        creative_asset_url:
-          type: string
-        creative_ids:
-          $ref: '#/components/schemas/property_AdsReportMetrics_ad_creative_ids'
-        cta:
-          type: string
-        description:
-          type: string
-        display_url:
-          type: string
-        final_url:
-          type: string
-        group_id:
-          type: string
-        headline:
-          type: string
-        id:
-          type: string
-        name:
-          type: string
-        organization_id:
-          type: string
-        path1:
-          type: string
-        path2:
-          type: string
-        promoted:
-          $ref: '#/components/schemas/property_AdsReportMetrics_ad_promoted'
-        raw:
-          additionalProperties: true
-          type: object
-        status:
-          enum:
-          - UNSPECIFIED
-          - ACTIVE
-          - PAUSED
-          - ARCHIVED
-          - DRAFT
-          - SCHEDULED_FOR_DELETION
-          type: string
-          x-speakeasy-unknown-values: allow
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    property_AdsCampaign_targeting_placement_platforms:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_group_promoted:
+    property_AdsCreative_promoted:
       items:
         $ref: '#/components/schemas/AdsPromoted'
-      type: array
-    property_AdsReportMetrics_group_targeting_content_video_youtube_videos:
-      items:
-        type: string
-      type: array
-    CityTarget:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        radius:
-          type: number
-        radius_unit:
-          enum:
-          - MILES
-          - KILOMETERS
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - id
-      type: object
-    RegionTarget:
-      description: states, provinces, regions
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-      required:
-      - id
-      type: object
-    property_AdsReportMetrics_campaign_targeting_placement_platforms:
-      items:
-        type: string
-      type: array
-    property_AdsGroup_targeting_audience_excluded_behaviors:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsReportMetrics_campaign_targeting_content_video:
-      properties:
-        durations:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_durations'
-        excluded_youtube_channels:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_excluded_youtube_channels'
-        excluded_youtube_videos:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_excluded_youtube_videos'
-        player_sizes:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_player_sizes'
-        positions:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_positions'
-        youtube_channels:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_youtube_channels'
-        youtube_videos:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_content_video_youtube_videos'
-      type: object
-    property_AdsGroup_targeting_content_topics:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_geographic_cities:
-      items:
-        $ref: '#/components/schemas/CityTarget'
-      type: array
-    property_AdsGroup_targeting_placement_messenger_positions:
-      items:
-        type: string
-      type: array
-    property_AdsAd_promoted:
-      items:
-        $ref: '#/components/schemas/AdsPromoted'
-      type: array
-    property_AdsGroup_targeting_geographic_us_dmas:
-      items:
-        type: string
       type: array
     property_AdsGroup_targeting_content_video_positions:
       items:
@@ -5001,368 +5832,59 @@ components:
         type: string
         x-speakeasy-unknown-values: allow
       type: array
-    property_AdsInsertionorder_pacing:
+    property_AdsCampaign_targeting_geographic_excluded_cities:
+      items:
+        $ref: '#/components/schemas/CityTarget'
+      type: array
+    property_AdsReportMetrics_group_targeting_content_keywords:
+      items:
+        $ref: '#/components/schemas/AdsKeyword'
+      type: array
+    AdsReports:
+      items:
+        $ref: '#/components/schemas/AdsReport'
+      type: array
+    property_AdsGroup_targeting_brand_safety_excluded_publisher_categories:
+      items:
+        type: string
+      type: array
+    property_AdsInsertionorder_kpi:
       properties:
-        daily_max_amount:
-          type: number
-        daily_max_impressions:
-          type: number
-        period:
-          enum:
-          - UNSPECIFIED
-          - DAILY
-          - FLIGHT
+        algorithm_id:
           type: string
-          x-speakeasy-unknown-values: allow
+        amount:
+          type: number
+        percentage:
+          type: number
+        string_value:
+          type: string
         type:
-          type: string
-      type: object
-    property_AdsReportMetrics_group_targeting_audience_interests:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsReportMetrics_campaign_frequency_cap:
-      properties:
-        is_unlimited:
-          type: boolean
-        max_impressions:
-          type: number
-        max_views:
-          type: number
-        time_unit:
           enum:
           - UNSPECIFIED
-          - LIFETIME
-          - MONTHS
-          - WEEKS
-          - DAYS
-          - HOURS
-          - MINUTES
-          type: string
-          x-speakeasy-unknown-values: allow
-        time_unit_count:
-          type: number
-      type: object
-    AdsTargets:
-      items:
-        $ref: '#/components/schemas/AdsTarget'
-      type: array
-    property_AdsCampaign_targeting_content_video_durations:
-      items:
-        enum:
-        - SHORT
-        - MEDIUM
-        - LONG
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    AdSchedule:
-      properties:
-        bid_modifier:
-          type: number
-        day_of_week:
-          enum:
-          - MONDAY
-          - TUESDAY
-          - WEDNESDAY
-          - THURSDAY
-          - FRIDAY
-          - SATURDAY
-          - SUNDAY
-          type: string
-          x-speakeasy-unknown-values: allow
-        end_hour:
-          type: number
-        end_minute:
-          type: number
-        start_hour:
-          type: number
-        start_minute:
-          type: number
-      required:
-      - day_of_week
-      - start_hour
-      - end_hour
-      type: object
-    property_AdsReportMetrics_campaign_targeting_audience_excluded_custom_audiences:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsGroup_targeting_geographic_excluded_regions:
-      items:
-        $ref: '#/components/schemas/RegionTarget'
-      type: array
-    property_AdsReportMetrics_campaign_targeting_audience_interests:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsCampaign_targeting_content_video_player_sizes:
-      items:
-        enum:
-        - SMALL
-        - LARGE
-        - HD
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    property_AdsReportMetrics_group_targeting_geographic_excluded_countries:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_geographic_excluded_us_dmas:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_geographic_regions:
-      items:
-        $ref: '#/components/schemas/RegionTarget'
-      type: array
-    property_AdsReportMetrics_campaign_targeting_language_codes:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_brand_safety_excluded_content_labels:
-      description: Google Ads ContentLabelType
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_group_targeting_device_user_os:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_placement_facebook_positions:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_content_urls:
-      items:
-        type: string
-      type: array
-    property_AdsGroup_bid_strategy:
-      description: YOUTUBE_AND_PARTNERS
-      properties:
-        custom_bidding_algorithm_id:
-          type: string
-        fixed_bid_amount:
-          type: number
-        max_average_cpm_bid_amount:
-          type: number
-        performance_goal_amount:
-          type: number
-        performance_goal_type:
-          enum:
-          - UNSPECIFIED
-          - CPA
+          - CPM
           - CPC
-          - VIEWABLE_CPM
-          - CUSTOM_ALGO
-          - CIVA
-          - IVO_TEN
-          - AV_VIEWED
-          - REACH
+          - CPA
+          - CTR
+          - VIEWABILITY
+          - CPIAVC
+          - CPE
+          - CPV
+          - CLICK_CVR
+          - IMPRESSION_CVR
+          - VCPM
+          - VTR
+          - AUDIO_COMPLETION_RATE
+          - VIDEO_COMPLETION_RATE
+          - CPCL
+          - CPCV
+          - TOS10
+          - MAXIMIZE_PACING
+          - CUSTOM_IMPRESSION_VALUE_OVER_COST
+          - OTHER
           type: string
           x-speakeasy-unknown-values: allow
-        raise_bid_for_deals:
-          type: boolean
-        target_roas:
-          type: number
-        type:
-          enum:
-          - FIXED_BID
-          - MAXIMIZE_SPEND
-          - PERFORMANCE_GOAL
-          - YOUTUBE_AND_PARTNERS
-          type: string
-          x-speakeasy-unknown-values: allow
-        youtube_and_partners_type:
-          enum:
-          - UNSPECIFIED
-          - MANUAL_CPV
-          - MANUAL_CPM
-          - TARGET_CPA
-          - TARGET_CPM
-          - RESERVE_CPM
-          - MAXIMIZE_LIFT
-          - MAXIMIZE_CONVERSIONS
-          - TARGET_CPV
-          - TARGET_ROAS
-          - MAXIMIZE_CONVERSION_VALUE
-          type: string
-          x-speakeasy-unknown-values: allow
-        youtube_and_partners_value:
-          type: string
-      required:
-      - type
       type: object
-    property_AdsGroup_targeting_audience_behaviors:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    AdsTarget:
-      description: Targeting search result (for ads_target list endpoint)
-      properties:
-        id:
-          type: string
-        is_active:
-          type: boolean
-        name:
-          type: string
-        parent_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        type:
-          enum:
-          - INTEREST
-          - BEHAVIOR
-          - LOCALE
-          - COUNTRY
-          - REGION
-          - CITY
-          - ZIP
-          - US_DMA
-          - TOPIC
-          - USER_LIST
-          - AGE_RANGE
-          - GENDER
-          - CARRIER
-          - DEVICE_MODEL
-          - OS_VERSION
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - id
-      type: object
-    property_AdsGroup_creative_ids:
-      items:
-        type: string
-      type: array
-    property_AdsAd_creative_ids:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_group_targeting_brand_safety_brand_safety_content_filter_levels:
-      items:
-        type: string
-      type: array
-    AdsPromoted:
-      description: Promoted entity (e.g. page, app, product, tweet) for ads create
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        type:
-          enum:
-          - PAGE_ID
-          - APP_ID
-          - STORE_URL
-          - PIXEL_ID
-          - CUSTOM_CONVERSION_ID
-          - CATALOG_ID
-          - PRODUCT_SET_ID
-          - PRIORITIZED_SET_ID
-          - EVENT_ID
-          - OFFER_ID
-          - LEAD_FORM_ID
-          - MESSAGING_CHANNEL_ID
-          - PRODUCT_ID
-          - TWEET_ID
-          - AD_GROUP_TYPE
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - id
-      - type
-      type: object
-    AdsGroups:
-      items:
-        $ref: '#/components/schemas/AdsGroup'
-      type: array
-    property_AdsGroup_targeting_device_user_device:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_group_targeting_geographic_excluded_postal_codes:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_group_targeting_geographic_excluded_cities:
-      items:
-        $ref: '#/components/schemas/CityTarget'
-      type: array
-    property_AdsReportMetrics_campaign_targeting_geographic_excluded_regions:
-      items:
-        $ref: '#/components/schemas/RegionTarget'
-      type: array
-    property_AdsReportMetrics_campaign_targeting_language_locale_ids:
-      items:
-        type: number
-      type: array
-    property_AdsReportMetrics_group_targeting_placement_messenger_positions:
-      items:
-        type: string
-      type: array
-    AdsCreatives:
-      items:
-        $ref: '#/components/schemas/AdsCreative'
-      type: array
-    property_AdsReportMetrics_group_targeting:
-      properties:
-        audience:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience'
-        brand_safety:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_brand_safety'
-        content:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_content'
-        demographic:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_demographic'
-        device:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_device'
-        geographic:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_geographic'
-        language:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_language'
-        optimization:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_optimization'
-        placement:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement'
-        schedule:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_schedule'
-      type: object
-    property_AdsCampaign_targeting_geographic_excluded_regions:
-      items:
-        $ref: '#/components/schemas/RegionTarget'
-      type: array
-    property_AdsGroup_targeting_language:
-      description: Language targeting (Meta
-      properties:
-        codes:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_language_codes'
-        locale_ids:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_language_locale_ids'
-      type: object
-    property_AdsReportMetrics_group_targeting_geographic_cities:
-      items:
-        $ref: '#/components/schemas/CityTarget'
-      type: array
-    property_AdsCampaign_targeting_placement_audience_network_positions:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_device_user_device:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_device_user_device:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_group_targeting_content_video_positions:
+    property_AdsReportMetrics_campaign_targeting_content_video_positions:
       items:
         enum:
         - PREROLL
@@ -5373,528 +5895,6 @@ components:
         type: string
         x-speakeasy-unknown-values: allow
       type: array
-    property_AdsReportMetrics_group_targeting_content_video_player_sizes:
-      items:
-        enum:
-        - SMALL
-        - LARGE
-        - HD
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    property_AdsGroup_targeting_audience_excluded_interests:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsReportMetrics_group_targeting_content_excluded_keywords:
-      items:
-        $ref: '#/components/schemas/AdsKeyword'
-      type: array
-    property_AdsCampaign_targeting_content_urls:
-      items:
-        type: string
-      type: array
-    property_AdsGroup_targeting_content_excluded_urls:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_ad_creative_ids:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_audience_custom_audiences:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsCampaign_targeting_content:
-      properties:
-        excluded_keywords:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_excluded_keywords'
-        excluded_topics:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_excluded_topics'
-        excluded_urls:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_excluded_urls'
-        keywords:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_keywords'
-        topics:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_topics'
-        urls:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_urls'
-        video:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_content_video'
-      type: object
-    property_AdsReportMetrics_group_targeting_placement_audience_network_positions:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_geographic_postal_codes:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_brand_safety_brand_safety_content_filter_levels:
-      items:
-        type: string
-      type: array
-    property_AdsCreative_asset_urls:
-      description: Hosted asset mode (best-effort, provider-specific
-      items:
-        type: string
-      type: array
-    property_AdsGroup_targeting_content_video_excluded_youtube_channels:
-      items:
-        type: string
-      type: array
-    property_AdsGroup_targeting_audience_excluded_custom_audiences:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsReportMetrics_group_targeting_placement:
-      properties:
-        audience_network_positions:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement_audience_network_positions'
-        facebook_positions:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement_facebook_positions'
-        instagram_positions:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement_instagram_positions'
-        messenger_positions:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement_messenger_positions'
-        platforms:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_placement_platforms'
-      type: object
-    property_AdsReportMetrics_campaign_targeting_content_video_durations:
-      items:
-        enum:
-        - SHORT
-        - MEDIUM
-        - LONG
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    property_AdsCampaign_targeting_audience_lookalike_audiences:
-      items:
-        $ref: '#/components/schemas/LookalikeAudience'
-      type: array
-    AdsCampaigns:
-      items:
-        $ref: '#/components/schemas/AdsCampaign'
-      type: array
-    property_AdsReportMetrics_campaign_targeting_audience:
-      properties:
-        behaviors:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_behaviors'
-        combination_spec:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_combination_spec'
-        custom_audiences:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_custom_audiences'
-        excluded_behaviors:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_excluded_behaviors'
-        excluded_custom_audiences:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_excluded_custom_audiences'
-        excluded_interests:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_excluded_interests'
-        interests:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_interests'
-        lookalike_audiences:
-          $ref: '#/components/schemas/property_AdsReportMetrics_campaign_targeting_audience_lookalike_audiences'
-      type: object
-    AdsReports:
-      items:
-        $ref: '#/components/schemas/AdsReport'
-      type: array
-    AdsAds:
-      items:
-        $ref: '#/components/schemas/AdsAd'
-      type: array
-    property_AdsCampaign_targeting_brand_safety_excluded_publisher_categories:
-      items:
-        type: string
-      type: array
-    property_AudienceCombination_interests:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsGroup_targeting_content_video:
-      properties:
-        durations:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_durations'
-        excluded_youtube_channels:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_excluded_youtube_channels'
-        excluded_youtube_videos:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_excluded_youtube_videos'
-        player_sizes:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_player_sizes'
-        positions:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_positions'
-        youtube_channels:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_youtube_channels'
-        youtube_videos:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video_youtube_videos'
-      type: object
-    property_AudienceCombination_demographics:
-      items:
-        $ref: '#/components/schemas/AudienceSegment'
-      type: array
-    property_AdsGroup_targeting_content_video_youtube_videos:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_device_user_os:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_group_targeting_geographic_excluded_regions:
-      items:
-        $ref: '#/components/schemas/RegionTarget'
-      type: array
-    property_AdsReportMetrics_group_targeting_placement_facebook_positions:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_content_video_excluded_youtube_videos:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_content_excluded_keywords:
-      items:
-        $ref: '#/components/schemas/AdsKeyword'
-      type: array
-    property_AdsGroup_pacing:
-      properties:
-        daily_max_amount:
-          type: number
-        daily_max_impressions:
-          type: number
-        period:
-          enum:
-          - UNSPECIFIED
-          - DAILY
-          - FLIGHT
-          type: string
-          x-speakeasy-unknown-values: allow
-        type:
-          type: string
-      type: object
-    property_AdsCampaign_targeting_geographic_excluded_postal_codes:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_content_topics:
-      items:
-        type: string
-      type: array
-    AdsKeyword:
-      description: Content targeting (keywords, topics, placements, video)
-      properties:
-        match_type:
-          enum:
-          - BROAD
-          - PHRASE
-          - EXACT
-          type: string
-          x-speakeasy-unknown-values: allow
-        text:
-          type: string
-      required:
-      - text
-      type: object
-    property_AdsReportMetrics_campaign_targeting_geographic_us_dmas:
-      items:
-        type: string
-      type: array
-    property_AdsInsertionorder_frequency_cap:
-      properties:
-        is_unlimited:
-          type: boolean
-        max_impressions:
-          type: number
-        max_views:
-          type: number
-        time_unit:
-          enum:
-          - UNSPECIFIED
-          - LIFETIME
-          - MONTHS
-          - WEEKS
-          - DAYS
-          - HOURS
-          - MINUTES
-          type: string
-          x-speakeasy-unknown-values: allow
-        time_unit_count:
-          type: number
-      type: object
-    property_AdsReportMetrics_group_targeting_geographic_countries:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_geographic_countries:
-      items:
-        type: string
-      type: array
-    property_AdsGroup_targeting_content:
-      properties:
-        excluded_keywords:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_content_excluded_keywords'
-        excluded_topics:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_content_excluded_topics'
-        excluded_urls:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_content_excluded_urls'
-        keywords:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_content_keywords'
-        topics:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_content_topics'
-        urls:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_content_urls'
-        video:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_content_video'
-      type: object
-    property_AdsGroup_targeting_audience:
-      properties:
-        behaviors:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_behaviors'
-        combination_spec:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_combination_spec'
-        custom_audiences:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_custom_audiences'
-        excluded_behaviors:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_excluded_behaviors'
-        excluded_custom_audiences:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_excluded_custom_audiences'
-        excluded_interests:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_excluded_interests'
-        interests:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_interests'
-        lookalike_audiences:
-          $ref: '#/components/schemas/property_AdsGroup_targeting_audience_lookalike_audiences'
-      type: object
-    property_AdsGroup_targeting_geographic_postal_codes:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_content_video_player_sizes:
-      items:
-        enum:
-        - SMALL
-        - LARGE
-        - HD
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    property_AdsReportMetrics_campaign_targeting_device_carriers:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_group_targeting_audience:
-      properties:
-        behaviors:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_behaviors'
-        combination_spec:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_combination_spec'
-        custom_audiences:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_custom_audiences'
-        excluded_behaviors:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_excluded_behaviors'
-        excluded_custom_audiences:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_excluded_custom_audiences'
-        excluded_interests:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_excluded_interests'
-        interests:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_interests'
-        lookalike_audiences:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_audience_lookalike_audiences'
-      type: object
-    property_AdsReportMetrics_campaign_targeting_content_excluded_keywords:
-      items:
-        $ref: '#/components/schemas/AdsKeyword'
-      type: array
-    property_AdsReportMetrics_group_targeting_device:
-      properties:
-        carriers:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_device_carriers'
-        types:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_device_types'
-        user_device:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_device_user_device'
-        user_os:
-          $ref: '#/components/schemas/property_AdsReportMetrics_group_targeting_device_user_os'
-      type: object
-    property_AdsGroup_targeting_geographic_location_types:
-      items:
-        enum:
-        - HOME
-        - RECENT
-        - TRAVEL
-        type: string
-        x-speakeasy-unknown-values: allow
-      type: array
-    property_AdsReportMetrics_group_targeting_language_codes:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_group_targeting_brand_safety_excluded_publisher_categories:
-      items:
-        type: string
-      type: array
-    AdsCreative:
-      properties:
-        asset_urls:
-          $ref: '#/components/schemas/property_AdsCreative_asset_urls'
-        body:
-          type: string
-        campaign_id:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        creative_type:
-          enum:
-          - UNSPECIFIED
-          - STANDARD
-          - EXPANDABLE
-          - VIDEO
-          - NATIVE
-          - AUDIO
-          - PUBLISHER_HOSTED
-          - ASSET_BASED
-          type: string
-          x-speakeasy-unknown-values: allow
-        cta:
-          type: string
-        external_ad_reference:
-          type: string
-        external_creative_reference:
-          type: string
-        external_placement_reference:
-          type: string
-        group_id:
-          type: string
-        height:
-          type: number
-        hosting_source:
-          enum:
-          - UNSPECIFIED
-          - CM
-          - THIRD_PARTY
-          - HOSTED
-          - RICH_MEDIA
-          - PUBLISHER_HOSTED
-          type: string
-          x-speakeasy-unknown-values: allow
-        id:
-          type: string
-        item_id:
-          type: string
-        link_url:
-          type: string
-        name:
-          type: string
-        organization_id:
-          type: string
-        path1:
-          type: string
-        path2:
-          type: string
-        promoted:
-          $ref: '#/components/schemas/property_AdsCreative_promoted'
-        raw:
-          additionalProperties: true
-          type: object
-        status:
-          enum:
-          - UNSPECIFIED
-          - ACTIVE
-          - PAUSED
-          - ARCHIVED
-          - DRAFT
-          - SCHEDULED_FOR_DELETION
-          type: string
-          x-speakeasy-unknown-values: allow
-        third_party_tag:
-          type: string
-        title:
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-        vast_tag_url:
-          type: string
-        width:
-          type: number
-      type: object
-    property_AdsReportMetrics_group_pacing:
-      properties:
-        daily_max_amount:
-          type: number
-        daily_max_impressions:
-          type: number
-        period:
-          enum:
-          - UNSPECIFIED
-          - DAILY
-          - FLIGHT
-          type: string
-          x-speakeasy-unknown-values: allow
-        type:
-          type: string
-      type: object
-    property_AdsReportMetrics_campaign_targeting_demographic:
-      description: 'Demographic targeting (Meta: age_min, age_max, genders)'
-      properties:
-        age_max:
-          type: number
-        age_min:
-          type: number
-        female:
-          type: boolean
-        male:
-          type: boolean
-      type: object
-    property_AdsGroup_targeting_placement_platforms:
-      items:
-        type: string
-      type: array
-    property_AdsReportMetrics_campaign_targeting_placement_audience_network_positions:
-      items:
-        type: string
-      type: array
-    property_AdsReport_metrics:
-      items:
-        $ref: '#/components/schemas/AdsReportMetrics'
-      type: array
-    property_AdsReportMetrics_campaign_targeting_placement_instagram_positions:
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_placement:
-      properties:
-        audience_network_positions:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement_audience_network_positions'
-        facebook_positions:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement_facebook_positions'
-        instagram_positions:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement_instagram_positions'
-        messenger_positions:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement_messenger_positions'
-        platforms:
-          $ref: '#/components/schemas/property_AdsCampaign_targeting_placement_platforms'
-      type: object
-    property_AdsGroup_targeting_brand_safety_excluded_content_labels:
-      description: Google Ads ContentLabelType
-      items:
-        type: string
-      type: array
-    property_AdsCampaign_targeting_demographic:
-      description: 'Demographic targeting (Meta: age_min, age_max, genders)'
-      properties:
-        age_max:
-          type: number
-        age_min:
-          type: number
-        female:
-          type: boolean
-        male:
-          type: boolean
-      type: object
   securitySchemes:
     jwt:
       in: header
