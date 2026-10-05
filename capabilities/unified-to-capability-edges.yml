@@ -1,0 +1,129 @@
+slug: unified-to
+provider: Unified.to
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 11
+edges:
+- tag: ATS
+  spec_file: unified-to-ats-api-openapi.yml
+  capability_id: BC-300.10
+  capability_id_l1: BC-300
+  capability_name: Talent Acquisition Management
+  confidence: 0.95
+  evidence: GET /ats/{connection_id}/application  listAtsApplications  List All Applications; schemas
+    AtsJobPosting, AtsCandidate..., AtsOffer compensation, AtsScorecardQuestion
+  reason: Unified applicant-tracking surface covering job postings, candidates, applications, scorecards
+    and offers — plainly recruiting/hiring, i.e. Talent Acquisition Management.
+- tag: Accounting
+  spec_file: unified-to-accounting-api-openapi.yml
+  capability_id: BC-200
+  capability_id_l1: BC-200
+  capability_name: Financial Management
+  confidence: 0.9
+  evidence: GET /accounting/{connection_id}/balancesheet  listAccountingBalancesheets; GET /accounting/{connection_id}/bill  listAccountingBills;
+    schemas AccountingProfitloss, AccountingJournalLineitem, AccountingTaxrates
+  reason: Unified accounting API over chart of accounts, bills, journals, balance sheets and P&L reports.
+    Clearly Financial Management, but it spans GL, payables, receivables and reporting so no single L2
+    is named.
+- tag: hris
+  spec_file: unified-to-hris-api-openapi.yml
+  capability_id: BC-300
+  capability_id_l1: BC-300
+  capability_name: Human Capital Management
+  confidence: 0.9
+  evidence: GET /hris/{connection_id}/benefit listHrisBenefits; schemas HrisPayslips, HrisTimeoff, HrisCompensation,
+    HrisEmployee
+  reason: Plainly an HRIS normalisation surface covering employees, groups, benefits, compensation, payslips
+    and time off. Spans several HCM sub-capabilities (benefits, payroll admin, records), so L1 only is
+    the honest level.
+- tag: Ads
+  spec_file: unified-to-ads-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.85
+  evidence: POST /ads/{connection_id}/campaign  createAdsCampaign  Create a Campaign; property_AdsCampaign_targeting_audience_behaviors,
+    property_AdsReportMetrics_group
+  reason: Manages paid advertising campaigns, ad groups, audience targeting and performance report metrics
+    across ad platforms — paid media / digital marketing execution. Slight overlap with demand generation
+    keeps it below 0.95.
+- tag: Shipping
+  spec_file: unified-to-shipping-api-openapi.yml
+  capability_id: BC-520.50
+  capability_id_l1: BC-520
+  capability_name: Logistics Operations Management
+  confidence: 0.85
+  evidence: POST /shipping/{connection_id}/shipment createShippingShipment  Create a Shipment; schemas
+    ShippingCarrier, ShippingTracking, ShippingRateRate
+  reason: Operations create shipments, buy carrier labels, quote rates and track parcels — transport execution,
+    i.e. Logistics Operations Management within supply chain.
+- tag: KMS
+  spec_file: unified-to-kms-api-openapi.yml
+  capability_id: BC-830
+  capability_id_l1: BC-830
+  capability_name: Knowledge Management
+  confidence: 0.8
+  evidence: GET /kms/{connection_id}/page  listKmsPages  List All Pages; schemas KmsSpace, KmsSpaces,
+    KmsComment
+  reason: Unified knowledge-management surface over spaces, pages and comments (wiki-style content), which
+    realises organisational knowledge capture, curation and sharing. Which L2 dominates is unclear from
+    the CRUD-only surface.
+- tag: Repo
+  spec_file: unified-to-repo-api-openapi.yml
+  capability_id: BC-4200.40
+  capability_id_l1: BC-4200
+  capability_name: Software Construction Management
+  confidence: 0.78
+  evidence: GET /repo/{connection_id}/commit listRepoCommits; schemas RepoPullrequest, RepoBranch, RepoRepository
+  reason: Unified source-code repository surface — branches, commits, pull requests, repositories — which
+    is source control and code review practice, i.e. Software Construction Management. Mapped to the software-engineering
+    L2 rather than generic IT because the objects are version-control primitives.
+- tag: Ticketing
+  spec_file: unified-to-ticketing-api-openapi.yml
+  capability_id: BC-430.10
+  capability_id_l1: BC-430
+  capability_name: Customer Inquiry Management
+  confidence: 0.78
+  evidence: schemas TicketingTicket, TicketingCustomer, TicketingNote; GET /ticketing/{connection_id}/customer
+    listTicketingCustomers
+  reason: 'Support-desk ticketing normalised across helpdesk vendors: tickets tied to customers, with
+    categories and notes — inbound customer inquiry capture and resolution.'
+- tag: genai
+  spec_file: unified-to-genai-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.72
+  evidence: POST /genai/{connection_id}/prompt createGenaiPrompt  Create a Prompt; GET /genai/{connection_id}/model
+    listGenaiModels
+  reason: Unified interface to generative AI models, prompts and embeddings — AI/ML model consumption
+    and lifecycle surface. No more specific candidate exists; confidence tempered because the surface
+    is thin (4 operations).
+- tag: CRM
+  spec_file: unified-to-crm-api-openapi.yml
+  capability_id: BC-410.30
+  capability_id_l1: BC-410
+  capability_name: Opportunity & Pipeline Management
+  confidence: 0.7
+  evidence: schemas CrmDeals, CrmPipelines, CrmStage, CrmLeads; GET /crm/{connection_id}/contact  listCrmContacts
+  reason: Unified CRM surface with leads, deals, pipelines and stages alongside contacts and companies
+    — the deal/pipeline objects point to opportunity and pipeline management, though the contact/company
+    objects also support customer data management, hence moderate confidence.
+- tag: Task
+  spec_file: unified-to-task-api-openapi.yml
+  capability_id: BC-900.30
+  capability_id_l1: BC-900
+  capability_name: Project Management
+  confidence: 0.7
+  evidence: GET /task/{connection_id}/project listTaskProjects  List All Projects; schemas TaskTask, property_TaskTask_assigned_user_ids
+  reason: Unified work-management surface over projects, tasks with assignees/followers and comments —
+    project execution and tracking. Some ambiguity (could be generic collaboration), hence moderate confidence.
