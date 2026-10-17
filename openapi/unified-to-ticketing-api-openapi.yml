@@ -1396,59 +1396,9 @@ paths:
       - Ticketing
 components:
   schemas:
-    TicketingTelephone:
-      properties:
-        telephone:
-          type: string
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          - FAX
-          - MOBILE
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - telephone
-      type: object
-    TicketingCategories:
+    TicketingNotes:
       items:
-        $ref: '#/components/schemas/TicketingCategory'
-      type: array
-    TicketingTickets:
-      items:
-        $ref: '#/components/schemas/TicketingTicket'
-      type: array
-    property_TicketingCustomer_tags:
-      items:
-        type: string
-      type: array
-    TicketingCategory:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        is_active:
-          type: boolean
-        name:
-          type: string
-        parent_id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        updated_at:
-          format: date-time
-          type: string
-      type: object
-    property_TicketingTicket_tags:
-      items:
-        type: string
+        $ref: '#/components/schemas/TicketingNote'
       type: array
     TicketingEmail:
       properties:
@@ -1464,40 +1414,10 @@ components:
       required:
       - email
       type: object
-    property_TicketingCustomer_emails:
-      items:
-        $ref: '#/components/schemas/TicketingEmail'
-      type: array
     TicketingCustomers:
       items:
         $ref: '#/components/schemas/TicketingCustomer'
       type: array
-    property_TicketingCustomer_telephones:
-      items:
-        $ref: '#/components/schemas/TicketingTelephone'
-      type: array
-    TicketingNote:
-      properties:
-        created_at:
-          format: date-time
-          type: string
-        customer_id:
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        ticket_id:
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-        user_id:
-          type: string
-      type: object
     TicketingTicket:
       properties:
         category:
@@ -1543,10 +1463,6 @@ components:
         user_id:
           type: string
       type: object
-    TicketingNotes:
-      items:
-        $ref: '#/components/schemas/TicketingNote'
-      type: array
     TicketingCustomer:
       properties:
         created_at:
@@ -1565,6 +1481,90 @@ components:
           $ref: '#/components/schemas/property_TicketingCustomer_tags'
         telephones:
           $ref: '#/components/schemas/property_TicketingCustomer_telephones'
+        updated_at:
+          format: date-time
+          type: string
+      type: object
+    TicketingTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    property_TicketingCustomer_emails:
+      items:
+        $ref: '#/components/schemas/TicketingEmail'
+      type: array
+    property_TicketingCustomer_telephones:
+      items:
+        $ref: '#/components/schemas/TicketingTelephone'
+      type: array
+    TicketingTickets:
+      items:
+        $ref: '#/components/schemas/TicketingTicket'
+      type: array
+    TicketingNote:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        customer_id:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        ticket_id:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+      type: object
+    property_TicketingTicket_tags:
+      items:
+        type: string
+      type: array
+    property_TicketingCustomer_tags:
+      items:
+        type: string
+      type: array
+    TicketingCategories:
+      items:
+        $ref: '#/components/schemas/TicketingCategory'
+      type: array
+    TicketingCategory:
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        is_active:
+          type: boolean
+        name:
+          type: string
+        parent_id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
         updated_at:
           format: date-time
           type: string

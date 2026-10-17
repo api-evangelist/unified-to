@@ -107,31 +107,22 @@ paths:
       - Enrich
 components:
   schemas:
-    EnrichPersonWorkHistory:
+    EnrichEmail:
       properties:
-        company_domain:
+        email:
           type: string
-        company_id:
+        is_verified:
+          type: boolean
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
           type: string
-        company_name:
-          type: string
-        end_at:
-          format: date-time
-          type: string
-        location:
-          type: string
-        start_at:
-          format: date-time
-          type: string
-        title:
-          type: string
+          x-speakeasy-unknown-values: allow
       required:
-      - title
+      - email
       type: object
-    property_EnrichPerson_work_histories:
-      items:
-        $ref: '#/components/schemas/EnrichPersonWorkHistory'
-      type: array
     property_EnrichPerson_address:
       description: The address of the person
       properties:
@@ -152,26 +143,98 @@ components:
         region_code:
           type: string
       type: object
-    EnrichEmail:
+    property_EnrichPerson_work_histories:
+      items:
+        $ref: '#/components/schemas/EnrichPersonWorkHistory'
+      type: array
+    property_EnrichPerson_emails:
+      description: An array of email addresses for this person
+      items:
+        $ref: '#/components/schemas/EnrichEmail'
+      type: array
+    EnrichPerson:
+      description: A person object from an enrichment integration
       properties:
-        email:
+        address:
+          $ref: '#/components/schemas/property_EnrichPerson_address'
+        bio:
           type: string
-        is_verified:
-          type: boolean
+        birthdate:
+          type: string
+        company:
+          type: string
+        company_domain:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        emails:
+          $ref: '#/components/schemas/property_EnrichPerson_emails'
+        facebook_url:
+          type: string
+        first_name:
+          type: string
+        gender:
+          enum:
+          - MALE
+          - FEMALE
+          type: string
+          x-speakeasy-unknown-values: allow
+        github_url:
+          type: string
+        github_username:
+          type: string
+        id:
+          type: string
+        image_url:
+          type: string
+        last_name:
+          type: string
+        linkedin_url:
+          type: string
+        name:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        telephones:
+          $ref: '#/components/schemas/property_EnrichPerson_telephones'
+        timezone:
+          type: string
+        title:
+          type: string
+        twitter_handle:
+          type: string
+        twitter_url:
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        utc_offset:
+          type: number
+        work_histories:
+          $ref: '#/components/schemas/property_EnrichPerson_work_histories'
+      type: object
+    EnrichTelephone:
+      properties:
+        telephone:
+          type: string
         type:
           enum:
           - WORK
           - HOME
           - OTHER
+          - FAX
+          - MOBILE
           type: string
           x-speakeasy-unknown-values: allow
       required:
-      - email
+      - telephone
       type: object
-    property_EnrichPerson_emails:
-      description: An array of email addresses for this person
+    property_EnrichCompany_telephones:
+      description: An array of telephones for this company
       items:
-        $ref: '#/components/schemas/EnrichEmail'
+        $ref: '#/components/schemas/EnrichTelephone'
       type: array
     property_EnrichCompany_address:
       description: The address of the company
@@ -259,89 +322,26 @@ components:
         youtube_url:
           type: string
       type: object
-    EnrichPerson:
-      description: A person object from an enrichment integration
+    EnrichPersonWorkHistory:
       properties:
-        address:
-          $ref: '#/components/schemas/property_EnrichPerson_address'
-        bio:
-          type: string
-        birthdate:
-          type: string
-        company:
-          type: string
         company_domain:
           type: string
-        created_at:
+        company_id:
+          type: string
+        company_name:
+          type: string
+        end_at:
           format: date-time
           type: string
-        emails:
-          $ref: '#/components/schemas/property_EnrichPerson_emails'
-        facebook_url:
+        location:
           type: string
-        first_name:
-          type: string
-        gender:
-          enum:
-          - MALE
-          - FEMALE
-          type: string
-          x-speakeasy-unknown-values: allow
-        github_url:
-          type: string
-        github_username:
-          type: string
-        id:
-          type: string
-        image_url:
-          type: string
-        last_name:
-          type: string
-        linkedin_url:
-          type: string
-        name:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        telephones:
-          $ref: '#/components/schemas/property_EnrichPerson_telephones'
-        timezone:
+        start_at:
+          format: date-time
           type: string
         title:
           type: string
-        twitter_handle:
-          type: string
-        twitter_url:
-          type: string
-        updated_at:
-          format: date-time
-          type: string
-        utc_offset:
-          type: number
-        work_histories:
-          $ref: '#/components/schemas/property_EnrichPerson_work_histories'
-      type: object
-    property_EnrichCompany_telephones:
-      description: An array of telephones for this company
-      items:
-        $ref: '#/components/schemas/EnrichTelephone'
-      type: array
-    EnrichTelephone:
-      properties:
-        telephone:
-          type: string
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          - FAX
-          - MOBILE
-          type: string
-          x-speakeasy-unknown-values: allow
       required:
-      - telephone
+      - title
       type: object
   securitySchemes:
     jwt:

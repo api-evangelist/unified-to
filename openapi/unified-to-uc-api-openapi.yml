@@ -1267,34 +1267,6 @@ paths:
       - uc
 components:
   schemas:
-    UcContacts:
-      items:
-        $ref: '#/components/schemas/UcContact'
-      type: array
-    property_UcRecording_media:
-      items:
-        $ref: '#/components/schemas/UcRecordingMedia'
-      type: array
-    UcTelephone:
-      properties:
-        telephone:
-          type: string
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          - FAX
-          - MOBILE
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - telephone
-      type: object
-    UcRecordings:
-      items:
-        $ref: '#/components/schemas/UcRecording'
-      type: array
     UcContact:
       description: A contact represents a person that optionally is associated with a call
       properties:
@@ -1324,90 +1296,13 @@ components:
           format: date-time
           type: string
       type: object
-    property_UcContact_telephones:
-      description: An array of telephones for this contact
-      items:
-        $ref: '#/components/schemas/UcTelephone'
-      type: array
-    property_UcCall_contacts:
-      items:
-        $ref: '#/components/schemas/UcContact'
-      type: array
     UcComments:
       items:
         $ref: '#/components/schemas/UcComment'
       type: array
-    UcRecordingTranscript:
-      properties:
-        contact_id:
-          type: string
-        end_at:
-          format: date-time
-          type: string
-        start_at:
-          format: date-time
-          type: string
-        text:
-          type: string
-        user_id:
-          type: string
-      required:
-      - text
-      type: object
-    UcEmail:
-      properties:
-        email:
-          type: string
-        type:
-          enum:
-          - WORK
-          - HOME
-          - OTHER
-          type: string
-          x-speakeasy-unknown-values: allow
-      required:
-      - email
-      type: object
-    UcRecordingMedia:
-      properties:
-        end_at:
-          format: date-time
-          type: string
-        language:
-          type: string
-        recording_download_url:
-          type: string
-        start_at:
-          format: date-time
-          type: string
-        transcript_download_url:
-          type: string
-        transcripts:
-          $ref: '#/components/schemas/property_UcRecordingMedia_transcripts'
-      type: object
-    UcComment:
-      properties:
-        call_id:
-          type: string
-        content:
-          type: string
-        created_at:
-          type: string
-        id:
-          type: string
-        raw:
-          additionalProperties: true
-          type: object
-        updated_at:
-          type: string
-        user_id:
-          type: string
-      required:
-      - content
-      type: object
-    UcCalls:
+    property_UcRecordingMedia_transcripts:
       items:
-        $ref: '#/components/schemas/UcCall'
+        $ref: '#/components/schemas/UcRecordingTranscript'
       type: array
     UcCall:
       properties:
@@ -1449,11 +1344,6 @@ components:
         user_phone:
           type: string
       type: object
-    property_UcContact_emails:
-      description: An array of email addresses for this contact
-      items:
-        $ref: '#/components/schemas/UcEmail'
-      type: array
     UcRecording:
       properties:
         call_id:
@@ -1501,9 +1391,30 @@ components:
         web_url:
           type: string
       type: object
-    property_UcRecordingMedia_transcripts:
+    UcRecordingTranscript:
+      properties:
+        contact_id:
+          type: string
+        end_at:
+          format: date-time
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        text:
+          type: string
+        user_id:
+          type: string
+      required:
+      - text
+      type: object
+    UcContacts:
       items:
-        $ref: '#/components/schemas/UcRecordingTranscript'
+        $ref: '#/components/schemas/UcContact'
+      type: array
+    UcRecordings:
+      items:
+        $ref: '#/components/schemas/UcRecording'
       type: array
     property_UcCall_telephone:
       description: The telephone number called
@@ -1522,6 +1433,95 @@ components:
       required:
       - telephone
       type: object
+    UcTelephone:
+      properties:
+        telephone:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          - FAX
+          - MOBILE
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - telephone
+      type: object
+    UcComment:
+      properties:
+        call_id:
+          type: string
+        content:
+          type: string
+        created_at:
+          type: string
+        id:
+          type: string
+        raw:
+          additionalProperties: true
+          type: object
+        updated_at:
+          type: string
+        user_id:
+          type: string
+      required:
+      - content
+      type: object
+    property_UcCall_contacts:
+      items:
+        $ref: '#/components/schemas/UcContact'
+      type: array
+    UcRecordingMedia:
+      properties:
+        end_at:
+          format: date-time
+          type: string
+        language:
+          type: string
+        recording_download_url:
+          type: string
+        start_at:
+          format: date-time
+          type: string
+        transcript_download_url:
+          type: string
+        transcripts:
+          $ref: '#/components/schemas/property_UcRecordingMedia_transcripts'
+      type: object
+    property_UcRecording_media:
+      items:
+        $ref: '#/components/schemas/UcRecordingMedia'
+      type: array
+    UcEmail:
+      properties:
+        email:
+          type: string
+        type:
+          enum:
+          - WORK
+          - HOME
+          - OTHER
+          type: string
+          x-speakeasy-unknown-values: allow
+      required:
+      - email
+      type: object
+    UcCalls:
+      items:
+        $ref: '#/components/schemas/UcCall'
+      type: array
+    property_UcContact_emails:
+      description: An array of email addresses for this contact
+      items:
+        $ref: '#/components/schemas/UcEmail'
+      type: array
+    property_UcContact_telephones:
+      description: An array of telephones for this contact
+      items:
+        $ref: '#/components/schemas/UcTelephone'
+      type: array
   securitySchemes:
     jwt:
       in: header

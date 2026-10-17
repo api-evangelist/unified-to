@@ -594,13 +594,24 @@ paths:
       - Verification
 components:
   schemas:
-    VerificationTime:
-      properties:
-        milliseconds:
-          type: number
-        valid_regions:
-          $ref: '#/components/schemas/property_VerificationTime_valid_regions'
-      type: object
+    property_VerificationRequest_parameters:
+      items:
+        $ref: '#/components/schemas/VerificationParameterInput'
+      type: array
+    property_VerificationParameter_file_types:
+      description: valid file mime types
+      items:
+        type: string
+      type: array
+    property_VerificationPackage_average_processing_times:
+      description: average processing time in minutes
+      items:
+        $ref: '#/components/schemas/VerificationTime'
+      type: array
+    property_VerificationRequest_profile_emails:
+      items:
+        type: string
+      type: array
     VerificationAddress:
       properties:
         address1:
@@ -620,6 +631,129 @@ components:
         region_code:
           type: string
       type: object
+    property_VerificationParameter_options:
+      description: options for MULTIPLE_CHOICE and MULTIPLE_SELECT
+      items:
+        type: string
+      type: array
+    VerificationParameterInput:
+      properties:
+        id:
+          type: string
+        inputs:
+          $ref: '#/components/schemas/property_VerificationParameterInput_inputs'
+        name:
+          type: string
+      type: object
+    property_VerificationPackage_aliases:
+      items:
+        type: string
+      type: array
+    property_VerificationParameter_valid_regions:
+      description: '{country}-{stateprovince/territory} or just {country} 2-digit ISO codes'
+      items:
+        type: string
+      type: array
+    property_VerificationTime_valid_regions:
+      description: '{country}-{stateprovince/territory} or just {country} 2-digit ISO codes'
+      items:
+        type: string
+      type: array
+    property_VerificationPackage_parameters:
+      description: Questions that need to be answered for this verification
+      items:
+        $ref: '#/components/schemas/VerificationParameter'
+      type: array
+    property_VerificationRequest_profile_addresses:
+      items:
+        $ref: '#/components/schemas/VerificationAddress'
+      type: array
+    property_VerificationRequest_profile_telephones:
+      items:
+        type: string
+      type: array
+    property_VerificationParameterInput_inputs:
+      items:
+        type: string
+      type: array
+    VerificationParameter:
+      properties:
+        file_types:
+          $ref: '#/components/schemas/property_VerificationParameter_file_types'
+        id:
+          type: string
+        is_required:
+          type: boolean
+        name:
+          type: string
+        options:
+          $ref: '#/components/schemas/property_VerificationParameter_options'
+        public_question:
+          type: string
+        type:
+          enum:
+          - TEXT
+          - NUMBER
+          - MULTIPLE_CHOICE
+          - MULTIPLE_SELECT
+          - DATE
+          - FILE
+          type: string
+          x-speakeasy-unknown-values: allow
+        valid_regions:
+          $ref: '#/components/schemas/property_VerificationParameter_valid_regions'
+      required:
+      - name
+      type: object
+    VerificationTime:
+      properties:
+        milliseconds:
+          type: number
+        valid_regions:
+          $ref: '#/components/schemas/property_VerificationTime_valid_regions'
+      type: object
+    VerificationRequests:
+      items:
+        $ref: '#/components/schemas/VerificationRequest'
+      type: array
+    property_VerificationPackage_valid_regions:
+      description: '{country}-{state/province/territory} or just {country} 2-digit ISO codes'
+      items:
+        type: string
+      type: array
+    VerificationResponseDetail:
+      properties:
+        download_url:
+          type: string
+        is_failed_reason:
+          type: boolean
+        is_private:
+          type: boolean
+        parameter_id:
+          type: string
+        text:
+          type: string
+        title:
+          type: string
+      type: object
+    property_VerificationRequest_response_details:
+      items:
+        $ref: '#/components/schemas/VerificationResponseDetail'
+      type: array
+    property_VerificationRequest_response_download_urls:
+      description: report download
+      items:
+        type: string
+      type: array
+    property_VerificationPackage_tags:
+      description: Category (Verification, Validation, Background Check)
+      items:
+        type: string
+      type: array
+    VerificationPackages:
+      items:
+        $ref: '#/components/schemas/VerificationPackage'
+      type: array
     VerificationRequest:
       properties:
         candidate_id:
@@ -692,104 +826,6 @@ components:
           format: date-time
           type: string
       type: object
-    property_VerificationRequest_response_download_urls:
-      description: report download
-      items:
-        type: string
-      type: array
-    property_VerificationPackage_parameters:
-      description: Questions that need to be answered for this verification
-      items:
-        $ref: '#/components/schemas/VerificationParameter'
-      type: array
-    VerificationRequests:
-      items:
-        $ref: '#/components/schemas/VerificationRequest'
-      type: array
-    VerificationParameter:
-      properties:
-        file_types:
-          $ref: '#/components/schemas/property_VerificationParameter_file_types'
-        id:
-          type: string
-        is_required:
-          type: boolean
-        name:
-          type: string
-        options:
-          $ref: '#/components/schemas/property_VerificationParameter_options'
-        public_question:
-          type: string
-        type:
-          enum:
-          - TEXT
-          - NUMBER
-          - MULTIPLE_CHOICE
-          - MULTIPLE_SELECT
-          - DATE
-          - FILE
-          type: string
-          x-speakeasy-unknown-values: allow
-        valid_regions:
-          $ref: '#/components/schemas/property_VerificationParameter_valid_regions'
-      required:
-      - name
-      type: object
-    property_VerificationTime_valid_regions:
-      description: '{country}-{stateprovince/territory} or just {country} 2-digit ISO codes'
-      items:
-        type: string
-      type: array
-    VerificationParameterInput:
-      properties:
-        id:
-          type: string
-        inputs:
-          $ref: '#/components/schemas/property_VerificationParameterInput_inputs'
-        name:
-          type: string
-      type: object
-    property_VerificationPackage_average_processing_times:
-      description: average processing time in minutes
-      items:
-        $ref: '#/components/schemas/VerificationTime'
-      type: array
-    property_VerificationRequest_parameters:
-      items:
-        $ref: '#/components/schemas/VerificationParameterInput'
-      type: array
-    property_VerificationParameter_options:
-      description: options for MULTIPLE_CHOICE and MULTIPLE_SELECT
-      items:
-        type: string
-      type: array
-    property_VerificationPackage_aliases:
-      items:
-        type: string
-      type: array
-    property_VerificationRequest_profile_addresses:
-      items:
-        $ref: '#/components/schemas/VerificationAddress'
-      type: array
-    property_VerificationParameterInput_inputs:
-      items:
-        type: string
-      type: array
-    VerificationResponseDetail:
-      properties:
-        download_url:
-          type: string
-        is_failed_reason:
-          type: boolean
-        is_private:
-          type: boolean
-        parameter_id:
-          type: string
-        text:
-          type: string
-        title:
-          type: string
-      type: object
     VerificationPackage:
       properties:
         aliases:
@@ -848,42 +884,6 @@ components:
       - name
       - type
       type: object
-    property_VerificationParameter_valid_regions:
-      description: '{country}-{stateprovince/territory} or just {country} 2-digit ISO codes'
-      items:
-        type: string
-      type: array
-    property_VerificationRequest_profile_telephones:
-      items:
-        type: string
-      type: array
-    property_VerificationRequest_response_details:
-      items:
-        $ref: '#/components/schemas/VerificationResponseDetail'
-      type: array
-    property_VerificationParameter_file_types:
-      description: valid file mime types
-      items:
-        type: string
-      type: array
-    property_VerificationRequest_profile_emails:
-      items:
-        type: string
-      type: array
-    property_VerificationPackage_tags:
-      description: Category (Verification, Validation, Background Check)
-      items:
-        type: string
-      type: array
-    VerificationPackages:
-      items:
-        $ref: '#/components/schemas/VerificationPackage'
-      type: array
-    property_VerificationPackage_valid_regions:
-      description: '{country}-{state/province/territory} or just {country} 2-digit ISO codes'
-      items:
-        type: string
-      type: array
   securitySchemes:
     jwt:
       in: header

@@ -516,27 +516,6 @@ paths:
       - Forms
 components:
   schemas:
-    FormsForms:
-      items:
-        $ref: '#/components/schemas/FormsForm'
-      type: array
-    property_FormsForm_fields:
-      items:
-        $ref: '#/components/schemas/FormField'
-      type: array
-    FormAnswer:
-      properties:
-        field_id:
-          type: string
-        field_name:
-          type: string
-        file_ids:
-          $ref: '#/components/schemas/property_FormAnswer_file_ids'
-        value:
-          type: string
-      required:
-      - field_id
-      type: object
     FormsSubmission:
       properties:
         answers:
@@ -562,11 +541,6 @@ components:
       - form_id
       - answers
       type: object
-    property_FormAnswer_file_ids:
-      description: references StorageFile ID
-      items:
-        type: string
-      type: array
     FormsForm:
       properties:
         confirmation_message:
@@ -605,6 +579,41 @@ components:
       required:
       - name
       type: object
+    property_FormsSubmission_answers:
+      items:
+        $ref: '#/components/schemas/FormAnswer'
+      type: array
+    FormAnswer:
+      properties:
+        field_id:
+          type: string
+        field_name:
+          type: string
+        file_ids:
+          $ref: '#/components/schemas/property_FormAnswer_file_ids'
+        value:
+          type: string
+      required:
+      - field_id
+      type: object
+    property_FormAnswer_file_ids:
+      description: references StorageFile ID
+      items:
+        type: string
+      type: array
+    property_FormsForm_fields:
+      items:
+        $ref: '#/components/schemas/FormField'
+      type: array
+    FormsForms:
+      items:
+        $ref: '#/components/schemas/FormsForm'
+      type: array
+    property_FormField_choices:
+      description: For select/radio/checkbox fields
+      items:
+        type: string
+      type: array
     FormField:
       properties:
         choices:
@@ -665,18 +674,9 @@ components:
       - name
       - type
       type: object
-    property_FormField_choices:
-      description: For select/radio/checkbox fields
-      items:
-        type: string
-      type: array
     FormsSubmissions:
       items:
         $ref: '#/components/schemas/FormsSubmission'
-      type: array
-    property_FormsSubmission_answers:
-      items:
-        $ref: '#/components/schemas/FormAnswer'
       type: array
   securitySchemes:
     jwt:

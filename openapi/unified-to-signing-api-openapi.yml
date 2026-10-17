@@ -863,8 +863,19 @@ paths:
       - Signing
 components:
   schemas:
-    SigningTemplate:
+    SigningDocuments:
+      items:
+        $ref: '#/components/schemas/SigningDocument'
+      type: array
+    SigningSignatories:
+      items:
+        $ref: '#/components/schemas/SigningSignatory'
+      type: array
+    SigningDocument:
       properties:
+        completed_at:
+          format: date-time
+          type: string
         created_at:
           format: date-time
           type: string
@@ -872,31 +883,39 @@ components:
           type: string
         description:
           type: string
+        download_url:
+          type: string
+        expires_at:
+          format: date-time
+          type: string
         id:
           type: string
-        is_active:
-          type: boolean
         name:
           type: string
         raw:
           additionalProperties: true
           type: object
+        sent_at:
+          format: date-time
+          type: string
+        status:
+          enum:
+          - DRAFT
+          - SENT
+          - DELIVERED
+          - IN_PROGRESS
+          - COMPLETED
+          - DECLINED
+          - VOIDED
+          - EXPIRED
+          type: string
+          x-speakeasy-unknown-values: allow
+        template_id:
+          type: string
         updated_at:
           format: date-time
           type: string
       type: object
-    SigningTemplates:
-      items:
-        $ref: '#/components/schemas/SigningTemplate'
-      type: array
-    SigningSignatories:
-      items:
-        $ref: '#/components/schemas/SigningSignatory'
-      type: array
-    SigningDocuments:
-      items:
-        $ref: '#/components/schemas/SigningDocument'
-      type: array
     SigningSignatory:
       properties:
         created_at:
@@ -943,11 +962,12 @@ components:
           format: date-time
           type: string
       type: object
-    SigningDocument:
+    SigningTemplates:
+      items:
+        $ref: '#/components/schemas/SigningTemplate'
+      type: array
+    SigningTemplate:
       properties:
-        completed_at:
-          format: date-time
-          type: string
         created_at:
           format: date-time
           type: string
@@ -955,35 +975,15 @@ components:
           type: string
         description:
           type: string
-        download_url:
-          type: string
-        expires_at:
-          format: date-time
-          type: string
         id:
           type: string
+        is_active:
+          type: boolean
         name:
           type: string
         raw:
           additionalProperties: true
           type: object
-        sent_at:
-          format: date-time
-          type: string
-        status:
-          enum:
-          - DRAFT
-          - SENT
-          - DELIVERED
-          - IN_PROGRESS
-          - COMPLETED
-          - DECLINED
-          - VOIDED
-          - EXPIRED
-          type: string
-          x-speakeasy-unknown-values: allow
-        template_id:
-          type: string
         updated_at:
           format: date-time
           type: string
